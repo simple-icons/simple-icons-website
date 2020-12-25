@@ -1,0 +1,9 @@
+# IDEs
+.idea/
+.vscode/
+
+# NPM dependencies
+node_modules/
+
+# Generated files
+_site/

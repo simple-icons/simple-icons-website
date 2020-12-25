@@ -1,0 +1,4 @@
+*                  text=auto
+
+# Don't diff machine generated files
+package-lock.json  -diff
