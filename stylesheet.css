@@ -193,6 +193,9 @@ a {
   cursor: pointer;
   fill: var(--background-color);
 }
+.control__button.hidden {
+  display: none;
+}
 
 /* Control - disabled */
 
@@ -230,13 +233,6 @@ a {
 }
 
 /* Control - order */
-
-#order-relevance {
-  display: none;
-}
-.search-active #order-relevance {
-  display: inline;
-}
 
 body.order-alphabetically #order-alpha,
 body.order-by-color #order-color,

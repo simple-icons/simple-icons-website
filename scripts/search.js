@@ -16,6 +16,7 @@ export default function initSearch(
   const $body = document.querySelector('body');
   const $searchInput = document.getElementById('search-input');
   const $searchClear = document.getElementById('search-clear');
+  const $orderByRelevance = document.getElementById('order-relevance');
   const $icons = document.querySelectorAll('.grid-item[data-brand]');
 
   $searchInput.disabled = false;
@@ -62,12 +63,22 @@ export default function initSearch(
 
     $body.classList.toggle(CLASS_SEARCH_EMPTY, noResults);
 
-    if (query === '' && ordering.currentOrderingIs(ORDER_BY_RELEVANCE)) {
-      ordering.resetOrdering();
+    if (query === '') {
+      $orderByRelevance.classList.add('hidden');
+      $orderByRelevance.setAttribute('aria-hidden', true);
+
+      if (ordering.currentOrderingIs(ORDER_BY_RELEVANCE)) {
+        ordering.resetOrdering();
+      }
     }
 
-    if (query !== '' && activeQuery === '') {
-      ordering.selectOrdering(ORDER_BY_RELEVANCE);
+    if (query !== '') {
+      $orderByRelevance.classList.remove('hidden');
+      $orderByRelevance.removeAttribute('aria-hidden');
+
+      if (activeQuery === '') {
+        ordering.selectOrdering(ORDER_BY_RELEVANCE);
+      }
     }
 
     activeQuery = query;
