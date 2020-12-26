@@ -6,7 +6,7 @@ import initSearch from './search.js';
 import {
   debounce,
   normalizeSearchTerm,
- } from './utils.js';
+} from './utils.js';
 
 initCopyButtons(document);
 initOrdering(document, localStorage);

@@ -66,6 +66,10 @@ export default function initOrdering(
   const $orderByColor = document.getElementById('order-color');
   const $orderByRelevance = document.getElementById('order-relevance');
 
+  $orderAlphabetically.disabled = false;
+  $orderByColor.disabled = false;
+  $orderByRelevance.disabled = false;
+
   if ($storage) {
     const storedOrdering = $storage.getItem(ORDERING_PREFERENCE_KEY);
     if (storedOrdering) {

@@ -10,6 +10,7 @@
   --default-text-color: #000;
   --button-color-hover: #444;
   --button-color-active: #999;
+  --color-disabled: #AAA;
   --tmp: rgb(252, 252, 252);
   --tmp-transparent: rgba(252, 252, 252, 0.7);
   --side-offset: 6rem;
@@ -101,6 +102,7 @@ a {
   display: flex;
   flex-direction: row;
   margin: 2rem 0;
+  position: relative;
 }
 
 .control-field {
@@ -108,7 +110,7 @@ a {
   flex-direction: column;
   margin: 0 1rem;
 }
-.control-field:first-child {
+.control-field:first-of-type {
   margin-left: 0;
 }
 
@@ -137,26 +139,39 @@ a {
 }
 
 .control__input {
-  padding: .4rem .8rem;
   outline: 0;
+  padding: .4rem 2rem .4rem .8rem;
 }
 .control__input:focus {
   box-shadow: 0 0 3px 0 rgba(68, 68, 68, .5);
 }
 
 .control__button {
+  cursor: default; /* Button should not work when JS is disabled */
+  fill: var(--button-color-hover);
   margin: 0 .3rem;
   width: 2.2rem;
-  fill: var(--button-color-hover);
 }
 .control__button:first-child {
   margin-left: 0;
 }
-.control__button:focus,
-.control__button:hover {
+.control__button:not(:disabled):focus,
+.control__button:not(:disabled):hover {
   background-color: var(--button-color-hover) !important;
   border-color: var(--button-color-hover) !important;
+  cursor: pointer;
   fill: var(--background-color);
+}
+
+/* Control - disabled */
+
+.control__input:disabled {
+  border-color: var(--color-disabled);
+}
+
+.control__button:disabled {
+  border-color: var(--color-disabled) !important;
+  fill: var(--color-disabled);
 }
 
 /* Control - search */
@@ -197,6 +212,17 @@ body.order-by-relevance #order-relevance {
   background-color: var(--button-color-active);
   border-color: var(--button-color-active);
   fill: var(--background-color);
+}
+
+/* Control - noscript */
+
+.control noscript {
+  position: absolute;
+  font-family: monospace;
+  font-style: italic;
+  top: -2rem;
+  margin: 0;
+  padding: 0;
 }
 
 /* Grid */
@@ -294,6 +320,7 @@ body.search-empty .grid-item--if-empty {
 
 .grid-item__color {
   color: #000;
+  cursor: text; /* This should function as text when JS is disabled */
   font-family: monospace;
   font-size: 0.75rem;
   font-weight: 600;
@@ -303,6 +330,7 @@ body.search-empty .grid-item--if-empty {
   overflow: hidden;
   padding: 6px 8px;
   position: relative;
+  user-select: text;
 }
 .grid-item__color.contrast-light {
   color: #FFF;
@@ -320,9 +348,10 @@ body.search-empty .grid-item--if-empty {
   width: 100%;
   text-align: center;
 }
-.grid-item__color.copied::before,
-.grid-item__color:focus::before,
-.grid-item__color:hover::before {
+.grid-item__color:not([no-copy]).copied::before,
+.grid-item__color:not([no-copy]):focus::before,
+.grid-item__color:not([no-copy]):hover::before {
+  cursor: pointer;
   display: block;
 }
 
@@ -338,13 +367,13 @@ body.search-empty .grid-item--if-empty {
 }
 
 .grid-item__preview {
-  cursor: pointer;
+  cursor: default; /* This should function as decoration when JS is disabled */
   fill: #000;
-  height: 3rem;
-  width: 3rem;
-  margin-right: 1rem;
   flex-grow: 0;
+  height: 3rem;
+  margin-right: 1rem;
   position: relative;
+  width: 3rem;
 }
 .grid-item__preview::before {
   background-color: var(--tmp-transparent);
@@ -360,9 +389,10 @@ body.search-empty .grid-item--if-empty {
 .grid-item__preview.copied::before {
   background-image: url(./assets/check.svg);
 }
-.grid-item__preview.copied::before,
-.grid-item__preview:focus::before,
-.grid-item__preview:hover::before {
+.grid-item__preview:not([no-copy]).copied::before,
+.grid-item__preview:not([no-copy]):focus::before,
+.grid-item__preview:not([no-copy]):hover::before {
+  cursor: pointer;
   display: block;
 }
 

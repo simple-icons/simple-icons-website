@@ -23,6 +23,7 @@ export default function initSearch(
   const $searchClear = document.getElementById('search-clear');
   const $icons = document.querySelectorAll('.grid-item[data-brand]');
 
+  $searchInput.disabled = false;
   $searchInput.focus();
   $searchInput.addEventListener('input', debounce((event) => {
     event.preventDefault();
@@ -91,25 +92,12 @@ export default function initSearch(
       index++;
     }
 
-    // element.style.setProperty("--order-relevance", score);
-    // element.classList.remove('hidden');
     return score;
   }
-
-
-
-  // Restore ordering preference of the user. This should be performed before
-  // applying the search query as it would overwrite "order by relevance"
-  // if (localStorage) {
-  //   var storedOrderingId = localStorage.getItem(orderingPreferenceIdentifier);
-  //   var ordering = document.getElementById(storedOrderingId);
-  //   if (ordering) selectOrdering(ordering);
-  // }
 
   // Load search query if present
   var query = getQueryFromParameter(queryParameter);
   if (query) {
-    // $searchInput.classList.add('search--active');
     $searchInput.value = query;
     search(query);
   }
