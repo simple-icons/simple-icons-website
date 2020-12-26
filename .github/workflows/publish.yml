@@ -1,0 +1,28 @@
+name: Publish Website
+on:
+  push:
+    branch: [master]
+
+jobs:
+  publish-website:
+    runs-on: ubuntu-latest
+    name: Publish Website
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        persist-credentials: false
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v2
+      with:
+        node-version: 12.x
+    - name: Install dependencies
+      run: npm ci
+    - name: Build Website
+      run: npm run build
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@3.7.1
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: _site
