@@ -358,7 +358,7 @@ body.search-empty .grid-item--if-empty {
   width: 100%;
 }
 .grid-item__preview.copied::before {
-  background-image: url(/assets/check.svg);
+  background-image: url(./assets/check.svg);
 }
 .grid-item__preview.copied::before,
 .grid-item__preview:focus::before,
@@ -412,19 +412,19 @@ body.order-by-relevance .grid-item {
 
 .copy-button::before {
   content: '';
-  background-image: url(/assets/copy.svg);
+  background-image: url(./assets/copy.svg);
   background-position: 50% 50%;
   background-repeat: no-repeat;
 }
 .copy-button.contrast-light::before {
   content: '';
-  background-image: url(/assets/copy-white.svg);
+  background-image: url(./assets/copy-white.svg);
 }
 .copy-button.copied::before {
   content: '';
-  background-image: url(/assets/check.svg);
+  background-image: url(./assets/check.svg);
 }
 .copy-button.copied.contrast-light::before {
   content: '';
-  background-image: url(/assets/check-white.svg);
+  background-image: url(./assets/check-white.svg);
 }

@@ -1,3 +1,5 @@
+import '../stylesheet.css';
+
 import initCopyButtons from './copy.js';
 import initOrdering from './ordering.js';
 import initSearch from './search.js';

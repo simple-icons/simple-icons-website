@@ -1,16 +1,33 @@
-const path = require('path');
-const sortColors = require('color-sorter').sortFn;
 const CopyPlugin = require('copy-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-const simpleIcons = require('simple-icons');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const getRelativeLuminance = require('get-relative-luminance').default;
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require('path');
+const simpleIcons = require('simple-icons');
+const sortColors = require('color-sorter').sortFn;
+
 const { normalizeSearchTerm } = require('./scripts/utils.js');
 
 const icons = Object.values(simpleIcons);
 const sortedHexes = icons.map(icon => icon.hex).sort(sortColors);
 
+const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const OUT_DIR = path.resolve(__dirname, '_site');
+const ROOT_DIR = path.resolve(__dirname);
+
+function simplifyHexIfPossible(hex) {
+  if (hex[0] === hex[1] && hex[2] === hex[3] && hex[4] == hex[5]) {
+    return `${hex[0]}${hex[2]}${hex[4]}`;
+  }
+
+  return hex;
+}
+
+function tmp(hex) {
+  const luminance = getRelativeLuminance(`#${hex}`);
+  return luminance < 0.4;
+}
 
 module.exports = {
   entry: {
@@ -25,54 +42,55 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.pug$/,
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
+      {
+        test: /\.pug$/i,
         use: ['pug-loader'],
+      },
+      {
+        test: /\.svg$/i,
+        use: ['svg-url-loader'],
       },
     ],
   },
   plugins: [
     new CopyPlugin({
       patterns: [
-        {
-          from: path.resolve(__dirname, 'node_modules/simple-icons/icons'),
+        { // Copy SVGs from simple-icons
+          from: path.resolve(NODE_MODULES, 'simple-icons/icons'),
           to: path.resolve(OUT_DIR, 'icons'),
           filter: (path) => path.endsWith('.svg'),
-        },
-        {
-          from: path.resolve(__dirname, 'assets'),
-          to: path.resolve(OUT_DIR, 'assets'),
-        },
-        {
-          from: path.resolve(__dirname, 'styles'),
-          to: path.resolve(OUT_DIR, 'styles'),
         },
       ],
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'index.pug'),
+      template: path.resolve(ROOT_DIR, 'index.pug'),
       inject: true,
       templateParameters: {
         icons: icons.map((icon, iconIndex) => {
           return {
-            alphaIndex: iconIndex,
-            colorIndex: sortedHexes.indexOf(icon.hex),
             hex: icon.hex,
-            color: function(hex) {
-              if (hex[0] === hex[1] && hex[2] === hex[3] && hex[4] == hex[5]) {
-                return `${hex[0]}${hex[2]}${hex[4]}`;
-              }
-
-              return hex;
-            }(icon.hex),
-            light: getRelativeLuminance(`#${icon.hex}`) < 0.4 ? true : false,
+            indexByAlpha: iconIndex,
+            indexByColor: sortedHexes.indexOf(icon.hex),
+            light: tmp(icon.hex),
             normalizedName: normalizeSearchTerm(icon.title),
             path: icon.path,
+            shortHex: simplifyHexIfPossible(icon.hex),
             slug: icon.slug,
             title: icon.title,
           };
         }),
         iconCount: icons.length,
-      }
+      },
     }),
-  ]
+    new MiniCssExtractPlugin(),
+  ],
+  optimization: {
+    minimizer: [
+      '...', // <- Load all default minimizers
+      new CssMinimizerPlugin(),
+    ],
+  },
 };
