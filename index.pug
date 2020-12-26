@@ -95,15 +95,9 @@ html
               style=`background-color: #${icon.shortHex}`
               title=`${icon.title} color`
               no-copy
-              data-value=`${icon.hex}`
             ) ##{icon.hex}
             div(class="grid-item__footer")
-              button(
-                class="grid-item__preview copy-button"
-                title=`${icon.title} SVG`
-                no-copy
-                data-value=`${icon.normalizedName}`
-              )
+              button(class="grid-item__preview copy-button" title=`${icon.title} SVG` no-copy)
                 svg(role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg")
                   title #{icon.title} icon
                   path(d=icon.path)

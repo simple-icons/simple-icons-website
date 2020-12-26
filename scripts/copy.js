@@ -13,7 +13,7 @@ export default function initCopyButtons(
       event.preventDefault();
 
       const target = $colorButton;
-      const value = `#${target.getAttribute('data-value')}`;
+      const value = target.innerHTML;
       copyValue(value);
 
       target.blur();
@@ -29,8 +29,7 @@ export default function initCopyButtons(
       event.preventDefault();
 
       const target = $svgButton;
-      const brandName = target.getAttribute('data-value');
-      const $svg = document.querySelector(`[data-brand="${brandName}"] .grid-item__preview svg`);
+      const $svg = target.parentNode.querySelector('svg');
       const value = $svg.outerHTML;
       copyValue(value);
 
