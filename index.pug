@@ -3,6 +3,8 @@ html
   head
     meta(charset='utf-8')
     title Simple Icons
+    link(rel="preconnect" href="https://fonts.gstatic.com")
+    link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Roboto+Mono:wght@400;600&display=swap")
 
   body
     header(class="header" role="banner")
@@ -30,7 +32,7 @@ html
               id="search-input"
               class="control__input"
               type="text"
-              placeholder="Search by brand …"
+              placeholder="Search by brand..."
               disabled
             )
         div(class="control-field")
@@ -97,6 +99,5 @@ html
                     href=`https://github.com/simple-icons/simple-icons-pdf/raw/master/icons/${icon.slug}.pdf`
                     download
                   ) PDF
-
 
     input(id="copy-input" class="hidden" aria-hidden)

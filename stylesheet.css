@@ -69,14 +69,14 @@ a {
 }
 
 .header__title {
-  font-family: monospace;
+  font-family: 'Roboto Mono', monospace;
   font-size: 1.7rem;
   font-weight: 600;
   margin: 0 0 .5rem;
 }
 
 .header__description {
-  font-family: monospace;
+  font-family: 'Roboto Mono', monospace;
   font-size: .9rem;
   margin: .2rem 0;
 }
@@ -90,7 +90,7 @@ a {
 }
 
 .header__list-item {
-  font-family: monospace;
+  font-family: 'Roboto Mono', monospace;
   font-size: 1rem;
   font-weight: 600;
   margin: 0 .5rem;
@@ -140,7 +140,7 @@ a {
 }
 
 .control-field__title {
-  font-family: monospace;
+  font-family: 'Roboto Mono', monospace;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1rem;
@@ -163,7 +163,7 @@ a {
 }
 
 .control__input {
-  font-family: monospace;
+  font-family: 'Roboto Mono', monospace;
   outline: 0;
   padding: .4rem 2rem .4rem .8rem;
   width: 100%;
@@ -246,7 +246,7 @@ body.order-by-relevance #order-relevance {
 
 .control noscript {
   position: absolute;
-  font-family: monospace;
+  font-family: 'Roboto Mono', monospace;
   font-style: italic;
   top: -2rem;
 }
@@ -290,7 +290,7 @@ body.search-empty .grid-item--if-empty {
   display: flex;
 }
 .grid-item--if-empty p {
-  font-family: monospace;
+  font-family: 'Roboto Mono', monospace;
   font-size: 0.9rem;
 }
 .grid-item--if-empty a {
@@ -340,18 +340,18 @@ body.search-empty .grid-item--if-empty {
 }
 
 .grid-item__title {
-  font-family: sans-serif;
-  font-size: 1rem;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.2rem;
   font-weight: 600;
-  line-height: 1rem;
-  margin: .2rem 1rem;
+  line-height: 1.2rem;
+  margin: .4rem 1rem;
   padding-right: 2rem;
 }
 
 .grid-item__color {
   color: #000;
   cursor: text; /* This should function as text when JS is disabled */
-  font-family: monospace;
+  font-family: 'Roboto Mono', monospace;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 1px;
@@ -432,7 +432,7 @@ body.search-empty .grid-item--if-empty {
   flex-direction: column;
 }
 .grid-item__downloads h3 {
-  font-family: monospace;
+  font-family: 'Roboto Mono', monospace;
   font-size: .95rem;
   margin-bottom: .2rem;
 }
@@ -446,7 +446,7 @@ body.search-empty .grid-item--if-empty {
   border: .1rem solid var(--button-color-hover);
   padding: .3rem .4rem;
   margin: 0 .4rem;
-  font-family: monospace;
+  font-family: 'Roboto Mono', monospace;
   font-size: .75rem;
   font-weight: 600;
 }
