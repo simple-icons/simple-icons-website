@@ -36,6 +36,8 @@ export default function initOrdering(
     const storedOrdering = localStorage.getItem(ORDERING_PREFERENCE_KEY);
     if (storedOrdering) {
       selectOrdering(storedOrdering);
+    } else {
+      selectOrdering(DEFAULT_ORDERING);
     }
   }
 
