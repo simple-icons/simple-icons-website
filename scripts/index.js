@@ -9,5 +9,5 @@ import {
 } from './utils.js';
 
 initCopyButtons(document);
-initOrdering(document, localStorage);
-initSearch(document, debounce, normalizeSearchTerm);
+const orderingControls = initOrdering(document, localStorage);
+initSearch(document, debounce, normalizeSearchTerm, orderingControls);

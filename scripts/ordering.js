@@ -10,9 +10,6 @@ const CLASS_ORDER_BY_RELEVANCE = 'order-by-relevance';
 
 const ORDERING_PREFERENCE_KEY = 'ordering-preference';
 
-let $body;
-let $storage;
-
 let activeOrdering = DEFAULT_ORDERING;
 let preferredOrdering = DEFAULT_ORDERING;
 
@@ -21,46 +18,11 @@ function storableOrdering(selected) {
       || selected === ORDER_BY_COLOR;
 }
 
-export function currentOrderingIs(value) {
-  return activeOrdering === value;
-}
-
-export function selectOrdering(selected) {
-  $body.classList.remove(
-    CLASS_ORDER_ALPHABETICALLY,
-    CLASS_ORDER_BY_COLOR,
-    CLASS_ORDER_BY_RELEVANCE,
-  );
-
-  if (selected === ORDER_ALPHABETICALLY) {
-    $body.classList.add(CLASS_ORDER_ALPHABETICALLY);
-  } else if (selected === ORDER_BY_COLOR) {
-    $body.classList.add(CLASS_ORDER_BY_COLOR);
-  } else if (selected === ORDER_BY_RELEVANCE) {
-    $body.classList.add(CLASS_ORDER_BY_RELEVANCE);
-  }
-
-  if ($storage && storableOrdering(selected)) {
-    $storage.setItem(ORDERING_PREFERENCE_KEY, selected);
-  }
-
-  if (selected !== ORDER_BY_RELEVANCE) {
-    preferredOrdering = selected;
-  }
-
-  activeOrdering = selected;
-}
-
-export function resetOrdering() {
-  return selectOrdering(preferredOrdering);
-}
-
 export default function initOrdering(
   document,
   localStorage,
 ) {
-  $body = document.querySelector('body');
-  $storage = localStorage;
+  const $body = document.querySelector('body');
 
   const $orderAlphabetically = document.getElementById('order-alpha');
   const $orderByColor = document.getElementById('order-color');
@@ -70,8 +32,8 @@ export default function initOrdering(
   $orderByColor.disabled = false;
   $orderByRelevance.disabled = false;
 
-  if ($storage) {
-    const storedOrdering = $storage.getItem(ORDERING_PREFERENCE_KEY);
+  if (localStorage) {
+    const storedOrdering = localStorage.getItem(ORDERING_PREFERENCE_KEY);
     if (storedOrdering) {
       selectOrdering(storedOrdering);
     }
@@ -101,4 +63,44 @@ export default function initOrdering(
       $orderByRelevance.blur();
     }
   });
+
+  function currentOrderingIs(value) {
+    return activeOrdering === value;
+  }
+
+  function selectOrdering(selected) {
+    $body.classList.remove(
+      CLASS_ORDER_ALPHABETICALLY,
+      CLASS_ORDER_BY_COLOR,
+      CLASS_ORDER_BY_RELEVANCE,
+    );
+
+    if (selected === ORDER_ALPHABETICALLY) {
+      $body.classList.add(CLASS_ORDER_ALPHABETICALLY);
+    } else if (selected === ORDER_BY_COLOR) {
+      $body.classList.add(CLASS_ORDER_BY_COLOR);
+    } else if (selected === ORDER_BY_RELEVANCE) {
+      $body.classList.add(CLASS_ORDER_BY_RELEVANCE);
+    }
+
+    if (localStorage && storableOrdering(selected)) {
+      localStorage.setItem(ORDERING_PREFERENCE_KEY, selected);
+    }
+
+    if (selected !== ORDER_BY_RELEVANCE) {
+      preferredOrdering = selected;
+    }
+
+    activeOrdering = selected;
+  }
+
+  function resetOrdering() {
+    return selectOrdering(preferredOrdering);
+  }
+
+  return {
+    currentOrderingIs,
+    selectOrdering,
+    resetOrdering,
+  };
 }

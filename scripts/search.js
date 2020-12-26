@@ -1,10 +1,4 @@
-import {
-  ORDER_BY_RELEVANCE,
-
-  currentOrderingIs,
-  selectOrdering,
-  resetOrdering,
-} from './ordering.js';
+import { ORDER_BY_RELEVANCE } from './ordering.js';
 
 const queryParameter = 'q';
 
@@ -17,6 +11,7 @@ export default function initSearch(
   document,
   debounce,
   normalizeSearchTerm,
+  ordering,
 ) {
   const $body = document.querySelector('body');
   const $searchInput = document.getElementById('search-input');
@@ -67,12 +62,12 @@ export default function initSearch(
 
     $body.classList.toggle(CLASS_SEARCH_EMPTY, noResults);
 
-    if (query === '' && currentOrderingIs(ORDER_BY_RELEVANCE)) {
-      resetOrdering();
+    if (query === '' && ordering.currentOrderingIs(ORDER_BY_RELEVANCE)) {
+      ordering.resetOrdering();
     }
 
     if (query !== '' && activeQuery === '') {
-      selectOrdering(ORDER_BY_RELEVANCE);
+      ordering.selectOrdering(ORDER_BY_RELEVANCE);
     }
 
     activeQuery = query;
