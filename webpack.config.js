@@ -63,6 +63,10 @@ module.exports = {
           to: path.resolve(OUT_DIR, 'icons'),
           filter: (path) => path.endsWith('.svg'),
         },
+        { // Copy ./images
+          from: path.resolve(ROOT_DIR, 'images'),
+          to: path.resolve(OUT_DIR, 'images'),
+        },
       ],
     }),
     new HtmlWebpackPlugin({
