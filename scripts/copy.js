@@ -8,7 +8,7 @@ export default function initCopyButtons(
   const $svgButtons = document.querySelectorAll('.grid-item__preview');
 
   $colorButtons.forEach(($colorButton) => {
-    $colorButton.removeAttribute('no-copy');
+    $colorButton.removeAttribute('disabled');
     $colorButton.addEventListener('click', (event) => {
       event.preventDefault();
 
@@ -24,7 +24,7 @@ export default function initCopyButtons(
   });
 
   $svgButtons.forEach(($svgButton) => {
-    $svgButton.removeAttribute('no-copy');
+    $svgButton.removeAttribute('disabled');
     $svgButton.addEventListener('click', (event) => {
       event.preventDefault();
 

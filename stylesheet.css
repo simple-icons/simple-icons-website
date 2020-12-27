@@ -11,10 +11,10 @@
 
   --background-color: rgb(252, 252, 252);
   --background-color-transparent: rgba(252, 252, 252, 0.7);
-  --default-text-color: #000;
-  --button-color-hover: #444;
-  --button-color-active: #999;
-  --color-disabled: #AAA;
+  --default-text-color: rgb(0, 0, 0);
+  --button-color-hover: rgb(51, 51, 51);
+  --button-color-active: rgb(51, 51, 51);
+  --color-disabled: rgb(170, 170, 170);
   --side-offset: 6rem;
 }
 @media (max-width: 640px), (orientation: portrait) {
@@ -90,13 +90,14 @@ a {
 }
 
 .header__list-item {
+  color: #555;
   font-family: 'Roboto Mono', monospace;
   font-size: 1rem;
   font-weight: 600;
-  margin: 0 .5rem;
+  margin: 0 .7rem;
 }
 .header__list-item:hover {
-  color: #999;
+  color: var(--button-color-hover);
   text-decoration: underline;
 }
 
@@ -145,6 +146,10 @@ a {
   font-weight: 400;
   line-height: 1rem;
   margin-bottom: .5rem;
+  position: relative;
+}
+body.no-js .control-field__title {
+  color: var(--color-disabled);
 }
 
 .control-field__row {
@@ -228,7 +233,7 @@ a {
   right: 0;
   top: 1px;
 }
-.search-active .search #search-clear {
+body.search-active .search #search-clear {
   display: inline;
 }
 
@@ -239,6 +244,7 @@ body.order-by-color #order-color,
 body.order-by-relevance #order-relevance {
   background-color: var(--button-color-active);
   border-color: var(--button-color-active);
+  cursor: default;
   fill: var(--background-color);
 }
 
@@ -378,9 +384,9 @@ body.search-empty .grid-item--if-empty {
   width: 100%;
   text-align: center;
 }
-.grid-item__color:not([no-copy]).copied::before,
-.grid-item__color:not([no-copy]):focus::before,
-.grid-item__color:not([no-copy]):hover::before {
+.grid-item__color:not(:disabled).copied::before,
+.grid-item__color:not(:disabled):focus::before,
+.grid-item__color:not(:disabled):hover::before {
   cursor: pointer;
   display: block;
 }
@@ -420,9 +426,9 @@ body.search-empty .grid-item--if-empty {
 .grid-item__preview.copied::before {
   background-image: url(./assets/check.svg);
 }
-.grid-item__preview:not([no-copy]).copied::before,
-.grid-item__preview:not([no-copy]):focus::before,
-.grid-item__preview:not([no-copy]):hover::before {
+.grid-item__preview:not(:disabled).copied::before,
+.grid-item__preview:not(:disabled):focus::before,
+.grid-item__preview:not(:disabled):hover::before {
   cursor: pointer;
   display: block;
 }
