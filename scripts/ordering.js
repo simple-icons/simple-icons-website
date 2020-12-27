@@ -13,17 +13,11 @@ const ORDERING_PREFERENCE_KEY = 'ordering-preference';
 let activeOrdering = DEFAULT_ORDERING;
 let preferredOrdering = DEFAULT_ORDERING;
 
-function storableOrdering(selected) {
-  return selected === ORDER_ALPHABETICALLY
-      || selected === ORDER_BY_COLOR;
-}
-
 export default function initOrdering(
   document,
   localStorage,
 ) {
   const $body = document.querySelector('body');
-
   const $orderAlphabetically = document.getElementById('order-alpha');
   const $orderByColor = document.getElementById('order-color');
   const $orderByRelevance = document.getElementById('order-relevance');
@@ -85,12 +79,11 @@ export default function initOrdering(
       $body.classList.add(CLASS_ORDER_BY_RELEVANCE);
     }
 
-    if (localStorage && storableOrdering(selected)) {
-      localStorage.setItem(ORDERING_PREFERENCE_KEY, selected);
-    }
-
     if (selected !== ORDER_BY_RELEVANCE) {
       preferredOrdering = selected;
+      if (localStorage) {
+        localStorage.setItem(ORDERING_PREFERENCE_KEY, selected);
+      }
     }
 
     activeOrdering = selected;

@@ -1,4 +1,9 @@
 import { ORDER_BY_RELEVANCE } from './ordering.js';
+import {
+  decodeURIComponent,
+  debounce,
+  normalizeSearchTerm,
+} from './utils.js';
 
 const queryParameter = 'q';
 
@@ -7,10 +12,35 @@ const CLASS_SEARCH_EMPTY = 'search-empty';
 
 let activeQuery = '';
 
+function getQueryFromParameter() {
+  const results = /[\\?&]q=([^&#]*)/.exec(location.search);
+  if (results !== null) {
+    return decodeURIComponent(results[1].replace(/\+/g, ' '));
+  }
+
+  return '';
+}
+
+function getScore(query, iconName) {
+  let score = iconName.length - query.length;
+  let index = 0;
+
+  for (const letter of query) {
+    index = iconName.indexOf(letter, index);
+    if (index === -1) {
+      return -1;
+    }
+
+    score += index;
+    index++;
+  }
+
+  return score;
+}
+
 export default function initSearch(
+  window,
   document,
-  debounce,
-  normalizeSearchTerm,
   ordering,
 ) {
   const $body = document.querySelector('body');
@@ -33,6 +63,13 @@ export default function initSearch(
     $searchInput.value = '';
     search('');
   });
+
+  // Load search query if present
+  const query = getQueryFromParameter(queryParameter);
+  if (query) {
+    $searchInput.value = query;
+    search(query);
+  }
 
   function search(rawQuery) {
     $body.classList.toggle(CLASS_SEARCH_ACTIVE, rawQuery !== '');
@@ -82,38 +119,5 @@ export default function initSearch(
     }
 
     activeQuery = query;
-  }
-
-  function getScore(query, iconName) {
-    var score = iconName.length - query.length;
-    var index = 0;
-
-    for (const letter of query) {
-      index = iconName.indexOf(letter, index);
-      if (index === -1) {
-        return -1;
-      }
-
-      score += index;
-      index++;
-    }
-
-    return score;
-  }
-
-  // Load search query if present
-  var query = getQueryFromParameter(queryParameter);
-  if (query) {
-    $searchInput.value = query;
-    search(query);
-  }
-
-  function getQueryFromParameter() {
-    var results = /[\\?&]q=([^&#]*)/.exec(location.search);
-    if (results !== null) {
-      return decodeURIComponent(results[1].replace(/\+/g, ' '));
-    }
-
-    return '';
   }
 }

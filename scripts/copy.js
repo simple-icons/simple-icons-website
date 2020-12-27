@@ -14,9 +14,8 @@ export default function initCopyButtons(
 
       const target = $colorButton;
       const value = target.innerHTML;
-      copyValue(value);
-
       target.blur();
+      copyValue(value);
 
       target.classList.add('copied');
       setTimeout(() => target.classList.remove('copied'), COPIED_TIMEOUT);
@@ -31,9 +30,8 @@ export default function initCopyButtons(
       const target = $svgButton;
       const $svg = target.parentNode.querySelector('svg');
       const value = $svg.outerHTML;
-      copyValue(value);
-
       target.blur();
+      copyValue(value);
 
       target.classList.add('copied');
       setTimeout(() => target.classList.remove('copied'), COPIED_TIMEOUT);
@@ -44,5 +42,6 @@ export default function initCopyButtons(
     $copyInput.value = value;
     $copyInput.select();
     document.execCommand('copy');
+    $copyInput.blur();
   }
 };

@@ -1,10 +1,10 @@
 module.exports = {
+  decodeURIComponent: decodeURIComponent,
   debounce: function(func, wait, immediate) {
-    var timeout, args, context, timestamp, result;
+    let timeout, args, context, timestamp, result;
 
-    var later = function () {
-      var last = +new Date - timestamp;
-
+    const later = function () {
+      const last = +new Date - timestamp;
       if (last < wait && last >= 0) {
         timeout = setTimeout(later, wait - last);
       } else {
@@ -20,7 +20,7 @@ module.exports = {
       context = this;
       args = arguments;
       timestamp = +new Date;
-      var callNow = immediate && !timeout;
+      const callNow = immediate && !timeout;
       if (!timeout) timeout = setTimeout(later, wait);
       if (callNow) {
         result = func.apply(context, args);
