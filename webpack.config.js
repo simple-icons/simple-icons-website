@@ -63,6 +63,11 @@ module.exports = {
           to: path.resolve(OUT_DIR, 'icons'),
           filter: (path) => path.endsWith('.svg'),
         },
+        { // Copy PDFs from simple-icons-pdf
+          from: path.resolve(NODE_MODULES, 'simple-icons-pdf/icons'),
+          to: path.resolve(OUT_DIR, 'icons'),
+          filter: (path) => path.endsWith('.pdf'),
+        },
         { // Copy ./images
           from: path.resolve(ROOT_DIR, 'images'),
           to: path.resolve(OUT_DIR, 'images'),
