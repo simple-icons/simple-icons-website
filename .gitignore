@@ -7,3 +7,4 @@ node_modules/
 
 # Generated files
 _site/
+tests/_artifacts/

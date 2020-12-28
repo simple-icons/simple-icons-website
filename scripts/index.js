@@ -6,6 +6,6 @@ import initSearch from './search.js';
 
 document.body.classList.remove('no-js');
 
-initCopyButtons(document);
+initCopyButtons(document, navigator);
 const orderingControls = initOrdering(document, localStorage);
 initSearch(window, document, orderingControls);

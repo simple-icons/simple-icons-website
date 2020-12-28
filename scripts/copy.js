@@ -2,6 +2,7 @@ const COPIED_TIMEOUT = 1000;
 
 export default function initCopyButtons(
   document,
+  navigator,
 ) {
   const $copyInput = document.getElementById('copy-input');
   const $colorButtons = document.querySelectorAll('.grid-item__color');
@@ -39,9 +40,13 @@ export default function initCopyButtons(
   });
 
   function copyValue(value) {
-    $copyInput.value = value;
-    $copyInput.select();
-    document.execCommand('copy');
-    $copyInput.blur();
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(value);
+    } else {
+      $copyInput.value = value;
+      $copyInput.select();
+      document.execCommand('copy');
+      $copyInput.blur();
+    }
   }
 };

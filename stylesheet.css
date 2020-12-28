@@ -133,6 +133,7 @@ a {
 }
 .control-field:first-of-type {
   flex-basis: 25%;
+  min-width: 260px;
 }
 @media (max-width: 640px), (orientation: portrait) {
   .control-field {
@@ -230,7 +231,7 @@ body.no-js .control-field__title {
 
 .search #search-clear {
   cursor: pointer;
-  display: none;
+  display: inline;
   font-size: 1rem;
   line-height: 2.4rem;
   padding: 0 12px;
@@ -238,8 +239,8 @@ body.no-js .control-field__title {
   right: 0;
   top: 1px;
 }
-body.search-active .search #search-clear {
-  display: inline;
+.search #search-clear.hidden {
+  display: none;
 }
 
 /* Control - order */

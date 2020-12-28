@@ -7,7 +7,6 @@ import {
 
 const queryParameter = 'q';
 
-const CLASS_SEARCH_ACTIVE = 'search-active';
 const CLASS_SEARCH_EMPTY = 'search-empty';
 
 let activeQuery = '';
@@ -72,12 +71,14 @@ export default function initSearch(
   }
 
   function search(rawQuery) {
-    $body.classList.toggle(CLASS_SEARCH_ACTIVE, rawQuery !== '');
-
     if (rawQuery) {
       window.history.replaceState(null, '', '?' + queryParameter + '=' + rawQuery);
+      $searchClear.classList.remove('hidden');
+      $searchClear.removeAttribute('aria-hidden');
     } else {
       window.history.replaceState(null, '', '/');
+      $searchClear.classList.add('hidden');
+      $searchClear.setAttribute('aria-hidden', 'true');
     }
 
     const query = normalizeSearchTerm(rawQuery);
