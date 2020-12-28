@@ -33,13 +33,13 @@ html
         h1(class="header__title") Simple Icons
         ul(class="header__list")
           li(class="header__list-item")
-            a(href="https://github.com/simple-icons/simple-icons") GitHub
+            a(href="https://github.com/simple-icons/simple-icons" rel="noopener") GitHub
           li(class="header__list-item")
-            a(href="https://www.npmjs.com/package/simple-icons") NPM
+            a(href="https://www.npmjs.com/package/simple-icons" rel="noopener") NPM
           li(class="header__list-item")
-            a(href="https://packagist.org/packages/simple-icons/simple-icons") Packagist
+            a(href="https://packagist.org/packages/simple-icons/simple-icons" rel="noopener") Packagist
           li(class="header__list-item")
-            a(href="https://github.com/simple-icons/simple-icons#readme") About
+            a(href="https://github.com/simple-icons/simple-icons#readme" rel="noopener") About
       p(class="header__description") #{iconCount} Free <abbr title="Scalable Vector Graphic">SVG</abbr> icons for popular brands
 
     main(class="main" role="main")
@@ -79,7 +79,7 @@ html
 
       ul(class="grid")
         li(class="grid-item--if-empty")
-          p Icon missing? <a href="https://github.com/simple-icons/simple-icons/issues/new?template=icon_request.md">Submit a request</a>
+          p Icon missing? <a href="https://github.com/simple-icons/simple-icons/issues/new?template=icon_request.md" rel="noopener">Submit a request</a>
 
         each icon in icons
           li(class="grid-item" style=`--order-color: ${icon.indexByColor}` data-brand=`${icon.normalizedName}`)
