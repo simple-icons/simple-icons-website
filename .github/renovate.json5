@@ -1,0 +1,14 @@
+{
+  extends: [
+    "config:base",
+
+    // Make sure we get a single PR combining all updates
+    "group:all",
+  ],
+
+  // We will keep simple-icons up-to-date separately from renovate
+  ignoreDeps: ["simple-icons"],
+
+  // Use our labelling system
+  labels: ["dependencies"],
+}
