@@ -10,7 +10,9 @@ const sortColors = require('color-sorter').sortFn;
 const { normalizeSearchTerm } = require('./scripts/utils.js');
 
 const icons = Object.values(simpleIcons);
-const sortedHexes = icons.map(icon => icon.hex).sort(sortColors);
+const sortedHexes = icons.map(icon => icon.hex)
+  .filter((hex, index, array) => array.indexOf(hex) === index)
+  .sort(sortColors);
 
 const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const OUT_DIR = path.resolve(__dirname, '_site');
@@ -24,16 +26,14 @@ function simplifyHexIfPossible(hex) {
   return hex;
 }
 
-function tmp(hex) {
+function colorContrast(hex) {
   const luminance = getRelativeLuminance(`#${hex}`);
   return luminance < 0.4;
 }
 
 module.exports = {
   entry: {
-    app: [
-      './scripts/index.js',
-    ],
+    app: './scripts/index.js',
   },
   output: {
     path: OUT_DIR,
@@ -70,15 +70,15 @@ module.exports = {
       ],
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve(ROOT_DIR, 'index.pug'),
       inject: true,
+      template: path.resolve(ROOT_DIR, 'index.pug'),
       templateParameters: {
         icons: icons.map((icon, iconIndex) => {
           return {
             hex: icon.hex,
             indexByAlpha: iconIndex,
             indexByColor: sortedHexes.indexOf(icon.hex),
-            light: tmp(icon.hex),
+            light: colorContrast(icon.hex),
             normalizedName: normalizeSearchTerm(icon.title),
             path: icon.path,
             shortHex: simplifyHexIfPossible(icon.hex),
