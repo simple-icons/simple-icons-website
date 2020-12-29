@@ -467,7 +467,6 @@ body.order-by-relevance .grid-item {
 /* Footer */
 .footer {
   align-items: center;
-  background: #EEE;
   display: flex;
   justify-content: space-between;
   font-family: 'Roboto Mono', monospace;
