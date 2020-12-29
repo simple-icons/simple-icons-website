@@ -276,10 +276,10 @@ body.order-by-relevance #order-relevance {
 }
 
 .grid-item--if-empty {
-  display: none;
-}
-body.search-empty .grid-item--if-empty {
   display: flex;
+}
+.grid-item--if-empty.hidden {
+  display: none;
 }
 .grid-item--if-empty p {
   font-family: 'Roboto Mono', monospace;

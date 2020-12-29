@@ -30,32 +30,32 @@ describe('General', () => {
     });
   });
 
-  it('should display the text "Simple Icons"', async () => {
+  it('displays the text "Simple Icons"', async () => {
     await expect(page).toMatch('Simple Icons');
   });
 
-  it('should be possible to click the link to GitHub', async () => {
+  it('is possible to click the link to GitHub', async () => {
     await expect(page).toClick('a', { text: 'GitHub' });
   });
 
-  it('should be possible to click the link to NPM', async () => {
+  it('is possible to click the link to NPM', async () => {
     await expect(page).toClick('a', { text: 'NPM' });
   });
 
-  it('should be possible to click the link to Packagist', async () => {
+  it('is possible to click the link to Packagist', async () => {
     await expect(page).toClick('a', { text: 'Packagist' });
   });
 
-  it('should be possible to click the about link', async () => {
+  it('is possible to click the about link', async () => {
     await expect(page).toClick('a', { text: 'About' });
   });
 
-  it('should have the search input in view on load', async () => {
+  it('has the search input in view on load', async () => {
     const $searchInput = await page.$('#search-input');
     expect(await isInViewport($searchInput)).toBeTruthy();
   });
 
-  it('should have the order controls in view on load', async () => {
+  it('has the order controls in view on load', async () => {
     const $orderAlphabetically = await page.$('#order-alpha');
     expect(await isInViewport($orderAlphabetically)).toBeTruthy();
 
@@ -63,7 +63,7 @@ describe('General', () => {
     expect(await isInViewport($orderByColor)).toBeTruthy();
   });
 
-  it('should have the first grid item in view on load', async () => {
+  it('has the first grid item in view on load', async () => {
     const $firstGridItem = await page.$('.grid-item');
     expect(await isInViewport($firstGridItem)).toBeTruthy();
   });
@@ -81,17 +81,22 @@ describe('Search', () => {
     await page.goto(url.href);
   });
 
-  it('should not show the "order by relevance" button on load', async () => {
+  it('does not show the "order by relevance" button on load', async () => {
     const $orderByRelevance = await page.$('#order-relevance');
     expect(await isHidden($orderByRelevance)).toBeTruthy();
   });
 
-  it('should not show the "clear search" button on load', async () => {
+  it('does not show the "clear search" button on load', async () => {
     const $searchClear = await page.$('#search-clear');
     expect(await isHidden($searchClear)).toBeTruthy();
   });
 
-  it('should show the "order by relevance" button on search', async () => {
+  it('does not show the "no results" message on load', async () => {
+    const $gridItemIfEmpty = await page.$('.grid-item--if-empty');
+    expect(await isHidden($gridItemIfEmpty)).toBeTruthy();
+  });
+
+  it('shows the "order by relevance" button on search', async () => {
     const $searchInput = await page.$('#search-input');
     await $searchInput.type('adobe');
 
@@ -99,7 +104,7 @@ describe('Search', () => {
     expect(await isVisible($orderByRelevance)).toBeTruthy();
   });
 
-  it('should show the "clear search" button on search', async () => {
+  it('shows the "clear search" button on search', async () => {
     const $searchInput = await page.$('#search-input');
     await $searchInput.type('adobe');
 
@@ -107,7 +112,7 @@ describe('Search', () => {
     expect(await isVisible($searchClear)).toBeTruthy();
   });
 
-  it('should enable ordering by relevance on search', async () => {
+  it('enables ordering by relevance on search', async () => {
     const $searchInput = await page.$('#search-input');
     await $searchInput.type('adobe');
 
@@ -115,7 +120,12 @@ describe('Search', () => {
     expect(await hasClass($body, 'order-by-relevance')).toBeTruthy();
   });
 
-  it('should reset when clicking the "clear search" button', async () => {
+  it('does not show the "no results" message on search', async () => {
+    const $gridItemIfEmpty = await page.$('.grid-item--if-empty');
+    expect(await isHidden($gridItemIfEmpty)).toBeTruthy();
+  });
+
+  it('resets the search when clicking the "clear search" button', async () => {
     const $searchInput = await page.$('#search-input');
     await $searchInput.type('adobe');
 
@@ -129,24 +139,7 @@ describe('Search', () => {
   it.each([
     ['order-alpha', 'order-alphabetically'],
     ['order-color', 'order-by-color'],
-  ])('should switch back to "%s" when search is cleared', async (id, value) => {
-    await page.click(`#${id}`);
-
-    const $searchInput = await page.$('#search-input');
-    await $searchInput.type('adobe');
-
-    const $searchClear = await page.$('#search-clear');
-    await $searchClear.click();
-
-    const $body = await page.$('body');
-    expect(await hasClass($body, 'order-by-relevance')).toBeFalsy();
-    expect(await hasClass($body, value)).toBeTruthy();
-  });
-
-  it.each([
-    ['order-alpha', 'order-alphabetically'],
-    ['order-color', 'order-by-color'],
-  ])('should switch back to "%s" when search is removed', async (id, value) => {
+  ])('switches back to "%s" when the search is removed', async (id, value) => {
     await page.click(`#${id}`);
 
     const $searchInput = await page.$('#search-input');
@@ -160,7 +153,24 @@ describe('Search', () => {
     expect(await hasClass($body, value)).toBeTruthy();
   });
 
-  it('should add the search query to the URL', async () => {
+  it.each([
+    ['order-alpha', 'order-alphabetically'],
+    ['order-color', 'order-by-color'],
+  ])('switches back to "%s" when search is cleared', async (id, value) => {
+    await page.click(`#${id}`);
+
+    const $searchInput = await page.$('#search-input');
+    await $searchInput.type('adobe');
+
+    const $searchClear = await page.$('#search-clear');
+    await $searchClear.click();
+
+    const $body = await page.$('body');
+    expect(await hasClass($body, 'order-by-relevance')).toBeFalsy();
+    expect(await hasClass($body, value)).toBeTruthy();
+  });
+
+  it('adds the search query to the URL', async () => {
     const query = 'amd';
 
     const $searchInput = await page.$('#search-input');
@@ -170,7 +180,7 @@ describe('Search', () => {
     expect(url).toMatch(`?q=${query}`);
   });
 
-  it('should load the search query from the URL', async () => {
+  it('loads the search query from the URL', async () => {
     const query = 'simple icons';
     await page.goto(`${url.href}?q=${query}`);
 
@@ -183,6 +193,27 @@ describe('Search', () => {
 
     const $orderByRelevance = await page.$('#order-relevance');
     expect(await isVisible($orderByRelevance)).toBeTruthy();
+  });
+
+  it('shows the "no results" message if no brand was found', async () => {
+    await page.type('#search-input', 'this is definitely not going to match');
+    await page.screenshot({
+      path: path.resolve(ARTIFACTS_DIR, 'search-no-results.png'),
+    });
+
+    const $gridItemIfEmpty = await page.$('.grid-item--if-empty');
+    expect(await isVisible($gridItemIfEmpty)).toBeTruthy();
+  });
+
+  it('hides the "no results" message when the search is removed', async () => {
+    const $searchInput = await page.$('#search-input');
+    await $searchInput.type('this is definitely not going to match');
+
+    await $searchInput.click({ clickCount: 3 });
+    await $searchInput.press('Backspace');
+
+    const $gridItemIfEmpty = await page.$('.grid-item--if-empty');
+    expect(await isHidden($gridItemIfEmpty)).toBeTruthy();
   });
 
   afterEach(async () => {
@@ -213,33 +244,33 @@ describe('Grid item', () => {
     });
   });
 
-  it('should have the color value button enabled', async () => {
+  it('has the color value button enabled', async () => {
     const $previewButton = await page.$('button.grid-item__color');
     expect(await isDisabled($previewButton)).toBeFalsy();
   });
 
-  it('should copy the hex value when it is clicked', async () => {
+  it('copies the hex value when it is clicked', async () => {
     await expect(page).toClick('button.grid-item__color');
     const clipboardValue = await getClipboardValue(page);
     expect(clipboardValue).toMatch(COLOR_REGEX);
   });
 
-  it('should have the SVG preview button enabled', async () => {
+  it('has the SVG preview button enabled', async () => {
     const $previewButton = await page.$('button.grid-item__preview');
     expect(await isDisabled($previewButton)).toBeFalsy();
   });
 
-  it('should copy the SVG value when the preview is clicked', async () => {
+  it('copies the SVG value when the preview is clicked', async () => {
     await expect(page).toClick('button.grid-item__preview');
     const clipboardValue = await getClipboardValue(page);
     expect(clipboardValue).toMatch(SVG_REGEX);
   });
 
-  it('should be possible to download an icon as SVG', async () => {
+  it('is possible to download an icon as SVG', async () => {
     await expect(page).toClick('a[download][href$="svg"]');
   });
 
-  it('should be possible to download an icon as PDF', async () => {
+  it('is possible to download an icon as PDF', async () => {
     await expect(page).toClick('a[download][href$="pdf"]');
   });
 
@@ -263,17 +294,17 @@ describe('JavaScript disabled', () => {
     });
   });
 
-  it('should not show the "order by relevance" button', async () => {
+  it('does not show the "order by relevance" button', async () => {
     const $orderByRelevance = await page.$('#order-relevance');
     expect(await isHidden($orderByRelevance)).toBeTruthy();
   });
 
-  it('should not show the "clear search" button on load', async () => {
+  it('does not show the "clear search" button on load', async () => {
     const $searchClear = await page.$('#search-clear');
     expect(await isHidden($searchClear)).toBeTruthy();
   });
 
-  it('should have disabled ordering buttons', async () => {
+  it('has disabled ordering buttons', async () => {
     const $orderAlphabetically = await page.$('#order-alpha');
     expect(await isDisabled($orderAlphabetically)).toBeTruthy();
 
@@ -284,12 +315,12 @@ describe('JavaScript disabled', () => {
     expect(await isDisabled($orderByRelevance)).toBeTruthy();
   });
 
-  it('should have the color value button disabled', async () => {
+  it('has the color value button disabled', async () => {
     const $colorButton = await page.$('button.grid-item__color');
     expect(await isDisabled($colorButton)).toBeTruthy();
   });
 
-  it('should have the SVG preview button disabled', async () => {
+  it('has the SVG preview button disabled', async () => {
     const $previewButton = await page.$('button.grid-item__preview');
     expect(await isDisabled($previewButton)).toBeTruthy();
   });
