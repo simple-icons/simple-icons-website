@@ -15,6 +15,8 @@
   --button-color-hover: rgb(51, 51, 51);
   --button-color-active: rgb(51, 51, 51);
   --color-disabled: rgb(170, 170, 170);
+  --color-twitter: rgb(29, 161, 242);
+  --color-twitter-hover: rgba(29, 161, 242, 0.8);
   --side-offset: 6rem;
 }
 @media (max-width: 640px), (orientation: portrait) {
@@ -28,6 +30,9 @@
 body {
   background-color: var(--background-color);
   color: var(--default-text-color);
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
 }
 
 button {
@@ -52,7 +57,7 @@ a {
 /* Header */
 
 .header {
-  margin: 5rem 0;
+  margin: 5rem 0 2rem;
   padding: 1rem var(--side-offset);
 }
 @media (max-width: 640px), (orientation: portrait) {
@@ -106,6 +111,7 @@ a {
 /* Main */
 
 .main {
+  flex-grow: 2;
   margin: 2rem 0;
   padding: 0 var(--side-offset);
 }
@@ -464,6 +470,61 @@ body.order-by-color .grid-item {
 }
 body.order-by-relevance .grid-item {
   order: var(--order-relevance);
+}
+
+/* Footer */
+
+.footer {
+  align-items: center;
+  display: flex;
+  font-family: 'Roboto Mono', monospace;
+  font-size: .9rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 1rem 0 2rem;
+  padding: 0 var(--side-offset);
+}
+
+.footer-description {
+  margin: 1rem;
+  margin-left: 0;
+}
+
+.footer-description a {
+  font-weight: 600;
+}
+.footer-description a:focus,
+.footer-description a:hover {
+  color: var(--button-color-hover);
+  text-decoration: underline;
+}
+
+.footer .footer-share {
+  align-items: center;
+  background-color: var(--color-twitter);
+  border-radius: 4px;
+  color: #FFF;
+  display: flex;
+  font-weight: normal;
+  flex-shrink: 0;
+  padding: .75rem 1.25rem;
+  text-align: center;
+}
+@media (max-width: 640px), (orientation: portrait) {
+  .footer .footer-share {
+    flex-grow: 1;
+    justify-content: center;
+  }
+}
+.footer .footer-share:focus,
+.footer .footer-share:hover {
+  background-color: var(--color-twitter-hover);
+}
+
+.footer-share--icon {
+  fill: #FFF;
+  height: 1rem;
+  margin-right: .75rem;
 }
 
 /* Utility */
