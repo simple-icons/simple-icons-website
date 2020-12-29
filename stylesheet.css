@@ -92,7 +92,7 @@ a {
 }
 
 .header__list-item {
-  color: #555;
+  /* color: #555; */
   font-family: 'Roboto Mono', monospace;
   font-size: 1rem;
   font-weight: 600;
@@ -277,6 +277,7 @@ body.order-by-relevance #order-relevance {
 
 .grid-item--if-empty {
   display: flex;
+  margin: 0 0.4rem;
 }
 .grid-item--if-empty.hidden {
   display: none;
@@ -288,6 +289,7 @@ body.order-by-relevance #order-relevance {
 .grid-item--if-empty a {
   color: #0000EE;
 }
+.grid-item--if-empty a:focus,
 .grid-item--if-empty a:hover {
   color: rgb(0, 0, 238);
   text-decoration: underline;

@@ -68,6 +68,11 @@ describe('General', () => {
     expect(await isInViewport($firstGridItem)).toBeTruthy();
   });
 
+  it('hides the #copy-input element', async () => {
+    const $copyInput = await page.$('#copy-input');
+    expect(await isHidden($copyInput)).toBeTruthy();
+  });
+
   afterEach(async () => {
     await page.close();
   });
