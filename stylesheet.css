@@ -282,10 +282,10 @@ body.order-by-relevance #order-relevance {
 }
 
 .grid-item--if-empty {
-  display: none;
-}
-body.search-empty .grid-item--if-empty {
   display: flex;
+}
+.grid-item--if-empty.hidden {
+  display: none;
 }
 .grid-item--if-empty p {
   font-family: 'Roboto Mono', monospace;
@@ -507,7 +507,6 @@ body.order-by-relevance .grid-item {
   flex-shrink: 0;
   padding: .75rem 1.25rem;
   text-align: center;
-  text-decoration: none;
 }
 @media (max-width: 640px), (orientation: portrait) {
   .footer .footer-share {
