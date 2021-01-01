@@ -1,4 +1,6 @@
+const sortColors = require('color-sorter').sortFn;
 const path = require('path');
+const simpleIcons = require('simple-icons');
 const { URL } = require('url');
 
 const {
@@ -219,6 +221,66 @@ describe('Search', () => {
 
     const $gridItemIfEmpty = await page.$('.grid-item--if-empty');
     expect(await isHidden($gridItemIfEmpty)).toBeTruthy();
+  });
+
+  afterEach(async () => {
+    await page.close();
+  });
+});
+
+describe('Ordering', () => {
+  jest.setTimeout(10000);
+
+  const icons = Object.values(simpleIcons);
+  const titles = icons.map(icon => icon.title);
+  const hexes = icons.map(icon => icon.hex).sort(sortColors);
+
+  let page;
+
+  beforeEach(async () => {
+    page = await browser.newPage();
+    await page.goto(url.href);
+  });
+
+  it('reloads ordering alphabetically', async () => {
+    await expect(page).toClick('#order-alpha');
+
+    await page.reload();
+
+    const $body = await page.$('body');
+    expect(await hasClass($body, 'order-alphabetically')).toBeTruthy();
+  });
+
+  it('reloads ordering by color', async () => {
+    await expect(page).toClick('#order-color');
+
+    await page.reload();
+
+    const $body = await page.$('body');
+    expect(await hasClass($body, 'order-by-color')).toBeTruthy();
+  });
+
+  it('orders grid items alphabetically', async () => {
+    await expect(page).toClick('#order-alpha');
+
+    const $gridItems = await page.$$('.grid-item');
+    for (let i = 0; i < $gridItems.length; i++) {
+      const $gridItem = $gridItems[i];
+      const title = titles[i];
+      await expect($gridItem).toMatch(title);
+    }
+  });
+
+  it.skip('orders grid items by color', async () => {
+    // Items are ordered using the CSS property `order`...
+    await expect(page).toClick('#order-color');
+
+    const $gridItems = await page.$$('.grid-item__color');
+    for (let i = 0; i < $gridItems.length; i++) {
+      const $gridItem = $gridItems[i];
+      const hex = hexes[i];
+      await expect($gridItem).toMatch(`#${hex}`);
+    }
   });
 
   afterEach(async () => {
