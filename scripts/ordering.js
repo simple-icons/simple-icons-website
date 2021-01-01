@@ -37,7 +37,6 @@ export default function initOrdering(
 
   $orderAlphabetically.addEventListener('click', (event) => {
     event.preventDefault();
-
     if (activeOrdering != ORDER_ALPHABETICALLY) {
       selectOrdering(ORDER_ALPHABETICALLY);
       $orderAlphabetically.blur();
@@ -45,7 +44,6 @@ export default function initOrdering(
   });
   $orderByColor.addEventListener('click', (event) => {
     event.preventDefault();
-
     if (activeOrdering != ORDER_BY_COLOR) {
       selectOrdering(ORDER_BY_COLOR);
       $orderByColor.blur();
@@ -53,7 +51,6 @@ export default function initOrdering(
   });
   $orderByRelevance.addEventListener('click', (event) => {
     event.preventDefault();
-
     if (activeOrdering != ORDER_BY_RELEVANCE) {
       selectOrdering(ORDER_BY_RELEVANCE);
       $orderByRelevance.blur();

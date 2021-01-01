@@ -1,5 +1,10 @@
 const COPIED_TIMEOUT = 1000;
 
+function setCopied($el) {
+  $el.classList.add('copied');
+  setTimeout(() => $el.classList.remove('copied'), COPIED_TIMEOUT);
+}
+
 export default function initCopyButtons(
   document,
   navigator,
@@ -13,13 +18,10 @@ export default function initCopyButtons(
     $colorButton.addEventListener('click', (event) => {
       event.preventDefault();
 
-      const target = $colorButton;
-      const value = target.innerHTML;
-      target.blur();
+      const value = $colorButton.innerHTML;
+      $colorButton.blur();
       copyValue(value);
-
-      target.classList.add('copied');
-      setTimeout(() => target.classList.remove('copied'), COPIED_TIMEOUT);
+      setCopied($colorButton);
     });
   });
 
@@ -28,14 +30,11 @@ export default function initCopyButtons(
     $svgButton.addEventListener('click', (event) => {
       event.preventDefault();
 
-      const target = $svgButton;
-      const $svg = target.parentNode.querySelector('svg');
+      const $svg = $svgButton.parentNode.querySelector('svg');
       const value = $svg.outerHTML;
-      target.blur();
+      $svgButton.blur();
       copyValue(value);
-
-      target.classList.add('copied');
-      setTimeout(() => target.classList.remove('copied'), COPIED_TIMEOUT);
+      setCopied($svgButton);
     });
   });
 

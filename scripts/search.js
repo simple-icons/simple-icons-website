@@ -1,3 +1,4 @@
+import { hideElement, showElement } from './dom-utils.js';
 import { ORDER_BY_RELEVANCE } from './ordering.js';
 import {
   decodeURIComponent,
@@ -43,14 +44,13 @@ export default function initSearch(
   const $searchInput = document.getElementById('search-input');
   const $searchClear = document.getElementById('search-clear');
   const $orderByRelevance = document.getElementById('order-relevance');
-  const $$gridItemIfEmpty = document.querySelector('.grid-item--if-empty');
+  const $gridItemIfEmpty = document.querySelector('.grid-item--if-empty');
   const $icons = document.querySelectorAll('.grid-item[data-brand]');
 
   $searchInput.disabled = false;
   $searchInput.focus();
   $searchInput.addEventListener('input', debounce((event) => {
     event.preventDefault();
-
     const value = $searchInput.value;
     search(value);
   }));
@@ -70,13 +70,11 @@ export default function initSearch(
 
   function search(rawQuery) {
     if (rawQuery) {
-      window.history.replaceState(null, '', '?' + queryParameter + '=' + rawQuery);
-      $searchClear.classList.remove('hidden');
-      $searchClear.removeAttribute('aria-hidden');
+      window.history.replaceState(null, '', `?${queryParameter}=${rawQuery}`);
+      showElement($searchClear);
     } else {
       window.history.replaceState(null, '', '/');
-      $searchClear.classList.add('hidden');
-      $searchClear.setAttribute('aria-hidden', 'true');
+      hideElement($searchClear);
     }
 
     const query = normalizeSearchTerm(rawQuery);
@@ -87,37 +85,29 @@ export default function initSearch(
       const score = getScore(query, brandName);
       if (score < 0) {
         $icon.style.removeProperty("--order-relevance");
-        $icon.classList.add('hidden');
-        $icon.setAttribute('aria-hidden', 'true');
+        hideElement($icon);
       } else {
         $icon.style.setProperty("--order-relevance", score);
-        $icon.classList.remove('hidden');
-        $icon.removeAttribute('aria-hidden');
+        showElement($icon);
         noResults = false;
       }
     });
 
     if (noResults) {
-      $$gridItemIfEmpty.classList.remove('hidden');
-      $$gridItemIfEmpty.removeAttribute('aria-hidden');
+      showElement($gridItemIfEmpty);
     } else {
-      $$gridItemIfEmpty.classList.add('hidden');
-      $$gridItemIfEmpty.setAttribute('aria-hidden', 'true');
+      hideElement($gridItemIfEmpty);
     }
 
     if (query === '') {
-      $orderByRelevance.classList.add('hidden');
-      $orderByRelevance.setAttribute('aria-hidden', true);
-
+      hideElement($orderByRelevance)
       if (ordering.currentOrderingIs(ORDER_BY_RELEVANCE)) {
         ordering.resetOrdering();
       }
     }
 
     if (query !== '') {
-      $orderByRelevance.classList.remove('hidden');
-      $orderByRelevance.removeAttribute('aria-hidden');
-
+      showElement($orderByRelevance)
       if (activeQuery === '') {
         ordering.selectOrdering(ORDER_BY_RELEVANCE);
       }
