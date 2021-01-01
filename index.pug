@@ -68,6 +68,12 @@ html
             button(id="order-relevance" class="control__button hidden" title="Sort by relevance" aria-hidden disabled)
               svg(role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg")
                 path(d="M9.219 18.857H6.648V.429A.414.414 0 0 0 6.25 0H3.648a.416.416 0 0 0-.429.429v18.428H.648a.397.397 0 0 0-.402.268c-.071.17-.04.326.094.469l4.286 4.287c.098.08.2.119.308.119a.446.446 0 0 0 .308-.119l4.272-4.273a.5.5 0 0 0 .134-.318.418.418 0 0 0-.402-.432l-.027-.001zM22.971 4.984a.817.817 0 0 0 .207-.843.822.822 0 0 0-.666-.561l-2.777-.403a.366.366 0 0 1-.274-.199L18.22.459A.818.818 0 0 0 17.479 0a.816.816 0 0 0-.737.458l-1.243 2.519a.362.362 0 0 1-.273.199l-2.781.404a.816.816 0 0 0-.665.56.815.815 0 0 0 .207.843l2.012 1.96a.364.364 0 0 1 .104.322l-.475 2.769a.802.802 0 0 0 .18.667.832.832 0 0 0 1.016.201l2.486-1.307a.369.369 0 0 1 .339 0l2.485 1.307a.815.815 0 0 0 1.017-.2.811.811 0 0 0 .18-.667l-.475-2.768a.366.366 0 0 1 .104-.322l2.011-1.961zm-.005 13a.825.825 0 0 0-.457-1.405l-2.777-.404a.366.366 0 0 1-.274-.199l-1.241-2.518a.82.82 0 0 0-1.476 0l-1.242 2.518a.362.362 0 0 1-.275.199l-2.775.404a.816.816 0 0 0-.666.561.819.819 0 0 0 .207.844l2.011 1.961a.36.36 0 0 1 .104.322l-.475 2.769a.813.813 0 0 0 .328.806.82.82 0 0 0 .865.063l2.484-1.307a.367.367 0 0 1 .341 0l2.485 1.307a.822.822 0 0 0 1.193-.869l-.478-2.769a.371.371 0 0 1 .104-.322l2.014-1.961zm-2.092 5.131a.355.355 0 0 1-.145.354.356.356 0 0 1-.385.029l-2.487-1.309a.817.817 0 0 0-.767.002l-2.485 1.307a.353.353 0 0 1-.382-.029.354.354 0 0 1-.146-.354l.479-2.77a.83.83 0 0 0-.236-.729l-2.014-1.96a.35.35 0 0 1-.092-.371.36.36 0 0 1 .295-.249l2.778-.403a.815.815 0 0 0 .618-.448l1.242-2.521a.357.357 0 0 1 .326-.202c.144 0 .265.075.328.202l1.242 2.521c.117.241.35.41.617.448l2.78.403c.14.021.249.113.292.249a.35.35 0 0 1-.092.371l-2.01 1.96a.827.827 0 0 0-.235.729l.479 2.77z")
+        div(class="control-field")
+          label(class="control-field__title") Mode
+          div(class="control-field__row")
+            button(id="color-scheme-light" class="control__button" title="Color scheme" disabled) L
+            button(id="color-scheme-dark" class="control__button" title="Color scheme" disabled) D
+            button(id="color-scheme-system" class="control__button" title="Color scheme" disabled) S
 
       ul(class="grid")
         li(class="grid-item--if-empty hidden" aria-hidden)
@@ -79,7 +85,7 @@ html
               use(href=`#${icon.slug}-svg`)
             h2(class="grid-item__title") #{icon.title}
             button(
-              class=`grid-item__color copy-button ${icon.light ? "contrast-light" : ""}`
+              class=`grid-item__color copy-button ${icon.light ? "contrast-light" : "contrast-dark"}`
               style=`background-color: #${icon.shortHex}`
               title=`${icon.title} color`
               disabled

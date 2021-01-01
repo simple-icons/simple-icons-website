@@ -1,3 +1,5 @@
+import { STORAGE_KEY_ORDERING } from './storage.js';
+
 export const ORDER_ALPHABETICALLY = 'alphabetically';
 export const ORDER_BY_COLOR = 'color';
 export const ORDER_BY_RELEVANCE = 'relevance';
@@ -7,8 +9,6 @@ const DEFAULT_ORDERING = ORDER_ALPHABETICALLY;
 const CLASS_ORDER_ALPHABETICALLY = 'order-alphabetically';
 const CLASS_ORDER_BY_COLOR = 'order-by-color';
 const CLASS_ORDER_BY_RELEVANCE = 'order-by-relevance';
-
-const ORDERING_PREFERENCE_KEY = 'ordering-preference';
 
 let activeOrdering = DEFAULT_ORDERING;
 let preferredOrdering = DEFAULT_ORDERING;
@@ -27,7 +27,7 @@ export default function initOrdering(
   $orderByRelevance.disabled = false;
 
   if (localStorage) {
-    const storedOrdering = localStorage.getItem(ORDERING_PREFERENCE_KEY);
+    const storedOrdering = localStorage.getItem(STORAGE_KEY_ORDERING);
     if (storedOrdering) {
       selectOrdering(storedOrdering);
     } else {
@@ -82,7 +82,7 @@ export default function initOrdering(
     if (selected !== ORDER_BY_RELEVANCE) {
       preferredOrdering = selected;
       if (localStorage) {
-        localStorage.setItem(ORDERING_PREFERENCE_KEY, selected);
+        localStorage.setItem(STORAGE_KEY_ORDERING, selected);
       }
     }
 
