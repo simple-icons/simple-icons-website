@@ -18,7 +18,7 @@
   --dm-asset-svg-copied: url(./assets/check-white.svg);
   --dm-color-background: rgb(34, 34, 34);
   --dm-color-background-transparent: rgba(34, 34, 34, .7);
-  --dm-color-background-card: rgb(17, 17, 17);
+  --dm-color-background-card: rgb(20, 20, 20);
   --dm-color-text-default: rgb(250, 250, 250);
   --dm-color-svg-default: rgb(255, 255, 255);
   --dm-color-button-hover: rgb(221, 221, 221);
@@ -26,6 +26,9 @@
   --dm-color-button-text-hover: rgb(0, 0, 0);
   --dm-color-disabled: rgb(170, 170, 170);
   --dm-color-shadow: rgba(153, 153, 153, .75);
+  --dm-color-link: rgb(0, 100, 238);
+  --dm-color-link-hover: rgb(0, 72, 238);
+  --dm-color-link-visited: rgb(169, 144, 189);
 
   /* Light mode colors and assets */
   --lm-asset-svg-copy: url(./assets/copy.svg);
@@ -40,7 +43,9 @@
   --lm-color-button-text-hover: rgb(255, 255, 255);
   --lm-color-disabled: rgb(170, 170, 170);
   --lm-color-shadow: rgba(0, 0, 0, .5);
-
+  --lm-color-link: rgb(0, 0, 238);
+  --lm-color-link-hover: rgb(52, 52, 238);
+  --lm-color-link-visited: rgb(85, 26, 139);
 }
 @media (max-width: 640px), (orientation: portrait) {
   :root {
@@ -66,6 +71,9 @@
     --color-button-text-hover: var(--dm-color-button-text-hover);
     --color-disabled: var(--dm-color-disabled);
     --color-shadows: var(--dm-color-shadow);
+    --color-link: var(--dm-color-link);
+    --color-link-hover: var(--dm-color-link-hover);
+    --color-link-visited: var(--dm-color-link-visited);
   }
 }
 @media (prefers-color-scheme: light) {
@@ -82,6 +90,9 @@
     --color-button-text-hover: var(--lm-color-button-text-hover);
     --color-disabled: var(--lm-color-disabled);
     --color-shadows: var(--lm-color-shadow);
+    --color-link: var(--lm-color-link);
+    --color-link-hover: var(--lm-color-link-hover);
+    --color-link-visited: var(--lm-color-link-visited);
   }
 }
 
@@ -98,6 +109,9 @@ body.dark {
   --color-button-text-hover: var(--dm-color-button-text-hover);
   --color-disabled: var(--dm-color-disabled);
   --color-shadows: var(--dm-color-shadow);
+  --color-link: var(--dm-color-link);
+  --color-link-hover: var(--dm-color-link-hover);
+  --color-link-visited: var(--dm-color-link-visited);
 }
 body.light {
   --asset-svg-copy: var(--lm-asset-svg-copy);
@@ -112,6 +126,9 @@ body.light {
   --color-button-text-hover: var(--lm-color-button-text-hover);
   --color-disabled: var(--lm-color-disabled);
   --color-shadows: var(--lm-color-shadow);
+  --color-link: var(--lm-color-link);
+  --color-link-hover: var(--lm-color-link-hover);
+  --color-link-visited: var(--lm-color-link-visited);
 }
 
 /* General */
@@ -396,15 +413,15 @@ body:not(.dark):not(.light) #color-scheme-system {
   font-size: 0.9rem;
 }
 .grid-item--if-empty a {
-  color: #0000EE;
+  color: var(--color-link);
 }
 .grid-item--if-empty a:focus,
 .grid-item--if-empty a:hover {
-  color: rgb(0, 0, 238);
+  color: var(--color-link-hover);
   text-decoration: underline;
 }
 .grid-item--if-empty a:visited {
-  color: #551A8B;
+  color: var(--color-link-visited);
 }
 
 .grid-item {
