@@ -313,7 +313,6 @@ body.no-js .control-field__title {
 .control__button:not(:disabled):hover {
   background-color: var(--color-button-hover) !important;
   border-color: var(--color-button-hover) !important;
-  color: var(--color-background);
   cursor: pointer;
   fill: var(--color-background);
 }
@@ -372,10 +371,9 @@ body.order-by-relevance #order-relevance {
 
 body.dark #color-scheme-dark,
 body.light #color-scheme-light,
-body:not(.dark):not(.light) #color-scheme-system {
+body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   background-color: var(--color-button-active);
   border-color: var(--color-button-active);
-  color: var(--color-background);
   cursor: default;
   fill: var(--color-background);
 }
