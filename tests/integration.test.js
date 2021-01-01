@@ -284,6 +284,58 @@ describe('Grid item', () => {
   });
 });
 
+describe('Preferred color scheme', () => {
+  let page;
+
+  beforeEach(async () => {
+    page = await browser.newPage();
+    await page.goto(url.href);
+  });
+
+  it.each([
+    ['dark', 'rgb(34, 34, 34)'],
+    ['light', 'rgb(252, 252, 252)'],
+  ])('has color scheme "%s"', async (scheme, expected) => {
+    await page.emulateMediaFeatures([
+      { name: 'prefers-color-scheme', value: scheme },
+    ]);
+
+    await page.screenshot({
+      path: path.resolve(ARTIFACTS_DIR, `${scheme}-mode.png`),
+    });
+
+    const bodyBackgroundColor = await page.evaluate(() => {
+      const bgColor = window.getComputedStyle(document.body).backgroundColor;
+      return bgColor;
+    });
+    expect(bodyBackgroundColor).toEqual(expected);
+  });
+
+  it.each([
+    ['light', '#color-scheme-dark', 'rgb(34, 34, 34)'],
+    ['light', '#color-scheme-light', 'rgb(252, 252, 252)'],
+    ['dark', '#color-scheme-dark', 'rgb(34, 34, 34)'],
+    ['dark', '#color-scheme-light', 'rgb(252, 252, 252)'],
+  ])('is "%s" but "%s" is selected', async (scheme, id, expected) => {
+    await page.emulateMediaFeatures([
+      { name: 'prefers-color-scheme', value: scheme },
+    ]);
+
+    await expect(page).toClick(id);
+
+    const bodyBackgroundColor = await page.evaluate(() => {
+      const bgColor = window.getComputedStyle(document.body).backgroundColor;
+      return bgColor;
+    });
+
+    expect(bodyBackgroundColor).toEqual(expected);
+  });
+
+  afterEach(async () => {
+    await page.close();
+  });
+});
+
 describe('JavaScript disabled', () => {
   let page;
 
