@@ -7,7 +7,7 @@ const path = require('path');
 const simpleIcons = require('simple-icons');
 const sortColors = require('color-sorter').sortFn;
 
-const { normalizeSearchTerm } = require('./scripts/utils.js');
+const { normalizeSearchTerm } = require('./public/scripts/utils.js');
 
 const icons = Object.values(simpleIcons);
 const sortedHexes = icons.map(icon => icon.hex)
@@ -33,7 +33,7 @@ function colorContrast(hex) {
 
 module.exports = {
   entry: {
-    app: './scripts/index.js',
+    app: './public/scripts/index.js',
   },
   output: {
     path: OUT_DIR,
@@ -69,14 +69,14 @@ module.exports = {
           filter: (path) => path.endsWith('.pdf'),
         },
         { // Copy ./images
-          from: path.resolve(ROOT_DIR, 'images'),
+          from: path.resolve(ROOT_DIR, 'public/images'),
           to: path.resolve(OUT_DIR, 'images'),
         },
       ],
     }),
     new HtmlWebpackPlugin({
       inject: true,
-      template: path.resolve(ROOT_DIR, 'index.pug'),
+      template: path.resolve(ROOT_DIR, 'public/index.pug'),
       templateParameters: {
         icons: icons.map((icon, iconIndex) => {
           return {
