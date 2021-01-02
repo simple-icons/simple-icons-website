@@ -13,6 +13,8 @@ const {
   isVisible,
 } = require('./helpers.js');
 
+jest.setTimeout(10000);
+
 const COLOR_REGEX = /^#[A-F0-9]{6}$/;
 const SVG_REGEX = /^<svg.*>.*<\/svg>$/;
 
@@ -229,8 +231,6 @@ describe('Search', () => {
 });
 
 describe('Ordering', () => {
-  jest.setTimeout(10000);
-
   const icons = Object.values(simpleIcons);
   const titles = icons.map(icon => icon.title);
   const hexes = icons.map(icon => icon.hex).sort(sortColors);
@@ -281,6 +281,88 @@ describe('Ordering', () => {
       const hex = hexes[i];
       await expect($gridItem).toMatch(`#${hex}`);
     }
+  });
+
+  afterEach(async () => {
+    await page.close();
+  });
+});
+
+describe('Preferred color scheme', () => {
+  let page;
+
+  beforeEach(async () => {
+    page = await browser.newPage();
+    await page.goto(url.href);
+  });
+
+  it.each([
+    ['dark', 'rgb(34, 34, 34)'],
+    ['light', 'rgb(252, 252, 252)'],
+  ])('has color scheme "%s"', async (scheme, expected) => {
+    await page.emulateMediaFeatures([
+      { name: 'prefers-color-scheme', value: scheme },
+    ]);
+
+    await page.screenshot({
+      path: path.resolve(ARTIFACTS_DIR, `${scheme}-mode.png`),
+    });
+
+    const bodyBackgroundColor = await page.evaluate(() => {
+      const bgColor = window.getComputedStyle(document.body).backgroundColor;
+      return bgColor;
+    });
+    expect(bodyBackgroundColor).toEqual(expected);
+  });
+
+  it.each([
+    ['light', '#color-scheme-dark', 'rgb(34, 34, 34)'],
+    ['light', '#color-scheme-light', 'rgb(252, 252, 252)'],
+    ['dark', '#color-scheme-dark', 'rgb(34, 34, 34)'],
+    ['dark', '#color-scheme-light', 'rgb(252, 252, 252)'],
+  ])('is "%s" but "%s" is selected', async (scheme, id, expected) => {
+    await page.emulateMediaFeatures([
+      { name: 'prefers-color-scheme', value: scheme },
+    ]);
+
+    await expect(page).toClick(id);
+
+    const bodyBackgroundColor = await page.evaluate(() => {
+      const bgColor = window.getComputedStyle(document.body).backgroundColor;
+      return bgColor;
+    });
+
+    expect(bodyBackgroundColor).toEqual(expected);
+  });
+
+  it('reloads with system color scheme', async () => {
+    await expect(page).toClick('#color-scheme-system');
+
+    await page.reload();
+
+    const $body = await page.$('body');
+    expect(await hasClass($body, 'dark')).toBeFalsy();
+    expect(await hasClass($body, 'light')).toBeFalsy();
+  });
+
+  it('reloads with dark color scheme', async () => {
+    await expect(page).toClick('#color-scheme-dark');
+
+    await page.reload();
+
+    const $body = await page.$('body');
+    expect(await hasClass($body, 'dark')).toBeTruthy();
+    expect(await hasClass($body, 'light')).toBeFalsy();
+  });
+
+  it('reloads with light color scheme', async () => {
+    await expect(page).toClick('#color-scheme-light');
+
+    await page.reload();
+
+    const $body = await page.$('body');
+    expect(await hasClass($body, 'dark')).toBeFalsy();
+    expect(await hasClass($body, 'light')).toBeTruthy();
   });
 
   afterEach(async () => {
