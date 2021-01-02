@@ -10,9 +10,8 @@ const CLASS_DARK_MODE = 'dark';
 const CLASS_LIGHT_MODE = 'light';
 
 let activeColorScheme = DEFAULT_COLOR_SCHEME;
-let preferredOrdering = DEFAULT_COLOR_SCHEME;
 
-export default function initOrdering(
+export default function initColorScheme(
   document,
   localStorage,
 ) {
@@ -36,21 +35,24 @@ export default function initOrdering(
 
   $colorSchemeDark.addEventListener('click', (event) => {
     event.preventDefault();
-    $colorSchemeDark.blur();
-
-    selectColorScheme(COLOR_SCHEME_DARK);
+    if (activeColorScheme != COLOR_SCHEME_DARK) {
+      selectColorScheme(COLOR_SCHEME_DARK);
+      $colorSchemeDark.blur();
+    }
   });
   $colorSchemeLight.addEventListener('click', (event) => {
     event.preventDefault();
-    $colorSchemeLight.blur();
-
-    selectColorScheme(COLOR_SCHEME_LIGHT);
+    if (activeColorScheme != COLOR_SCHEME_LIGHT) {
+      selectColorScheme(COLOR_SCHEME_LIGHT);
+      $colorSchemeLight.blur();
+    }
   });
   $colorSchemeSystem.addEventListener('click', (event) => {
     event.preventDefault();
-    $colorSchemeSystem.blur();
-
-    selectColorScheme(COLOR_SCHEME_SYSTEM);
+    if (activeColorScheme != COLOR_SCHEME_SYSTEM) {
+      selectColorScheme(COLOR_SCHEME_SYSTEM);
+      $colorSchemeSystem.blur();
+    }
   });
 
   function selectColorScheme(selected) {
@@ -67,7 +69,6 @@ export default function initOrdering(
       );
     }
 
-    preferredOrdering = selected;
     if (localStorage) {
       localStorage.setItem(STORAGE_KEY_COLOR_SCHEME, selected);
     }
