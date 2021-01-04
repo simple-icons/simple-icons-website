@@ -15,6 +15,8 @@ const {
 
 jest.setTimeout(10000);
 
+const SUITE_PREFIX = 'desktop';
+
 const COLOR_REGEX = /^#[A-F0-9]{6}$/;
 const SVG_REGEX = /^<svg.*>.*<\/svg>$/;
 
@@ -30,7 +32,7 @@ describe('General', () => {
 
   it('produces a screenshot', async () => {
     await page.screenshot({
-      path: path.resolve(ARTIFACTS_DIR, 'desktop.png'),
+      path: path.resolve(ARTIFACTS_DIR, `${SUITE_PREFIX}.png`),
     });
   });
 
@@ -207,7 +209,7 @@ describe('Search', () => {
   it('shows the "no results" message if no brand was found', async () => {
     await page.type('#search-input', 'this is definitely not going to match');
     await page.screenshot({
-      path: path.resolve(ARTIFACTS_DIR, 'search-no-results.png'),
+      path: path.resolve(ARTIFACTS_DIR, `${SUITE_PREFIX}_no-search-results.png`),
     });
 
     const $gridItemIfEmpty = await page.$('.grid-item--if-empty');
@@ -305,7 +307,7 @@ describe('Preferred color scheme', () => {
     ]);
 
     await page.screenshot({
-      path: path.resolve(ARTIFACTS_DIR, `${scheme}-mode.png`),
+      path: path.resolve(ARTIFACTS_DIR, `${SUITE_PREFIX}_${scheme}-mode.png`),
     });
 
     const bodyBackgroundColor = await page.evaluate(() => {
@@ -439,7 +441,7 @@ describe('JavaScript disabled', () => {
 
   it('produces a screenshot', async () => {
     await page.screenshot({
-      path: path.resolve(ARTIFACTS_DIR, 'js-disabled.png'),
+      path: path.resolve(ARTIFACTS_DIR, `${SUITE_PREFIX}_js-disabled.png`),
     });
   });
 
