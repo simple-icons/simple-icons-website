@@ -12,4 +12,4 @@ const storage = newStorage(localStorage);
 initColorScheme(document, storage);
 initCopyButtons(document, navigator);
 const orderingControls = initOrdering(document, storage);
-initSearch(window, document, orderingControls);
+initSearch(window.history, document, orderingControls);

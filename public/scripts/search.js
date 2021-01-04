@@ -37,7 +37,7 @@ function getScore(query, iconName) {
 }
 
 export default function initSearch(
-  window,
+  history,
   document,
   ordering,
 ) {
@@ -69,23 +69,22 @@ export default function initSearch(
   }
 
   function search(rawQuery) {
-    if (rawQuery) {
-      window.history.replaceState(null, '', `?${queryParameter}=${encodeURIComponent(rawQuery)}`);
+    const query = normalizeSearchTerm(rawQuery);
+    if (query !== '') {
+      history.replaceState(null, '', `?${queryParameter}=${encodeURIComponent(rawQuery)}`);
       showElement($searchClear);
       showElement($orderByRelevance)
       if (activeQuery === '') {
         ordering.selectOrdering(ORDER_BY_RELEVANCE);
       }
     } else {
-      window.history.replaceState(null, '', '/');
+      history.replaceState(null, '', '/');
       hideElement($searchClear);
       hideElement($orderByRelevance)
       if (ordering.currentOrderingIs(ORDER_BY_RELEVANCE)) {
         ordering.resetOrdering();
       }
     }
-
-    const query = normalizeSearchTerm(rawQuery);
 
     let noResults = true;
     $icons.forEach(($icon) => {
