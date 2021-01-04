@@ -70,11 +70,19 @@ export default function initSearch(
 
   function search(rawQuery) {
     if (rawQuery) {
-      window.history.replaceState(null, '', `?${queryParameter}=${rawQuery}`);
+      window.history.replaceState(null, '', `?${queryParameter}=${encodeURIComponent(rawQuery)}`);
       showElement($searchClear);
+      showElement($orderByRelevance)
+      if (activeQuery === '') {
+        ordering.selectOrdering(ORDER_BY_RELEVANCE);
+      }
     } else {
       window.history.replaceState(null, '', '/');
       hideElement($searchClear);
+      hideElement($orderByRelevance)
+      if (ordering.currentOrderingIs(ORDER_BY_RELEVANCE)) {
+        ordering.resetOrdering();
+      }
     }
 
     const query = normalizeSearchTerm(rawQuery);
@@ -97,20 +105,6 @@ export default function initSearch(
       showElement($gridItemIfEmpty);
     } else {
       hideElement($gridItemIfEmpty);
-    }
-
-    if (query === '') {
-      hideElement($orderByRelevance)
-      if (ordering.currentOrderingIs(ORDER_BY_RELEVANCE)) {
-        ordering.resetOrdering();
-      }
-    }
-
-    if (query !== '') {
-      showElement($orderByRelevance)
-      if (activeQuery === '') {
-        ordering.selectOrdering(ORDER_BY_RELEVANCE);
-      }
     }
 
     activeQuery = query;
