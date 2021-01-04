@@ -88,9 +88,10 @@ export default function initSearch(
 
     let noResults = true;
     if (query.startsWith('#')) {
+      const colorQuery = query.substring(1, /* end */);
       $icons.forEach(($icon) => {
         const brandColor = $icon.getAttribute('data-color');
-        const score = getScore(query, brandColor);
+        const score = getScore(colorQuery, brandColor);
         if (score < 0) {
           $icon.style.removeProperty("--order-relevance");
           hideElement($icon);
