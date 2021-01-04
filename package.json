@@ -42,5 +42,8 @@
     "svg-url-loader": "7.1.1",
     "webpack": "5.11.1",
     "webpack-cli": "4.3.0"
+  },
+  "engine": {
+    "node": ">=12.16.0"
   }
 }
