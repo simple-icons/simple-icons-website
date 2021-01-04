@@ -86,7 +86,7 @@ html
           p Icon missing? #[a(href="https://github.com/simple-icons/simple-icons/issues/new?template=icon_request.md" rel="noopener") Submit a request]
 
         each icon in icons
-          li(class="grid-item" style=`--order-color: ${icon.indexByColor}` data-brand=`${icon.normalizedName}`)
+          li(class="grid-item" style=`--order-color: ${icon.indexByColor}` data-brand=`${icon.normalizedName}` data-color=`#${icon.hex}`)
             svg(class="grid-item__decoration" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg")
               use(href=`#${icon.slug}-svg`)
             h2(class="grid-item__title") #{icon.title}

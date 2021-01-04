@@ -19,12 +19,12 @@ function getQueryFromParameter() {
   return '';
 }
 
-function getScore(query, iconName) {
-  let score = iconName.length - query.length;
+function getScore(query, value) {
+  let score = value.length - query.length;
   let index = 0;
 
   for (const letter of query) {
-    index = iconName.indexOf(letter, index);
+    index = value.indexOf(letter, index);
     if (index === -1) {
       return -1;
     }
@@ -70,28 +70,44 @@ export default function initSearch(
 
   function search(rawQuery) {
     if (rawQuery) {
-      window.history.replaceState(null, '', `?${queryParameter}=${rawQuery}`);
+      window.history.replaceState(null, '', `?${queryParameter}=${encodeURIComponent(rawQuery)}`);
       showElement($searchClear);
     } else {
       window.history.replaceState(null, '', '/');
       hideElement($searchClear);
     }
 
-    const query = normalizeSearchTerm(rawQuery);
-
     let noResults = true;
-    $icons.forEach(($icon) => {
-      const brandName = $icon.getAttribute('data-brand');
-      const score = getScore(query, brandName);
-      if (score < 0) {
-        $icon.style.removeProperty("--order-relevance");
-        hideElement($icon);
-      } else {
-        $icon.style.setProperty("--order-relevance", score);
-        showElement($icon);
-        noResults = false;
-      }
-    });
+
+    const query = normalizeSearchTerm(rawQuery);
+    if (query.startsWith('#')) {
+      $icons.forEach(($icon) => {
+        const brandColor = $icon.getAttribute('data-color');
+        const score = getScore(query, brandColor);
+        if (score < 0) {
+          $icon.style.removeProperty("--order-relevance");
+          hideElement($icon);
+        } else {
+          $icon.style.setProperty("--order-relevance", score);
+          showElement($icon);
+          noResults = false;
+        }
+      });
+    } else {
+      $icons.forEach(($icon) => {
+        const brandName = $icon.getAttribute('data-brand');
+        const score = getScore(query, brandName);
+        if (score < 0) {
+          $icon.style.removeProperty("--order-relevance");
+          hideElement($icon);
+        } else {
+          $icon.style.setProperty("--order-relevance", score);
+          showElement($icon);
+          noResults = false;
+        }
+      });
+    }
+
 
     if (noResults) {
       showElement($gridItemIfEmpty);
@@ -104,9 +120,7 @@ export default function initSearch(
       if (ordering.currentOrderingIs(ORDER_BY_RELEVANCE)) {
         ordering.resetOrdering();
       }
-    }
-
-    if (query !== '') {
+    } else {
       showElement($orderByRelevance)
       if (activeQuery === '') {
         ordering.selectOrdering(ORDER_BY_RELEVANCE);
