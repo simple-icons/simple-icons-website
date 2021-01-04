@@ -1,5 +1,6 @@
 const sortColors = require('color-sorter').sortFn;
 const path = require('path');
+const { devices } = require('puppeteer');
 const simpleIcons = require('simple-icons');
 const { URL } = require('url');
 
@@ -15,8 +16,6 @@ const {
 
 jest.setTimeout(10000);
 
-const SUITE_PREFIX = 'desktop';
-
 const COLOR_REGEX = /^#[A-F0-9]{6}$/;
 const SVG_REGEX = /^<svg.*>.*<\/svg>$/;
 
@@ -26,17 +25,23 @@ const icons = Object.values(simpleIcons);
 const titles = icons.map(icon => icon.title);
 const hexes = icons.map(icon => icon.hex).sort(sortColors);
 
-describe('General', () => {
+describe.each([
+  ['desktop', undefined],
+  ['mobile', devices['Nexus 7']]
+])('General (%s)', (name, device) => {
   let page;
 
   beforeEach(async () => {
     page = await browser.newPage();
+    if (device) {
+      await page.emulate(device);
+    }
     await page.goto(url.href);
   });
 
   it('produces a screenshot', async () => {
     await page.screenshot({
-      path: path.resolve(ARTIFACTS_DIR, `${SUITE_PREFIX}.png`),
+      path: path.resolve(ARTIFACTS_DIR, `${name}.png`),
     });
   });
 
@@ -213,7 +218,7 @@ describe('Search', () => {
   it('shows the "no results" message if no brand was found', async () => {
     await page.type('#search-input', 'this is definitely not going to match');
     await page.screenshot({
-      path: path.resolve(ARTIFACTS_DIR, `${SUITE_PREFIX}_no-search-results.png`),
+      path: path.resolve(ARTIFACTS_DIR, 'desktop_no-search-results.png'),
     });
 
     const $gridItemIfEmpty = await page.$('.grid-item--if-empty');
@@ -317,7 +322,7 @@ describe('Preferred color scheme', () => {
     ]);
 
     await page.screenshot({
-      path: path.resolve(ARTIFACTS_DIR, `${SUITE_PREFIX}_${scheme}-mode.png`),
+      path: path.resolve(ARTIFACTS_DIR, `desktop_${scheme}-mode.png`),
     });
 
     const bodyBackgroundColor = await page.evaluate(() => {
@@ -451,7 +456,7 @@ describe('JavaScript disabled', () => {
 
   it('produces a screenshot', async () => {
     await page.screenshot({
-      path: path.resolve(ARTIFACTS_DIR, `${SUITE_PREFIX}_js-disabled.png`),
+      path: path.resolve(ARTIFACTS_DIR, 'desktop_js-disabled.png'),
     });
   });
 
