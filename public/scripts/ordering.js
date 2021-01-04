@@ -15,7 +15,7 @@ let preferredOrdering = DEFAULT_ORDERING;
 
 export default function initOrdering(
   document,
-  localStorage,
+  storage,
 ) {
   const $body = document.querySelector('body');
   const $orderAlphabetically = document.getElementById('order-alpha');
@@ -26,13 +26,11 @@ export default function initOrdering(
   $orderByColor.disabled = false;
   $orderByRelevance.disabled = false;
 
-  if (localStorage) {
-    const storedOrdering = localStorage.getItem(STORAGE_KEY_ORDERING);
-    if (storedOrdering) {
-      selectOrdering(storedOrdering);
-    } else {
-      selectOrdering(DEFAULT_ORDERING);
-    }
+  const storedOrdering = storage.getItem(STORAGE_KEY_ORDERING);
+  if (storedOrdering) {
+    selectOrdering(storedOrdering);
+  } else {
+    selectOrdering(DEFAULT_ORDERING);
   }
 
   $orderAlphabetically.addEventListener('click', (event) => {
@@ -78,9 +76,7 @@ export default function initOrdering(
 
     if (selected !== ORDER_BY_RELEVANCE) {
       preferredOrdering = selected;
-      if (localStorage) {
-        localStorage.setItem(STORAGE_KEY_ORDERING, selected);
-      }
+      storage.setItem(STORAGE_KEY_ORDERING, selected);
     }
 
     activeOrdering = selected;

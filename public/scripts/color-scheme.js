@@ -13,7 +13,7 @@ let activeColorScheme = DEFAULT_COLOR_SCHEME;
 
 export default function initColorScheme(
   document,
-  localStorage,
+  storage,
 ) {
   const $body = document.querySelector('body');
   const $colorSchemeDark = document.getElementById('color-scheme-dark');
@@ -24,13 +24,11 @@ export default function initColorScheme(
   $colorSchemeLight.disabled = false;
   $colorSchemeSystem.disabled = false;
 
-  if (localStorage) {
-    const storedColorScheme = localStorage.getItem(STORAGE_KEY_COLOR_SCHEME);
-    if (storedColorScheme) {
-      selectColorScheme(storedColorScheme);
-    } else {
-      selectColorScheme(DEFAULT_COLOR_SCHEME);
-    }
+  const storedColorScheme = storage.getItem(STORAGE_KEY_COLOR_SCHEME);
+  if (storedColorScheme) {
+    selectColorScheme(storedColorScheme);
+  } else {
+    selectColorScheme(DEFAULT_COLOR_SCHEME);
   }
 
   $colorSchemeDark.addEventListener('click', (event) => {
@@ -69,10 +67,7 @@ export default function initColorScheme(
       );
     }
 
-    if (localStorage) {
-      localStorage.setItem(STORAGE_KEY_COLOR_SCHEME, selected);
-    }
-
+    storage.setItem(STORAGE_KEY_COLOR_SCHEME, selected);
     activeColorScheme = selected;
   }
 }
