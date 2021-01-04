@@ -20,6 +20,10 @@ const SVG_REGEX = /^<svg.*>.*<\/svg>$/;
 
 const url = new URL('http://localhost:8080/');
 
+const icons = Object.values(simpleIcons);
+const titles = icons.map(icon => icon.title);
+const hexes = icons.map(icon => icon.hex).sort(sortColors);
+
 describe('General', () => {
   let page;
 
@@ -225,16 +229,22 @@ describe('Search', () => {
     expect(await isHidden($gridItemIfEmpty)).toBeTruthy();
   });
 
+  it('searches based on color when query starts with "#"', async () => {
+    expect(hexes.length).toBeGreaterThan(0);
+
+    const $searchInput = await page.$('#search-input');
+    await $searchInput.type(`#${hexes[0]}`);
+
+    const $gridItemIfEmpty = await page.$('.grid-item--if-empty');
+    expect(await isHidden($gridItemIfEmpty)).toBeTruthy();
+  });
+
   afterEach(async () => {
     await page.close();
   });
 });
 
 describe('Ordering', () => {
-  const icons = Object.values(simpleIcons);
-  const titles = icons.map(icon => icon.title);
-  const hexes = icons.map(icon => icon.hex).sort(sortColors);
-
   let page;
 
   beforeEach(async () => {
