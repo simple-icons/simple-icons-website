@@ -21,6 +21,8 @@ const SVG_REGEX = /^<svg.*>.*<\/svg>$/;
 
 const url = new URL('http://localhost:8080/');
 
+beforeAll(() => page.close());
+
 describe.each([
   ['desktop', undefined],
   ['mobile', devices['Nexus 7']]
