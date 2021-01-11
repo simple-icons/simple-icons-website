@@ -1,4 +1,5 @@
 const sortColors = require('color-sorter').sortFn;
+const fs = require('fs');
 const path = require('path');
 const { devices } = require('puppeteer');
 const simpleIcons = require('simple-icons');
@@ -19,21 +20,37 @@ jest.setTimeout(10000);
 const COLOR_REGEX = /^#[A-F0-9]{6}$/;
 const SVG_REGEX = /^<svg.*>.*<\/svg>$/;
 
+const DEFAULT_DEVICE = {
+  name: 'Desktop (785x600)',
+  userAgent:
+    'Mozilla/5.0 (PlayBook; U; RIM Tablet OS 2.1.0; en-US) AppleWebKit/536.2+ (KHTML like Gecko) Version/7.2.1.0 Safari/536.2+',
+  viewport: {
+    width: 785,
+    height: 600,
+    deviceScaleFactor: 1,
+    isMobile: false,
+    hasTouch: false,
+    isLandscape: false,
+  },
+};
+
 const url = new URL('http://localhost:8080/');
 
-beforeAll(() => page.close());
+beforeAll(() => {
+  if (!fs.existsSync(ARTIFACTS_DIR)) {
+    fs.mkdirSync(ARTIFACTS_DIR);
+  }
+});
 
 describe.each([
-  ['desktop', undefined],
+  ['desktop', DEFAULT_DEVICE],
   ['mobile', devices['Nexus 7']]
 ])('General (%s)', (name, device) => {
-  let page;
+  beforeAll(async () => {
+    await page.emulate(device);
+  });
 
   beforeEach(async () => {
-    page = await browser.newPage();
-    if (device) {
-      await page.emulate(device);
-    }
     await page.goto(url.href);
   });
 
@@ -86,16 +103,13 @@ describe.each([
     expect(await isHidden($copyInput)).toBeTruthy();
   });
 
-  afterEach(async () => {
-    await page.close();
+  afterAll(async () => {
+    await page.emulate(DEFAULT_DEVICE);
   });
 });
 
 describe('Search', () => {
-  let page;
-
   beforeEach(async () => {
-    page = await browser.newPage();
     await page.goto(url.href);
   });
 
@@ -233,10 +247,6 @@ describe('Search', () => {
     const $gridItemIfEmpty = await page.$('.grid-item--if-empty');
     expect(await isHidden($gridItemIfEmpty)).toBeTruthy();
   });
-
-  afterEach(async () => {
-    await page.close();
-  });
 });
 
 describe('Ordering', () => {
@@ -244,10 +254,7 @@ describe('Ordering', () => {
   const titles = icons.map(icon => icon.title);
   const hexes = icons.map(icon => icon.hex).sort(sortColors);
 
-  let page;
-
   beforeEach(async () => {
-    page = await browser.newPage();
     await page.goto(url.href);
   });
 
@@ -291,17 +298,10 @@ describe('Ordering', () => {
       await expect($gridItem).toMatch(`#${hex}`);
     }
   });
-
-  afterEach(async () => {
-    await page.close();
-  });
 });
 
 describe('Preferred color scheme', () => {
-  let page;
-
   beforeEach(async () => {
-    page = await browser.newPage();
     await page.goto(url.href);
   });
 
@@ -373,15 +373,9 @@ describe('Preferred color scheme', () => {
     expect(await hasClass($body, 'dark')).toBeFalsy();
     expect(await hasClass($body, 'light')).toBeTruthy();
   });
-
-  afterEach(async () => {
-    await page.close();
-  });
 });
 
 describe('Grid item', () => {
-  let page;
-
   beforeAll(async () => {
     const context = browser.defaultBrowserContext();
     await context._connection.send('Browser.grantPermissions', {
@@ -394,7 +388,6 @@ describe('Grid item', () => {
   });
 
   beforeEach(async () => {
-    page = await browser.newPage();
     await page.goto(url.href);
     await page._client.send('Page.setDownloadBehavior', {
       behavior: 'allow',
@@ -431,17 +424,10 @@ describe('Grid item', () => {
   it('is possible to download an icon as PDF', async () => {
     await expect(page).toClick('a[download][href$="pdf"]');
   });
-
-  afterEach(async () => {
-    await page.close();
-  });
 });
 
 describe('JavaScript disabled', () => {
-  let page;
-
   beforeEach(async () => {
-    page = await browser.newPage();
     page.setJavaScriptEnabled(false);
     await page.goto(url.href);
   });
@@ -484,6 +470,6 @@ describe('JavaScript disabled', () => {
   });
 
   afterEach(async () => {
-    await page.close();
+    page.setJavaScriptEnabled(true);
   });
 });
