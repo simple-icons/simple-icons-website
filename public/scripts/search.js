@@ -1,3 +1,4 @@
+import { hideElement, showElement } from './dom-utils.js';
 import { ORDER_BY_RELEVANCE } from './ordering.js';
 import {
   decodeURIComponent,
@@ -5,14 +6,13 @@ import {
   normalizeSearchTerm,
 } from './utils.js';
 
-const queryParameter = 'q';
-
-const CLASS_SEARCH_EMPTY = 'search-empty';
+const QUERY_PARAMETER = 'q';
 
 let activeQuery = '';
 
-function getQueryFromParameter() {
-  const results = /[\\?&]q=([^&#]*)/.exec(location.search);
+function getQueryFromParameter(parameter) {
+  const expr = new RegExp(`[\\?&]${parameter}=([^&#]*)`);
+  const results = expr.exec(location.search);
   if (results !== null) {
     return decodeURIComponent(results[1].replace(/\+/g, ' '));
   }
@@ -38,21 +38,20 @@ function getScore(query, iconName) {
 }
 
 export default function initSearch(
-  window,
+  history,
   document,
   ordering,
 ) {
-  const $body = document.querySelector('body');
   const $searchInput = document.getElementById('search-input');
   const $searchClear = document.getElementById('search-clear');
   const $orderByRelevance = document.getElementById('order-relevance');
+  const $gridItemIfEmpty = document.querySelector('.grid-item--if-empty');
   const $icons = document.querySelectorAll('.grid-item[data-brand]');
 
   $searchInput.disabled = false;
   $searchInput.focus();
   $searchInput.addEventListener('input', debounce((event) => {
     event.preventDefault();
-
     const value = $searchInput.value;
     search(value);
   }));
@@ -64,24 +63,29 @@ export default function initSearch(
   });
 
   // Load search query if present
-  const query = getQueryFromParameter(queryParameter);
+  const query = getQueryFromParameter(QUERY_PARAMETER);
   if (query) {
     $searchInput.value = query;
     search(query);
   }
 
   function search(rawQuery) {
-    if (rawQuery) {
-      window.history.replaceState(null, '', '?' + queryParameter + '=' + rawQuery);
-      $searchClear.classList.remove('hidden');
-      $searchClear.removeAttribute('aria-hidden');
-    } else {
-      window.history.replaceState(null, '', '/');
-      $searchClear.classList.add('hidden');
-      $searchClear.setAttribute('aria-hidden', 'true');
-    }
-
     const query = normalizeSearchTerm(rawQuery);
+    if (query !== '') {
+      history.replaceState(null, '', `?${QUERY_PARAMETER}=${encodeURIComponent(rawQuery)}`);
+      showElement($searchClear);
+      showElement($orderByRelevance)
+      if (activeQuery === '') {
+        ordering.selectOrdering(ORDER_BY_RELEVANCE);
+      }
+    } else {
+      history.replaceState(null, '', '/');
+      hideElement($searchClear);
+      hideElement($orderByRelevance)
+      if (ordering.currentOrderingIs(ORDER_BY_RELEVANCE)) {
+        ordering.resetOrdering();
+      }
+    }
 
     let noResults = true;
     $icons.forEach(($icon) => {
@@ -89,34 +93,18 @@ export default function initSearch(
       const score = getScore(query, brandName);
       if (score < 0) {
         $icon.style.removeProperty("--order-relevance");
-        $icon.classList.add('hidden');
-        $icon.setAttribute('aria-hidden', 'true');
+        hideElement($icon);
       } else {
         $icon.style.setProperty("--order-relevance", score);
-        $icon.classList.remove('hidden');
-        $icon.removeAttribute('aria-hidden');
+        showElement($icon);
         noResults = false;
       }
     });
 
-    $body.classList.toggle(CLASS_SEARCH_EMPTY, noResults);
-
-    if (query === '') {
-      $orderByRelevance.classList.add('hidden');
-      $orderByRelevance.setAttribute('aria-hidden', true);
-
-      if (ordering.currentOrderingIs(ORDER_BY_RELEVANCE)) {
-        ordering.resetOrdering();
-      }
-    }
-
-    if (query !== '') {
-      $orderByRelevance.classList.remove('hidden');
-      $orderByRelevance.removeAttribute('aria-hidden');
-
-      if (activeQuery === '') {
-        ordering.selectOrdering(ORDER_BY_RELEVANCE);
-      }
+    if (noResults) {
+      showElement($gridItemIfEmpty);
+    } else {
+      hideElement($gridItemIfEmpty);
     }
 
     activeQuery = query;

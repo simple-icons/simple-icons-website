@@ -1,6 +1,14 @@
 async function isVisibleOnPage($el) {
   const boundingBox = await $el.boundingBox();
-  return boundingBox !== null;
+  if (boundingBox === null) {
+    return false;
+  }
+
+  if (boundingBox.width === 0 && boundingBox.height === 0) {
+    return false;
+  }
+
+  return true;
 }
 
 async function getAttribute($el, attributeName) {

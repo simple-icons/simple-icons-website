@@ -6,8 +6,8 @@ package-lock.json  -diff
 # Treat images as binary
 *.ico              binary
 *.png              binary
+*.svg              binary
 
 # Don't export/archive these files
 .github            export-ignore
-.gitpod.yml        export-ignore
 CNAME              export-ignore

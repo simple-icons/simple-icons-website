@@ -1,3 +1,5 @@
+import { STORAGE_KEY_ORDERING } from './storage.js';
+
 export const ORDER_ALPHABETICALLY = 'alphabetically';
 export const ORDER_BY_COLOR = 'color';
 export const ORDER_BY_RELEVANCE = 'relevance';
@@ -8,14 +10,12 @@ const CLASS_ORDER_ALPHABETICALLY = 'order-alphabetically';
 const CLASS_ORDER_BY_COLOR = 'order-by-color';
 const CLASS_ORDER_BY_RELEVANCE = 'order-by-relevance';
 
-const ORDERING_PREFERENCE_KEY = 'ordering-preference';
-
 let activeOrdering = DEFAULT_ORDERING;
 let preferredOrdering = DEFAULT_ORDERING;
 
 export default function initOrdering(
   document,
-  localStorage,
+  storage,
 ) {
   const $body = document.querySelector('body');
   const $orderAlphabetically = document.getElementById('order-alpha');
@@ -26,18 +26,15 @@ export default function initOrdering(
   $orderByColor.disabled = false;
   $orderByRelevance.disabled = false;
 
-  if (localStorage) {
-    const storedOrdering = localStorage.getItem(ORDERING_PREFERENCE_KEY);
-    if (storedOrdering) {
-      selectOrdering(storedOrdering);
-    } else {
-      selectOrdering(DEFAULT_ORDERING);
-    }
+  const storedOrdering = storage.getItem(STORAGE_KEY_ORDERING);
+  if (storedOrdering) {
+    selectOrdering(storedOrdering);
+  } else {
+    selectOrdering(DEFAULT_ORDERING);
   }
 
   $orderAlphabetically.addEventListener('click', (event) => {
     event.preventDefault();
-
     if (activeOrdering != ORDER_ALPHABETICALLY) {
       selectOrdering(ORDER_ALPHABETICALLY);
       $orderAlphabetically.blur();
@@ -45,7 +42,6 @@ export default function initOrdering(
   });
   $orderByColor.addEventListener('click', (event) => {
     event.preventDefault();
-
     if (activeOrdering != ORDER_BY_COLOR) {
       selectOrdering(ORDER_BY_COLOR);
       $orderByColor.blur();
@@ -53,7 +49,6 @@ export default function initOrdering(
   });
   $orderByRelevance.addEventListener('click', (event) => {
     event.preventDefault();
-
     if (activeOrdering != ORDER_BY_RELEVANCE) {
       selectOrdering(ORDER_BY_RELEVANCE);
       $orderByRelevance.blur();
@@ -81,9 +76,7 @@ export default function initOrdering(
 
     if (selected !== ORDER_BY_RELEVANCE) {
       preferredOrdering = selected;
-      if (localStorage) {
-        localStorage.setItem(ORDERING_PREFERENCE_KEY, selected);
-      }
+      storage.setItem(STORAGE_KEY_ORDERING, selected);
     }
 
     activeOrdering = selected;
