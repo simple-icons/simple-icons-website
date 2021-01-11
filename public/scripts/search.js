@@ -6,12 +6,13 @@ import {
   normalizeSearchTerm,
 } from './utils.js';
 
-const queryParameter = 'q';
+const QUERY_PARAMETER = 'q';
 
 let activeQuery = '';
 
-function getQueryFromParameter() {
-  const results = /[\\?&]q=([^&#]*)/.exec(location.search);
+function getQueryFromParameter(parameter) {
+  const expr = new RegExp(`[\\?&]${parameter}=([^&#]*)`);
+  const results = expr.exec(location.search);
   if (results !== null) {
     return decodeURIComponent(results[1].replace(/\+/g, ' '));
   }
@@ -62,7 +63,7 @@ export default function initSearch(
   });
 
   // Load search query if present
-  const query = getQueryFromParameter(queryParameter);
+  const query = getQueryFromParameter(QUERY_PARAMETER);
   if (query) {
     $searchInput.value = query;
     search(query);
@@ -71,7 +72,7 @@ export default function initSearch(
   function search(rawQuery) {
     const query = normalizeSearchTerm(rawQuery);
     if (query !== '') {
-      history.replaceState(null, '', `?${queryParameter}=${encodeURIComponent(rawQuery)}`);
+      history.replaceState(null, '', `?${QUERY_PARAMETER}=${encodeURIComponent(rawQuery)}`);
       showElement($searchClear);
       showElement($orderByRelevance)
       if (activeQuery === '') {
