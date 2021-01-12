@@ -42,9 +42,9 @@ export default function initSearch(
   document,
   ordering,
 ) {
-  const $searchInput = document.getElementById('search-input');
-  const $searchClear = document.getElementById('search-clear');
-  const $orderByRelevance = document.getElementById('order-relevance');
+  const $searchInput = document.getElementById('id-search-input');
+  const $searchClear = document.getElementById('id-search-clear');
+  const $orderByRelevance = document.getElementById('id-order-relevance');
   const $gridItemIfEmpty = document.querySelector('.grid-item--if-empty');
   const $icons = document.querySelectorAll('.grid-item[data-brand]');
 

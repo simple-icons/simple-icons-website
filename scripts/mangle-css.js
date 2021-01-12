@@ -14,12 +14,14 @@ const EXPRESSIONS_CLASS_CSS = [
   //  .(foo)
   //  .(foo)({)
   //  .(foo)( ){
+  //  .(foo)(,) .bar {
   //  .(foo)(.)bar {
   //  .(foo)(#)bar {
   //  .(foo)([)data-value] {
   //  .(foo)(:)focus {
   //  .(foo)(:):before {
-  '\\.(%s)([\{\\s\.\#\[\:])',
+  //  .bar:not(.(foo)()) {
+  '\\.(%s)([\{\\s,\.\#\[\:\)])',
 ];
 const EXPRESSIONS_CLASS_HTML = [
   /* Single quotes */
@@ -201,36 +203,47 @@ function NameGenerator(reservedNames) {
  * @returns {Map<String, Integer>} The count for each class.
  */
 function getClassCount(opts) {
-  const x = (s) => printf(s, opts.classNameExpr);
+  function helper(map, classNameExpr, files) {
+    const x = (s) => printf(s, classNameExpr);
 
-  const countMap = new Map();
-  for (const file of opts.files) {
-    const extension = path.extname(file);
+    for (const file of files) {
+      const extension = path.extname(file);
 
-    let rawExprs, matchIndex;
-    if (EXTENSIONS_CSS.includes(extension)) {
-      rawExprs = EXPRESSIONS_CLASS_CSS.map(x);
-      matchIndex = 1;
-    } else if (EXTENSIONS_HTML.includes(extension)) {
-      rawExprs = EXPRESSIONS_CLASS_HTML.map(x);
-      matchIndex = 2;
-    } else if (EXTENSIONS_JS.includes(extension)) {
-      rawExprs = EXPRESSIONS_CLASS_JS.map(x);
-      matchIndex = 2;
-    } else {
-      console.log(`unsupported file type ${extension}`)
-      continue;
-    }
+      let rawExprs, matchIndex;
+      if (EXTENSIONS_CSS.includes(extension)) {
+        rawExprs = EXPRESSIONS_CLASS_CSS.map(x);
+        matchIndex = 1;
+      } else if (EXTENSIONS_HTML.includes(extension)) {
+        rawExprs = EXPRESSIONS_CLASS_HTML.map(x);
+        matchIndex = 2;
+      } else if (EXTENSIONS_JS.includes(extension)) {
+        rawExprs = EXPRESSIONS_CLASS_JS.map(x);
+        matchIndex = 2;
+      } else {
+        console.log(`unsupported file type ${extension}`)
+        continue;
+      }
 
-    const s = fs.readFileSync(file).toString();
-    for (const rawExpr of rawExprs) {
-      const expr = new RegExp(rawExpr, 'gm');
-      while (match = expr.exec(s)) {
-        const className = match[matchIndex];
-        const count = countMap.get(className) || 0;
-        countMap.set(className, count + 1);
+      const s = fs.readFileSync(file).toString();
+      for (const rawExpr of rawExprs) {
+        const expr = new RegExp(rawExpr, 'gm');
+        while (match = expr.exec(s)) {
+          const className = match[matchIndex];
+          const count = map.get(className) || 0;
+          map.set(className, count + 1);
+        }
       }
     }
+  }
+
+  let classNameExpressions = opts.classNameExpr
+  if (!Array.isArray(classNameExpressions)) {
+    classNameExpressions = [classNameExpressions];
+  }
+
+  const countMap = new Map();
+  for (const classNameExpr of classNameExpressions) {
+    helper(countMap, classNameExpr, opts.files);
   }
 
   return countMap;
@@ -315,17 +328,41 @@ function doMangleOn(files, mapping) {
 }
 
 /**
+ * Run the CSS mangler given some options.
  *
- * @param {*} opts
+ * @param {Options} opts The options for the CSS mangler.
+ *   - {String|String[]} classNameExpr A (list of) RegExp(es) of CSS classes to mangle.
+ *   - {String[]} reservedClassNames A list of class names that should not be used in mangling.
+ *   - {String[]} files The list of files to mangle.
  */
 function main(opts) {
   const countMap = getClassCount(opts);
   const mangleMap = getMangleMap(opts, countMap);
+  console.log(countMap);
   doMangleOn(opts.files, mangleMap);
 }
 
 main({
-  classNameExpr: '(grid)-[a-z][a-zA-Z0-9_\-]*',
+  classNameExpr: [
+    // section-related classes
+    '(header|main|footer)[_\-]?[a-zA-Z0-9_\-]*',
+
+    // grid-related classes
+    'grid-?[a-zA-Z0-9_\-]*',
+
+    // control-related classes
+    '(control|search)-?[a-zA-Z0-9_\-]*',
+
+    // .dark-mode and .light-mode
+    '(order-by)-[a-zA-Z0-9_\-]+',
+
+    // .dark-mode and .light-mode
+    '(dark|light)-mode',
+    'contrast-(dark|light)',
+
+    // Miscellaneous
+    '(hidden|no-js|copied|copy-button)',
+  ],
   reservedClassNames: ['fa', 'si'],
   files: [
     './_site/app.css',

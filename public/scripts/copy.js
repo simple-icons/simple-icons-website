@@ -9,7 +9,7 @@ export default function initCopyButtons(
   document,
   navigator,
 ) {
-  const $copyInput = document.getElementById('copy-input');
+  const $copyInput = document.getElementById('id-copy-input');
   const $colorButtons = document.querySelectorAll('.grid-item__color');
   const $svgButtons = document.querySelectorAll('.grid-item__preview');
 

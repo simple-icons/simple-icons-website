@@ -104,7 +104,7 @@
   }
 }
 
-body.dark {
+body.dark-mode {
   --asset-svg-copy: var(--dm-asset-svg-copy);
   --asset-svg-copied: var(--dm-asset-svg-copied);
   --color-background: var(--dm-color-background);
@@ -121,7 +121,7 @@ body.dark {
   --color-link-hover: var(--dm-color-link-hover);
   --color-link-visited: var(--dm-color-link-visited);
 }
-body.light {
+body.light-mode {
   --asset-svg-copy: var(--lm-asset-svg-copy);
   --asset-svg-copied: var(--lm-asset-svg-copied);
   --color-background: var(--lm-color-background);
@@ -162,7 +162,7 @@ a {
   text-decoration: none;
 }
 
-#copy-input.hidden {
+#id-copy-input.hidden {
   border: 0;
   height: 0;
   width: 0;
@@ -347,7 +347,7 @@ body.no-js .control-field__title {
 
 /* Control - search */
 
-.search__wrapper {
+.search-wrapper {
   position: relative;
 }
 
@@ -355,7 +355,7 @@ body.no-js .control-field__title {
   padding-right: 20px;
 }
 
-.search #search-clear {
+.search #id-search-clear {
   cursor: pointer;
   display: inline;
   font-size: 1rem;
@@ -365,15 +365,15 @@ body.no-js .control-field__title {
   right: 0;
   top: 1px;
 }
-.search #search-clear.hidden {
+.search #id-search-clear.hidden {
   display: none;
 }
 
 /* Control - order */
 
-body.order-alphabetically #order-alpha,
-body.order-by-color #order-color,
-body.order-by-relevance #order-relevance {
+body.order-by-alphabet #id-order-alpha,
+body.order-by-color #id-order-color,
+body.order-by-relevance #id-order-relevance {
   background-color: var(--color-button-active);
   border-color: var(--color-button-active);
   color: var(--color-background);
@@ -383,9 +383,9 @@ body.order-by-relevance #order-relevance {
 
 /* Control - color */
 
-body.dark #color-scheme-dark,
-body.light #color-scheme-light,
-body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
+body.dark-mode #id-color-scheme-dark,
+body.light-mode #id-color-scheme-light,
+body:not(.dark-mode):not(.light-mode) #id-color-scheme-system:not(:disabled) {
   background-color: var(--color-button-active);
   border-color: var(--color-button-active);
   cursor: default;

@@ -6,7 +6,7 @@ export const ORDER_BY_RELEVANCE = 'relevance';
 
 const DEFAULT_ORDERING = ORDER_ALPHABETICALLY;
 
-const CLASS_ORDER_ALPHABETICALLY = 'order-alphabetically';
+const CLASS_ORDER_ALPHABETICALLY = 'order-by-alphabet';
 const CLASS_ORDER_BY_COLOR = 'order-by-color';
 const CLASS_ORDER_BY_RELEVANCE = 'order-by-relevance';
 
@@ -18,9 +18,9 @@ export default function initOrdering(
   storage,
 ) {
   const $body = document.querySelector('body');
-  const $orderAlphabetically = document.getElementById('order-alpha');
-  const $orderByColor = document.getElementById('order-color');
-  const $orderByRelevance = document.getElementById('order-relevance');
+  const $orderAlphabetically = document.getElementById('id-order-alpha');
+  const $orderByColor = document.getElementById('id-order-color');
+  const $orderByRelevance = document.getElementById('id-order-relevance');
 
   $orderAlphabetically.disabled = false;
   $orderByColor.disabled = false;

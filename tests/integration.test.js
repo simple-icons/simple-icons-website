@@ -169,7 +169,7 @@ describe('Search', () => {
   });
 
   it.each([
-    ['order-alpha', 'order-alphabetically'],
+    ['order-alpha', 'order-by-alphabet'],
     ['order-color', 'order-by-color'],
   ])('switches back to "%s" when the search is removed', async (id, value) => {
     await page.click(`#${id}`);
@@ -186,7 +186,7 @@ describe('Search', () => {
   });
 
   it.each([
-    ['order-alpha', 'order-alphabetically'],
+    ['order-alpha', 'order-by-alphabet'],
     ['order-color', 'order-by-color'],
   ])('switches back to "%s" when search is cleared', async (id, value) => {
     await page.click(`#${id}`);
@@ -264,7 +264,7 @@ describe('Ordering', () => {
     await page.reload();
 
     const $body = await page.$('body');
-    expect(await hasClass($body, 'order-alphabetically')).toBeTruthy();
+    expect(await hasClass($body, 'order-by-alphabet')).toBeTruthy();
   });
 
   it('reloads ordering by color', async () => {
