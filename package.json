@@ -14,6 +14,7 @@
   "license": "CC0-1.0",
   "scripts": {
     "build": "webpack --mode production",
+    "postbuild": "node scripts/mangle-css.js",
     "build:dev": "webpack --mode development",
     "build:watch": "npm run build:dev -- --watch",
     "clean": "rm -rf _site tests/_artifacts",
