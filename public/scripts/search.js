@@ -1,17 +1,14 @@
 import { hideElement, showElement } from './dom-utils.js';
 import { ORDER_BY_RELEVANCE } from './ordering.js';
-import {
-  decodeURIComponent,
-  debounce,
-  normalizeSearchTerm,
-} from './utils.js';
+import { decodeURIComponent, debounce, normalizeSearchTerm } from './utils.js';
 
-const queryParameter = 'q';
+const QUERY_PARAMETER = 'q';
 
 let activeQuery = '';
 
-function getQueryFromParameter() {
-  const results = /[\\?&]q=([^&#]*)/.exec(location.search);
+function getQueryFromParameter(parameter) {
+  const expr = new RegExp(`[\\?&]${parameter}=([^&#]*)`);
+  const results = expr.exec(location.search);
   if (results !== null) {
     return decodeURIComponent(results[1].replace(/\+/g, ' '));
   }
@@ -36,11 +33,19 @@ function getScore(query, value) {
   return score;
 }
 
-export default function initSearch(
-  history,
-  document,
-  ordering,
-) {
+function setSearchQueryInURL(history, path, query) {
+  if (query !== '') {
+    history.replaceState(
+      null,
+      '',
+      `${path}?${QUERY_PARAMETER}=${encodeURIComponent(query)}`,
+    );
+  } else {
+    history.replaceState(null, '', path);
+  }
+}
+
+export default function initSearch(history, document, ordering) {
   const $searchInput = document.getElementById('search-input');
   const $searchClear = document.getElementById('search-clear');
   const $orderByRelevance = document.getElementById('order-relevance');
@@ -49,11 +54,14 @@ export default function initSearch(
 
   $searchInput.disabled = false;
   $searchInput.focus();
-  $searchInput.addEventListener('input', debounce((event) => {
-    event.preventDefault();
-    const value = $searchInput.value;
-    search(value);
-  }));
+  $searchInput.addEventListener(
+    'input',
+    debounce((event) => {
+      event.preventDefault();
+      const value = $searchInput.value;
+      search(value);
+    }),
+  );
 
   $searchClear.addEventListener('click', (event) => {
     event.preventDefault();
@@ -62,25 +70,24 @@ export default function initSearch(
   });
 
   // Load search query if present
-  const query = getQueryFromParameter(queryParameter);
+  const query = getQueryFromParameter(QUERY_PARAMETER);
   if (query) {
     $searchInput.value = query;
     search(query);
   }
 
   function search(rawQuery) {
+    setSearchQueryInURL(history, document.location.pathname, rawQuery);
     const query = normalizeSearchTerm(rawQuery);
     if (query !== '') {
-      history.replaceState(null, '', `?${queryParameter}=${encodeURIComponent(rawQuery)}`);
       showElement($searchClear);
-      showElement($orderByRelevance)
+      showElement($orderByRelevance);
       if (activeQuery === '') {
         ordering.selectOrdering(ORDER_BY_RELEVANCE);
       }
     } else {
-      history.replaceState(null, '', '/');
       hideElement($searchClear);
-      hideElement($orderByRelevance)
+      hideElement($orderByRelevance);
       if (ordering.currentOrderingIs(ORDER_BY_RELEVANCE)) {
         ordering.resetOrdering();
       }
@@ -88,15 +95,15 @@ export default function initSearch(
 
     let noResults = true;
     if (query.startsWith('#')) {
-      const colorQuery = query.substring(1, /* end */);
+      const colorQuery = query.substring(1 /* ... to end */);
       $icons.forEach(($icon) => {
         const brandColor = $icon.getAttribute('data-color');
         const score = getScore(colorQuery, brandColor);
         if (score < 0) {
-          $icon.style.removeProperty("--order-relevance");
+          $icon.style.removeProperty('--order-relevance');
           hideElement($icon);
         } else {
-          $icon.style.setProperty("--order-relevance", score);
+          $icon.style.setProperty('--order-relevance', score);
           showElement($icon);
           noResults = false;
         }
@@ -106,10 +113,10 @@ export default function initSearch(
         const brandName = $icon.getAttribute('data-brand');
         const score = getScore(query, brandName);
         if (score < 0) {
-          $icon.style.removeProperty("--order-relevance");
+          $icon.style.removeProperty('--order-relevance');
           hideElement($icon);
         } else {
-          $icon.style.setProperty("--order-relevance", score);
+          $icon.style.setProperty('--order-relevance', score);
           showElement($icon);
           noResults = false;
         }

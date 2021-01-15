@@ -5,10 +5,7 @@ function setCopied($el) {
   setTimeout(() => $el.classList.remove('copied'), COPIED_TIMEOUT);
 }
 
-export default function initCopyButtons(
-  document,
-  navigator,
-) {
+export default function initCopyButtons(document, navigator) {
   const $copyInput = document.getElementById('copy-input');
   const $colorButtons = document.querySelectorAll('.grid-item__color');
   const $svgButtons = document.querySelectorAll('.grid-item__preview');
@@ -48,4 +45,4 @@ export default function initCopyButtons(
       $copyInput.blur();
     }
   }
-};
+}

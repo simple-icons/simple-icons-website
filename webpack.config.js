@@ -10,7 +10,8 @@ const sortColors = require('color-sorter').sortFn;
 const { normalizeSearchTerm } = require('./public/scripts/utils.js');
 
 const icons = Object.values(simpleIcons);
-const sortedHexes = icons.map(icon => icon.hex)
+const sortedHexes = icons
+  .map((icon) => icon.hex)
   .filter((hex, index, array) => array.indexOf(hex) === index)
   .sort(sortColors);
 
@@ -58,17 +59,17 @@ module.exports = {
   plugins: [
     new CopyPlugin({
       patterns: [
-        { // Copy SVGs from simple-icons
+        {
           from: path.resolve(NODE_MODULES, 'simple-icons/icons'),
           to: path.resolve(OUT_DIR, 'icons'),
           filter: (path) => path.endsWith('.svg'),
         },
-        { // Copy PDFs from simple-icons-pdf
+        {
           from: path.resolve(NODE_MODULES, 'simple-icons-pdf/icons'),
           to: path.resolve(OUT_DIR, 'icons'),
           filter: (path) => path.endsWith('.pdf'),
         },
-        { // Copy ./images
+        {
           from: path.resolve(ROOT_DIR, 'public/images'),
           to: path.resolve(OUT_DIR, 'images'),
         },
