@@ -81,15 +81,15 @@ describe.each([
   });
 
   it('has the search input in view on load', async () => {
-    const $searchInput = await page.$('#search-input');
+    const $searchInput = await page.$('#id-search-input');
     expect(await isInViewport($searchInput)).toBeTruthy();
   });
 
   it('has the order controls in view on load', async () => {
-    const $orderAlphabetically = await page.$('#order-alpha');
+    const $orderAlphabetically = await page.$('#id-order-alpha');
     expect(await isInViewport($orderAlphabetically)).toBeTruthy();
 
-    const $orderByColor = await page.$('#order-color');
+    const $orderByColor = await page.$('#id-order-color');
     expect(await isInViewport($orderByColor)).toBeTruthy();
   });
 
@@ -99,7 +99,7 @@ describe.each([
   });
 
   it('hides the #copy-input element', async () => {
-    const $copyInput = await page.$('#copy-input');
+    const $copyInput = await page.$('#id-copy-input');
     expect(await isHidden($copyInput)).toBeTruthy();
   });
 
@@ -114,12 +114,12 @@ describe('Search', () => {
   });
 
   it('does not show the "order by relevance" button on load', async () => {
-    const $orderByRelevance = await page.$('#order-relevance');
+    const $orderByRelevance = await page.$('#id-order-relevance');
     expect(await isHidden($orderByRelevance)).toBeTruthy();
   });
 
   it('does not show the "clear search" button on load', async () => {
-    const $searchClear = await page.$('#search-clear');
+    const $searchClear = await page.$('#id-search-clear');
     expect(await isHidden($searchClear)).toBeTruthy();
   });
 
@@ -129,23 +129,23 @@ describe('Search', () => {
   });
 
   it('shows the "order by relevance" button on search', async () => {
-    const $searchInput = await page.$('#search-input');
+    const $searchInput = await page.$('#id-search-input');
     await $searchInput.type('adobe');
 
-    const $orderByRelevance = await page.$('#order-relevance');
+    const $orderByRelevance = await page.$('#id-order-relevance');
     expect(await isVisible($orderByRelevance)).toBeTruthy();
   });
 
   it('shows the "clear search" button on search', async () => {
-    const $searchInput = await page.$('#search-input');
+    const $searchInput = await page.$('#id-search-input');
     await $searchInput.type('adobe');
 
-    const $searchClear = await page.$('#search-clear');
+    const $searchClear = await page.$('#id-search-clear');
     expect(await isVisible($searchClear)).toBeTruthy();
   });
 
   it('enables ordering by relevance on search', async () => {
-    const $searchInput = await page.$('#search-input');
+    const $searchInput = await page.$('#id-search-input');
     await $searchInput.type('adobe');
 
     const $body = await page.$('body');
@@ -158,10 +158,10 @@ describe('Search', () => {
   });
 
   it('resets the search when clicking the "clear search" button', async () => {
-    const $searchInput = await page.$('#search-input');
+    const $searchInput = await page.$('#id-search-input');
     await $searchInput.type('adobe');
 
-    const $searchClear = await page.$('#search-clear');
+    const $searchClear = await page.$('#id-search-clear');
     await $searchClear.click();
 
     expect(await getValue($searchInput)).toBe('');
@@ -169,12 +169,12 @@ describe('Search', () => {
   });
 
   it.each([
-    ['order-alpha', 'order-by-alphabet'],
-    ['order-color', 'order-by-color'],
+    ['#id-order-alpha', 'order-by-alphabet'],
+    ['#id-order-color', 'order-by-color'],
   ])('switches back to "%s" when the search is removed', async (id, value) => {
-    await page.click(`#${id}`);
+    await page.click(id);
 
-    const $searchInput = await page.$('#search-input');
+    const $searchInput = await page.$('#id-search-input');
     await $searchInput.type('adobe');
 
     await $searchInput.click({ clickCount: 3 });
@@ -186,15 +186,15 @@ describe('Search', () => {
   });
 
   it.each([
-    ['order-alpha', 'order-by-alphabet'],
-    ['order-color', 'order-by-color'],
+    ['#id-order-alpha', 'order-by-alphabet'],
+    ['#id-order-color', 'order-by-color'],
   ])('switches back to "%s" when search is cleared', async (id, value) => {
-    await page.click(`#${id}`);
+    await page.click(id);
 
-    const $searchInput = await page.$('#search-input');
+    const $searchInput = await page.$('#id-search-input');
     await $searchInput.type('adobe');
 
-    const $searchClear = await page.$('#search-clear');
+    const $searchClear = await page.$('#id-search-clear');
     await $searchClear.click();
 
     const $body = await page.$('body');
@@ -205,7 +205,7 @@ describe('Search', () => {
   it('adds the search query to the URL', async () => {
     const query = 'amd';
 
-    const $searchInput = await page.$('#search-input');
+    const $searchInput = await page.$('#id-search-input');
     await $searchInput.type(query, { delay: 100 });
 
     const url = page.url();
@@ -216,19 +216,19 @@ describe('Search', () => {
     const query = 'simple icons';
     await page.goto(`${url.href}?q=${query}`);
 
-    const $searchInput = await page.$('#search-input');
+    const $searchInput = await page.$('#id-search-input');
     const searchInputValue = await getValue($searchInput);
     expect(searchInputValue).toEqual(query);
 
-    const $searchClear = await page.$('#search-clear');
+    const $searchClear = await page.$('#id-search-clear');
     expect(await isVisible($searchClear)).toBeTruthy();
 
-    const $orderByRelevance = await page.$('#order-relevance');
+    const $orderByRelevance = await page.$('#id-order-relevance');
     expect(await isVisible($orderByRelevance)).toBeTruthy();
   });
 
   it('shows the "no results" message if no brand was found', async () => {
-    await page.type('#search-input', 'this is definitely not going to match');
+    await page.type('#id-search-input', 'this is definitely not going to match');
     await page.screenshot({
       path: path.resolve(ARTIFACTS_DIR, 'desktop_no-search-results.png'),
     });
@@ -238,7 +238,7 @@ describe('Search', () => {
   });
 
   it('hides the "no results" message when the search is removed', async () => {
-    const $searchInput = await page.$('#search-input');
+    const $searchInput = await page.$('#id-search-input');
     await $searchInput.type('this is definitely not going to match');
 
     await $searchInput.click({ clickCount: 3 });
@@ -259,7 +259,7 @@ describe('Ordering', () => {
   });
 
   it('reloads ordering alphabetically', async () => {
-    await expect(page).toClick('#order-alpha');
+    await expect(page).toClick('#id-order-alpha');
 
     await page.reload();
 
@@ -268,7 +268,7 @@ describe('Ordering', () => {
   });
 
   it('reloads ordering by color', async () => {
-    await expect(page).toClick('#order-color');
+    await expect(page).toClick('#id-order-color');
 
     await page.reload();
 
@@ -277,7 +277,7 @@ describe('Ordering', () => {
   });
 
   it('orders grid items alphabetically', async () => {
-    await expect(page).toClick('#order-alpha');
+    await expect(page).toClick('#id-order-alpha');
 
     const $gridItems = await page.$$('.grid-item');
     for (let i = 0; i < $gridItems.length; i++) {
@@ -289,7 +289,7 @@ describe('Ordering', () => {
 
   it.skip('orders grid items by color', async () => {
     // Items are ordered using the CSS property `order`...
-    await expect(page).toClick('#order-color');
+    await expect(page).toClick('#id-order-color');
 
     const $gridItems = await page.$$('.grid-item__color');
     for (let i = 0; i < $gridItems.length; i++) {
@@ -325,10 +325,10 @@ describe('Preferred color scheme', () => {
   });
 
   it.each([
-    ['light', '#color-scheme-dark', 'rgb(34, 34, 34)'],
-    ['light', '#color-scheme-light', 'rgb(252, 252, 252)'],
-    ['dark', '#color-scheme-dark', 'rgb(34, 34, 34)'],
-    ['dark', '#color-scheme-light', 'rgb(252, 252, 252)'],
+    ['light', '#id-color-scheme-dark', 'rgb(34, 34, 34)'],
+    ['light', '#id-color-scheme-light', 'rgb(252, 252, 252)'],
+    ['dark', '#id-color-scheme-dark', 'rgb(34, 34, 34)'],
+    ['dark', '#id-color-scheme-light', 'rgb(252, 252, 252)'],
   ])('is "%s" but "%s" is selected', async (scheme, id, expected) => {
     await page.emulateMediaFeatures([
       { name: 'prefers-color-scheme', value: scheme },
@@ -345,33 +345,33 @@ describe('Preferred color scheme', () => {
   });
 
   it('reloads with system color scheme', async () => {
-    await expect(page).toClick('#color-scheme-system');
+    await expect(page).toClick('#id-color-scheme-system');
 
     await page.reload();
 
     const $body = await page.$('body');
-    expect(await hasClass($body, 'dark')).toBeFalsy();
-    expect(await hasClass($body, 'light')).toBeFalsy();
+    expect(await hasClass($body, 'dark-mode')).toBeFalsy();
+    expect(await hasClass($body, 'light-mode')).toBeFalsy();
   });
 
   it('reloads with dark color scheme', async () => {
-    await expect(page).toClick('#color-scheme-dark');
+    await expect(page).toClick('#id-color-scheme-dark');
 
     await page.reload();
 
     const $body = await page.$('body');
-    expect(await hasClass($body, 'dark')).toBeTruthy();
-    expect(await hasClass($body, 'light')).toBeFalsy();
+    expect(await hasClass($body, 'dark-mode')).toBeTruthy();
+    expect(await hasClass($body, 'light-mode')).toBeFalsy();
   });
 
   it('reloads with light color scheme', async () => {
-    await expect(page).toClick('#color-scheme-light');
+    await expect(page).toClick('#id-color-scheme-light');
 
     await page.reload();
 
     const $body = await page.$('body');
-    expect(await hasClass($body, 'dark')).toBeFalsy();
-    expect(await hasClass($body, 'light')).toBeTruthy();
+    expect(await hasClass($body, 'dark-mode')).toBeFalsy();
+    expect(await hasClass($body, 'light-mode')).toBeTruthy();
   });
 });
 
@@ -439,23 +439,23 @@ describe('JavaScript disabled', () => {
   });
 
   it('does not show the "order by relevance" button', async () => {
-    const $orderByRelevance = await page.$('#order-relevance');
+    const $orderByRelevance = await page.$('#id-order-relevance');
     expect(await isHidden($orderByRelevance)).toBeTruthy();
   });
 
   it('does not show the "clear search" button on load', async () => {
-    const $searchClear = await page.$('#search-clear');
+    const $searchClear = await page.$('#id-search-clear');
     expect(await isHidden($searchClear)).toBeTruthy();
   });
 
   it('has disabled ordering buttons', async () => {
-    const $orderAlphabetically = await page.$('#order-alpha');
+    const $orderAlphabetically = await page.$('#id-order-alpha');
     expect(await isDisabled($orderAlphabetically)).toBeTruthy();
 
-    const $orderByColor = await page.$('#order-color');
+    const $orderByColor = await page.$('#id-order-color');
     expect(await isDisabled($orderByColor)).toBeTruthy();
 
-    const $orderByRelevance = await page.$('#order-relevance');
+    const $orderByRelevance = await page.$('#id-order-relevance');
     expect(await isDisabled($orderByRelevance)).toBeTruthy();
   });
 
