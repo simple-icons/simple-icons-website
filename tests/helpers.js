@@ -25,7 +25,7 @@ async function getClipboardValue(page) {
 }
 
 async function getValue($el) {
-  return await $el.evaluate(el => el.value);
+  return await $el.evaluate((el) => el.value);
 }
 
 async function hasClass($el, className) {

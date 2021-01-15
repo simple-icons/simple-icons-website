@@ -1,10 +1,6 @@
 import { hideElement, showElement } from './dom-utils.js';
 import { ORDER_BY_RELEVANCE } from './ordering.js';
-import {
-  decodeURIComponent,
-  debounce,
-  normalizeSearchTerm,
-} from './utils.js';
+import { decodeURIComponent, debounce, normalizeSearchTerm } from './utils.js';
 
 const QUERY_PARAMETER = 'q';
 
@@ -49,11 +45,7 @@ function setSearchQueryInURL(history, path, query) {
   }
 }
 
-export default function initSearch(
-  history,
-  document,
-  ordering,
-) {
+export default function initSearch(history, document, ordering) {
   const $searchInput = document.getElementById('search-input');
   const $searchClear = document.getElementById('search-clear');
   const $orderByRelevance = document.getElementById('order-relevance');
@@ -62,11 +54,14 @@ export default function initSearch(
 
   $searchInput.disabled = false;
   $searchInput.focus();
-  $searchInput.addEventListener('input', debounce((event) => {
-    event.preventDefault();
-    const value = $searchInput.value;
-    search(value);
-  }));
+  $searchInput.addEventListener(
+    'input',
+    debounce((event) => {
+      event.preventDefault();
+      const value = $searchInput.value;
+      search(value);
+    }),
+  );
 
   $searchClear.addEventListener('click', (event) => {
     event.preventDefault();
@@ -86,13 +81,13 @@ export default function initSearch(
     const query = normalizeSearchTerm(rawQuery);
     if (query !== '') {
       showElement($searchClear);
-      showElement($orderByRelevance)
+      showElement($orderByRelevance);
       if (activeQuery === '') {
         ordering.selectOrdering(ORDER_BY_RELEVANCE);
       }
     } else {
       hideElement($searchClear);
-      hideElement($orderByRelevance)
+      hideElement($orderByRelevance);
       if (ordering.currentOrderingIs(ORDER_BY_RELEVANCE)) {
         ordering.resetOrdering();
       }
@@ -103,10 +98,10 @@ export default function initSearch(
       const brandName = $icon.getAttribute('data-brand');
       const score = getScore(query, brandName);
       if (score < 0) {
-        $icon.style.removeProperty("--order-relevance");
+        $icon.style.removeProperty('--order-relevance');
         hideElement($icon);
       } else {
-        $icon.style.setProperty("--order-relevance", score);
+        $icon.style.setProperty('--order-relevance', score);
         showElement($icon);
         noResults = false;
       }

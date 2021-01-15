@@ -11,10 +11,7 @@ const CLASS_LIGHT_MODE = 'light';
 
 let activeColorScheme = DEFAULT_COLOR_SCHEME;
 
-export default function initColorScheme(
-  document,
-  storage,
-) {
+export default function initColorScheme(document, storage) {
   const $body = document.querySelector('body');
   const $colorSchemeDark = document.getElementById('color-scheme-dark');
   const $colorSchemeLight = document.getElementById('color-scheme-light');
@@ -61,10 +58,7 @@ export default function initColorScheme(
       $body.classList.add(CLASS_LIGHT_MODE);
       $body.classList.remove(CLASS_DARK_MODE);
     } else {
-      $body.classList.remove(
-        CLASS_DARK_MODE,
-        CLASS_LIGHT_MODE,
-      );
+      $body.classList.remove(CLASS_DARK_MODE, CLASS_LIGHT_MODE);
     }
 
     storage.setItem(STORAGE_KEY_COLOR_SCHEME, selected);

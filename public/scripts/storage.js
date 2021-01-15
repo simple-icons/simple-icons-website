@@ -2,8 +2,8 @@ export const STORAGE_KEY_COLOR_SCHEME = 'preferred-color-scheme';
 export const STORAGE_KEY_ORDERING = 'preferred-ordering';
 
 const mockStorage = {
-  getItem() { },
-  setItem() { },
+  getItem() {},
+  setItem() {},
 };
 
 export default function newStorage(localStorage) {

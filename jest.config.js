@@ -5,4 +5,4 @@ module.exports = {
   globals: {
     ARTIFACTS_DIR: path.resolve(__dirname, 'tests/_artifacts'),
   },
-}
+};

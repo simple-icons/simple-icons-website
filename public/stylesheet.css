@@ -17,7 +17,7 @@
   --dm-asset-svg-copy: url(./assets/copy-white.svg);
   --dm-asset-svg-copied: url(./assets/check-white.svg);
   --dm-color-background: rgb(34, 34, 34);
-  --dm-color-background-transparent: rgba(34, 34, 34, .7);
+  --dm-color-background-transparent: rgba(34, 34, 34, 0.7);
   --dm-color-background-card: rgb(20, 20, 20);
   --dm-color-text-default: rgb(250, 250, 250);
   --dm-color-svg-default: rgb(255, 255, 255);
@@ -25,7 +25,7 @@
   --dm-color-button-active: rgb(221, 221, 221);
   --dm-color-button-text-hover: rgb(0, 0, 0);
   --dm-color-disabled: rgb(170, 170, 170);
-  --dm-color-shadow: rgba(153, 153, 153, .75);
+  --dm-color-shadow: rgba(153, 153, 153, 0.75);
   --dm-color-link: rgb(0, 100, 238);
   --dm-color-link-hover: rgb(0, 72, 238);
   --dm-color-link-visited: rgb(169, 144, 189);
@@ -34,7 +34,7 @@
   --lm-asset-svg-copy: url(./assets/copy.svg);
   --lm-asset-svg-copied: url(./assets/check.svg);
   --lm-color-background: rgb(252, 252, 252);
-  --lm-color-background-transparent: rgba(252, 252, 252, .7);
+  --lm-color-background-transparent: rgba(252, 252, 252, 0.7);
   --lm-color-background-card: rgb(255, 255, 255);
   --lm-color-text-default: rgb(0, 0, 0);
   --lm-color-svg-default: rgb(0, 0, 0);
@@ -42,7 +42,7 @@
   --lm-color-button-active: rgb(51, 51, 51);
   --lm-color-button-text-hover: rgb(255, 255, 255);
   --lm-color-disabled: rgb(170, 170, 170);
-  --lm-color-shadow: rgba(0, 0, 0, .5);
+  --lm-color-shadow: rgba(0, 0, 0, 0.5);
   --lm-color-link: rgb(0, 0, 238);
   --lm-color-link-hover: rgb(52, 52, 238);
   --lm-color-link-visited: rgb(85, 26, 139);
@@ -190,13 +190,13 @@ a {
   font-size: 1.7rem;
   font-weight: 600;
   flex-basis: 40%;
-  margin: 0 0 .5rem;
+  margin: 0 0 0.5rem;
 }
 
 .header__description {
   font-family: 'Roboto Mono', monospace;
-  font-size: .9rem;
-  margin: .2rem 0;
+  font-size: 0.9rem;
+  margin: 0.2rem 0;
 }
 
 .header__list {
@@ -206,7 +206,7 @@ a {
   float: right;
   justify-content: flex-end;
   list-style: none;
-  margin: .2rem 0 0;
+  margin: 0.2rem 0 0;
 }
 @media (max-width: 640px) {
   .header__list {
@@ -220,7 +220,7 @@ a {
   font-family: 'Roboto Mono', monospace;
   font-size: 1rem;
   font-weight: 600;
-  margin: 0 .7rem;
+  margin: 0 0.7rem;
 }
 .header__list-item:hover {
   color: var(--color-button-hover);
@@ -247,7 +247,7 @@ a {
 @media (max-width: 640px) {
   .control {
     justify-content: flex-end;
-    margin: .5rem 0;
+    margin: 0.5rem 0;
   }
 }
 
@@ -262,12 +262,12 @@ a {
 }
 @media (max-width: 640px) {
   .control-field {
-    margin: .5rem 0 .5rem 1rem;
+    margin: 0.5rem 0 0.5rem 1rem;
   }
   .control-field:first-of-type {
     flex-basis: 70%;
     flex-grow: 1;
-    margin: .5rem 0;
+    margin: 0.5rem 0;
   }
 }
 
@@ -276,7 +276,7 @@ a {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1rem;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   position: relative;
 }
 body.no-js .control-field__title {
@@ -293,20 +293,20 @@ body.no-js .control-field__title {
 .control__button,
 .control__input {
   background-color: transparent;
-  border: .1rem solid var(--color-button-hover);
+  border: 0.1rem solid var(--color-button-hover);
   color: var(--color-text-default);
   height: 2.4rem;
-  padding: .4rem;
+  padding: 0.4rem;
 }
 
 .control__input {
   font-family: 'Roboto Mono', monospace;
   outline: 0;
-  padding: .4rem 2rem .4rem .8rem;
+  padding: 0.4rem 2rem 0.4rem 0.8rem;
   width: 100%;
 }
 .control__input:focus {
-  box-shadow: 0 0 3px 0 rgba(68, 68, 68, .5);
+  box-shadow: 0 0 3px 0 rgba(68, 68, 68, 0.5);
 }
 @media (max-width: 640px) {
   .control__input {
@@ -317,7 +317,7 @@ body.no-js .control-field__title {
 .control__button {
   cursor: default; /* Button should not work when JS is disabled */
   fill: var(--color-button-hover);
-  margin: 0 .3rem;
+  margin: 0 0.3rem;
   width: 2.4rem;
 }
 .control__button:first-of-type {
@@ -477,7 +477,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   font-size: 1.2rem;
   font-weight: 600;
   line-height: 1.2rem;
-  margin: .4rem 1rem;
+  margin: 0.4rem 1rem;
   padding-right: 2rem;
 }
 
@@ -489,14 +489,14 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   font-weight: 600;
   letter-spacing: 1px;
   line-height: 1rem;
-  margin: .2rem 1rem;
+  margin: 0.2rem 1rem;
   overflow: hidden;
   padding: 6px 8px;
   position: relative;
   user-select: text;
 }
 .grid-item__color.contrast-light {
-  color: #FFF;
+  color: #fff;
 }
 .grid-item__color::before {
   background-size: 1.2rem 1.2rem;
@@ -522,14 +522,14 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 }
 
 .grid-item__footer {
-  border-top: 1px solid #CCC;
+  border-top: 1px solid #ccc;
   background-color: var(--color-background);
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: flex-start;
-  margin: .5rem 0 0;
-  padding: .8rem 1rem;
+  margin: 0.5rem 0 0;
+  padding: 0.8rem 1rem;
   align-self: stretch;
 }
 
@@ -570,8 +570,8 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 }
 .grid-item__downloads h3 {
   font-family: 'Roboto Mono', monospace;
-  font-size: .95rem;
-  margin-bottom: .2rem;
+  font-size: 0.95rem;
+  margin-bottom: 0.2rem;
 }
 
 .grid-item__button-row {
@@ -580,11 +580,11 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 }
 
 .grid-item__button {
-  border: .1rem solid var(--color-button-hover);
-  padding: .3rem .4rem;
-  margin: 0 .4rem;
+  border: 0.1rem solid var(--color-button-hover);
+  padding: 0.3rem 0.4rem;
+  margin: 0 0.4rem;
   font-family: 'Roboto Mono', monospace;
-  font-size: .75rem;
+  font-size: 0.75rem;
   font-weight: 600;
 }
 .grid-item__button:first-child {
@@ -611,7 +611,7 @@ body.order-by-relevance .grid-item {
   align-items: center;
   display: flex;
   font-family: 'Roboto Mono', monospace;
-  font-size: .9rem;
+  font-size: 0.9rem;
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 1rem 0 2rem;
@@ -636,10 +636,10 @@ body.order-by-relevance .grid-item {
   align-items: center;
   background-color: var(--color-twitter);
   border-radius: 4px;
-  color: #FFF;
+  color: #fff;
   display: flex;
   font-weight: normal;
-  padding: .75rem 1.25rem;
+  padding: 0.75rem 1.25rem;
   text-align: center;
 }
 @media (max-width: 640px) {
@@ -654,9 +654,9 @@ body.order-by-relevance .grid-item {
 }
 
 .footer-share--icon {
-  fill: #FFF;
+  fill: #fff;
   height: 1rem;
-  margin-right: .75rem;
+  margin-right: 0.75rem;
 }
 
 /* Utility */
