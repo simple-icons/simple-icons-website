@@ -6,4 +6,4 @@ module.exports = {
     command: 'npm run serve -- -s',
     port: 8080,
   },
-}
+};

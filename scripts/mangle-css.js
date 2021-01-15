@@ -26,11 +26,7 @@ const EXPRESSIONS_CLASS_CSS = [
   //  .(foo)(:)focus {
   //  .(foo)(:):before {
   //  .bar:not(.(foo)()) {
-  new MangleExpression(
-    '\\.(%s)([\{\\s,\\.\\#\[\\:\\)])',
-    1,
-    '.%s$2',
-  ),
+  new MangleExpression('\\.(%s)([{\\s,\\.\\#[\\:\\)])', 1, '.%s$2'),
 ];
 const EXPRESSIONS_CLASS_HTML = [
   /* Single quotes */
@@ -40,33 +36,21 @@ const EXPRESSIONS_CLASS_HTML = [
   //  class= (')(foo)(')
   //  class =(')(foo)(')
   //  class = (')(foo)(')
-  new MangleExpression(
-    'class\\s*=\\s*(\')(%s)(\')',
-    2,
-    'class=$1%s$3',
-  ),
+  new MangleExpression("class\\s*=\\s*(')(%s)(')", 2, 'class=$1%s$3'),
 
   // e.g.
   //  class=(')(foo)( b')
   //  class= (')(foo)( b')
   //  class =(')(foo)( b')
   //  class = (')(foo)( b')
-  new MangleExpression(
-    'class\\s*=\\s*(\')(%s)(\\s[^\']*\')',
-    2,
-    'class=$1%s$3',
-  ),
+  new MangleExpression("class\\s*=\\s*(')(%s)(\\s[^']*')", 2, 'class=$1%s$3'),
 
   // e.g.
   //  class=('a )(foo)(')
   //  class= ('a )(foo)(')
   //  class =('a )(foo)(')
   //  class = ('a )(foo)(')
-  new MangleExpression(
-    'class\\s*=\\s*(\'[^\']*\\s)(%s)(\')',
-    2,
-    'class=$1%s$3',
-  ),
+  new MangleExpression("class\\s*=\\s*('[^']*\\s)(%s)(')", 2, 'class=$1%s$3'),
 
   // e.g.
   //  class=('a )(foo)( b')
@@ -74,7 +58,7 @@ const EXPRESSIONS_CLASS_HTML = [
   //  class =('a )(foo)( b')
   //  class = ('a )(foo)( b')
   new MangleExpression(
-    'class\\s*=\\s*(\'[^\']*\\s)(%s)(\\s[^\']*\')',
+    "class\\s*=\\s*('[^']*\\s)(%s)(\\s[^']*')",
     2,
     'class=$1%s$3',
   ),
@@ -86,33 +70,21 @@ const EXPRESSIONS_CLASS_HTML = [
   //  class= (")(foo)(")
   //  class =(")(foo)(")
   //  class = (")(foo)(")
-  new MangleExpression(
-    'class\\s*=\\s*(")(%s)(")',
-    2,
-    'class=$1%s$3',
-  ),
+  new MangleExpression('class\\s*=\\s*(")(%s)(")', 2, 'class=$1%s$3'),
 
   // e.g.
   //  class=(")(foo)( b")
   //  class= (")(foo)( b")
   //  class =(")(foo)( b")
   //  class = (")(foo)( b")
-  new MangleExpression(
-    'class\\s*=\\s*(")(%s)(\\s[^"]*")',
-    2,
-    'class=$1%s$3',
-  ),
+  new MangleExpression('class\\s*=\\s*(")(%s)(\\s[^"]*")', 2, 'class=$1%s$3'),
 
   // e.g.
   //  class=("a )(foo)(")
   //  class= ("a )(foo)(")
   //  class =("a )(foo)(")
   //  class = ("a )(foo)(")
-  new MangleExpression(
-    'class\\s*=\\s*("[^"]*\\s)(%s)(")',
-    2,
-    'class=$1%s$3',
-  ),
+  new MangleExpression('class\\s*=\\s*("[^"]*\\s)(%s)(")', 2, 'class=$1%s$3'),
 
   // e.g.
   //  class=("a )(foo)( b")
@@ -133,11 +105,7 @@ const EXPRESSIONS_CLASS_JS = [
   //  (' )(foo)(')
   //  (')(foo)( ')
   //  (' )(foo)( ')
-  new MangleExpression(
-    '(\'\\s*)(%s)(\\s*\')',
-    2,
-    '$1%s$3',
-  ),
+  new MangleExpression("('\\s*)(%s)(\\s*')", 2, '$1%s$3'),
 
   // e.g. in `document.querySelectorAll()`
   //  ('.)(foo)(')
@@ -150,11 +118,7 @@ const EXPRESSIONS_CLASS_JS = [
   //  ('div .)(foo)(.)bar'
   //  ('.bar.)(foo)(#)bar'
   //  ('.bar .)(foo)([)data-value]'
-  new MangleExpression(
-    '(\'[^\']*\\.)(%s)([\'\\s\\.\\#\\[])',
-    2,
-    '$1%s$3',
-  ),
+  new MangleExpression("('[^']*\\.)(%s)(['\\s\\.\\#\\[])", 2, '$1%s$3'),
 
   /* Double quotes */
 
@@ -163,11 +127,7 @@ const EXPRESSIONS_CLASS_JS = [
   //  (" )(foo)(")
   //  (")(foo)( ")
   //  (" )(foo)( ")
-  new MangleExpression(
-    '("\\s*)(%s)(\\s*")',
-    2,
-    '$1%s$3',
-  ),
+  new MangleExpression('("\\s*)(%s)(\\s*")', 2, '$1%s$3'),
 
   // e.g. in `document.querySelectorAll()`
   //  (".)(foo)(")
@@ -180,11 +140,7 @@ const EXPRESSIONS_CLASS_JS = [
   //  ("div .)(foo)(.)bar"
   //  (".bar.)(foo)(#)bar"
   //  (".bar .)(foo)([)data-value]"
-  new MangleExpression(
-    '("[^"]*\\.)(%s)(["\\s\\.\\#\\[])',
-    2,
-    '$1%s$3',
-  ),
+  new MangleExpression('("[^"]*\\.)(%s)(["\\s\\.\\#\\[])', 2, '$1%s$3'),
 
   /* Backticks */
 
@@ -193,11 +149,7 @@ const EXPRESSIONS_CLASS_JS = [
   //  (` )(foo)(`)
   //  (`)(foo)( `)
   //  (` )(foo)( `)
-  new MangleExpression(
-    '(`\\s*)(%s)(\\s*`)',
-    2,
-    '$1%s$3',
-  ),
+  new MangleExpression('(`\\s*)(%s)(\\s*`)', 2, '$1%s$3'),
 
   // e.g. in `document.querySelectorAll()`
   //  (`.)(foo)(`)
@@ -210,11 +162,7 @@ const EXPRESSIONS_CLASS_JS = [
   //  (`div .)(foo)(.)bar`
   //  (`.bar.)(foo)(#)bar`
   //  (`.bar .)(foo)([)data-value]`
-  new MangleExpression(
-    '(`[^"]*\\.)(%s)([`\\s\\.\\#\\[])',
-    2,
-    '$1%s$3',
-  ),
+  new MangleExpression('(`[^"]*\\.)(%s)([`\\s\\.\\#\\[])', 2, '$1%s$3'),
 ];
 const CLASS_EXPRESSIONS_MAP = new Map([
   ['.css', EXPRESSIONS_CLASS_CSS],
@@ -234,11 +182,7 @@ const EXPRESSIONS_ID_CSS = [
   //  #(foo)(:)focus {
   //  #(foo)(:):before {
   //  .bar:not\(#(foo)(\)) {
-  new MangleExpression(
-    '\\#(%s)([\{\\s,\\.\\[\\:\\)])',
-    1,
-    '#%s$2',
-  ),
+  new MangleExpression('\\#(%s)([{\\s,\\.\\[\\:\\)])', 1, '#%s$2'),
 ];
 const EXPRESSIONS_ID_HTML = [
   /* Single quotes */
@@ -248,44 +192,28 @@ const EXPRESSIONS_ID_HTML = [
   //  id= (')(foo)(')
   //  id =(')(foo)(')
   //  id = (')(foo)(')
-  new MangleExpression(
-    'id\\s*=\\s*(\')(%s)(\')',
-    2,
-    'id=$1%s$3',
-  ),
+  new MangleExpression("id\\s*=\\s*(')(%s)(')", 2, 'id=$1%s$3'),
 
   // e.g.
   //  id=(')(foo)( b')
   //  id= (')(foo)( b')
   //  id =(')(foo)( b')
   //  id = (')(foo)( b')
-  new MangleExpression(
-    'id\\s*=\\s*(\')(%s)(\\s[^\']*\')',
-    2,
-    'id=$1%s$3',
-  ),
+  new MangleExpression("id\\s*=\\s*(')(%s)(\\s[^']*')", 2, 'id=$1%s$3'),
 
   // e.g.
   //  id=('a )(foo)(')
   //  id= ('a )(foo)(')
   //  id =('a )(foo)(')
   //  id = ('a )(foo)(')
-  new MangleExpression(
-    'id\\s*=\\s*(\'[^\']*\\s)(%s)(\')',
-    2,
-    'id=$1%s$3',
-  ),
+  new MangleExpression("id\\s*=\\s*('[^']*\\s)(%s)(')", 2, 'id=$1%s$3'),
 
   // e.g.
   //  id=('a )(foo)( b')
   //  id= ('a )(foo)( b')
   //  id =('a )(foo)( b')
   //  id = ('a )(foo)( b')
-  new MangleExpression(
-    'id\\s*=\\s*(\'[^\']*\\s)(%s)(\\s[^\']*\')',
-    2,
-    'id=$1%s$3',
-  ),
+  new MangleExpression("id\\s*=\\s*('[^']*\\s)(%s)(\\s[^']*')", 2, 'id=$1%s$3'),
 
   /* Double quotes */
 
@@ -294,44 +222,28 @@ const EXPRESSIONS_ID_HTML = [
   //  id= (")(foo)(")
   //  id =(")(foo)(")
   //  id = (")(foo)(")
-  new MangleExpression(
-    'id\\s*=\\s*(")(%s)(")',
-    2,
-    'id=$1%s$3',
-  ),
+  new MangleExpression('id\\s*=\\s*(")(%s)(")', 2, 'id=$1%s$3'),
 
   // e.g.
   //  id=(")(foo)( b")
   //  id= (")(foo)( b")
   //  id =(")(foo)( b")
   //  id = (")(foo)( b")
-  new MangleExpression(
-    'id\\s*=\\s*(")(%s)(\\s[^"]*")',
-    2,
-    'id=$1%s$3',
-  ),
+  new MangleExpression('id\\s*=\\s*(")(%s)(\\s[^"]*")', 2, 'id=$1%s$3'),
 
   // e.g.
   //  id=("a )(foo)(")
   //  id= ("a )(foo)(")
   //  id =("a )(foo)(")
   //  id = ("a )(foo)(")
-  new MangleExpression(
-    'id\\s*=\\s*("[^"]*\\s)(%s)(")',
-    2,
-    'id=$1%s$3',
-  ),
+  new MangleExpression('id\\s*=\\s*("[^"]*\\s)(%s)(")', 2, 'id=$1%s$3'),
 
   // e.g.
   //  id=("a )(foo)( b")
   //  id= ("a )(foo)( b")
   //  id =("a )(foo)( b")
   //  id = ("a )(foo)( b")
-  new MangleExpression(
-    'id\\s*=\\s*("[^"]*\\s)(%s)(\\s[^"]*")',
-    2,
-    'id=$1%s$3',
-  ),
+  new MangleExpression('id\\s*=\\s*("[^"]*\\s)(%s)(\\s[^"]*")', 2, 'id=$1%s$3'),
 ];
 const EXPRESSIONS_ID_JS = [
   /* Single quotes */
@@ -341,11 +253,7 @@ const EXPRESSIONS_ID_JS = [
   //  (' )(foo)(')
   //  (')(foo)( ')
   //  (' )(foo)( ')
-  new MangleExpression(
-    '(\'\\s*)(%s)(\\s*\')',
-    2,
-    '$1%s$3',
-  ),
+  new MangleExpression("('\\s*)(%s)(\\s*')", 2, '$1%s$3'),
 
   // e.g. in `document.querySelectorAll()`
   //  ('#)(foo)(')
@@ -356,11 +264,7 @@ const EXPRESSIONS_ID_JS = [
   //  ('div#)(foo)( )'
   //  ('div #)(foo)(.)bar'
   //  ('.bar#)(foo)([)data-value]'
-  new MangleExpression(
-    '(\'[^\']*\\#)(%s)([\'\\s\\.\\[])',
-    2,
-    '$1%s$3',
-  ),
+  new MangleExpression("('[^']*\\#)(%s)(['\\s\\.\\[])", 2, '$1%s$3'),
 
   /* Double quotes */
 
@@ -369,11 +273,7 @@ const EXPRESSIONS_ID_JS = [
   //  (" )(foo)(")
   //  (")(foo)( ")
   //  (" )(foo)( ")
-  new MangleExpression(
-    '("\\s*)(%s)(\\s*")',
-    2,
-    '$1%s$3',
-  ),
+  new MangleExpression('("\\s*)(%s)(\\s*")', 2, '$1%s$3'),
 
   // e.g. in `document.querySelectorAll()`
   //  ("#)(foo)(")
@@ -384,11 +284,7 @@ const EXPRESSIONS_ID_JS = [
   //  ("div#)(foo)( )"
   //  ("div #)(foo)(.)bar"
   //  (".bar#)(foo)([)data-value]"
-  new MangleExpression(
-    '("[^"]*\\#)(%s)(["\\s\\.\\[])',
-    2,
-    '$1%s$3',
-  ),
+  new MangleExpression('("[^"]*\\#)(%s)(["\\s\\.\\[])', 2, '$1%s$3'),
 
   /* Backticks */
 
@@ -397,11 +293,7 @@ const EXPRESSIONS_ID_JS = [
   //  (" )(foo)(")
   //  (")(foo)( ")
   //  (" )(foo)( ")
-  new MangleExpression(
-    '(`\\s*)(%s)(\\s*`)',
-    2,
-    '$1%s$3',
-  ),
+  new MangleExpression('(`\\s*)(%s)(\\s*`)', 2, '$1%s$3'),
 
   // e.g. in `document.querySelectorAll()`
   //  (`#)(foo)(`)
@@ -412,11 +304,7 @@ const EXPRESSIONS_ID_JS = [
   //  (`div#)(foo)( )`
   //  (`div #)(foo)(.)bar`
   //  (`.bar#)(foo)([)data-value]`
-  new MangleExpression(
-    '(`[^`]*\\#)(%s)([`\\s\\.\\[])',
-    2,
-    '$1%s$3',
-  ),
+  new MangleExpression('(`[^`]*\\#)(%s)([`\\s\\.\\[])', 2, '$1%s$3'),
 ];
 const ID_EXPRESSIONS_MAP = new Map([
   ['.css', EXPRESSIONS_ID_CSS],
@@ -442,12 +330,13 @@ function NameGenerator(reservedNames) {
 
   const charSet = 'abcdefghijklmnopqrstuvwxyz'.split('');
   return {
-    nextName: function() {
+    nextName: function () {
       const lastChar = currentName[currentName.length - 1];
       if (lastChar === charSet[charSet.length - 1]) {
         currentName.push(charSet[0]);
       } else {
-        currentName[currentName.length - 1] = charSet[charSet.indexOf(lastChar) + 1];
+        currentName[currentName.length - 1] =
+          charSet[charSet.indexOf(lastChar) + 1];
       }
 
       const name = currentName.join('');
@@ -490,7 +379,7 @@ function getCountMap(files, queries, expressionsMap) {
         const matchIndex = expr.matchIndex;
 
         const regexp = new RegExp(rawExpr, 'gm');
-        while (match = regexp.exec(s)) {
+        while ((match = regexp.exec(s))) {
           const name = match[matchIndex];
           const count = countMap.get(name) || 0;
           countMap.set(name, count + 1);
@@ -511,7 +400,9 @@ function getCountMap(files, queries, expressionsMap) {
  */
 function getMangleMap(reservedNames, countMap) {
   const entries = Array.from(countMap.entries());
-  const mostToLeastCommon = entries.sort((a, b) => b[1] - a[1]).map(e => e[0]);
+  const mostToLeastCommon = entries
+    .sort((a, b) => b[1] - a[1])
+    .map((e) => e[0]);
 
   const nameGenerator = new NameGenerator(reservedNames);
   const mangleMap = new Map();
@@ -610,16 +501,16 @@ main({
    */
   classNameExpr: [
     // section-related classes
-    '(header|main|footer)[_\-]?[a-zA-Z0-9_\-]*',
+    '(header|main|footer)[_-]?[a-zA-Z0-9_-]*',
 
     // grid-related classes
-    'grid-?[a-zA-Z0-9_\-]*',
+    'grid-?[a-zA-Z0-9_-]*',
 
     // control-related classes
-    '(control|search)-?[a-zA-Z0-9_\-]*',
+    '(control|search)-?[a-zA-Z0-9_-]*',
 
     // .dark-mode and .light-mode
-    '(order-by)-[a-zA-Z0-9_\-]+',
+    '(order-by)-[a-zA-Z0-9_-]+',
 
     // .dark-mode and .light-mode
     '(dark|light)-mode',
@@ -640,7 +531,7 @@ main({
    * don't want to mangle IDs.
    * @type {string|string[]}
    */
-  idNameExpr: 'id-[a-zA-Z0-9\-]+',
+  idNameExpr: 'id-[a-zA-Z0-9-]+',
   /**
    * A list of IDs that should not be used.
    * @type {string[]}
@@ -652,9 +543,5 @@ main({
    * The files to mangle.
    * @type {string[]}
    */
-  files: [
-    './_site/app.css',
-    './_site/index.html',
-    './_site/script.js',
-  ],
+  files: ['./_site/app.css', './_site/index.html', './_site/script.js'],
 });

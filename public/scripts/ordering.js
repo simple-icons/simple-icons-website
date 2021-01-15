@@ -13,10 +13,7 @@ const CLASS_ORDER_BY_RELEVANCE = 'order-by-relevance';
 let activeOrdering = DEFAULT_ORDERING;
 let preferredOrdering = DEFAULT_ORDERING;
 
-export default function initOrdering(
-  document,
-  storage,
-) {
+export default function initOrdering(document, storage) {
   const $body = document.querySelector('body');
   const $orderAlphabetically = document.getElementById('id-order-alpha');
   const $orderByColor = document.getElementById('id-order-color');

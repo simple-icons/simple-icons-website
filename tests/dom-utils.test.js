@@ -22,7 +22,10 @@ describe('::hideElement', () => {
 
   it('adds the aria-hidden attribute', () => {
     hideElement($el);
-    expect($el.setAttribute).toHaveBeenCalledWith('aria-hidden', expect.any(String));
+    expect($el.setAttribute).toHaveBeenCalledWith(
+      'aria-hidden',
+      expect.any(String),
+    );
   });
 });
 

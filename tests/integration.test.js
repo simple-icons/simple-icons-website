@@ -44,7 +44,7 @@ beforeAll(() => {
 
 describe.each([
   ['desktop', DEFAULT_DEVICE],
-  ['mobile', devices['Nexus 7']]
+  ['mobile', devices['Nexus 7']],
 ])('General (%s)', (name, device) => {
   beforeAll(async () => {
     await page.emulate(device);
@@ -228,7 +228,11 @@ describe('Search', () => {
   });
 
   it('shows the "no results" message if no brand was found', async () => {
-    await page.type('#id-search-input', 'this is definitely not going to match');
+    await page.type(
+      '#id-search-input',
+      'this is definitely not going to match',
+    );
+
     await page.screenshot({
       path: path.resolve(ARTIFACTS_DIR, 'desktop_no-search-results.png'),
     });
@@ -251,8 +255,8 @@ describe('Search', () => {
 
 describe('Ordering', () => {
   const icons = Object.values(simpleIcons);
-  const titles = icons.map(icon => icon.title);
-  const hexes = icons.map(icon => icon.hex).sort(sortColors);
+  const titles = icons.map((icon) => icon.title);
+  const hexes = icons.map((icon) => icon.hex).sort(sortColors);
 
   beforeEach(async () => {
     await page.goto(url.href);
@@ -380,10 +384,7 @@ describe('Grid item', () => {
     const context = browser.defaultBrowserContext();
     await context._connection.send('Browser.grantPermissions', {
       origin: url.origin,
-      permissions: [
-        'clipboardReadWrite',
-        'clipboardSanitizedWrite',
-      ],
+      permissions: ['clipboardReadWrite', 'clipboardSanitizedWrite'],
     });
   });
 
