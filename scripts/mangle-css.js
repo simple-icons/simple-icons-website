@@ -2,13 +2,18 @@ const fs = require('fs');
 const path = require('path');
 const { format: printf } = require('util');
 
-// Extensions that are supported.
-const EXTENSIONS_CSS = ['.css'];
-const EXTENSIONS_HTML = ['.html'];
-const EXTENSIONS_JS = ['.js'];
-const EXTENSIONS_SUPPORTED = EXTENSIONS_CSS.concat(EXTENSIONS_HTML).concat(EXTENSIONS_JS);
+function MangleExpression(expr, index, repl) {
+  return {
+    _expr: expr,
+    _repl: repl,
 
-// (Regular) Expressions used for mangling
+    matchIndex: index,
+    format: (query) => printf(expr, query),
+    getRepl: (replacement) => printf(repl, replacement),
+  };
+}
+
+// (Regular) Expressions used for mangling classes
 const EXPRESSIONS_CLASS_CSS = [
   // e.g.
   //  .(foo)
@@ -21,7 +26,11 @@ const EXPRESSIONS_CLASS_CSS = [
   //  .(foo)(:)focus {
   //  .(foo)(:):before {
   //  .bar:not(.(foo)()) {
-  '\\.(%s)([\{\\s,\.\#\[\:\)])',
+  new MangleExpression(
+    '\\.(%s)([\{\\s,\\.\\#\[\\:\\)])',
+    1,
+    '.%s$2',
+  ),
 ];
 const EXPRESSIONS_CLASS_HTML = [
   /* Single quotes */
@@ -31,28 +40,44 @@ const EXPRESSIONS_CLASS_HTML = [
   //  class= (')(foo)(')
   //  class =(')(foo)(')
   //  class = (')(foo)(')
-  'class\\s*=\\s*(\')(%s)(\')',
+  new MangleExpression(
+    'class\\s*=\\s*(\')(%s)(\')',
+    2,
+    'class=$1%s$3',
+  ),
 
   // e.g.
   //  class=(')(foo)( b')
   //  class= (')(foo)( b')
   //  class =(')(foo)( b')
   //  class = (')(foo)( b')
-  'class\\s*=\\s*(\')(%s)(\\s[^\']*\')',
+  new MangleExpression(
+    'class\\s*=\\s*(\')(%s)(\\s[^\']*\')',
+    2,
+    'class=$1%s$3',
+  ),
 
   // e.g.
   //  class=('a )(foo)(')
   //  class= ('a )(foo)(')
   //  class =('a )(foo)(')
   //  class = ('a )(foo)(')
-  'class\\s*=\\s*(\'[^\']*\\s)(%s)(\')',
+  new MangleExpression(
+    'class\\s*=\\s*(\'[^\']*\\s)(%s)(\')',
+    2,
+    'class=$1%s$3',
+  ),
 
   // e.g.
   //  class=('a )(foo)( b')
   //  class= ('a )(foo)( b')
   //  class =('a )(foo)( b')
   //  class = ('a )(foo)( b')
-  'class\\s*=\\s*(\'[^\']*\\s)(%s)(\\s[^\']*\')',
+  new MangleExpression(
+    'class\\s*=\\s*(\'[^\']*\\s)(%s)(\\s[^\']*\')',
+    2,
+    'class=$1%s$3',
+  ),
 
   /* Double quotes */
 
@@ -61,112 +86,351 @@ const EXPRESSIONS_CLASS_HTML = [
   //  class= (")(foo)(")
   //  class =(")(foo)(")
   //  class = (")(foo)(")
-  'class\\s*=\\s*(")(%s)(")',
+  new MangleExpression(
+    'class\\s*=\\s*(")(%s)(")',
+    2,
+    'class=$1%s$3',
+  ),
 
   // e.g.
   //  class=(")(foo)( b")
   //  class= (")(foo)( b")
   //  class =(")(foo)( b")
   //  class = (")(foo)( b")
-  'class\\s*=\\s*(")(%s)(\\s[^"]*")',
+  new MangleExpression(
+    'class\\s*=\\s*(")(%s)(\\s[^"]*")',
+    2,
+    'class=$1%s$3',
+  ),
 
   // e.g.
   //  class=("a )(foo)(")
   //  class= ("a )(foo)(")
   //  class =("a )(foo)(")
   //  class = ("a )(foo)(")
-  'class\\s*=\\s*("[^"]*\\s)(%s)(")',
+  new MangleExpression(
+    'class\\s*=\\s*("[^"]*\\s)(%s)(")',
+    2,
+    'class=$1%s$3',
+  ),
 
   // e.g.
   //  class=("a )(foo)( b")
   //  class= ("a )(foo)( b")
   //  class =("a )(foo)( b")
   //  class = ("a )(foo)( b")
-  'class\\s*=\\s*("[^"]*\\s)(%s)(\\s[^"]*")',
+  new MangleExpression(
+    'class\\s*=\\s*("[^"]*\\s)(%s)(\\s[^"]*")',
+    2,
+    'class=$1%s$3',
+  ),
 ];
-const allowedLeadingJs = '\\.?';
-const allowedTrailingJs = '\\s\.\#\[';
 const EXPRESSIONS_CLASS_JS = [
   /* Single quotes */
 
-  // e.g.
+  // e.g. in `el.classList.add()`
   //  (')(foo)(')
-  //  (')(foo)(.)bar
-  //  (')(foo)(#)bar
-  //  (')(foo)([]data-value]
+  //  (' )(foo)(')
+  //  (')(foo)( ')
+  //  (' )(foo)( ')
+  new MangleExpression(
+    '(\'\\s*)(%s)(\\s*\')',
+    2,
+    '$1%s$3',
+  ),
+
+  // e.g. in `document.querySelectorAll()`
   //  ('.)(foo)(')
-  //  ('.)(foo)(.)bar
-  //  ('.)(foo)(#)bar
-  //  ('.)(foo)([]data-value]
-  `('${allowedLeadingJs})(%s)(['${allowedTrailingJs}])`,
+  //  ('.)(foo)( )'
+  //  ('.)(foo)(.)bar'
+  //  ('.)(foo)(#)bar'
+  //  ('.)(foo)([)data-value]'
+  //  (' .)(foo)(')
+  //  ('div.)(foo)( )'
+  //  ('div .)(foo)(.)bar'
+  //  ('.bar.)(foo)(#)bar'
+  //  ('.bar .)(foo)([)data-value]'
+  new MangleExpression(
+    '(\'[^\']*\\.)(%s)([\'\\s\\.\\#\\[])',
+    2,
+    '$1%s$3',
+  ),
+
+  /* Double quotes */
+
+  // e.g. in `el.classList.add()`
+  //  (")(foo)(")
+  //  (" )(foo)(")
+  //  (")(foo)( ")
+  //  (" )(foo)( ")
+  new MangleExpression(
+    '("\\s*)(%s)(\\s*")',
+    2,
+    '$1%s$3',
+  ),
+
+  // e.g. in `document.querySelectorAll()`
+  //  (".)(foo)(")
+  //  (".)(foo)( )"
+  //  (".)(foo)(.)bar"
+  //  (".)(foo)(#)bar"
+  //  (".)(foo)([)data-value]"
+  //  (" .)(foo)(")
+  //  ("div.)(foo)( )"
+  //  ("div .)(foo)(.)bar"
+  //  (".bar.)(foo)(#)bar"
+  //  (".bar .)(foo)([)data-value]"
+  new MangleExpression(
+    '("[^"]*\\.)(%s)(["\\s\\.\\#\\[])',
+    2,
+    '$1%s$3',
+  ),
+
+  /* Backticks */
+
+  // e.g. in `el.classList.add()`
+  //  (`)(foo)(`)
+  //  (` )(foo)(`)
+  //  (`)(foo)( `)
+  //  (` )(foo)( `)
+  new MangleExpression(
+    '(`\\s*)(%s)(\\s*`)',
+    2,
+    '$1%s$3',
+  ),
+
+  // e.g. in `document.querySelectorAll()`
+  //  (`.)(foo)(`)
+  //  (`.)(foo)( )`
+  //  (`.)(foo)(.)bar`
+  //  (`.)(foo)(#)bar`
+  //  (`.)(foo)([)data-value]`
+  //  (` .)(foo)(`)
+  //  (`div.)(foo)( )`
+  //  (`div .)(foo)(.)bar`
+  //  (`.bar.)(foo)(#)bar`
+  //  (`.bar .)(foo)([)data-value]`
+  new MangleExpression(
+    '(`[^"]*\\.)(%s)([`\\s\\.\\#\\[])',
+    2,
+    '$1%s$3',
+  ),
+];
+const CLASS_EXPRESSIONS_MAP = new Map([
+  ['.css', EXPRESSIONS_CLASS_CSS],
+  ['.html', EXPRESSIONS_CLASS_HTML],
+  ['.js', EXPRESSIONS_CLASS_JS],
+]);
+
+// (Regular) Expressions used for mangling IDs
+const EXPRESSIONS_ID_CSS = [
+  // e.g.
+  //  #(foo)
+  //  #(foo)({)
+  //  #(foo)( ){
+  //  #(foo)(,) .bar {
+  //  #(foo)(.)bar {
+  //  #(foo)([)data-value] {
+  //  #(foo)(:)focus {
+  //  #(foo)(:):before {
+  //  .bar:not\(#(foo)(\)) {
+  new MangleExpression(
+    '\\#(%s)([\{\\s,\\.\\[\\:\\)])',
+    1,
+    '#%s$2',
+  ),
+];
+const EXPRESSIONS_ID_HTML = [
+  /* Single quotes */
 
   // e.g.
-  //  ('a )(foo)(')
-  //  ('a )(foo)(.)bar
-  //  ('a )(foo)(#)bar
-  //  ('a )(foo)([]data-value]
-  //  ('a .)(foo)(')
-  //  ('a .)(foo)(.)bar
-  //  ('a .)(foo)(#)bar
-  //  ('a .)(foo)([]data-value]
-  `('[^']*\\s${allowedLeadingJs})(%s)(['${allowedTrailingJs}])`,
+  //  id=(')(foo)(')
+  //  id= (')(foo)(')
+  //  id =(')(foo)(')
+  //  id = (')(foo)(')
+  new MangleExpression(
+    'id\\s*=\\s*(\')(%s)(\')',
+    2,
+    'id=$1%s$3',
+  ),
+
+  // e.g.
+  //  id=(')(foo)( b')
+  //  id= (')(foo)( b')
+  //  id =(')(foo)( b')
+  //  id = (')(foo)( b')
+  new MangleExpression(
+    'id\\s*=\\s*(\')(%s)(\\s[^\']*\')',
+    2,
+    'id=$1%s$3',
+  ),
+
+  // e.g.
+  //  id=('a )(foo)(')
+  //  id= ('a )(foo)(')
+  //  id =('a )(foo)(')
+  //  id = ('a )(foo)(')
+  new MangleExpression(
+    'id\\s*=\\s*(\'[^\']*\\s)(%s)(\')',
+    2,
+    'id=$1%s$3',
+  ),
+
+  // e.g.
+  //  id=('a )(foo)( b')
+  //  id= ('a )(foo)( b')
+  //  id =('a )(foo)( b')
+  //  id = ('a )(foo)( b')
+  new MangleExpression(
+    'id\\s*=\\s*(\'[^\']*\\s)(%s)(\\s[^\']*\')',
+    2,
+    'id=$1%s$3',
+  ),
 
   /* Double quotes */
 
   // e.g.
-  //  (")(foo)(")
-  //  (")(foo)(.)bar
-  //  (")(foo)(#)bar
-  //  (")(foo)([]data-value]
-  //  (".)(foo)(")
-  //  (".)(foo)(.)bar
-  //  (".)(foo)(#)bar
-  //  (".)(foo)([]data-value]
-  `("${allowedLeadingJs})(%s)(["${allowedTrailingJs}])`,
+  //  id=(")(foo)(")
+  //  id= (")(foo)(")
+  //  id =(")(foo)(")
+  //  id = (")(foo)(")
+  new MangleExpression(
+    'id\\s*=\\s*(")(%s)(")',
+    2,
+    'id=$1%s$3',
+  ),
 
   // e.g.
-  //  ("a )(foo)(")
-  //  ("a )(foo)(.)bar
-  //  ("a )(foo)(#)bar
-  //  ("a )(foo)([]data-value]
-  //  ("a .)(foo)(")
-  //  ("a .)(foo)(.)bar
-  //  ("a .)(foo)(#)bar
-  //  ("a .)(foo)([]data-value]
-  `("[^"]*\\s${allowedLeadingJs})(%s)(["${allowedTrailingJs}])`,
+  //  id=(")(foo)( b")
+  //  id= (")(foo)( b")
+  //  id =(")(foo)( b")
+  //  id = (")(foo)( b")
+  new MangleExpression(
+    'id\\s*=\\s*(")(%s)(\\s[^"]*")',
+    2,
+    'id=$1%s$3',
+  ),
+
+  // e.g.
+  //  id=("a )(foo)(")
+  //  id= ("a )(foo)(")
+  //  id =("a )(foo)(")
+  //  id = ("a )(foo)(")
+  new MangleExpression(
+    'id\\s*=\\s*("[^"]*\\s)(%s)(")',
+    2,
+    'id=$1%s$3',
+  ),
+
+  // e.g.
+  //  id=("a )(foo)( b")
+  //  id= ("a )(foo)( b")
+  //  id =("a )(foo)( b")
+  //  id = ("a )(foo)( b")
+  new MangleExpression(
+    'id\\s*=\\s*("[^"]*\\s)(%s)(\\s[^"]*")',
+    2,
+    'id=$1%s$3',
+  ),
+];
+const EXPRESSIONS_ID_JS = [
+  /* Single quotes */
+
+  // e.g. in `document.getElementById()`
+  //  (')(foo)(')
+  //  (' )(foo)(')
+  //  (')(foo)( ')
+  //  (' )(foo)( ')
+  new MangleExpression(
+    '(\'\\s*)(%s)(\\s*\')',
+    2,
+    '$1%s$3',
+  ),
+
+  // e.g. in `document.querySelectorAll()`
+  //  ('#)(foo)(')
+  //  ('#)(foo)( )'
+  //  ('#)(foo)(.)bar'
+  //  ('#)(foo)([)data-value]'
+  //  (' #)(foo)(')
+  //  ('div#)(foo)( )'
+  //  ('div #)(foo)(.)bar'
+  //  ('.bar#)(foo)([)data-value]'
+  new MangleExpression(
+    '(\'[^\']*\\#)(%s)([\'\\s\\.\\[])',
+    2,
+    '$1%s$3',
+  ),
+
+  /* Double quotes */
+
+  // e.g. in `document.getElementById()`
+  //  (")(foo)(")
+  //  (" )(foo)(")
+  //  (")(foo)( ")
+  //  (" )(foo)( ")
+  new MangleExpression(
+    '("\\s*)(%s)(\\s*")',
+    2,
+    '$1%s$3',
+  ),
+
+  // e.g. in `document.querySelectorAll()`
+  //  ("#)(foo)(")
+  //  ("#)(foo)( )"
+  //  ("#)(foo)(.)bar"
+  //  ("#)(foo)([)data-value]"
+  //  (" #)(foo)(")
+  //  ("div#)(foo)( )"
+  //  ("div #)(foo)(.)bar"
+  //  (".bar#)(foo)([)data-value]"
+  new MangleExpression(
+    '("[^"]*\\#)(%s)(["\\s\\.\\[])',
+    2,
+    '$1%s$3',
+  ),
 
   /* Backticks */
 
-  // e.g.
-  //  (`)(foo)(`)
-  //  (`)(foo)(.)bar
-  //  (`)(foo)(#)bar
-  //  (`)(foo)([]data-value]
-  //  (`.)(foo)(`)
-  //  (`.)(foo)(.)bar
-  //  (`.)(foo)(#)bar
-  //  (`.)(foo)([]data-value]
-  `(\`${allowedLeadingJs})(%s)([\`${allowedTrailingJs}])`,
+  // e.g. in `document.getElementById()`
+  //  (")(foo)(")
+  //  (" )(foo)(")
+  //  (")(foo)( ")
+  //  (" )(foo)( ")
+  new MangleExpression(
+    '(`\\s*)(%s)(\\s*`)',
+    2,
+    '$1%s$3',
+  ),
 
-  // e.g.
-  //  (`a )(foo)(`)
-  //  (`a )(foo)(.)bar
-  //  (`a )(foo)(#)bar
-  //  (`a )(foo)([]data-value]
-  //  (`a .)(foo)(`)
-  //  (`a .)(foo)(.)bar
-  //  (`a .)(foo)(#)bar
-  //  (`a .)(foo)([]data-value]
-  `(\`[^\`]*\\s${allowedLeadingJs})(%s)([\`${allowedTrailingJs}])`,
+  // e.g. in `document.querySelectorAll()`
+  //  (`#)(foo)(`)
+  //  (`#)(foo)( )`
+  //  (`#)(foo)(.)bar`
+  //  (`#)(foo)([)data-value]`
+  //  (` #)(foo)(`)
+  //  (`div#)(foo)( )`
+  //  (`div #)(foo)(.)bar`
+  //  (`.bar#)(foo)([)data-value]`
+  new MangleExpression(
+    '(`[^`]*\\#)(%s)([`\\s\\.\\[])',
+    2,
+    '$1%s$3',
+  ),
 ];
+const ID_EXPRESSIONS_MAP = new Map([
+  ['.css', EXPRESSIONS_ID_CSS],
+  ['.html', EXPRESSIONS_ID_HTML],
+  ['.js', EXPRESSIONS_ID_JS],
+]);
 
 /**
- * Create a new mangled class name generator. This generator will generate
- * the shortest, safe, unique string not previously generated.
+ * Create a new mangle name generator. This generator will generate the
+ * shortest, safe, unique string not previously generated.
  *
  * @example
  *   const generator = new NameGenerator([]);
- *   const firstName = generate.nextName();
+ *   const firstName = generator.nextName();
  *   console.log(firstName); // outputs "a"
  *
  * @param {String[]} reservedNames Names that should not be generated.
@@ -174,6 +438,7 @@ const EXPRESSIONS_CLASS_JS = [
  */
 function NameGenerator(reservedNames) {
   let currentName = ['.'];
+  reservedNames = reservedNames || [];
 
   const charSet = 'abcdefghijklmnopqrstuvwxyz'.split('');
   return {
@@ -196,75 +461,63 @@ function NameGenerator(reservedNames) {
 }
 
 /**
- * Get a count of all occurrences of all classes matching `opts.classNameExpr`
- * in `opts.files` combined.
+ * Get a count of all occurrences of all queries matching the `queries` in all
+ * `files` combined.
  *
- * @param {Object} opts The mangler options. Needs `files` and `classNameExpr`.
- * @returns {Map<String, Integer>} The count for each class.
+ * @param {String[]} files The files to process.
+ * @param {String[]} queries The strings to match.
+ * @param {Map<String, new MangleExpression>} expressionsMap Expressions for supported file types.
+ * @returns {Map<String, Integer>} The count for each string that was found.
  */
-function getClassCount(opts) {
-  function helper(map, classNameExpr, files) {
-    const x = (s) => printf(s, classNameExpr);
-
-    for (const file of files) {
-      const extension = path.extname(file);
-
-      let rawExprs, matchIndex;
-      if (EXTENSIONS_CSS.includes(extension)) {
-        rawExprs = EXPRESSIONS_CLASS_CSS.map(x);
-        matchIndex = 1;
-      } else if (EXTENSIONS_HTML.includes(extension)) {
-        rawExprs = EXPRESSIONS_CLASS_HTML.map(x);
-        matchIndex = 2;
-      } else if (EXTENSIONS_JS.includes(extension)) {
-        rawExprs = EXPRESSIONS_CLASS_JS.map(x);
-        matchIndex = 2;
-      } else {
-        console.log(`unsupported file type ${extension}`)
-        continue;
-      }
-
-      const s = fs.readFileSync(file).toString();
-      for (const rawExpr of rawExprs) {
-        const expr = new RegExp(rawExpr, 'gm');
-        while (match = expr.exec(s)) {
-          const className = match[matchIndex];
-          const count = map.get(className) || 0;
-          map.set(className, count + 1);
-        }
-      }
-    }
-  }
-
-  let classNameExpressions = opts.classNameExpr
-  if (!Array.isArray(classNameExpressions)) {
-    classNameExpressions = [classNameExpressions];
+function getCountMap(files, queries, expressionsMap) {
+  if (!Array.isArray(queries)) {
+    queries = [queries];
   }
 
   const countMap = new Map();
-  for (const classNameExpr of classNameExpressions) {
-    helper(countMap, classNameExpr, opts.files);
+  for (const file of files) {
+    const extension = path.extname(file);
+    const expressions = expressionsMap.get(extension);
+    if (expressions === undefined) {
+      console.log(`unsupported file type ${extension} (${file})`);
+      continue;
+    }
+
+    const s = fs.readFileSync(file).toString();
+    for (const query of queries) {
+      for (const expr of expressions) {
+        const rawExpr = expr.format(query);
+        const matchIndex = expr.matchIndex;
+
+        const regexp = new RegExp(rawExpr, 'gm');
+        while (match = regexp.exec(s)) {
+          const name = match[matchIndex];
+          const count = countMap.get(name) || 0;
+          countMap.set(name, count + 1);
+        }
+      }
+    }
   }
 
   return countMap;
 }
 
 /**
- * Get a CSS mangling map based on the number of times each class occurs.
+ * Get a mangling map based on the number of times each string occurs.
  *
- * @param {Object} opts The mangler options. Needs `reservedClassNames`.
- * @param {Map<String, Integer>} countMap The occurrence count of each class.
- * @returns {Map<String, String>} A map defining the CSS mangling.
+ * @param {String[]} reservedNames The reserved names not allowed in the output.
+ * @param {Map<String, Integer>} countMap The occurrence count of each string.
+ * @returns {Map<String, String>} A map defining the mangling.
  */
-function getMangleMap(opts, countMap) {
+function getMangleMap(reservedNames, countMap) {
   const entries = Array.from(countMap.entries());
   const mostToLeastCommon = entries.sort((a, b) => b[1] - a[1]).map(e => e[0]);
 
-  const nameGenerator = new NameGenerator(opts.reservedClassNames);
+  const nameGenerator = new NameGenerator(reservedNames);
   const mangleMap = new Map();
-  for (const oldClassName of mostToLeastCommon) {
-    const newClassName = nameGenerator.nextName();
-    mangleMap.set(oldClassName, newClassName);
+  for (const oldName of mostToLeastCommon) {
+    const newName = nameGenerator.nextName();
+    mangleMap.set(oldName, newName);
   }
 
   return mangleMap;
@@ -277,28 +530,19 @@ function getMangleMap(opts, countMap) {
  * @param {String} extension
  * @param {Map<String, String>} mapping The mangling map.
  */
-function doMangle(s, extension, mapping) {
-  for (const [from, to] of mapping) {
-    const x = (s) => printf(s, from);
-
-    let rawExprs, repl;
-    if (EXTENSIONS_CSS.includes(extension)) {
-      rawExprs = EXPRESSIONS_CLASS_CSS.map(x)
-      repl = `.${to}$2`;
-    } else if (EXTENSIONS_HTML.includes(extension)) {
-      rawExprs = EXPRESSIONS_CLASS_HTML.map(x);
-      repl = `class=$1${to}$3`;
-    } else if (EXTENSIONS_JS.includes(extension)) {
-      rawExprs = EXPRESSIONS_CLASS_JS.map(x);
-      repl = `$1${to}$3`;
-    } else {
-      console.log(`unsupported file type ${extension}`)
-      continue;
+function doMangle(s, extension, expressionsMap, mangleMap) {
+  for (const [from, to] of mangleMap) {
+    const expressions = expressionsMap.get(extension);
+    if (expressions === undefined) {
+      break;
     }
 
-    for (const rawExpr of rawExprs) {
-      const expr = new RegExp(rawExpr, 'g');
-      s = s.replace(expr, repl);
+    for (const expr of expressions) {
+      const rawExpr = expr.format(from);
+      const repl = expr.getRepl(to);
+
+      const regexp = new RegExp(rawExpr, 'g');
+      s = s.replace(regexp, repl);
     }
   }
 
@@ -311,38 +555,59 @@ function doMangle(s, extension, mapping) {
  * @param {String[]} files The files to mangle on.
  * @param {Map<String, String>} mapping The mangling map.
  */
-function doMangleOn(files, mapping) {
+function doMangleOn(files, expressionsMap, mangleMap) {
   for (const file of files) {
     const extension = path.extname(file);
-    if (!EXTENSIONS_SUPPORTED.includes(extension)) {
+    if (!expressionsMap.get(extension)) {
       console.log(`unsupported file type ${extension} (${file})`);
       continue;
     }
 
     const inString = fs.readFileSync(file).toString();
-    const outString = doMangle(inString, extension, mapping);
+    const outString = doMangle(inString, extension, expressionsMap, mangleMap);
 
     console.log(`writing ${file}`);
     fs.writeFileSync(file, outString);
   }
 }
 
+function main2(files, queries, reservedNames, expressionsMap) {
+  const countMap = getCountMap(files, queries, expressionsMap);
+  const mangleMap = getMangleMap(reservedNames, countMap);
+  doMangleOn(files, expressionsMap, mangleMap);
+}
+
 /**
  * Run the CSS mangler given some options.
  *
  * @param {Options} opts The options for the CSS mangler.
- *   - {String|String[]} classNameExpr A (list of) RegExp(es) of CSS classes to mangle.
- *   - {String[]} reservedClassNames A list of class names that should not be used in mangling.
- *   - {String[]} files The list of files to mangle.
  */
 function main(opts) {
-  const countMap = getClassCount(opts);
-  const mangleMap = getMangleMap(opts, countMap);
-  console.log(countMap);
-  doMangleOn(opts.files, mangleMap);
+  if (opts.classNameExpr) {
+    main2(
+      opts.files,
+      opts.classNameExpr,
+      opts.reservedClassNames,
+      CLASS_EXPRESSIONS_MAP,
+    );
+  }
+
+  if (opts.idNameExpr) {
+    main2(
+      opts.files,
+      opts.idNameExpr,
+      opts.reservedIdNames,
+      ID_EXPRESSIONS_MAP,
+    );
+  }
 }
 
 main({
+  /**
+   * One or more expressions to match classes against. Leave `undefined` if you
+   * don't want to mangle classes.
+   * @type {string|string[]}
+   */
   classNameExpr: [
     // section-related classes
     '(header|main|footer)[_\-]?[a-zA-Z0-9_\-]*',
@@ -363,7 +628,30 @@ main({
     // Miscellaneous
     '(hidden|no-js|copied|copy-button)',
   ],
+  /**
+   * A list of class names that should not be used.
+   * @type {string[]}
+   * @todo Allow regular expressions?
+   */
   reservedClassNames: ['fa', 'si'],
+
+  /**
+   * One or more expressions to match IDs against. Leave `undefined` if you
+   * don't want to mangle IDs.
+   * @type {string|string[]}
+   */
+  idNameExpr: 'id-[a-zA-Z0-9\-]+',
+  /**
+   * A list of IDs that should not be used.
+   * @type {string[]}
+   * @todo Allow regular expressions?
+   */
+  reservedIdNames: undefined,
+
+  /**
+   * The files to mangle.
+   * @type {string[]}
+   */
   files: [
     './_site/app.css',
     './_site/index.html',
