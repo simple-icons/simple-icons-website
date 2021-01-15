@@ -37,6 +37,18 @@ function getScore(query, iconName) {
   return score;
 }
 
+function setSearchQueryInURL(history, path, query) {
+  if (query !== '') {
+    history.replaceState(
+      null,
+      '',
+      `${path}?${QUERY_PARAMETER}=${encodeURIComponent(query)}`,
+    );
+  } else {
+    history.replaceState(null, '', path);
+  }
+}
+
 export default function initSearch(
   history,
   document,
@@ -70,16 +82,15 @@ export default function initSearch(
   }
 
   function search(rawQuery) {
+    setSearchQueryInURL(history, document.location.pathname, rawQuery);
     const query = normalizeSearchTerm(rawQuery);
     if (query !== '') {
-      history.replaceState(null, '', `?${QUERY_PARAMETER}=${encodeURIComponent(rawQuery)}`);
       showElement($searchClear);
       showElement($orderByRelevance)
       if (activeQuery === '') {
         ordering.selectOrdering(ORDER_BY_RELEVANCE);
       }
     } else {
-      history.replaceState(null, '', '/');
       hideElement($searchClear);
       hideElement($orderByRelevance)
       if (ordering.currentOrderingIs(ORDER_BY_RELEVANCE)) {
