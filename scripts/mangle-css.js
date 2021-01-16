@@ -215,6 +215,13 @@ const EXPRESSIONS_ID_HTML = [
   //  id = ('a )(foo)( b')
   new MangleExpression("id\\s*=\\s*('[^']*\\s)(%s)(\\s[^']*')", 2, 'id=$1%s$3'),
 
+  // e.g.
+  //  href=('#)(foo)(')
+  //  href= (' #)(foo)( ')
+  //  href =('/path/to/page#)(foo)(')
+  //  href = ('https://example.com/#)(foo)(')
+  new MangleExpression("href\\s*=\\s*('[^']*\\#)(%s)(\\s*')", 2, 'href=$1%s$3'),
+
   /* Double quotes */
 
   // e.g.
@@ -244,6 +251,13 @@ const EXPRESSIONS_ID_HTML = [
   //  id =("a )(foo)( b")
   //  id = ("a )(foo)( b")
   new MangleExpression('id\\s*=\\s*("[^"]*\\s)(%s)(\\s[^"]*")', 2, 'id=$1%s$3'),
+
+  // e.g.
+  //  href=("#)(foo)(")
+  //  href= (" #)(foo)( ")
+  //  href =("/path/to/page#)(foo)(")
+  //  href = ("https://example.com/#)(foo)(")
+  new MangleExpression('href\\s*=\\s*("[^"]*\\#)(%s)(\\s*")', 2, 'href=$1%s$3'),
 ];
 const EXPRESSIONS_ID_JS = [
   /* Single quotes */
@@ -325,26 +339,41 @@ const ID_EXPRESSIONS_MAP = new Map([
  * @returns The generator, used by calling `.nextName()`.
  */
 function NameGenerator(reservedNames) {
-  let currentName = ['.'];
+  let currentName = '';
   reservedNames = reservedNames || [];
 
   const charSet = 'abcdefghijklmnopqrstuvwxyz'.split('');
   return {
     nextName: function () {
-      const lastChar = currentName[currentName.length - 1];
-      if (lastChar === charSet[charSet.length - 1]) {
-        currentName.push(charSet[0]);
-      } else {
-        currentName[currentName.length - 1] =
-          charSet[charSet.indexOf(lastChar) + 1];
-      }
-
-      const name = currentName.join('');
-      if (reservedNames.includes(name)) {
+      currentName = this.tick(currentName);
+      if (reservedNames.includes(currentName)) {
         return this.nextName();
       } else {
-        return name;
+        return currentName;
       }
+    },
+    tick(s) {
+      if (s === '') {
+        return charSet[0];
+      }
+
+      let nextChar = charSet[0];
+      let tailStr = s.substring(0, s.length - 1);
+
+      const headChar = s.charAt(s.length - 1);
+      if (this.isLastCharInCharset(headChar)) {
+        tailStr = this.tick(tailStr);
+      } else {
+        const currentCharIndex = charSet.indexOf(headChar);
+        const nextCharIndex = currentCharIndex + 1;
+        nextChar = charSet[nextCharIndex];
+      }
+
+      return `${tailStr}${nextChar}`;
+    },
+    isLastCharInCharset(c) {
+      const lastIndex = charSet.length - 1;
+      return charSet[lastIndex] === c;
     },
   };
 }
@@ -531,7 +560,13 @@ main({
    * don't want to mangle IDs.
    * @type {string|string[]}
    */
-  idNameExpr: 'id-[a-zA-Z0-9-]+',
+  idNameExpr: [
+    // mostly button IDs
+    'id-[a-zA-Z0-9-]+',
+
+    // IDs for <svg>s
+    '[a-zA-Z0-9-_]+-svg',
+  ],
   /**
    * A list of IDs that should not be used.
    * @type {string[]}
