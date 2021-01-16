@@ -5,10 +5,10 @@
   "private": "true",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/simple-icons/simple-icons.git"
+    "url": "git@github.com:simple-icons/simple-icons-website.git"
   },
   "bugs": {
-    "url": "https://github.com/simple-icons/simple-icons/issues"
+    "url": "https://github.com/simple-icons/simple-icons-website/issues"
   },
   "author": "Simple Icons Collaborators",
   "license": "CC0-1.0",
