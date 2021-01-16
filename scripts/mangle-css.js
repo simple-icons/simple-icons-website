@@ -326,6 +326,83 @@ const ID_EXPRESSIONS_MAP = new Map([
   ['.js', EXPRESSIONS_ID_JS],
 ]);
 
+// (Regular) Expressions used for mangling attributes
+const EXPRESSIONS_ATTR_CSS = [
+  // e.g.
+  //  ([)(foo)(])
+  //  ([)(foo)(=)bar]
+  //  ([)(foo)(~)=bar]
+  //  ([)(foo)(|)=bar]
+  //  ([)(foo)(^)=bar]
+  //  ([)(foo)($)=bar]
+  //  ([)(foo)(*)=bar]
+  new MangleExpression('\\[%s[\\]=\\~\\|\\^\\$\\*]', 1, '[%s$2'),
+];
+const EXPRESSIONS_ATTR_HTML = [
+  // e.g.
+  //  <div foo="bar">
+  //  <div id="a" foo="bar">
+  //  <div foo="bar" id="a" >
+  new MangleExpression('(<[^>]*\\s)(%s)([^>]*>)', 2, '$1%s$3'),
+];
+const EXPRESSIONS_ATTR_JS = [
+  /* Single quotes */
+
+  // e.g.
+  //  ('[)(foo)(])'
+  //  ('[)(foo)(=)bar]'
+  //  ('[)(foo)(~)=bar]'
+  //  ('[)(foo)(|)=bar]'
+  //  ('[)(foo)(^)=bar]'
+  //  ('[)(foo)($)=bar]'
+  //  ('[)(foo)(*)=bar]'
+  //  ('.bar[)(foo)(])'
+  //  ('#bar[)(foo)(])'
+  new MangleExpression("('[^']*\\[)(%s)([\\]=\\~\\|\\^\\$\\*])", 2, '$1%s$3'),
+
+  // e.g. $el.getAttribute('foo')
+  new MangleExpression("('\\s*)(%s)(\\s*')", 2, '$1%s$3'),
+
+  /* Double quotes */
+
+  // e.g.
+  //  ("[)(foo)(])"
+  //  ("[)(foo)(=)bar]"
+  //  ("[)(foo)(~)=bar]"
+  //  ("[)(foo)(|)=bar]"
+  //  ("[)(foo)(^)=bar]"
+  //  ("[)(foo)($)=bar]"
+  //  ("[)(foo)(*)=bar]"
+  //  (".bar[)(foo)(])"
+  //  ("#bar[)(foo)(])"
+  new MangleExpression('("[^"]*\\[)(%s)([\\]=\\~\\|\\^\\$\\*])', 2, '$1%s$3'),
+
+  // e.g. $el.getAttribute("foo")
+  new MangleExpression('("\\s*)(%s)(\\s*")', 2, '$1%s$3'),
+
+  /* Backticks */
+
+  // e.g.
+  //  (`[)(foo)(])`
+  //  (`[)(foo)(=)bar]`
+  //  (`[)(foo)(~)=bar]`
+  //  (`[)(foo)(|)=bar]`
+  //  (`[)(foo)(^)=bar]`
+  //  (`[)(foo)($)=bar]`
+  //  (`[)(foo)(*)=bar]`
+  //  (`.bar[)(foo)(])`
+  //  (`#bar[)(foo)(])`
+  new MangleExpression('(`[^`]*\\[)(%s)([\\]=\\~\\|\\^\\$\\*])', 2, '$1%s$3'),
+
+  // e.g. $el.getAttribute(`foo`)
+  new MangleExpression('(`\\s*)(%s)(\\s*`)', 2, '$1%s$3'),
+];
+const ATTR_EXPRESSIONS_MAP = new Map([
+  ['.css', EXPRESSIONS_ATTR_CSS],
+  ['.html', EXPRESSIONS_ATTR_HTML],
+  ['.js', EXPRESSIONS_ATTR_JS],
+]);
+
 /**
  * Create a new mangle name generator. This generator will generate the
  * shortest, safe, unique string not previously generated.
@@ -427,7 +504,7 @@ function getCountMap(files, queries, expressionsMap) {
  * @param {Map<String, Integer>} countMap The occurrence count of each string.
  * @returns {Map<String, String>} A map defining the mangling.
  */
-function getMangleMap(reservedNames, countMap) {
+function getMangleMap(reservedNames, prefix, countMap) {
   const entries = Array.from(countMap.entries());
   const mostToLeastCommon = entries
     .sort((a, b) => b[1] - a[1])
@@ -437,7 +514,7 @@ function getMangleMap(reservedNames, countMap) {
   const mangleMap = new Map();
   for (const oldName of mostToLeastCommon) {
     const newName = nameGenerator.nextName();
-    mangleMap.set(oldName, newName);
+    mangleMap.set(oldName, `${prefix}${newName}`);
   }
 
   return mangleMap;
@@ -491,9 +568,9 @@ function doMangleOn(files, expressionsMap, mangleMap) {
   }
 }
 
-function main2(files, queries, reservedNames, expressionsMap) {
+function main2(files, queries, manglePrefix, reservedNames, expressionsMap) {
   const countMap = getCountMap(files, queries, expressionsMap);
-  const mangleMap = getMangleMap(reservedNames, countMap);
+  const mangleMap = getMangleMap(reservedNames, manglePrefix, countMap);
   doMangleOn(files, expressionsMap, mangleMap);
 }
 
@@ -507,6 +584,7 @@ function main(opts) {
     main2(
       opts.files,
       opts.classNameExpr,
+      opts.keepClassPrefix,
       opts.reservedClassNames,
       CLASS_EXPRESSIONS_MAP,
     );
@@ -516,8 +594,19 @@ function main(opts) {
     main2(
       opts.files,
       opts.idNameExpr,
+      opts.keepIdPrefix,
       opts.reservedIdNames,
       ID_EXPRESSIONS_MAP,
+    );
+  }
+
+  if (opts.attrNameExpr) {
+    main2(
+      opts.files,
+      opts.attrNameExpr,
+      opts.keepAttrPrefix,
+      opts.reservedAttrNames,
+      ATTR_EXPRESSIONS_MAP,
     );
   }
 }
@@ -554,6 +643,11 @@ main({
    * @todo Allow regular expressions?
    */
   reservedClassNames: ['fa', 'si'],
+  /**
+   * A prefix to use for mangled classes.
+   * @type {string}
+   */
+  keepClassPrefix: '',
 
   /**
    * One or more expressions to match IDs against. Leave `undefined` if you
@@ -573,6 +667,29 @@ main({
    * @todo Allow regular expressions?
    */
   reservedIdNames: undefined,
+  /**
+   * A prefix to use for mangled ids.
+   * @type {string}
+   */
+  keepIdPrefix: '',
+
+  /**
+   * One or more expressions to match HTML attributes against. Leave `undefined`
+   * if you don't want to mangle HTML attributes.
+   * @type {string|string[]}
+   */
+  attrNameExpr: 'data-[a-zA-Z0-9\\-]*',
+  /**
+   * A list of IDs that should not be used.
+   * @type {string[]}
+   * @todo Allow regular expressions?
+   */
+  reservedAttrNames: undefined,
+  /**
+   * A prefix to use for mangled attributes.
+   * @type {string}
+   */
+  keepAttrPrefix: 'data-',
 
   /**
    * The files to mangle.
