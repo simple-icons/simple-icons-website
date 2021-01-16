@@ -682,3 +682,32 @@ body.order-by-relevance .grid-item {
 .copy-button.copied.contrast-light::before {
   background-image: var(--dm-asset-svg-copied);
 }
+
+/* informative banner */
+
+.info-oldversion {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.8rem;
+  padding: 8px var(--side-offset);
+}
+
+.info-oldversion.hidden {
+  display: none;
+}
+
+.info-oldversion a,
+.info-oldversion button {
+  color: var(--color-link);
+  font-family: inherit;
+  font-size: inherit;
+}
+.info-oldversion a:focus,
+.info-oldversion a:hover,
+.info-oldversion button:focus,
+.info-oldversion button:hover {
+  color: var(--color-link-hover);
+  text-decoration: underline;
+}
+.info-oldversion a:visited {
+  color: var(--color-link-visited);
+}
