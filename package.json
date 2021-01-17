@@ -25,7 +25,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "simple-icons": "4.3.0",
+    "simple-icons": "4.7.0",
     "simple-icons-pdf": "https://github.com/simple-icons/simple-icons-pdf/tarball/master"
   },
   "devDependencies": {
