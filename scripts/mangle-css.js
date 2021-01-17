@@ -403,6 +403,84 @@ const ATTR_EXPRESSIONS_MAP = new Map([
   ['.js', EXPRESSIONS_ATTR_JS],
 ]);
 
+// (Regular) Expressions used for mangling classes
+const EXPRESSIONS_CSS_VAR_CSS = [
+  // e.g. CSS variable declarations
+  //  --(foo)(:) #000;
+  //  --(foo)( :) #000;
+  new MangleExpression('--(%s)(\\s*:)', 1, '--%s$2'),
+
+  // e.g. CSS variable usage
+  //  color: var\((--)(foo)()\)
+  //  color: var\(( --)(foo)()\)
+  //  color: var\((--)(foo)( )\)
+  //  color: var\(( --)(foo)( )\)
+  new MangleExpression('var\\((\\s*--)(%s)(\\s*)\\)', 2, 'var($1%s$3)'),
+];
+const EXPRESSIONS_CSS_VAR_HTML = [
+  /* Single quotes */
+
+  // e.g.
+  //  <div style=('--)(foo)(:) #000;'>
+  //  <div style=('color: #000; --)(foo)(:) #000;'>
+  //  <div style=('--)(foo)(:) #000; font: serif;'>
+  //  <div style=('color: #000; --)(foo)(:) #000; font: serif;'>
+  new MangleExpression(
+    "style\\s*=\\s*('[^']*--)(%s)(\\s*:)",
+    2,
+    'style=$1%s$3',
+  ),
+
+  /* Double quotes */
+
+  // e.g.
+  //  <div style=("--)(foo)(:) #000;">
+  //  <div style=("color: #000; --)(foo)(:) #000;">
+  //  <div style=("--)(foo)(:) #000; font: serif;">
+  //  <div style=("color: #000; --)(foo)(:) #000; font: serif;">
+  new MangleExpression(
+    'style\\s*=\\s*("[^"]*--)(%s)(\\s*:)',
+    2,
+    'style=$1%s$3',
+  ),
+];
+const EXPRESSIONS_CSS_VAR_JS = [
+  /* Single quotes */
+
+  // e.g.
+  //  ('--)(foo)(')
+  //  ('--)(foo)( )'
+  //  (' --)(foo)(')
+  //  (' --)(foo)( )'
+  new MangleExpression("'--(%s)([\\s'])", 1, "'--%s$2"),
+  new MangleExpression("('[^']*\\s--)(%s)([\\s'])", 2, '$1%s$3'),
+
+  /* Double quotes */
+
+  // e.g.
+  //  ("--)(foo)(")
+  //  ("--)(foo)()"
+  //  (" --)(foo)(")
+  //  (" --)(foo)( )"
+  new MangleExpression('"--(%s)([\\s"])', 1, '"--%s$2'),
+  new MangleExpression('("[^"]*\\s--)(%s)([\\s"])', 2, '$1%s$3'),
+
+  /* Backticks */
+
+  // e.g.
+  //  (`--)(foo)(`)
+  //  (`--)(foo)()`
+  //  (` --)(foo)(`)
+  //  (` --)(foo)( )`
+  new MangleExpression('`--(%s)([\\s`])', 1, '`--%s$2'),
+  new MangleExpression('(`[^`]*\\s--)(%s)([\\s`])', 2, '$1%s$3'),
+];
+const CSS_VAR_EXPRESSIONS_MAP = new Map([
+  ['.css', EXPRESSIONS_CSS_VAR_CSS],
+  ['.html', EXPRESSIONS_CSS_VAR_HTML],
+  ['.js', EXPRESSIONS_CSS_VAR_JS],
+]);
+
 /**
  * Create a new mangle name generator. This generator will generate the
  * shortest, safe, unique string not previously generated.
@@ -581,6 +659,7 @@ function main2(files, queries, manglePrefix, reservedNames, expressionsMap) {
  */
 function main(opts) {
   if (opts.classNameExpr) {
+    console.log('-> Mangling CSS classes...');
     main2(
       opts.files,
       opts.classNameExpr,
@@ -588,9 +667,23 @@ function main(opts) {
       opts.reservedClassNames,
       CLASS_EXPRESSIONS_MAP,
     );
+    console.log('-> Finished mangling CSS classes.');
+  }
+
+  if (opts.cssvarNameExpr) {
+    console.log('-> Mangling CSS variables...');
+    main2(
+      opts.files,
+      opts.cssvarNameExpr,
+      opts.keepCssvarPrefix,
+      opts.reservedCssvarNames,
+      CSS_VAR_EXPRESSIONS_MAP,
+    );
+    console.log('-> Finished mangling CSS variables.');
   }
 
   if (opts.idNameExpr) {
+    console.log('-> Mangling IDs...');
     main2(
       opts.files,
       opts.idNameExpr,
@@ -598,9 +691,11 @@ function main(opts) {
       opts.reservedIdNames,
       ID_EXPRESSIONS_MAP,
     );
+    console.log('-> Finished mangling IDs.');
   }
 
   if (opts.attrNameExpr) {
+    console.log('-> Mangling HTML attributes...');
     main2(
       opts.files,
       opts.attrNameExpr,
@@ -608,6 +703,7 @@ function main(opts) {
       opts.reservedAttrNames,
       ATTR_EXPRESSIONS_MAP,
     );
+    console.log('-> Finished mangling HTML attributes.');
   }
 }
 
@@ -648,6 +744,24 @@ main({
    * @type {string}
    */
   keepClassPrefix: '',
+
+  /**
+   * One or more expressions to match CSS variables against. Leave `undefined` if
+   * you don't want to mangle CSS variables.
+   * @type {string|string[]}
+   */
+  cssvarNameExpr: '[a-zA-Z0-9\\-]*',
+  /**
+   * A list of CSS variable names that should not be used.
+   * @type {string[]}
+   * @todo Allow regular expressions?
+   */
+  reservedCssvarName: undefined,
+  /**
+   * A prefix to use for mangled CSS variables.
+   * @type {string}
+   */
+  keepCssvarPrefix: '',
 
   /**
    * One or more expressions to match IDs against. Leave `undefined` if you
