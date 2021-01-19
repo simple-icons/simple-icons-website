@@ -162,12 +162,6 @@ a {
   text-decoration: none;
 }
 
-#copy-input.hidden {
-  border: 0;
-  height: 0;
-  width: 0;
-}
-
 /* Header */
 
 .header {
@@ -330,9 +324,6 @@ body.no-js .control-field__title {
   cursor: pointer;
   fill: var(--color-background);
 }
-.control__button.hidden {
-  display: none;
-}
 
 /* Control - disabled */
 
@@ -364,9 +355,6 @@ body.no-js .control-field__title {
   position: absolute;
   right: 0;
   top: 1px;
-}
-.search #search-clear.hidden {
-  display: none;
 }
 
 /* Control - order */
@@ -417,9 +405,6 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   display: flex;
   margin: 0 0.4rem;
 }
-.grid-item--if-empty.hidden {
-  display: none;
-}
 .grid-item--if-empty p {
   font-family: 'Roboto Mono', monospace;
   font-size: 0.9rem;
@@ -436,7 +421,8 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   color: var(--color-link-visited);
 }
 
-.grid-item {
+.grid-item,
+#carbonads {
   align-items: flex-start;
   background-color: var(--color-background-card);
   border-radius: 4px;
@@ -450,9 +436,6 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   padding-top: 2.5rem;
   position: relative;
   width: 200px;
-}
-.grid-item.hidden {
-  display: none;
 }
 
 @media (max-width: 640px) {
@@ -596,6 +579,50 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   color: var(--color-button-text-hover);
 }
 
+#carbonads {
+  align-items: center;
+  background-color: var(--color-background);
+  box-shadow: none;
+  padding: 0;
+  text-align: center;
+}
+@media (max-width: 640px) {
+  #carbonads {
+    width: 100%;
+  }
+}
+#carbonads a {
+  color: var(--color-text-default);
+}
+
+.carbon-wrap {
+  align-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.carbon-img {
+  display: block;
+  padding: 1rem 1rem 0.5rem;
+}
+
+.carbon-text {
+  display: block;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  margin: 0 auto;
+  max-width: 15rem;
+}
+
+.carbon-poweredby {
+  font-size: 0.625rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+  opacity: 0.5;
+  text-transform: uppercase;
+}
+
 /* Ordering grid-items */
 
 body.order-by-color .grid-item {
@@ -681,4 +708,15 @@ body.order-by-relevance .grid-item {
 }
 .copy-button.copied.contrast-light::before {
   background-image: var(--dm-asset-svg-copied);
+}
+
+.hidden {
+  display: none !important;
+}
+
+#copy-input.hidden {
+  border: 0;
+  display: block !important;
+  height: 0;
+  width: 0;
 }
