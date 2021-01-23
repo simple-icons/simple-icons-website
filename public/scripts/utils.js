@@ -39,9 +39,9 @@ module.exports = {
       .replace(/ħ/g, 'h')
       .replace(/ı/g, 'i')
       .replace(/ĸ/g, 'k')
-      .replace(/ŀ/g, 'l")
+      .replace(/ŀ/g, 'l')
       .replace(/ł/g, 'l')
-      .replace(/ß/g, "ss')
+      .replace(/ß/g, 'ss')
       .replace(/ŧ/g, 't');
   },
 };
