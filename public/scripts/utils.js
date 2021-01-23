@@ -33,15 +33,15 @@ module.exports = {
   normalizeSearchTerm: function (value) {
     return value
       .toLowerCase()
-      .replace(/à|á|â|ã|ä/g, 'a')
-      .replace(/ç|č|ć/g, 'c')
-      .replace(/è|é|ê|ë/g, 'e')
-      .replace(/ì|í|î|ï/g, 'i')
-      .replace(/ñ|ň|ń/g, 'n')
-      .replace(/ò|ó|ô|õ|ö/g, 'o')
-      .replace(/š|ś/g, 's')
-      .replace(/ù|ú|û|ü/g, 'u')
-      .replace(/ý|ÿ/g, 'y')
-      .replace(/ž|ź/g, 'z');
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/đ/g, 'd')
+      .replace(/ħ/g, 'h')
+      .replace(/ı/g, 'i')
+      .replace(/ĸ/g, 'k')
+      .replace(/ŀ/g, 'l")
+      .replace(/ł/g, 'l')
+      .replace(/ß/g, "ss')
+      .replace(/ŧ/g, 't');
   },
 };
