@@ -33,7 +33,7 @@ module.exports = {
   normalizeSearchTerm: function (value) {
     return value
       .toLowerCase()
-      .normalize("NFD")
+      .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
       .replace(/đ/g, 'd')
       .replace(/ħ/g, 'h')
