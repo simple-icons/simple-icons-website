@@ -4,4 +4,4 @@
 git stash -q --keep-index
 npm run lint
 npm run build
-git stash pop -q
+git stash pop -q || true
