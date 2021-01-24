@@ -356,7 +356,7 @@ body.no-js .control-field__title {
 .search #search-clear {
   cursor: pointer;
   display: inline;
-  font-size: 1rem;
+  font-size: 1.5rem;
   line-height: 2.4rem;
   padding: 0 12px;
   position: absolute;
