@@ -472,6 +472,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 }
 
 .grid-item__color {
+  border: 1px solid transparent;
   color: #000;
   cursor: text; /* This should function as text when JS is disabled */
   font-family: 'Roboto Mono', monospace;
@@ -484,6 +485,12 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   padding: 6px 8px;
   position: relative;
   user-select: text;
+}
+.grid-item__color.border-light {
+  border-color: var(--dm-color-background-card);
+}
+.grid-item__color.border-dark {
+  border-color: var(--lm-color-background-card);
 }
 .grid-item__color.contrast-light {
   color: #fff;

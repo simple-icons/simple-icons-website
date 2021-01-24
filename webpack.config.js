@@ -28,11 +28,6 @@ function simplifyHexIfPossible(hex) {
   return hex;
 }
 
-function colorContrast(hex) {
-  const luminance = getRelativeLuminance(`#${hex}`);
-  return luminance < 0.4;
-}
-
 function getGuidelinesFor(title) {
   let result;
   simpleIconsData.icons.forEach((icon) => {
@@ -95,12 +90,15 @@ module.exports = {
       template: path.resolve(ROOT_DIR, 'public/index.pug'),
       templateParameters: {
         icons: icons.map((icon, iconIndex) => {
+          const luminance = getRelativeLuminance(`#${icon.hex}`);
           return {
             guidelines: getGuidelinesFor(icon.title),
             hex: icon.hex,
             indexByAlpha: iconIndex,
             indexByColor: sortedHexes.indexOf(icon.hex),
-            light: colorContrast(icon.hex),
+            light: luminance < 0.4,
+            superLight: luminance > 0.95,
+            superDark: luminance < 0.05,
             normalizedName: normalizeSearchTerm(icon.title),
             path: icon.path,
             shortHex: simplifyHexIfPossible(icon.hex),
