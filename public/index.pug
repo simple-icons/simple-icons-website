@@ -84,7 +84,7 @@ html
         li(class="grid-item--if-empty hidden" aria-hidden)
           p Icon missing? #[a(href="https://github.com/simple-icons/simple-icons/issues/new?template=icon_request.md" rel="noopener") Submit a request]
 
-        //- This script ads an extra element after itself.
+        //- This script adds an extra element after itself.
         script(
           async
           id="_carbonads_js"
@@ -103,6 +103,13 @@ html
               title=`${icon.title} color`
               disabled
             ) ##{icon.hex}
+            if icon.guidelines
+              a(class="grid-item__guidelines link-button" title=`${icon.title} guidelines` href=icon.guidelines rel="noopner" target="_blank")
+                svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round")
+                  path(d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6")
+                  polyline(points="15 3 21 3 21 9")
+                  line(x1="10" y1="14" x2="21" y2="3")
+                span Brand Guidelines
             div(class="grid-item__footer")
               button(class="grid-item__preview copy-button" title=`${icon.title} SVG` disabled)
                 svg(id=`${icon.slug}-svg` role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg")

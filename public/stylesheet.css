@@ -20,6 +20,7 @@
   --dm-color-background-transparent: rgba(34, 34, 34, 0.7);
   --dm-color-background-card: rgb(20, 20, 20);
   --dm-color-text-default: rgb(250, 250, 250);
+  --dm-color-text-light: rgb(170, 170, 170);
   --dm-color-svg-default: rgb(255, 255, 255);
   --dm-color-button-hover: rgb(221, 221, 221);
   --dm-color-button-active: rgb(221, 221, 221);
@@ -37,6 +38,7 @@
   --lm-color-background-transparent: rgba(252, 252, 252, 0.7);
   --lm-color-background-card: rgb(255, 255, 255);
   --lm-color-text-default: rgb(0, 0, 0);
+  --lm-color-text-light: rgb(102, 102, 102);
   --lm-color-svg-default: rgb(0, 0, 0);
   --lm-color-button-hover: rgb(51, 51, 51);
   --lm-color-button-active: rgb(51, 51, 51);
@@ -73,6 +75,7 @@
     --color-background-transparent: var(--dm-color-background-transparent);
     --color-background-card: var(--dm-color-background-card);
     --color-text-default: var(--dm-color-text-default);
+    --color-text-light: var(--dm-color-text-light);
     --color-svg-default: var(--dm-color-svg-default);
     --color-button-hover: var(--dm-color-button-hover);
     --color-button-active: var(--dm-color-button-active);
@@ -88,10 +91,12 @@
   :root {
     --asset-svg-copy: var(--lm-asset-svg-copy);
     --asset-svg-copied: var(--lm-asset-svg-copied);
+    --asset-svg--link: var(--lm-asset-svg-ext-link);
     --color-background: var(--lm-color-background);
     --color-background-transparent: var(--lm-color-background-transparent);
     --color-background-card: var(--lm-color-background-card);
     --color-text-default: var(--lm-color-text-default);
+    --color-text-light: var(--lm-color-text-light);
     --color-svg-default: var(--lm-color-svg-default);
     --color-button-hover: var(--lm-color-button-hover);
     --color-button-active: var(--lm-color-button-active);
@@ -111,6 +116,7 @@ body.dark {
   --color-background-transparent: var(--dm-color-background-transparent);
   --color-background-card: var(--dm-color-background-card);
   --color-text-default: var(--dm-color-text-default);
+  --color-text-light: var(--dm-color-text-light);
   --color-svg-default: var(--dm-color-svg-default);
   --color-button-hover: var(--dm-color-button-hover);
   --color-button-active: var(--dm-color-button-active);
@@ -128,6 +134,7 @@ body.light {
   --color-background-transparent: var(--lm-color-background-transparent);
   --color-background-card: var(--lm-color-background-card);
   --color-text-default: var(--lm-color-text-default);
+  --color-text-light: var(--lm-color-text-light);
   --color-svg-default: var(--lm-color-svg-default);
   --color-button-hover: var(--lm-color-button-hover);
   --color-button-active: var(--lm-color-button-active);
@@ -501,6 +508,36 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 @media (hover: hover) {
   .grid-item__color:not(:disabled):hover::before {
     display: block;
+  }
+}
+
+.grid-item__guidelines {
+  align-items: center;
+  color: var(--color-text-light);
+  display: flex;
+  flex-direction: row;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.8rem;
+  line-height: 1rem;
+  margin: 0.3rem 1rem 0.2rem;
+  outline: none;
+}
+.grid-item__guidelines a {
+  display: inline;
+}
+.grid-item__guidelines svg {
+  display: inline;
+  margin: 0.05rem 0.2rem 0.05rem 0;
+  height: 0.85rem;
+}
+.grid-item__guidelines:focus {
+  color: var(--color-text-default);
+  text-decoration: underline;
+}
+@media (hover: hover) {
+  .grid-item__guidelines:hover {
+    color: var(--color-text-default);
+    text-decoration: underline;
   }
 }
 

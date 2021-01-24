@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const simpleIcons = require('simple-icons');
+const simpleIconsData = require('simple-icons/_data/simple-icons.json');
 const sortColors = require('color-sorter').sortFn;
 
 const { normalizeSearchTerm } = require('./public/scripts/utils.js');
@@ -30,6 +31,20 @@ function simplifyHexIfPossible(hex) {
 function colorContrast(hex) {
   const luminance = getRelativeLuminance(`#${hex}`);
   return luminance < 0.4;
+}
+
+function getGuidelinesFor(title) {
+  let result;
+  simpleIconsData.icons.forEach((icon) => {
+    if (icon.title !== title) {
+      return;
+    }
+    if (icon.guidelines) {
+      result = icon.guidelines;
+    }
+  });
+
+  return result;
 }
 
 module.exports = {
@@ -81,6 +96,7 @@ module.exports = {
       templateParameters: {
         icons: icons.map((icon, iconIndex) => {
           return {
+            guidelines: getGuidelinesFor(icon.title),
             hex: icon.hex,
             indexByAlpha: iconIndex,
             indexByColor: sortedHexes.indexOf(icon.hex),
