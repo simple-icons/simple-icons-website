@@ -1,5 +1,5 @@
 import { hideElement } from './dom-utils.js';
-import { STORAGE_HIDE_TEMP_BANNER } from './storage.js';
+import { STORAGE_KEY_HIDE_TEMP_BANNER } from './storage.js';
 
 export default function initFeedbackRequest(document, storage) {
   const $feedbackBanner = document.querySelector('.banner-feedback');
@@ -9,7 +9,7 @@ export default function initFeedbackRequest(document, storage) {
   $hideAlwaysButton.disabled = false;
   $hideOnceButton.disabled = false;
 
-  const storedHideInfoValue = storage.getItem(STORAGE_HIDE_TEMP_BANNER);
+  const storedHideInfoValue = storage.getItem(STORAGE_KEY_HIDE_TEMP_BANNER);
   if (storedHideInfoValue) {
     hideElement($feedbackBanner);
   }
@@ -17,7 +17,7 @@ export default function initFeedbackRequest(document, storage) {
   $hideAlwaysButton.addEventListener('click', (event) => {
     event.preventDefault();
     hideElement($feedbackBanner);
-    storage.setItem(STORAGE_HIDE_TEMP_BANNER, true);
+    storage.setItem(STORAGE_KEY_HIDE_TEMP_BANNER, true);
   });
   $hideOnceButton.addEventListener('click', (event) => {
     event.preventDefault();

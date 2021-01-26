@@ -1,6 +1,8 @@
-export const STORAGE_KEY_COLOR_SCHEME = 'preferred-color-scheme';
-export const STORAGE_KEY_ORDERING = 'preferred-ordering';
-export const STORAGE_HIDE_TEMP_BANNER = 'temporary-banner';
+const PREFIX = 'simple-icons-';
+
+export const STORAGE_KEY_COLOR_SCHEME = PREFIX + 'preferred-color-scheme';
+export const STORAGE_KEY_ORDERING = PREFIX + 'preferred-ordering';
+export const STORAGE_KEY_HIDE_TEMP_BANNER = PREFIX + 'temporary-banner';
 
 const mockStorage = {
   getItem() {},
