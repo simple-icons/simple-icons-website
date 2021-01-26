@@ -41,7 +41,7 @@ html
         li(class="header__list-item")
           a(href="https://github.com/simple-icons/simple-icons#readme" rel="noopener") About
       h1(class="header__title") Simple Icons
-      p(class="header__description") #{iconCount} Free <abbr title="Scalable Vector Graphic">SVG</abbr> icons for popular brands
+      p(class="header__description") #{iconCount} Free #[abbr(title="Scalable Vector Graphic") SVG] icons for popular brands
 
     main(class="main" role="main")
       div(class="control")
@@ -86,17 +86,32 @@ html
         li(class="grid-item--if-empty hidden" aria-hidden)
           p Icon missing? #[a(href="https://github.com/simple-icons/simple-icons/issues/new?template=icon_request.md" rel="noopener") Submit a request]
 
+        //- This script adds an extra element after itself.
+        script(
+          async
+          id="_carbonads_js"
+          src="//cdn.carbonads.com/carbon.js?serve=CKYIPK7M&placement=simpleiconsorg"
+          type="text/javascript"
+        )
+
         each icon in icons
           li(class="grid-item" style=`--order-color: ${icon.indexByColor}` data-brand=`${icon.normalizedName}`)
             svg(class="grid-item__decoration" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg")
               use(href=`#${icon.slug}-svg`)
             h2(class="grid-item__title") #{icon.title}
             button(
-              class=`grid-item__color copy-button ${icon.light ? "contrast-light" : "contrast-dark"}`
+              class=`grid-item__color copy-button ${icon.light ? "contrast-light" : "contrast-dark"} ${icon.superLight ? "border-light" : ""}  ${icon.superDark ? "border-dark" : ""}`
               style=`background-color: #${icon.shortHex}`
               title=`${icon.title} color`
               disabled
             ) ##{icon.hex}
+            if icon.guidelines
+              a(class="grid-item__guidelines link-button" title=`${icon.title} guidelines` href=icon.guidelines rel="noopner" target="_blank")
+                svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round")
+                  path(d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6")
+                  polyline(points="15 3 21 3 21 9")
+                  line(x1="10" y1="14" x2="21" y2="3")
+                span Brand Guidelines
             div(class="grid-item__footer")
               button(class="grid-item__preview copy-button" title=`${icon.title} SVG` disabled)
                 svg(id=`${icon.slug}-svg` role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg")

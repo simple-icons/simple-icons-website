@@ -8,8 +8,9 @@ about: Issues and improvements for the website
 
 ### Kind of issue <!-- Change the one that applies to `[x]`  -->
 
-- [ ] Improvement
+- [ ] Feature
 - [ ] Bug
+- [ ] Design
 - [ ] Other, namely:
 
 ### Description
@@ -17,8 +18,8 @@ about: Issues and improvements for the website
 
 <!--
 Anything relevant, for example:
-  - For bugs: "Steps to reproduce" and "Expected behavior"
-  - For improvements: An example of a use case
-  - Website issues: What browser do you use
+  - For features: An example of a use case
+  - For bugs: Your browsers, "Steps to reproduce" and "Expected behavior"
+  - For design: An illustration of your idea
   - etc.
 -->
