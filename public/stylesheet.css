@@ -765,27 +765,27 @@ body.order-by-relevance .grid-item {
   width: 0;
 }
 
-/* informative banner */
+/* Temporary feedback banner */
 
-.info-oldversion {
+.banner-feedback {
   font-family: 'Roboto Mono', monospace;
   font-size: 0.8rem;
   padding: 8px var(--side-offset);
 }
 
-.info-oldversion a,
-.info-oldversion button {
+.banner-feedback a,
+.banner-feedback button {
   color: var(--color-link);
   font-family: inherit;
   font-size: inherit;
 }
-.info-oldversion a:focus,
-.info-oldversion a:hover,
-.info-oldversion button:focus,
-.info-oldversion button:hover {
+.banner-feedback a:focus,
+.banner-feedback a:hover,
+.banner-feedback button:focus,
+.banner-feedback button:hover {
   color: var(--color-link-hover);
   text-decoration: underline;
 }
-.info-oldversion a:visited {
+.banner-feedback a:visited {
   color: var(--color-link-visited);
 }
