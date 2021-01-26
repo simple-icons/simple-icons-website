@@ -356,12 +356,16 @@ body.no-js .control-field__title {
 .search #search-clear {
   cursor: pointer;
   display: inline;
+  font-family: 'Roboto Mono', monospace;
   font-size: 1.5rem;
-  line-height: 2.4rem;
+  line-height: 2.3rem;
   padding: 0 12px;
   position: absolute;
   right: 0;
-  top: 1px;
+  top: 0;
+}
+.search #search-clear::selection {
+  background-color: transparent;
 }
 
 /* Control - order */
