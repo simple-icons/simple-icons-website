@@ -1,7 +1,7 @@
 import { hideElement } from './dom-utils.js';
 import { STORAGE_HIDE_TEMP_BANNER } from './storage.js';
 
-export default function initCopyButtons(document, storage) {
+export default function initFeedbackRequest(document, storage) {
   const $feedbackBanner = document.querySelector('.banner-feedback');
   const $hideAlwaysButton = document.getElementById('hide-feedback-banner');
   const $hideOnceButton = document.getElementById('hide-feedback-banner-once');
