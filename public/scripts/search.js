@@ -50,6 +50,7 @@ export default function initSearch(history, document, ordering) {
   const $searchClear = document.getElementById('id-search-clear');
   const $orderByRelevance = document.getElementById('id-order-relevance');
   const $gridItemIfEmpty = document.querySelector('.grid-item--if-empty');
+  const $adSpace = document.querySelector('#carbonads');
   const $icons = document.querySelectorAll('.grid-item[data-brand]');
 
   $searchInput.disabled = false;
@@ -82,12 +83,14 @@ export default function initSearch(history, document, ordering) {
     if (query !== '') {
       showElement($searchClear);
       showElement($orderByRelevance);
+      hideElement($adSpace);
       if (activeQuery === '') {
         ordering.selectOrdering(ORDER_BY_RELEVANCE);
       }
     } else {
       hideElement($searchClear);
       hideElement($orderByRelevance);
+      showElement($adSpace);
       if (ordering.currentOrderingIs(ORDER_BY_RELEVANCE)) {
         ordering.resetOrdering();
       }
