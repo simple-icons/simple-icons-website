@@ -45,12 +45,16 @@ The repository defines the following commands that can be used for development p
 You can build a Docker image for this project from the Dockerfile. This image can be used to instantiate a container serving the simple-icons website. If you attach the container to the project folder local changes will be reflected by the this webserver.
 
 ```bash
+# Navigate to the project root
+$ cd simple-icons-website
+
 # Build the Docker image for the simple-icons-website (if you haven't yet)
 $ docker build . -t simple-icons/website
 
 # Start a container running `npm run serve:watch` in the background. The value
-# of the --volume option ensures local changes are reflected by the webserver
-$ docker run -d -p 8080:8080 --rm --volume $PWD:/website --name simple-icons-webserver simple-icons/website
+# of the --volume option ensures local changes in /public folder are reflected
+# by the webserver
+$ docker run -d -p 8080:8080 --rm --volume $PWD/public:/website/public --name simple-icons-webserver simple-icons/website
 
 # Inspect the server logs
 $ docker logs simple-icons-webserver
@@ -62,9 +66,6 @@ $ docker stop simple-icons-webserver
 Alternatively, you can use it to create a container and attach to it. This would allow you to use it as a development environment.
 
 ```bash
-# Build the Docker image for the simple-icons-website (if you haven't yet)
-$ docker build . -t simple-icons/website
-
 # Start a container and attach a shell
 $ docker run -it --entrypoint "/bin/ash" --name simple-icons-website-dev simple-icons/website
 
