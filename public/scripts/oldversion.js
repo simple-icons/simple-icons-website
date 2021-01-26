@@ -2,19 +2,25 @@ import { hideElement } from './dom-utils.js';
 import { STORAGE_HIDE_TEMP_BANNER } from './storage.js';
 
 export default function initCopyButtons(document, storage) {
-  const $infoBanner = document.querySelector('.banner-feedback');
-  const $hideInfoButton = document.getElementById('hide-feedback-banner');
+  const $feedbackBanner = document.querySelector('.banner-feedback');
+  const $hideAlwaysButton = document.getElementById('hide-feedback-banner');
+  const $hideOnceButton = document.getElementById('hide-feedback-banner-once');
 
-  $hideInfoButton.disabled = false;
+  $hideAlwaysButton.disabled = false;
+  $hideOnceButton.disabled = false;
 
   const storedHideInfoValue = storage.getItem(STORAGE_HIDE_TEMP_BANNER);
   if (storedHideInfoValue) {
-    hideElement($infoBanner);
+    hideElement($feedbackBanner);
   }
 
-  $hideInfoButton.addEventListener('click', (event) => {
+  $hideAlwaysButton.addEventListener('click', (event) => {
     event.preventDefault();
-    hideElement($infoBanner);
+    hideElement($feedbackBanner);
     storage.setItem(STORAGE_HIDE_TEMP_BANNER, true);
+  });
+  $hideOnceButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    hideElement($feedbackBanner);
   });
 }

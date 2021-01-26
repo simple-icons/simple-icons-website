@@ -789,3 +789,7 @@ body.order-by-relevance .grid-item {
 .banner-feedback a:visited {
   color: var(--color-link-visited);
 }
+
+.banner__hide {
+  float: right;
+}
