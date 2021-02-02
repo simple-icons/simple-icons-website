@@ -768,3 +768,32 @@ body.order-by-relevance .grid-item {
   height: 0;
   width: 0;
 }
+
+/* Temporary feedback banner */
+
+.banner-feedback {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.8rem;
+  padding: 8px var(--side-offset);
+}
+
+.banner-feedback a,
+.banner-feedback button {
+  color: var(--color-link);
+  font-family: inherit;
+  font-size: inherit;
+}
+.banner-feedback a:focus,
+.banner-feedback a:hover,
+.banner-feedback button:focus,
+.banner-feedback button:hover {
+  color: var(--color-link-hover);
+  text-decoration: underline;
+}
+.banner-feedback a:visited {
+  color: var(--color-link-visited);
+}
+
+.banner__hide {
+  float: right;
+}
