@@ -16,6 +16,7 @@
   /* Dark mode colors and assets */
   --dm-asset-svg-copy: url(./assets/copy-white.svg);
   --dm-asset-svg-copied: url(./assets/check-white.svg);
+  --dm-asset-svg-external-link: url(./assets/external-link-white.svg);
   --dm-color-background: rgb(34, 34, 34);
   --dm-color-background-transparent: rgba(34, 34, 34, 0.7);
   --dm-color-background-card: rgb(20, 20, 20);
@@ -34,6 +35,7 @@
   /* Light mode colors and assets */
   --lm-asset-svg-copy: url(./assets/copy.svg);
   --lm-asset-svg-copied: url(./assets/check.svg);
+  --lm-asset-svg-external-link: url(./assets/external-link.svg);
   --lm-color-background: rgb(252, 252, 252);
   --lm-color-background-transparent: rgba(252, 252, 252, 0.7);
   --lm-color-background-card: rgb(255, 255, 255);
@@ -71,6 +73,7 @@
   :root {
     --asset-svg-copy: var(--dm-asset-svg-copy);
     --asset-svg-copied: var(--dm-asset-svg-copied);
+    --asset-svg-external-link: var(--dm-asset-svg-external-link);
     --color-background: var(--dm-color-background);
     --color-background-transparent: var(--dm-color-background-transparent);
     --color-background-card: var(--dm-color-background-card);
@@ -91,6 +94,7 @@
   :root {
     --asset-svg-copy: var(--lm-asset-svg-copy);
     --asset-svg-copied: var(--lm-asset-svg-copied);
+    --asset-svg-external-link: var(--lm-asset-svg-external-link);
     --color-background: var(--lm-color-background);
     --color-background-transparent: var(--lm-color-background-transparent);
     --color-background-card: var(--lm-color-background-card);
@@ -111,6 +115,7 @@
 body.dark {
   --asset-svg-copy: var(--dm-asset-svg-copy);
   --asset-svg-copied: var(--dm-asset-svg-copied);
+  --asset-svg-external-link: var(--dm-asset-svg-external-link);
   --color-background: var(--dm-color-background);
   --color-background-transparent: var(--dm-color-background-transparent);
   --color-background-card: var(--dm-color-background-card);
@@ -129,6 +134,7 @@ body.dark {
 body.light {
   --asset-svg-copy: var(--lm-asset-svg-copy);
   --asset-svg-copied: var(--lm-asset-svg-copied);
+  --asset-svg-external-link: var(--lm-asset-svg-external-link);
   --color-background: var(--lm-color-background);
   --color-background-transparent: var(--lm-color-background-transparent);
   --color-background-card: var(--lm-color-background-card);
@@ -523,30 +529,23 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 
 .grid-item__guidelines {
   align-items: center;
-  color: var(--color-text-light);
+  color: var(--color-text-default);
   display: flex;
   flex-direction: row;
   font-family: 'Roboto Mono', monospace;
   font-size: 0.8rem;
   line-height: 1rem;
   margin: 0.3rem 1rem 0.2rem;
+  opacity: 0.6;
   outline: none;
 }
-.grid-item__guidelines a {
-  display: inline;
-}
-.grid-item__guidelines svg {
-  display: inline;
-  margin: 0.05rem 0.2rem 0.05rem 0;
-  height: 0.85rem;
-}
 .grid-item__guidelines:focus {
-  color: var(--color-text-default);
+  opacity: 1;
   text-decoration: underline;
 }
 @media (hover: hover) {
   .grid-item__guidelines:hover {
-    color: var(--color-text-default);
+    opacity: 1;
     text-decoration: underline;
   }
 }
@@ -755,6 +754,16 @@ body.order-by-relevance .grid-item {
 }
 .copy-button.copied.contrast-light::before {
   background-image: var(--dm-asset-svg-copied);
+}
+
+.link-button::before {
+  content: '';
+  background-image: var(--asset-svg-external-link);
+  background-size: cover;
+  background-position: 50% 50%;
+  height: 0.85rem;
+  margin: 0.05rem 0.2rem 0.05rem 0;
+  width: 0.9rem;
 }
 
 .hidden {
