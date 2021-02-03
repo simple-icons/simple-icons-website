@@ -18,7 +18,7 @@ const sortedHexes = icons
 
 const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const OUT_DIR = path.resolve(__dirname, '_site');
-const ROOT_DIR = path.resolve(__dirname);
+const ROOT_DIR = path.resolve(__dirname, 'public');
 
 function simplifyHexIfPossible(hex) {
   if (hex[0] === hex[1] && hex[2] === hex[3] && hex[4] == hex[5]) {
@@ -44,7 +44,7 @@ function getGuidelinesFor(title) {
 
 module.exports = {
   entry: {
-    app: './public/scripts/index.js',
+    app: path.resolve(ROOT_DIR, 'scripts/index.js'),
   },
   output: {
     path: OUT_DIR,
@@ -80,14 +80,14 @@ module.exports = {
           filter: (path) => path.endsWith('.pdf'),
         },
         {
-          from: path.resolve(ROOT_DIR, 'public/images'),
+          from: path.resolve(ROOT_DIR, 'images'),
           to: path.resolve(OUT_DIR, 'images'),
         },
       ],
     }),
     new HtmlWebpackPlugin({
       inject: true,
-      template: path.resolve(ROOT_DIR, 'public/index.pug'),
+      template: path.resolve(ROOT_DIR, 'index.pug'),
       templateParameters: {
         icons: icons.map((icon, iconIndex) => {
           const luminance = getRelativeLuminance(`#${icon.hex}`);
