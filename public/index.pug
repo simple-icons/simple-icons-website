@@ -28,6 +28,10 @@ html
     link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Roboto+Mono:wght@400;600&display=swap")
 
   body(class="no-js")
+    div(class="banner-feedback" role="banner")
+      span #[a(href="https://github.com/simple-icons/simple-icons/discussions/4865" rel="noopener") Share your opinion of the redesign on GitHub] or #[a(href="https://simpleicons.org/" rel="noopener") Go to the old design]
+      span(class="banner__hide") Hide this message #[button(id="hide-feedback-banner-once" disabled) Once] or #[button(id="hide-feedback-banner" disabled) Always]
+
     header(class="header" role="banner")
       ul(class="header__list")
         li(class="header__list-item")
@@ -104,12 +108,13 @@ html
               disabled
             ) ##{icon.hex}
             if icon.guidelines
-              a(class="grid-item__guidelines link-button" title=`${icon.title} guidelines` href=icon.guidelines rel="noopner" target="_blank")
-                svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round")
-                  path(d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6")
-                  polyline(points="15 3 21 3 21 9")
-                  line(x1="10" y1="14" x2="21" y2="3")
-                span Brand Guidelines
+              a(
+                class="grid-item__guidelines link-button"
+                title=`${icon.title} guidelines`
+                href=icon.guidelines
+                rel="noopner"
+                target="_blank"
+              ) Brand Guidelines
             div(class="grid-item__footer")
               button(class="grid-item__preview copy-button" title=`${icon.title} SVG` disabled)
                 svg(id=`${icon.slug}-svg` role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg")

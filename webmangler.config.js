@@ -1,5 +1,5 @@
-const BuiltInLanguages = require('webmangler/lib/languages/builtin').default;
-const BuiltInManglers = require('webmangler/lib/manglers/builtin').default;
+const BuiltInLanguages = require('webmangler/languages/builtin').default;
+const BuiltInManglers = require('webmangler/manglers/builtin').default;
 
 module.exports = {
   plugins: [
