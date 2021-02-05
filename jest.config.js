@@ -7,7 +7,6 @@ const TEST_ENV_OPTIONS = [TEST_ENV_ALL, TEST_ENV_UNIT];
 
 let bail = 0;
 let preset = undefined;
-let globals = {};
 let ignorePaths = ['/node_modules/'];
 
 switch (process.env.TEST_ENV) {
@@ -18,7 +17,6 @@ switch (process.env.TEST_ENV) {
 
     bail = 1; // Fail immediately to avoid running costly tests unnecessarily
     preset = 'jest-puppeteer';
-    globals.ARTIFACTS_DIR = path.resolve(__dirname, 'tests/_artifacts');
     break;
   case TEST_ENV_UNIT:
     ignorePaths.push('integration.test.js');
@@ -31,6 +29,8 @@ switch (process.env.TEST_ENV) {
 module.exports = {
   bail,
   preset,
-  globals,
+  globals: {
+    ARTIFACTS_DIR: path.resolve(__dirname, 'tests/_artifacts'),
+  },
   testPathIgnorePatterns: ignorePaths,
 };
