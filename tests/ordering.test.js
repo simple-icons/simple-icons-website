@@ -125,8 +125,9 @@ describe('Ordering', () => {
 
   it('uses alphabetical ordering if no value is stored', () => {
     initOrdering(document, localStorage);
-    expect(localStorage.getItem).toHaveBeenCalledWith(STORAGE_KEY_ORDERING);
-    expect(localStorage.setItem).not.toHaveBeenCalledWith();
+    expect(localStorage.hasItem).toHaveBeenCalledWith(STORAGE_KEY_ORDERING);
+    expect(localStorage.getItem).not.toHaveBeenCalled();
+    expect(localStorage.setItem).not.toHaveBeenCalled();
   });
 
   it('uses the stored value "alphabetically"', () => {
@@ -134,8 +135,9 @@ describe('Ordering', () => {
     localStorage.__setStoredValueFor(STORAGE_KEY_ORDERING, storedValue);
 
     initOrdering(document, localStorage);
+    expect(localStorage.hasItem).toHaveBeenCalledWith(STORAGE_KEY_ORDERING);
     expect(localStorage.getItem).toHaveBeenCalledWith(STORAGE_KEY_ORDERING);
-    expect(localStorage.setItem).not.toHaveBeenCalledWith();
+    expect(localStorage.setItem).not.toHaveBeenCalled();
   });
 
   it('uses the stored value "color"', () => {
@@ -143,6 +145,7 @@ describe('Ordering', () => {
     localStorage.__setStoredValueFor(STORAGE_KEY_ORDERING, storedValue);
 
     initOrdering(document, localStorage);
+    expect(localStorage.hasItem).toHaveBeenCalledWith(STORAGE_KEY_ORDERING);
     expect(localStorage.getItem).toHaveBeenCalledWith(STORAGE_KEY_ORDERING);
     expect(document.$body.classList.add).toHaveBeenCalledWith('order-by-color');
     expect(localStorage.setItem).toHaveBeenCalledWith(

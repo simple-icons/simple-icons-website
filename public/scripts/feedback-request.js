@@ -9,8 +9,7 @@ export default function initFeedbackRequest(document, storage) {
   $hideAlwaysButton.disabled = false;
   $hideOnceButton.disabled = false;
 
-  const storedHideInfoValue = storage.getItem(STORAGE_KEY_HIDE_TEMP_BANNER);
-  if (storedHideInfoValue) {
+  if (storage.hasItem(STORAGE_KEY_HIDE_TEMP_BANNER)) {
     hideElement($feedbackBanner);
   }
 

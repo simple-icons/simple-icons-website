@@ -21,8 +21,8 @@ export default function initColorScheme(document, storage) {
   $colorSchemeLight.disabled = false;
   $colorSchemeSystem.disabled = false;
 
-  const storedColorScheme = storage.getItem(STORAGE_KEY_COLOR_SCHEME);
-  if (storedColorScheme) {
+  if (storage.hasItem(STORAGE_KEY_COLOR_SCHEME)) {
+    const storedColorScheme = storage.getItem(STORAGE_KEY_COLOR_SCHEME);
     selectColorScheme(storedColorScheme);
   }
 

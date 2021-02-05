@@ -23,8 +23,8 @@ export default function initOrdering(document, storage) {
   $orderByColor.disabled = false;
   $orderByRelevance.disabled = false;
 
-  const storedOrdering = storage.getItem(STORAGE_KEY_ORDERING);
-  if (storedOrdering) {
+  if (storage.hasItem(STORAGE_KEY_ORDERING)) {
+    const storedOrdering = storage.getItem(STORAGE_KEY_ORDERING);
     selectOrdering(storedOrdering);
   }
 
