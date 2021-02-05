@@ -3,25 +3,26 @@ function newElementsMocks(elName) {
 }
 
 export const document = {
-  getElementById: jest
-    .fn()
-    .mockImplementation(newElementMock)
-    .mockName('document.getElementById'),
-  querySelector: jest
-    .fn()
-    .mockImplementation(newElementMock)
-    .mockName('document.querySelector'),
-  querySelectorAll: jest
-    .fn()
-    .mockImplementation(newElementsMocks)
-    .mockName('document.querySelectorAll'),
+  getElementById: jest.fn().mockName('document.getElementById'),
+  querySelector: jest.fn().mockName('document.querySelector'),
+  querySelectorAll: jest.fn().mockName('document.querySelectorAll'),
+
+  // Common elements
+  $body: newElementMock('body'),
 
   // Utility to quickly clear the entire document mock.
   __resetAllMocks: function () {
+    this.$body = newElementMock('body');
     this.getElementById.mockClear();
     this.getElementById.mockImplementation(newElementMock);
     this.querySelector.mockClear();
-    this.querySelector.mockImplementation(newElementMock);
+    this.querySelector.mockImplementation((query) => {
+      if (query === 'body') {
+        return this.$body;
+      }
+
+      return newElementMock(query);
+    });
     this.querySelectorAll.mockClear();
     this.querySelectorAll.mockImplementation(newElementsMocks);
   },

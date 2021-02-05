@@ -7,7 +7,7 @@ const { navigator } = require('./mocks/navigator.mock.js');
 
 const initCopyButtons = require('../public/scripts/copy.js').default;
 
-describe('DOM', () => {
+describe('Copy', () => {
   beforeEach(() => {
     document.__resetAllMocks();
     navigator.__resetAllMocks();

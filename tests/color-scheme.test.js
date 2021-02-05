@@ -9,23 +9,14 @@ const initColorScheme = require('../public/scripts/color-scheme.js').default;
 const { STORAGE_KEY_COLOR_SCHEME } = require('../public/scripts/storage.js');
 
 describe('Color scheme', () => {
-  let $body;
-
   beforeEach(() => {
     document.__resetAllMocks();
     localStorage.__resetAllMocks();
-
-    $body = newElementMock('body');
-    document.querySelector.mockImplementation((query) => {
-      if (query === 'body') {
-        return $body;
-      }
-
-      return newElementMock(query);
-    });
   });
 
   it('gets the #color-scheme-dark button', () => {
+    localStorage.__storedValueFor(STORAGE_KEY_COLOR_SCHEME, 'unknown');
+
     const eventListeners = new Map();
 
     let $colorSchemeDark = newElementMock('#color-scheme-dark');
@@ -49,6 +40,8 @@ describe('Color scheme', () => {
       expect.any(Function),
     );
 
+    localStorage.setItem.mockClear();
+
     const clickListener = eventListeners.get('click');
     const event = newEventMock();
     clickListener(event);
@@ -61,6 +54,8 @@ describe('Color scheme', () => {
   });
 
   it('gets the #color-scheme-light button', () => {
+    localStorage.__storedValueFor(STORAGE_KEY_COLOR_SCHEME, 'unknown');
+
     const eventListeners = new Map();
 
     let $colorSchemeLight = newElementMock('#color-scheme-light');
@@ -84,6 +79,8 @@ describe('Color scheme', () => {
       expect.any(Function),
     );
 
+    localStorage.setItem.mockClear();
+
     const clickListener = eventListeners.get('click');
     const event = newEventMock();
     clickListener(event);
@@ -96,6 +93,8 @@ describe('Color scheme', () => {
   });
 
   it('gets the #color-scheme-system button', () => {
+    localStorage.__storedValueFor(STORAGE_KEY_COLOR_SCHEME, 'unknown');
+
     const eventListeners = new Map();
 
     let $colorSchemeSystem = newElementMock('#color-scheme-system');
@@ -119,6 +118,8 @@ describe('Color scheme', () => {
       expect.any(Function),
     );
 
+    localStorage.setItem.mockClear();
+
     const clickListener = eventListeners.get('click');
     const event = newEventMock();
     clickListener(event);
@@ -132,6 +133,7 @@ describe('Color scheme', () => {
 
   it('uses the system color scheme if no value is stored', () => {
     initColorScheme(document, localStorage);
+    expect(localStorage.getItem).toHaveBeenCalledWith(STORAGE_KEY_COLOR_SCHEME);
     expect(localStorage.setItem).toHaveBeenCalledWith(
       STORAGE_KEY_COLOR_SCHEME,
       'system',
@@ -143,8 +145,9 @@ describe('Color scheme', () => {
     localStorage.__storedValueFor(STORAGE_KEY_COLOR_SCHEME, storedValue);
 
     initColorScheme(document, localStorage);
-    expect($body.classList.add).toHaveBeenCalledWith('dark');
-    expect($body.classList.remove).toHaveBeenCalledWith('light');
+    expect(localStorage.getItem).toHaveBeenCalledWith(STORAGE_KEY_COLOR_SCHEME);
+    expect(document.$body.classList.add).toHaveBeenCalledWith('dark');
+    expect(document.$body.classList.remove).toHaveBeenCalledWith('light');
     expect(localStorage.setItem).toHaveBeenCalledWith(
       STORAGE_KEY_COLOR_SCHEME,
       storedValue,
@@ -156,8 +159,9 @@ describe('Color scheme', () => {
     localStorage.__storedValueFor(STORAGE_KEY_COLOR_SCHEME, storedValue);
 
     initColorScheme(document, localStorage);
-    expect($body.classList.add).toHaveBeenCalledWith('light');
-    expect($body.classList.remove).toHaveBeenCalledWith('dark');
+    expect(localStorage.getItem).toHaveBeenCalledWith(STORAGE_KEY_COLOR_SCHEME);
+    expect(document.$body.classList.add).toHaveBeenCalledWith('light');
+    expect(document.$body.classList.remove).toHaveBeenCalledWith('dark');
     expect(localStorage.setItem).toHaveBeenCalledWith(
       STORAGE_KEY_COLOR_SCHEME,
       storedValue,
@@ -169,7 +173,11 @@ describe('Color scheme', () => {
     localStorage.__storedValueFor(STORAGE_KEY_COLOR_SCHEME, storedValue);
 
     initColorScheme(document, localStorage);
-    expect($body.classList.remove).toHaveBeenCalledWith('dark', 'light');
+    expect(localStorage.getItem).toHaveBeenCalledWith(STORAGE_KEY_COLOR_SCHEME);
+    expect(document.$body.classList.remove).toHaveBeenCalledWith(
+      'dark',
+      'light',
+    );
     expect(localStorage.setItem).toHaveBeenCalledWith(
       STORAGE_KEY_COLOR_SCHEME,
       storedValue,
