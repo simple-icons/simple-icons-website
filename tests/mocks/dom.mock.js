@@ -27,7 +27,8 @@ export const document = {
   },
 };
 
-export function newElementMock(elName) {
+export function newElementMock(elName, opts) {
+  opts = opts || {};
   return {
     addEventListener: jest.fn().mockName(`${elName}.addEventListener`),
     blur: jest.fn().mockName(`${elName}.blur`),
@@ -36,6 +37,16 @@ export function newElementMock(elName) {
       remove: jest.fn().mockName(`${elName}.classList.remove`),
     },
     removeAttribute: jest.fn().mockName(`${elName}.removeAttribute`),
+    querySelector: jest.fn().mockName(`${elName}.querySelector`),
+
+    // Values
+    innerHTML: opts.innerHTML || '',
+    parentNode: opts.parentNode
+      ? newElementMock(`${elName} parent`, { parentNode: false })
+      : null,
+
+    // Utility
+    __name: elName,
   };
 }
 
