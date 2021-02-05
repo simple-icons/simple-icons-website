@@ -1,9 +1,11 @@
-function newElementsMocks(elName) {
-  return [newElementMock(`${elName}-0`), newElementMock(`${elName}-1`)];
-}
+const PATHNAME = 'https://www.simpleicons.org';
 
 export const document = {
   getElementById: jest.fn().mockName('document.getElementById'),
+  location: {
+    pathname: PATHNAME,
+    search: '',
+  },
   querySelector: jest.fn().mockName('document.querySelector'),
   querySelectorAll: jest.fn().mockName('document.querySelectorAll'),
 
@@ -12,10 +14,11 @@ export const document = {
 
   // Utility to quickly clear the entire document mock.
   __resetAllMocks: function () {
-    this.$body = newElementMock('body');
-    this.getElementById.mockClear();
+    this.getElementById.mockReset();
     this.getElementById.mockImplementation(newElementMock);
-    this.querySelector.mockClear();
+    this.location.pathname = PATHNAME;
+    this.location.search = '';
+    this.querySelector.mockReset();
     this.querySelector.mockImplementation((query) => {
       if (query === 'body') {
         return this.$body;
@@ -23,8 +26,9 @@ export const document = {
 
       return newElementMock(query);
     });
-    this.querySelectorAll.mockClear();
-    this.querySelectorAll.mockImplementation(newElementsMocks);
+    this.querySelectorAll.mockReset();
+    this.querySelectorAll.mockReturnValue([]);
+    this.$body = newElementMock('body');
   },
 };
 
@@ -37,8 +41,11 @@ export function newElementMock(elName, opts) {
       add: jest.fn().mockName(`${elName}.classList.add`),
       remove: jest.fn().mockName(`${elName}.classList.remove`),
     },
-    removeAttribute: jest.fn().mockName(`${elName}.removeAttribute`),
+    focus: jest.fn().mockName(`${elName}.focus`),
+    getAttribute: jest.fn().mockName(`${elName}.getAttribute`),
     querySelector: jest.fn().mockName(`${elName}.querySelector`),
+    removeAttribute: jest.fn().mockName(`${elName}.removeAttribute`),
+    setAttribute: jest.fn().mockName(`${elName}.setAttribute`),
 
     // Values
     innerHTML: opts.innerHTML || '',

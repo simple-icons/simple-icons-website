@@ -19,7 +19,7 @@ describe('Ordering', () => {
 
     const eventListeners = new Map();
 
-    let $orderAlphabetically = newElementMock('#order-alpha');
+    const $orderAlphabetically = newElementMock('#order-alpha');
     $orderAlphabetically.addEventListener.mockImplementation((name, fn) => {
       eventListeners.set(name, fn);
     });
@@ -58,7 +58,7 @@ describe('Ordering', () => {
 
     const eventListeners = new Map();
 
-    let $orderByColor = newElementMock('#order-color');
+    const $orderByColor = newElementMock('#order-color');
     $orderByColor.addEventListener.mockImplementation((name, fn) => {
       eventListeners.set(name, fn);
     });
@@ -95,7 +95,7 @@ describe('Ordering', () => {
   it('gets the #order-relevance button', () => {
     const eventListeners = new Map();
 
-    let $orderByRelevance = newElementMock('#order-relevance');
+    const $orderByRelevance = newElementMock('#order-relevance');
     $orderByRelevance.addEventListener.mockImplementation((name, fn) => {
       eventListeners.set(name, fn);
     });

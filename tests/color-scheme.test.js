@@ -19,7 +19,7 @@ describe('Color scheme', () => {
 
     const eventListeners = new Map();
 
-    let $colorSchemeDark = newElementMock('#color-scheme-dark');
+    const $colorSchemeDark = newElementMock('#color-scheme-dark');
     $colorSchemeDark.addEventListener.mockImplementation((name, fn) => {
       eventListeners.set(name, fn);
     });
@@ -58,7 +58,7 @@ describe('Color scheme', () => {
 
     const eventListeners = new Map();
 
-    let $colorSchemeLight = newElementMock('#color-scheme-light');
+    const $colorSchemeLight = newElementMock('#color-scheme-light');
     $colorSchemeLight.addEventListener.mockImplementation((name, fn) => {
       eventListeners.set(name, fn);
     });
@@ -97,7 +97,7 @@ describe('Color scheme', () => {
 
     const eventListeners = new Map();
 
-    let $colorSchemeSystem = newElementMock('#color-scheme-system');
+    const $colorSchemeSystem = newElementMock('#color-scheme-system');
     $colorSchemeSystem.addEventListener.mockImplementation((name, fn) => {
       eventListeners.set(name, fn);
     });

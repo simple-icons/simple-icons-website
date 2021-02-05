@@ -10,10 +10,7 @@ function getItemImplementation(key) {
 }
 
 export const localStorage = {
-  getItem: jest
-    .fn()
-    .mockImplementation(getItemImplementation)
-    .mockName('localStorage.getItem'),
+  getItem: jest.fn().mockName('localStorage.getItem'),
   setItem: jest.fn().mockName('localStorage.setItem'),
 
   // Utility to quickly clear the entire localStorage mock.
