@@ -43,7 +43,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run tests
-        run: npm run test
+        run: npm run test:all
       - name: Upload test screenshots
         uses: actions/upload-artifact@v2
         with:

@@ -20,10 +20,10 @@
     "format": "prettier --write --single-quote --trailing-comma all .",
     "lint": "prettier --check --single-quote --trailing-comma all .",
     "postinstall": "is-ci || husky install",
-    "pretest": "npm run clean && npm run build:dev",
     "serve": "anywhere -p 8080 -d ./_site",
     "serve:watch": "run-p build:watch serve",
-    "test": "jest"
+    "test:all": "TEST_ENV=all jest",
+    "test:unit": "TEST_ENV=unit jest"
   },
   "dependencies": {
     "simple-icons": "4.9.0",
