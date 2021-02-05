@@ -20,7 +20,7 @@ describe('::decodeURIComponent', () => {
   });
 });
 
-describe.only('::debounce', () => {
+describe('::debounce', () => {
   it('calls the debounced function only once', (done) => {
     const spy = jest.fn();
     const debouncedImmediateSpy = debounce(spy, 1000, true);
