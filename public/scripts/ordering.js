@@ -11,8 +11,8 @@ const CLASS_ORDER_BY_COLOR = 'order-by-color';
 const CLASS_ORDER_BY_RELEVANCE = 'order-by-relevance';
 
 export default function initOrdering(document, storage) {
-  let activeOrdering = null;
-  let preferredOrdering = null;
+  let activeOrdering = DEFAULT_ORDERING;
+  let preferredOrdering = DEFAULT_ORDERING;
 
   const $body = document.querySelector('body');
   const $orderAlphabetically = document.getElementById('order-alpha');
@@ -26,8 +26,6 @@ export default function initOrdering(document, storage) {
   const storedOrdering = storage.getItem(STORAGE_KEY_ORDERING);
   if (storedOrdering) {
     selectOrdering(storedOrdering);
-  } else {
-    selectOrdering(DEFAULT_ORDERING);
   }
 
   $orderAlphabetically.addEventListener('click', (event) => {
