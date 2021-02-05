@@ -15,7 +15,7 @@ describe('Ordering', () => {
   });
 
   it('gets the #order-alpha button', () => {
-    localStorage.__storedValueFor(STORAGE_KEY_ORDERING, 'unknown');
+    localStorage.__setStoredValueFor(STORAGE_KEY_ORDERING, 'unknown');
 
     const eventListeners = new Map();
 
@@ -54,7 +54,7 @@ describe('Ordering', () => {
   });
 
   it('gets the #order-color button', () => {
-    localStorage.__storedValueFor(STORAGE_KEY_ORDERING, 'unknown');
+    localStorage.__setStoredValueFor(STORAGE_KEY_ORDERING, 'unknown');
 
     const eventListeners = new Map();
 
@@ -134,7 +134,7 @@ describe('Ordering', () => {
 
   it('uses the stored value "alphabetically"', () => {
     const storedValue = 'alphabetically';
-    localStorage.__storedValueFor(STORAGE_KEY_ORDERING, storedValue);
+    localStorage.__setStoredValueFor(STORAGE_KEY_ORDERING, storedValue);
 
     initOrdering(document, localStorage);
     expect(localStorage.getItem).toHaveBeenCalledWith(STORAGE_KEY_ORDERING);
@@ -149,7 +149,7 @@ describe('Ordering', () => {
 
   it('uses the stored value "color"', () => {
     const storedValue = 'color';
-    localStorage.__storedValueFor(STORAGE_KEY_ORDERING, storedValue);
+    localStorage.__setStoredValueFor(STORAGE_KEY_ORDERING, storedValue);
 
     initOrdering(document, localStorage);
     expect(localStorage.getItem).toHaveBeenCalledWith(STORAGE_KEY_ORDERING);

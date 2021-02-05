@@ -15,7 +15,7 @@ describe('Color scheme', () => {
   });
 
   it('gets the #color-scheme-dark button', () => {
-    localStorage.__storedValueFor(STORAGE_KEY_COLOR_SCHEME, 'unknown');
+    localStorage.__setStoredValueFor(STORAGE_KEY_COLOR_SCHEME, 'unknown');
 
     const eventListeners = new Map();
 
@@ -54,7 +54,7 @@ describe('Color scheme', () => {
   });
 
   it('gets the #color-scheme-light button', () => {
-    localStorage.__storedValueFor(STORAGE_KEY_COLOR_SCHEME, 'unknown');
+    localStorage.__setStoredValueFor(STORAGE_KEY_COLOR_SCHEME, 'unknown');
 
     const eventListeners = new Map();
 
@@ -93,7 +93,7 @@ describe('Color scheme', () => {
   });
 
   it('gets the #color-scheme-system button', () => {
-    localStorage.__storedValueFor(STORAGE_KEY_COLOR_SCHEME, 'unknown');
+    localStorage.__setStoredValueFor(STORAGE_KEY_COLOR_SCHEME, 'unknown');
 
     const eventListeners = new Map();
 
@@ -134,20 +134,18 @@ describe('Color scheme', () => {
   it('uses the system color scheme if no value is stored', () => {
     initColorScheme(document, localStorage);
     expect(localStorage.getItem).toHaveBeenCalledWith(STORAGE_KEY_COLOR_SCHEME);
-    expect(localStorage.setItem).toHaveBeenCalledWith(
-      STORAGE_KEY_COLOR_SCHEME,
-      'system',
-    );
+    expect(localStorage.setItem).not.toHaveBeenCalledWith();
   });
 
   it('uses the stored value "dark"', () => {
     const storedValue = 'dark';
-    localStorage.__storedValueFor(STORAGE_KEY_COLOR_SCHEME, storedValue);
+    localStorage.__setStoredValueFor(STORAGE_KEY_COLOR_SCHEME, storedValue);
 
     initColorScheme(document, localStorage);
     expect(localStorage.getItem).toHaveBeenCalledWith(STORAGE_KEY_COLOR_SCHEME);
     expect(document.$body.classList.add).toHaveBeenCalledWith('dark');
     expect(document.$body.classList.remove).toHaveBeenCalledWith('light');
+    expect(localStorage.setItem).toHaveBeenCalledTimes(1);
     expect(localStorage.setItem).toHaveBeenCalledWith(
       STORAGE_KEY_COLOR_SCHEME,
       storedValue,
@@ -156,12 +154,13 @@ describe('Color scheme', () => {
 
   it('uses the stored value "light"', () => {
     const storedValue = 'light';
-    localStorage.__storedValueFor(STORAGE_KEY_COLOR_SCHEME, storedValue);
+    localStorage.__setStoredValueFor(STORAGE_KEY_COLOR_SCHEME, storedValue);
 
     initColorScheme(document, localStorage);
     expect(localStorage.getItem).toHaveBeenCalledWith(STORAGE_KEY_COLOR_SCHEME);
     expect(document.$body.classList.add).toHaveBeenCalledWith('light');
     expect(document.$body.classList.remove).toHaveBeenCalledWith('dark');
+    expect(localStorage.setItem).toHaveBeenCalledTimes(1);
     expect(localStorage.setItem).toHaveBeenCalledWith(
       STORAGE_KEY_COLOR_SCHEME,
       storedValue,
@@ -170,17 +169,10 @@ describe('Color scheme', () => {
 
   it('uses the stored value "system"', () => {
     const storedValue = 'system';
-    localStorage.__storedValueFor(STORAGE_KEY_COLOR_SCHEME, storedValue);
+    localStorage.__setStoredValueFor(STORAGE_KEY_COLOR_SCHEME, storedValue);
 
     initColorScheme(document, localStorage);
     expect(localStorage.getItem).toHaveBeenCalledWith(STORAGE_KEY_COLOR_SCHEME);
-    expect(document.$body.classList.remove).toHaveBeenCalledWith(
-      'dark',
-      'light',
-    );
-    expect(localStorage.setItem).toHaveBeenCalledWith(
-      STORAGE_KEY_COLOR_SCHEME,
-      storedValue,
-    );
+    expect(localStorage.setItem).not.toHaveBeenCalledWith();
   });
 });

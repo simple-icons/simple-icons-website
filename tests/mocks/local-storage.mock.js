@@ -22,7 +22,7 @@ export const localStorage = {
   },
 
   // Utility to mock a stored value for a key
-  __storedValueFor: function (key, value) {
+  __setStoredValueFor: function (key, value) {
     STORAGE.set(key, value);
   },
 };

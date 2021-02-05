@@ -10,7 +10,7 @@ const CLASS_DARK_MODE = 'dark';
 const CLASS_LIGHT_MODE = 'light';
 
 export default function initColorScheme(document, storage) {
-  let activeColorScheme = null;
+  let activeColorScheme = DEFAULT_COLOR_SCHEME;
 
   const $body = document.querySelector('body');
   const $colorSchemeDark = document.getElementById('color-scheme-dark');
@@ -24,8 +24,6 @@ export default function initColorScheme(document, storage) {
   const storedColorScheme = storage.getItem(STORAGE_KEY_COLOR_SCHEME);
   if (storedColorScheme) {
     selectColorScheme(storedColorScheme);
-  } else {
-    selectColorScheme(DEFAULT_COLOR_SCHEME);
   }
 
   $colorSchemeDark.addEventListener('click', (event) => {
