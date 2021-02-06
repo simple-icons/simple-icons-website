@@ -48,9 +48,6 @@ describe.each([
 ])('General (%s)', (name, device) => {
   beforeAll(async () => {
     await page.emulate(device);
-  });
-
-  beforeEach(async () => {
     await page.goto(url.href);
   });
 
@@ -62,22 +59,6 @@ describe.each([
 
   it('displays the text "Simple Icons"', async () => {
     await expect(page).toMatch('Simple Icons');
-  });
-
-  it('is possible to click the link to GitHub', async () => {
-    await expect(page).toClick('a', { text: 'GitHub' });
-  });
-
-  it('is possible to click the link to NPM', async () => {
-    await expect(page).toClick('a', { text: 'NPM' });
-  });
-
-  it('is possible to click the link to Packagist', async () => {
-    await expect(page).toClick('a', { text: 'Packagist' });
-  });
-
-  it('is possible to click the about link', async () => {
-    await expect(page).toClick('a', { text: 'About' });
   });
 
   it('has the search input in view on load', async () => {
@@ -105,6 +86,28 @@ describe.each([
 
   afterAll(async () => {
     await page.emulate(DEFAULT_DEVICE);
+  });
+});
+
+describe('External links', () => {
+  beforeEach(async () => {
+    await page.goto(url.href);
+  });
+
+  it('is possible to click the link to GitHub', async () => {
+    await expect(page).toClick('a', { text: 'GitHub' });
+  });
+
+  it('is possible to click the link to NPM', async () => {
+    await expect(page).toClick('a', { text: 'NPM' });
+  });
+
+  it('is possible to click the link to Packagist', async () => {
+    await expect(page).toClick('a', { text: 'Packagist' });
+  });
+
+  it('is possible to click the about link', async () => {
+    await expect(page).toClick('a', { text: 'About' });
   });
 });
 
@@ -258,7 +261,7 @@ describe('Ordering', () => {
   const titles = icons.map((icon) => icon.title);
   const hexes = icons.map((icon) => icon.hex).sort(sortColors);
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     await page.goto(url.href);
   });
 
@@ -305,7 +308,7 @@ describe('Ordering', () => {
 });
 
 describe('Preferred color scheme', () => {
-  beforeEach(async () => {
+  beforeAll(async () => {
     await page.goto(url.href);
   });
 
@@ -388,7 +391,7 @@ describe('Grid item', () => {
     });
   });
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     await page.goto(url.href);
     await page._client.send('Page.setDownloadBehavior', {
       behavior: 'allow',
@@ -428,7 +431,7 @@ describe('Grid item', () => {
 });
 
 describe('JavaScript disabled', () => {
-  beforeEach(async () => {
+  beforeAll(async () => {
     page.setJavaScriptEnabled(false);
     await page.goto(url.href);
   });
@@ -470,7 +473,7 @@ describe('JavaScript disabled', () => {
     expect(await isDisabled($previewButton)).toBeTruthy();
   });
 
-  afterEach(async () => {
+  afterAll(async () => {
     page.setJavaScriptEnabled(true);
   });
 });

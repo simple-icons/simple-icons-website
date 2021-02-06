@@ -1,12 +1,9 @@
-import { hideElement, showElement } from './dom-utils.js';
 import { ORDER_BY_RELEVANCE } from './ordering.js';
 import { decodeURIComponent, debounce, normalizeSearchTerm } from './utils.js';
 
 const QUERY_PARAMETER = 'q';
 
-let activeQuery = '';
-
-function getQueryFromParameter(parameter) {
+function getQueryFromParameter(location, parameter) {
   const expr = new RegExp(`[\\?&]${parameter}=([^&#]*)`);
   const results = expr.exec(location.search);
   if (results !== null) {
@@ -45,12 +42,14 @@ function setSearchQueryInURL(history, path, query) {
   }
 }
 
-export default function initSearch(history, document, ordering) {
+export default function initSearch(history, document, ordering, domUtils) {
+  let activeQuery = '';
+
   const $searchInput = document.getElementById('id-search-input');
   const $searchClear = document.getElementById('id-search-clear');
   const $orderByRelevance = document.getElementById('id-order-relevance');
   const $gridItemIfEmpty = document.querySelector('.grid-item--if-empty');
-  const $adSpace = document.querySelector('#carbonads');
+  const $adSpace = document.getElementById('carbonads');
   const $icons = document.querySelectorAll('.grid-item[data-brand]');
 
   $searchInput.disabled = false;
@@ -71,7 +70,7 @@ export default function initSearch(history, document, ordering) {
   });
 
   // Load search query if present
-  const query = getQueryFromParameter(QUERY_PARAMETER);
+  const query = getQueryFromParameter(document.location, QUERY_PARAMETER);
   if (query) {
     $searchInput.value = query;
     search(query);
@@ -81,16 +80,16 @@ export default function initSearch(history, document, ordering) {
     setSearchQueryInURL(history, document.location.pathname, rawQuery);
     const query = normalizeSearchTerm(rawQuery);
     if (query !== '') {
-      showElement($searchClear);
-      showElement($orderByRelevance);
-      hideElement($adSpace);
+      domUtils.showElement($searchClear);
+      domUtils.showElement($orderByRelevance);
+      domUtils.hideElement($adSpace);
       if (activeQuery === '') {
         ordering.selectOrdering(ORDER_BY_RELEVANCE);
       }
     } else {
-      hideElement($searchClear);
-      hideElement($orderByRelevance);
-      showElement($adSpace);
+      domUtils.hideElement($searchClear);
+      domUtils.hideElement($orderByRelevance);
+      domUtils.showElement($adSpace);
       if (ordering.currentOrderingIs(ORDER_BY_RELEVANCE)) {
         ordering.resetOrdering();
       }
@@ -102,18 +101,18 @@ export default function initSearch(history, document, ordering) {
       const score = getScore(query, brandName);
       if (score < 0) {
         $icon.style.removeProperty('--order-relevance');
-        hideElement($icon);
+        domUtils.hideElement($icon);
       } else {
         $icon.style.setProperty('--order-relevance', score);
-        showElement($icon);
+        domUtils.showElement($icon);
         noResults = false;
       }
     });
 
     if (noResults) {
-      showElement($gridItemIfEmpty);
+      domUtils.showElement($gridItemIfEmpty);
     } else {
-      hideElement($gridItemIfEmpty);
+      domUtils.hideElement($gridItemIfEmpty);
     }
 
     activeQuery = query;

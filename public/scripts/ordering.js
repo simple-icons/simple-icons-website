@@ -10,10 +10,10 @@ const CLASS_ORDER_ALPHABETICALLY = 'order-by-alphabet';
 const CLASS_ORDER_BY_COLOR = 'order-by-color';
 const CLASS_ORDER_BY_RELEVANCE = 'order-by-relevance';
 
-let activeOrdering = DEFAULT_ORDERING;
-let preferredOrdering = DEFAULT_ORDERING;
-
 export default function initOrdering(document, storage) {
+  let activeOrdering = DEFAULT_ORDERING;
+  let preferredOrdering = DEFAULT_ORDERING;
+
   const $body = document.querySelector('body');
   const $orderAlphabetically = document.getElementById('id-order-alpha');
   const $orderByColor = document.getElementById('id-order-color');
@@ -23,33 +23,25 @@ export default function initOrdering(document, storage) {
   $orderByColor.disabled = false;
   $orderByRelevance.disabled = false;
 
-  const storedOrdering = storage.getItem(STORAGE_KEY_ORDERING);
-  if (storedOrdering) {
+  if (storage.hasItem(STORAGE_KEY_ORDERING)) {
+    const storedOrdering = storage.getItem(STORAGE_KEY_ORDERING);
     selectOrdering(storedOrdering);
-  } else {
-    selectOrdering(DEFAULT_ORDERING);
   }
 
   $orderAlphabetically.addEventListener('click', (event) => {
     event.preventDefault();
-    if (activeOrdering != ORDER_ALPHABETICALLY) {
-      selectOrdering(ORDER_ALPHABETICALLY);
-      $orderAlphabetically.blur();
-    }
+    selectOrdering(ORDER_ALPHABETICALLY);
+    $orderAlphabetically.blur();
   });
   $orderByColor.addEventListener('click', (event) => {
     event.preventDefault();
-    if (activeOrdering != ORDER_BY_COLOR) {
-      selectOrdering(ORDER_BY_COLOR);
-      $orderByColor.blur();
-    }
+    selectOrdering(ORDER_BY_COLOR);
+    $orderByColor.blur();
   });
   $orderByRelevance.addEventListener('click', (event) => {
     event.preventDefault();
-    if (activeOrdering != ORDER_BY_RELEVANCE) {
-      selectOrdering(ORDER_BY_RELEVANCE);
-      $orderByRelevance.blur();
-    }
+    selectOrdering(ORDER_BY_RELEVANCE);
+    $orderByRelevance.blur();
   });
 
   function currentOrderingIs(value) {
@@ -57,6 +49,10 @@ export default function initOrdering(document, storage) {
   }
 
   function selectOrdering(selected) {
+    if (selected === activeOrdering) {
+      return;
+    }
+
     $body.classList.remove(
       CLASS_ORDER_ALPHABETICALLY,
       CLASS_ORDER_BY_COLOR,
