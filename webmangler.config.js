@@ -1,5 +1,5 @@
-const BuiltInLanguages = require('webmangler/languages/builtin').default;
-const BuiltInManglers = require('webmangler/manglers/builtin').default;
+const { BuiltInLanguagesSupport } = require('webmangler/languages');
+const { BuiltInManglers } = require('webmangler/manglers');
 
 module.exports = {
   plugins: [
@@ -30,6 +30,7 @@ module.exports = {
       cssVarNamePattern: '[a-zA-Z0-9\\-]*',
 
       // Attribute mangling
+      disableHtmlAttrMangling: true, // Bugged in webmangler@0.1.9
       attrNamePattern: 'data-[a-zA-Z0-9\\-]*',
       keepAttrPrefix: 'data-',
 
@@ -43,5 +44,5 @@ module.exports = {
       ],
     }),
   ],
-  languages: [new BuiltInLanguages()],
+  languages: [new BuiltInLanguagesSupport()],
 };
