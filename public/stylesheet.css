@@ -12,6 +12,8 @@
   --color-twitter: rgb(29, 161, 242);
   --color-twitter-hover: rgba(29, 161, 242, 0.8);
   --side-offset: 6rem;
+  --border-radius-small: 3px;
+  --border-radius-large: 6px;
 
   /* Dark mode colors and assets */
   --dm-asset-svg-copy: url(./assets/copy-white.svg);
@@ -306,6 +308,7 @@ body.no-js .control-field__title {
 .control__input {
   background-color: transparent;
   border: 0.1rem solid var(--color-button-hover);
+  border-radius: var(--border-radius-small);
   color: var(--color-text-default);
   height: 2.4rem;
   padding: 0.4rem;
@@ -447,7 +450,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 #carbonads {
   align-items: flex-start;
   background-color: var(--color-background-card);
-  border-radius: 4px;
+  border-radius: var(--border-radius-large);
   box-shadow: 0px 0px 3px 0px var(--color-shadows);
   display: flex;
   flex-direction: column;
@@ -616,6 +619,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 
 .grid-item__button {
   border: 0.1rem solid var(--color-button-hover);
+  border-radius: var(--border-radius-small);
   padding: 0.3rem 0.4rem;
   margin: 0 0.4rem;
   font-family: 'Roboto Mono', monospace;
