@@ -22,11 +22,12 @@
   --dm-color-background: rgb(34, 34, 34);
   --dm-color-background-transparent: rgba(34, 34, 34, 0.7);
   --dm-color-background-card: rgb(20, 20, 20);
-  --dm-color-text-default: rgb(250, 250, 250);
+  --dm-color-text-default: rgb(236, 236, 236);
   --dm-color-text-light: rgb(170, 170, 170);
-  --dm-color-svg-default: rgb(255, 255, 255);
-  --dm-color-button-hover: rgb(221, 221, 221);
-  --dm-color-button-active: rgb(221, 221, 221);
+  --dm-color-svg-default: rgb(246, 246, 246);
+  --dm-color-button-border: rgb(186, 186, 186);
+  --dm-color-button-hover: rgb(212, 212, 212);
+  --dm-color-button-active: rgb(212, 212, 212);
   --dm-color-button-text-hover: rgb(0, 0, 0);
   --dm-color-disabled: rgb(170, 170, 170);
   --dm-color-grid-item-divider: rgb(64, 64, 64);
@@ -45,6 +46,7 @@
   --lm-color-text-default: rgb(0, 0, 0);
   --lm-color-text-light: rgb(102, 102, 102);
   --lm-color-svg-default: rgb(0, 0, 0);
+  --lm-color-button-border: rgb(51, 51, 51);
   --lm-color-button-hover: rgb(51, 51, 51);
   --lm-color-button-active: rgb(51, 51, 51);
   --lm-color-button-text-hover: rgb(255, 255, 255);
@@ -84,6 +86,7 @@
     --color-text-default: var(--dm-color-text-default);
     --color-text-light: var(--dm-color-text-light);
     --color-svg-default: var(--dm-color-svg-default);
+    --color-button-border: var(--dm-color-button-border);
     --color-button-hover: var(--dm-color-button-hover);
     --color-button-active: var(--dm-color-button-active);
     --color-button-text-hover: var(--dm-color-button-text-hover);
@@ -106,6 +109,7 @@
     --color-text-default: var(--lm-color-text-default);
     --color-text-light: var(--lm-color-text-light);
     --color-svg-default: var(--lm-color-svg-default);
+    --color-button-border: var(--lm-color-button-border);
     --color-button-hover: var(--lm-color-button-hover);
     --color-button-active: var(--lm-color-button-active);
     --color-button-text-hover: var(--lm-color-button-text-hover);
@@ -128,6 +132,7 @@ body.dark {
   --color-text-default: var(--dm-color-text-default);
   --color-text-light: var(--dm-color-text-light);
   --color-svg-default: var(--dm-color-svg-default);
+  --color-button-border: var(--dm-color-button-border);
   --color-button-hover: var(--dm-color-button-hover);
   --color-button-active: var(--dm-color-button-active);
   --color-button-text-hover: var(--dm-color-button-text-hover);
@@ -148,6 +153,7 @@ body.light {
   --color-text-default: var(--lm-color-text-default);
   --color-text-light: var(--lm-color-text-light);
   --color-svg-default: var(--lm-color-svg-default);
+  --color-button-border: var(--lm-color-button-border);
   --color-button-hover: var(--lm-color-button-hover);
   --color-button-active: var(--lm-color-button-active);
   --color-button-text-hover: var(--lm-color-button-text-hover);
@@ -307,7 +313,7 @@ body.no-js .control-field__title {
 .control__button,
 .control__input {
   background-color: transparent;
-  border: 0.1rem solid var(--color-button-hover);
+  border: 0.1rem solid var(--color-button-border);
   border-radius: var(--border-radius-small);
   color: var(--color-text-default);
   height: 2.4rem;
