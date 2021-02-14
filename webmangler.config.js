@@ -30,7 +30,6 @@ module.exports = {
       cssVarNamePattern: '[a-zA-Z0-9\\-]*',
 
       // Attribute mangling
-      disableHtmlAttrMangling: true, // Bugged in webmangler@0.1.9
       attrNamePattern: 'data-[a-zA-Z0-9\\-]*',
       keepAttrPrefix: 'data-',
 
