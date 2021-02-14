@@ -27,7 +27,7 @@
     "test:unit": "TEST_ENV=unit jest"
   },
   "dependencies": {
-    "simple-icons": "4.9.0",
+    "simple-icons": "4.10.0",
     "simple-icons-pdf": "https://github.com/simple-icons/simple-icons-pdf/tarball/master"
   },
   "devDependencies": {

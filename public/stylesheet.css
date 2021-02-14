@@ -12,6 +12,8 @@
   --color-twitter: rgb(29, 161, 242);
   --color-twitter-hover: rgba(29, 161, 242, 0.8);
   --side-offset: 6rem;
+  --border-radius-small: 3px;
+  --border-radius-large: 6px;
 
   /* Dark mode colors and assets */
   --dm-asset-svg-copy: url(./assets/copy-white.svg);
@@ -20,14 +22,16 @@
   --dm-color-background: rgb(34, 34, 34);
   --dm-color-background-transparent: rgba(34, 34, 34, 0.7);
   --dm-color-background-card: rgb(20, 20, 20);
-  --dm-color-text-default: rgb(250, 250, 250);
+  --dm-color-text-default: rgb(236, 236, 236);
   --dm-color-text-light: rgb(170, 170, 170);
-  --dm-color-svg-default: rgb(255, 255, 255);
-  --dm-color-button-hover: rgb(221, 221, 221);
-  --dm-color-button-active: rgb(221, 221, 221);
+  --dm-color-svg-default: rgb(246, 246, 246);
+  --dm-color-button-border: rgb(186, 186, 186);
+  --dm-color-button-hover: rgb(212, 212, 212);
+  --dm-color-button-active: rgb(212, 212, 212);
   --dm-color-button-text-hover: rgb(0, 0, 0);
   --dm-color-disabled: rgb(170, 170, 170);
-  --dm-color-shadow: rgba(153, 153, 153, 0.75);
+  --dm-color-grid-item-divider: rgb(64, 64, 64);
+  --dm-color-shadow: rgba(75, 75, 75, 0.95);
   --dm-color-link: rgb(0, 100, 238);
   --dm-color-link-hover: rgb(0, 72, 238);
   --dm-color-link-visited: rgb(169, 144, 189);
@@ -42,10 +46,12 @@
   --lm-color-text-default: rgb(0, 0, 0);
   --lm-color-text-light: rgb(102, 102, 102);
   --lm-color-svg-default: rgb(0, 0, 0);
+  --lm-color-button-border: rgb(51, 51, 51);
   --lm-color-button-hover: rgb(51, 51, 51);
   --lm-color-button-active: rgb(51, 51, 51);
   --lm-color-button-text-hover: rgb(255, 255, 255);
   --lm-color-disabled: rgb(170, 170, 170);
+  --lm-color-grid-item-divider: rgb(204, 204, 204);
   --lm-color-shadow: rgba(0, 0, 0, 0.5);
   --lm-color-link: rgb(0, 0, 238);
   --lm-color-link-hover: rgb(52, 52, 238);
@@ -80,10 +86,12 @@
     --color-text-default: var(--dm-color-text-default);
     --color-text-light: var(--dm-color-text-light);
     --color-svg-default: var(--dm-color-svg-default);
+    --color-button-border: var(--dm-color-button-border);
     --color-button-hover: var(--dm-color-button-hover);
     --color-button-active: var(--dm-color-button-active);
     --color-button-text-hover: var(--dm-color-button-text-hover);
     --color-disabled: var(--dm-color-disabled);
+    --color-grid-item-divider: var(--dm-color-grid-item-divider);
     --color-shadows: var(--dm-color-shadow);
     --color-link: var(--dm-color-link);
     --color-link-hover: var(--dm-color-link-hover);
@@ -101,10 +109,12 @@
     --color-text-default: var(--lm-color-text-default);
     --color-text-light: var(--lm-color-text-light);
     --color-svg-default: var(--lm-color-svg-default);
+    --color-button-border: var(--lm-color-button-border);
     --color-button-hover: var(--lm-color-button-hover);
     --color-button-active: var(--lm-color-button-active);
     --color-button-text-hover: var(--lm-color-button-text-hover);
     --color-disabled: var(--lm-color-disabled);
+    --color-grid-item-divider: var(--lm-color-grid-item-divider);
     --color-shadows: var(--lm-color-shadow);
     --color-link: var(--lm-color-link);
     --color-link-hover: var(--lm-color-link-hover);
@@ -122,10 +132,12 @@ body.dark-mode {
   --color-text-default: var(--dm-color-text-default);
   --color-text-light: var(--dm-color-text-light);
   --color-svg-default: var(--dm-color-svg-default);
+  --color-button-border: var(--dm-color-button-border);
   --color-button-hover: var(--dm-color-button-hover);
   --color-button-active: var(--dm-color-button-active);
   --color-button-text-hover: var(--dm-color-button-text-hover);
   --color-disabled: var(--dm-color-disabled);
+  --color-grid-item-divider: var(--dm-color-grid-item-divider);
   --color-shadows: var(--dm-color-shadow);
   --color-link: var(--dm-color-link);
   --color-link-hover: var(--dm-color-link-hover);
@@ -141,10 +153,12 @@ body.light-mode {
   --color-text-default: var(--lm-color-text-default);
   --color-text-light: var(--lm-color-text-light);
   --color-svg-default: var(--lm-color-svg-default);
+  --color-button-border: var(--lm-color-button-border);
   --color-button-hover: var(--lm-color-button-hover);
   --color-button-active: var(--lm-color-button-active);
   --color-button-text-hover: var(--lm-color-button-text-hover);
   --color-disabled: var(--lm-color-disabled);
+  --color-grid-item-divider: var(--lm-color-grid-item-divider);
   --color-shadows: var(--lm-color-shadow);
   --color-link: var(--lm-color-link);
   --color-link-hover: var(--lm-color-link-hover);
@@ -299,7 +313,8 @@ body.no-js .control-field__title {
 .control__button,
 .control__input {
   background-color: transparent;
-  border: 0.1rem solid var(--color-button-hover);
+  border: 0.1rem solid var(--color-button-border);
+  border-radius: var(--border-radius-small);
   color: var(--color-text-default);
   height: 2.4rem;
   padding: 0.4rem;
@@ -441,7 +456,7 @@ body:not(.dark-mode):not(.light-mode) #id-color-scheme-system:not(:disabled) {
 #carbonads {
   align-items: flex-start;
   background-color: var(--color-background-card);
-  border-radius: 4px;
+  border-radius: var(--border-radius-large);
   box-shadow: 0px 0px 3px 0px var(--color-shadows);
   display: flex;
   flex-direction: column;
@@ -551,7 +566,7 @@ body:not(.dark-mode):not(.light-mode) #id-color-scheme-system:not(:disabled) {
 }
 
 .grid-item__footer {
-  border-top: 1px solid #ccc;
+  border-top: 1px solid var(--color-grid-item-divider);
   background-color: var(--color-background);
   display: flex;
   flex-direction: row;
@@ -610,6 +625,7 @@ body:not(.dark-mode):not(.light-mode) #id-color-scheme-system:not(:disabled) {
 
 .grid-item__button {
   border: 0.1rem solid var(--color-button-hover);
+  border-radius: var(--border-radius-small);
   padding: 0.3rem 0.4rem;
   margin: 0 0.4rem;
   font-family: 'Roboto Mono', monospace;
