@@ -15,6 +15,11 @@ const sortedHexes = icons
   .map((icon) => icon.hex)
   .filter((hex, index, array) => array.indexOf(hex) === index)
   .sort(sortColors);
+const iconGuidelines = simpleIconsData.icons.reduce((guidelines, icon) => {
+  const key = icon.slug || icon.title;
+  guidelines[key] = icon.guidelines;
+  return guidelines;
+}, {});
 const iconLicenses = simpleIconsData.icons.reduce((licenses, icon) => {
   const key = icon.slug || icon.title;
   const license = icon.license;
@@ -40,18 +45,8 @@ function simplifyHexIfPossible(hex) {
   return hex;
 }
 
-function getGuidelinesFor(title) {
-  let result;
-  simpleIconsData.icons.forEach((icon) => {
-    if (icon.title !== title) {
-      return;
-    }
-    if (icon.guidelines) {
-      result = icon.guidelines;
-    }
-  });
-
-  return result;
+function getGuidelinesFor(icon) {
+  return iconGuidelines[icon.slug] || iconGuidelines[icon.title];
 }
 
 function getLicenseFor(icon) {
@@ -108,7 +103,7 @@ module.exports = {
         icons: icons.map((icon, iconIndex) => {
           const luminance = getRelativeLuminance(`#${icon.hex}`);
           return {
-            guidelines: getGuidelinesFor(icon.title),
+            guidelines: getGuidelinesFor(icon),
             hex: icon.hex,
             indexByAlpha: iconIndex,
             indexByColor: sortedHexes.indexOf(icon.hex),
