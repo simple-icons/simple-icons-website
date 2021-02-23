@@ -19,6 +19,7 @@
   --dm-asset-svg-copy: url(./assets/copy-white.svg);
   --dm-asset-svg-copied: url(./assets/check-white.svg);
   --dm-asset-svg-external-link: url(./assets/external-link-white.svg);
+  --dm-asset-svg-legal: url(./assets/legal-white.svg);
   --dm-color-background: rgb(34, 34, 34);
   --dm-color-background-transparent: rgba(34, 34, 34, 0.7);
   --dm-color-background-card: rgb(20, 20, 20);
@@ -40,6 +41,7 @@
   --lm-asset-svg-copy: url(./assets/copy.svg);
   --lm-asset-svg-copied: url(./assets/check.svg);
   --lm-asset-svg-external-link: url(./assets/external-link.svg);
+  --lm-asset-svg-legal: url(./assets/legal.svg);
   --lm-color-background: rgb(252, 252, 252);
   --lm-color-background-transparent: rgba(252, 252, 252, 0.7);
   --lm-color-background-card: rgb(255, 255, 255);
@@ -80,6 +82,7 @@
     --asset-svg-copy: var(--dm-asset-svg-copy);
     --asset-svg-copied: var(--dm-asset-svg-copied);
     --asset-svg-external-link: var(--dm-asset-svg-external-link);
+    --asset-svg-legal: var(--dm-asset-svg-legal);
     --color-background: var(--dm-color-background);
     --color-background-transparent: var(--dm-color-background-transparent);
     --color-background-card: var(--dm-color-background-card);
@@ -103,6 +106,7 @@
     --asset-svg-copy: var(--lm-asset-svg-copy);
     --asset-svg-copied: var(--lm-asset-svg-copied);
     --asset-svg-external-link: var(--lm-asset-svg-external-link);
+    --asset-svg-legal: var(--lm-asset-svg-legal);
     --color-background: var(--lm-color-background);
     --color-background-transparent: var(--lm-color-background-transparent);
     --color-background-card: var(--lm-color-background-card);
@@ -126,6 +130,7 @@ body.dark {
   --asset-svg-copy: var(--dm-asset-svg-copy);
   --asset-svg-copied: var(--dm-asset-svg-copied);
   --asset-svg-external-link: var(--dm-asset-svg-external-link);
+  --asset-svg-legal: var(--dm-asset-svg-legal);
   --color-background: var(--dm-color-background);
   --color-background-transparent: var(--dm-color-background-transparent);
   --color-background-card: var(--dm-color-background-card);
@@ -147,6 +152,7 @@ body.light {
   --asset-svg-copy: var(--lm-asset-svg-copy);
   --asset-svg-copied: var(--lm-asset-svg-copied);
   --asset-svg-external-link: var(--lm-asset-svg-external-link);
+  --asset-svg-legal: var(--lm-asset-svg-legal);
   --color-background: var(--lm-color-background);
   --color-background-transparent: var(--lm-color-background-transparent);
   --color-background-card: var(--lm-color-background-card);
@@ -560,6 +566,38 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 }
 @media (hover: hover) {
   .grid-item__guidelines:hover {
+    opacity: 1;
+    text-decoration: underline;
+  }
+}
+
+.grid-item__legal {
+  align-items: center;
+  color: var(--color-text-default);
+  display: flex;
+  flex-direction: row;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.8rem;
+  line-height: 1rem;
+  margin: 0.3rem 1rem 0.2rem;
+  opacity: 0.6;
+  outline: none;
+}
+.grid-item__legal::before {
+  content: '';
+  background-image: var(--asset-svg-legal);
+  background-size: cover;
+  background-position: 50% 50%;
+  height: 0.85rem;
+  margin: 0.05rem 0.2rem 0.05rem 0;
+  width: 0.9rem;
+}
+.grid-item__legal:focus {
+  opacity: 1;
+  text-decoration: underline;
+}
+@media (hover: hover) {
+  .grid-item__legal:hover {
     opacity: 1;
     text-decoration: underline;
   }

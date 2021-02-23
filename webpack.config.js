@@ -15,6 +15,18 @@ const sortedHexes = icons
   .map((icon) => icon.hex)
   .filter((hex, index, array) => array.indexOf(hex) === index)
   .sort(sortColors);
+const iconLicenses = simpleIconsData.icons.reduce((licenses, icon) => {
+  const key = icon.slug || icon.title;
+  const license = icon.license;
+  if (license !== undefined) {
+    licenses[key] = license;
+    if (license.url === undefined) {
+      licenses[key].url = `https://spdx.org/licenses/${license.type}.html`;
+    }
+  }
+
+  return licenses;
+}, {});
 
 const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const OUT_DIR = path.resolve(__dirname, '_site');
@@ -40,6 +52,10 @@ function getGuidelinesFor(title) {
   });
 
   return result;
+}
+
+function getLicenseFor(icon) {
+  return iconLicenses[icon.slug] || iconLicenses[icon.title];
 }
 
 module.exports = {
@@ -96,6 +112,7 @@ module.exports = {
             hex: icon.hex,
             indexByAlpha: iconIndex,
             indexByColor: sortedHexes.indexOf(icon.hex),
+            license: getLicenseFor(icon),
             light: luminance < 0.4,
             superLight: luminance > 0.95,
             superDark: luminance < 0.02,
