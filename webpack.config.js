@@ -15,10 +15,17 @@ const sortedHexes = icons
   .map((icon) => icon.hex)
   .filter((hex, index, array) => array.indexOf(hex) === index)
   .sort(sortColors);
-const iconLicenses = simpleIconsData.icons.reduce((acc, cur) => {
-  const key = cur.slug || cur.title;
-  acc[key] = cur.license;
-  return acc;
+const iconLicenses = simpleIconsData.icons.reduce((licenses, icon) => {
+  const key = icon.slug || icon.title;
+  const license = icon.license;
+  if (license !== undefined) {
+    licenses[key] = license;
+    if (license.url === undefined) {
+      licenses[key].url = `https://spdx.org/licenses/${license.type}.html`;
+    }
+  }
+
+  return licenses;
 }, {});
 
 const NODE_MODULES = path.resolve(__dirname, 'node_modules');
