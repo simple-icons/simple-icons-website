@@ -42,6 +42,21 @@ function getGuidelinesFor(title) {
   return result;
 }
 
+function getLicenseFor(title) {
+  let result;
+  simpleIconsData.icons.forEach((icon) => {
+    if (icon.title !== title) {
+      return;
+    }
+    if (icon.license) {
+      console.log(icon);
+      result = icon.license;
+    }
+  });
+
+  return result;
+}
+
 module.exports = {
   entry: {
     app: path.resolve(ROOT_DIR, 'scripts/index.js'),
@@ -96,6 +111,7 @@ module.exports = {
             hex: icon.hex,
             indexByAlpha: iconIndex,
             indexByColor: sortedHexes.indexOf(icon.hex),
+            license: getLicenseFor(icon.title),
             light: luminance < 0.4,
             superLight: luminance > 0.95,
             superDark: luminance < 0.02,

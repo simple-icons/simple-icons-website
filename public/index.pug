@@ -115,6 +115,14 @@ html
                 rel="noopner"
                 target="_blank"
               ) Brand Guidelines
+            if icon.license
+              a(
+                class="grid-item__legal"
+                title=`${icon.title} icon license`
+                href=icon.license.url
+                rel="noopner"
+                target="_blank"
+              ) #{icon.license.type}
             div(class="grid-item__footer")
               button(class="grid-item__preview copy-button" title=`${icon.title} SVG` disabled)
                 svg(id=`${icon.slug}-svg` role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg")
