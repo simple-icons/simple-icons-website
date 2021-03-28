@@ -5,7 +5,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const simpleIcons = require('simple-icons');
-const simpleIconsData = require('simple-icons/_data/simple-icons.json');
 const sortColors = require('color-sorter').sortFn;
 
 const { normalizeSearchTerm } = require('./public/scripts/utils.js');
@@ -15,11 +14,6 @@ const sortedHexes = icons
   .map((icon) => icon.hex)
   .filter((hex, index, array) => array.indexOf(hex) === index)
   .sort(sortColors);
-const iconGuidelines = simpleIconsData.icons.reduce((guidelines, icon) => {
-  const key = icon.slug || icon.title;
-  guidelines[key] = icon.guidelines;
-  return guidelines;
-}, {});
 
 const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const OUT_DIR = path.resolve(__dirname, '_site');
@@ -31,10 +25,6 @@ function simplifyHexIfPossible(hex) {
   }
 
   return hex;
-}
-
-function getGuidelinesFor(icon) {
-  return iconGuidelines[icon.slug] || iconGuidelines[icon.title];
 }
 
 module.exports = {
@@ -87,7 +77,7 @@ module.exports = {
         icons: icons.map((icon, iconIndex) => {
           const luminance = getRelativeLuminance(`#${icon.hex}`);
           return {
-            guidelines: getGuidelinesFor(icon),
+            guidelines: icon.guidelines,
             hex: icon.hex,
             indexByAlpha: iconIndex,
             indexByColor: sortedHexes.indexOf(icon.hex),
