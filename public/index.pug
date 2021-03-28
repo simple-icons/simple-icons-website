@@ -98,8 +98,8 @@ html
 
         each icon in icons
           li(class="grid-item" style=`--order-color: ${icon.indexByColor}` data-brand=`${icon.normalizedName}`)
-            svg(class="grid-item__decoration" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg")
-              use(href=`#${icon.slug}-svg`)
+            //- svg(class="grid-item__decoration" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg")
+            //-   use(href=`#${icon.slug}-svg`)
             h2(class="grid-item__title") #{icon.title}
             button(
               class=`grid-item__color copy-button ${icon.light ? "contrast-light" : "contrast-dark"} ${icon.superLight ? "border-light" : ""}  ${icon.superDark ? "border-dark" : ""}`
@@ -125,9 +125,7 @@ html
               ) #{icon.license.type}
             div(class="grid-item__footer")
               button(class="grid-item__preview copy-button" title=`${icon.title} SVG` disabled)
-                svg(id=`${icon.slug}-svg` role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg")
-                  title #{icon.title} icon
-                  path(d=icon.path)
+                img(src=`./icons/${icon.slug}.svg` loading="lazy")
               div(class="grid-item__downloads")
                 h3 Download
                 div(class="grid-item__button-row")

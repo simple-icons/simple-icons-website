@@ -63,7 +63,7 @@ describe('Copy', () => {
     }
   });
 
-  it('gets grid item copy SVG source buttons', () => {
+  it.skip('gets grid item copy SVG source buttons', () => {
     const eventListeners = new Map();
     const $svgButtons = [
       newElementMock('preview button 1', { parentNode: true }),
