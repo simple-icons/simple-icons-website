@@ -100,6 +100,10 @@
     --color-link-hover: var(--dm-color-link-hover);
     --color-link-visited: var(--dm-color-link-visited);
   }
+
+  body:not(.dark):not(.light) .icon-black {
+    display: none;
+  }
 }
 @media (prefers-color-scheme: light) {
   :root {
@@ -123,6 +127,10 @@
     --color-link: var(--lm-color-link);
     --color-link-hover: var(--lm-color-link-hover);
     --color-link-visited: var(--lm-color-link-visited);
+  }
+
+  body:not(.dark):not(.light) .icon-white {
+    display: none;
   }
 }
 
@@ -169,6 +177,13 @@ body.light {
   --color-link: var(--lm-color-link);
   --color-link-hover: var(--lm-color-link-hover);
   --color-link-visited: var(--lm-color-link-visited);
+}
+
+body.dark .icon-black {
+  display: none;
+}
+body.light .icon-white {
+  display: none;
 }
 
 /* General */

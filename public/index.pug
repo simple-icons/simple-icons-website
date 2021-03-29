@@ -125,7 +125,8 @@ html
               ) #{icon.license.type}
             div(class="grid-item__footer")
               button(class="grid-item__preview copy-button" title=`${icon.title} SVG` disabled)
-                img(src=`./icons/${icon.slug}.svg` loading="lazy")
+                img(src=`./icons/${icon.slug}.svg` loading="lazy" class="icon-black")
+                img(src=`./icons/${icon.slug}-white.svg` loading="lazy" class="icon-white")
               div(class="grid-item__downloads")
                 h3 Download
                 div(class="grid-item__button-row")

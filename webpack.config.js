@@ -60,6 +60,14 @@ module.exports = {
           filter: (path) => path.endsWith('.svg'),
         },
         {
+          from: path.resolve(NODE_MODULES, 'simple-icons/icons'),
+          to: path.resolve(OUT_DIR, 'icons', `[name]-white.[ext]`),
+          filter: (path) => path.endsWith('.svg'),
+          transform(content) {
+            return content.toString().replace('<svg', '<svg fill="#FFF"');
+          },
+        },
+        {
           from: path.resolve(NODE_MODULES, 'simple-icons-pdf/icons'),
           to: path.resolve(OUT_DIR, 'icons'),
           filter: (path) => path.endsWith('.pdf'),
