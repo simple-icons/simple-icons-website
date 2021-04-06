@@ -96,7 +96,6 @@ module.exports = {
             normalizedName: normalizeSearchTerm(icon.title),
             path: icon.path,
             shortHex: simplifyHexIfPossible(icon.hex),
-            base64Svg: Buffer.from(icon.svg).toString('base64'),
             slug: icon.slug,
             title: icon.title,
           };
