@@ -101,8 +101,8 @@
     --color-link-visited: var(--dm-color-link-visited);
   }
 
-  body:not(.dark):not(.light) .icon-black {
-    display: none;
+  body:not(.dark):not(.light) .icon-preview {
+    filter: invert(1);
   }
 }
 @media (prefers-color-scheme: light) {
@@ -127,10 +127,6 @@
     --color-link: var(--lm-color-link);
     --color-link-hover: var(--lm-color-link-hover);
     --color-link-visited: var(--lm-color-link-visited);
-  }
-
-  body:not(.dark):not(.light) .icon-white {
-    display: none;
   }
 }
 
@@ -179,11 +175,8 @@ body.light {
   --color-link-visited: var(--lm-color-link-visited);
 }
 
-body.dark .icon-black {
-  display: none;
-}
-body.light .icon-white {
-  display: none;
+body.dark .icon-preview {
+  filter: invert(1);
 }
 
 /* General */

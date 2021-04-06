@@ -24,14 +24,14 @@ export default function initCopyButtons(document, navigator) {
 
   $svgButtons.forEach(($svgButton) => {
     $svgButton.removeAttribute('disabled');
-    $svgButton.addEventListener('click', async (event) => {
+    $svgButton.addEventListener('click', (event) => {
       event.preventDefault();
 
-      const svgUrl = $svgButton.children[0].src;
-      const response = await fetch(svgUrl);
-      const rawSvg = await response.text();
+      const $img = $svgButton.querySelector('img');
+      const srcValue = $img.getAttribute('src');
+      const base64Svg = srcValue.replace('data:image/svg+xml;base64,', '');
 
-      const value = rawSvg;
+      const value = atob(base64Svg);
       $svgButton.blur();
       copyValue(value);
       setCopied($svgButton);
