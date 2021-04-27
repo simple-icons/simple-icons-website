@@ -63,7 +63,10 @@ describe('Copy', () => {
     }
   });
 
-  it.skip('gets grid item copy SVG source buttons', () => {
+  it('gets grid item copy SVG source buttons', () => {
+    const rawSvg =
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+    const base64Svg = Buffer.from(rawSvg).toString('base64');
     const eventListeners = new Map();
     const $svgButtons = [
       newElementMock('preview button 1', { parentNode: true }),
@@ -90,11 +93,11 @@ describe('Copy', () => {
     for (const $svgButton of $svgButtons) {
       const buttonEventListeners = eventListeners.get($svgButton);
 
-      const $svg = newElementMock('svg');
-      $svg.outerHTML = `<svg>${$svgButton.__name}</svg>`;
-
-      const $parent = $svgButton.parentNode;
-      $parent.querySelector.mockReturnValue($svg);
+      const $img = newElementMock('img');
+      $img.getAttribute.mockReturnValue(
+        `data:image/svg+xml;base64,${base64Svg}`,
+      );
+      $svgButton.querySelector.mockReturnValue($img);
 
       expect($svgButton.removeAttribute).toHaveBeenCalledWith('disabled');
       expect($svgButton.addEventListener).toHaveBeenCalledWith(
@@ -108,10 +111,7 @@ describe('Copy', () => {
       expect(event.preventDefault).toHaveBeenCalledTimes(1);
       expect($svgButton.blur).toHaveBeenCalledTimes(1);
       expect($svgButton.classList.add).toHaveBeenCalledWith('copied');
-      expect($parent.querySelector).toHaveBeenCalledWith('svg');
-      expect(navigator.clipboard.writeText).toHaveBeenCalledWith(
-        $svg.outerHTML,
-      );
+      expect(navigator.clipboard.writeText).toHaveBeenCalledWith(rawSvg);
     }
   });
 });
