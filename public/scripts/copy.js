@@ -30,7 +30,7 @@ export default function initCopyButtons(document, navigator) {
       const $img = $svgButton.querySelector('img');
       const srcValue = $img.getAttribute('src');
       const base64Svg = srcValue.replace('data:image/svg+xml;base64,', '');
-      console.log(base64Svg);
+
       const value = atob(base64Svg);
       $svgButton.blur();
       copyValue(value);
