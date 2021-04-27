@@ -2,6 +2,7 @@ const {
   document,
   newElementMock,
   newEventMock,
+  window,
 } = require('./mocks/dom.mock.js');
 const { navigator } = require('./mocks/navigator.mock.js');
 
@@ -14,7 +15,7 @@ describe('Copy', () => {
   });
 
   it('gets the #copy-input button', () => {
-    initCopyButtons(document, navigator);
+    initCopyButtons(window, document, navigator);
     expect(document.getElementById).toHaveBeenCalledWith('copy-input');
   });
 
@@ -41,7 +42,7 @@ describe('Copy', () => {
       return [];
     });
 
-    initCopyButtons(document, navigator);
+    initCopyButtons(window, document, navigator);
     for (const $colorButton of $colorButtons) {
       const buttonEventListeners = eventListeners.get($colorButton);
 
@@ -89,7 +90,7 @@ describe('Copy', () => {
       return [];
     });
 
-    initCopyButtons(document, navigator);
+    initCopyButtons(window, document, navigator);
     for (const $svgButton of $svgButtons) {
       const buttonEventListeners = eventListeners.get($svgButton);
 
