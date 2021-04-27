@@ -24,7 +24,7 @@ export default function initCopyButtons(document, navigator) {
 
   $svgButtons.forEach(($svgButton) => {
     $svgButton.removeAttribute('disabled');
-    $svgButton.addEventListener('click', async (event) => {
+    $svgButton.addEventListener('click', (event) => {
       event.preventDefault();
 
       const $img = $svgButton.querySelector('img');
