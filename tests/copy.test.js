@@ -34,7 +34,7 @@ describe('Copy', () => {
     }
 
     document.querySelectorAll.mockImplementation((query) => {
-      if (query === '.grid-item__color') {
+      if (query === '.copy-color') {
         return $colorButtons;
       }
 
@@ -79,7 +79,7 @@ describe('Copy', () => {
     }
 
     document.querySelectorAll.mockImplementation((query) => {
-      if (query === '.grid-item__preview') {
+      if (query === '.copy-svg') {
         return $svgButtons;
       }
 
