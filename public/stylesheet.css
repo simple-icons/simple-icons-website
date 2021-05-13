@@ -520,6 +520,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 @media (hover: hover) {
   .grid-item__preview .copy-button:not(:disabled):hover::before {
     display: block;
+    z-index: 1;
   }
 }
 
