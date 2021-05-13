@@ -294,7 +294,7 @@ describe('Ordering', () => {
     // Items are ordered using the CSS property `order`...
     await expect(page).toClick('#order-color');
 
-    const $gridItems = await page.$$('.grid-item__color');
+    const $gridItems = await page.$$('.copy-color');
     for (let i = 0; i < $gridItems.length; i++) {
       const $gridItem = $gridItems[i];
       const hex = hexes[i];
@@ -396,23 +396,23 @@ describe('Grid item', () => {
   });
 
   it('has the color value button enabled', async () => {
-    const $previewButton = await page.$('button.grid-item__color');
+    const $previewButton = await page.$('button.copy-color');
     expect(await isDisabled($previewButton)).toBeFalsy();
   });
 
   it('copies the hex value when it is clicked', async () => {
-    await expect(page).toClick('button.grid-item__color');
+    await expect(page).toClick('button.copy-color');
     const clipboardValue = await getClipboardValue(page);
     expect(clipboardValue).toMatch(COLOR_REGEX);
   });
 
   it('has the SVG preview button enabled', async () => {
-    const $previewButton = await page.$('button.grid-item__preview');
+    const $previewButton = await page.$('button.copy-svg');
     expect(await isDisabled($previewButton)).toBeFalsy();
   });
 
   it('copies the SVG value when the preview is clicked', async () => {
-    await expect(page).toClick('button.grid-item__preview');
+    await expect(page).toClick('button.copy-svg');
     const clipboardValue = await getClipboardValue(page);
     expect(clipboardValue).toMatch(SVG_REGEX);
   });
@@ -460,12 +460,12 @@ describe('JavaScript disabled', () => {
   });
 
   it('has the color value button disabled', async () => {
-    const $colorButton = await page.$('button.grid-item__color');
+    const $colorButton = await page.$('button.copy-color');
     expect(await isDisabled($colorButton)).toBeTruthy();
   });
 
   it('has the SVG preview button disabled', async () => {
-    const $previewButton = await page.$('button.grid-item__preview');
+    const $previewButton = await page.$('button.copy-svg');
     expect(await isDisabled($previewButton)).toBeTruthy();
   });
 

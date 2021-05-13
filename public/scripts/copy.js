@@ -7,8 +7,8 @@ function setCopied($el) {
 
 export default function initCopyButtons(window, document, navigator) {
   const $copyInput = document.getElementById('copy-input');
-  const $colorButtons = document.querySelectorAll('.grid-item__color');
-  const $svgButtons = document.querySelectorAll('.grid-item__preview');
+  const $colorButtons = document.querySelectorAll('.copy-color');
+  const $svgButtons = document.querySelectorAll('.copy-svg');
 
   $colorButtons.forEach(($colorButton) => {
     $colorButton.removeAttribute('disabled');

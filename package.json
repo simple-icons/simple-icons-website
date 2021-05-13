@@ -26,7 +26,7 @@
     "test:unit": "TEST_ENV=unit jest"
   },
   "dependencies": {
-    "simple-icons": "4.21.0",
+    "simple-icons": "4.23.0",
     "simple-icons-pdf": "https://github.com/simple-icons/simple-icons-pdf/tarball/master"
   },
   "devDependencies": {
@@ -47,7 +47,7 @@
     "jest-puppeteer": "4.4.0",
     "mini-css-extract-plugin": "1.3.4",
     "npm-run-all": "4.1.5",
-    "postcss": "8.2.4",
+    "postcss": "8.2.10",
     "postcss-flexbugs-fixes": "5.0.2",
     "postcss-loader": "4.1.0",
     "prettier": "2.2.1",
