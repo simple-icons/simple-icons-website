@@ -11,6 +11,8 @@ module.exports = {
 
         // grid-related classes
         'grid-?[a-zA-Z0-9_-]*',
+        'icon-[a-z-]+',
+        'copy-[a-z-]+',
 
         // control-related classes
         '(control|search)-?[a-zA-Z0-9_-]*',

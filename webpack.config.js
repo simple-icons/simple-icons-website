@@ -5,7 +5,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const simpleIcons = require('simple-icons');
-const simpleIconsData = require('simple-icons/_data/simple-icons.json');
 const sortColors = require('color-sorter').sortFn;
 
 const { normalizeSearchTerm } = require('./public/scripts/utils.js');
@@ -28,18 +27,12 @@ function simplifyHexIfPossible(hex) {
   return hex;
 }
 
-function getGuidelinesFor(title) {
-  let result;
-  simpleIconsData.icons.forEach((icon) => {
-    if (icon.title !== title) {
-      return;
-    }
-    if (icon.guidelines) {
-      result = icon.guidelines;
-    }
-  });
-
-  return result;
+let displayIcons = icons;
+if (process.env.TEST_ENV) {
+  // Use fewer icons when building for a test run. This significantly speeds up
+  // page load time and therefor (integration) tests, reducing the chance of
+  // failed tests due to timeouts.
+  displayIcons = icons.slice(0, 255);
 }
 
 module.exports = {
@@ -89,13 +82,15 @@ module.exports = {
       inject: true,
       template: path.resolve(ROOT_DIR, 'index.pug'),
       templateParameters: {
-        icons: icons.map((icon, iconIndex) => {
+        icons: displayIcons.map((icon, iconIndex) => {
           const luminance = getRelativeLuminance(`#${icon.hex}`);
           return {
-            guidelines: getGuidelinesFor(icon.title),
+            base64Svg: Buffer.from(icon.svg).toString('base64'),
+            guidelines: icon.guidelines,
             hex: icon.hex,
             indexByAlpha: iconIndex,
             indexByColor: sortedHexes.indexOf(icon.hex),
+            license: icon.license,
             light: luminance < 0.4,
             superLight: luminance > 0.95,
             superDark: luminance < 0.02,
@@ -107,6 +102,7 @@ module.exports = {
           };
         }),
         iconCount: icons.length,
+        twitterIcon: icons.find((icon) => icon.title === 'Twitter'),
       },
     }),
     new MiniCssExtractPlugin(),

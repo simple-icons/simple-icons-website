@@ -17,7 +17,6 @@ html
     meta(name="twitter:card" content="summary_large_image")
     meta(name="twitter:title" content="Simple Icons")
     meta(name="twitter:description" content=`${iconCount} Free SVG icons for popular brands.`)
-    meta(name="twitter:site" content="@bathtype")
     meta(name="twitter:domain" content="Simple Icons")
     meta(name="twitter:image:src" content="https://simpleicons.org/images/og.png")
     link(rel="icon" type="image/x-icon" href="https://simpleicons.org/images/favicon.ico")
@@ -98,41 +97,44 @@ html
 
         each icon in icons
           li(class="grid-item" style=`--order-color: ${icon.indexByColor}` data-brand=`${icon.normalizedName}`)
-            svg(class="grid-item__decoration" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg")
-              use(href=`#${icon.slug}-svg`)
-            h2(class="grid-item__title") #{icon.title}
-            button(
-              class=`grid-item__color copy-button ${icon.light ? "contrast-light" : "contrast-dark"} ${icon.superLight ? "border-light" : ""}  ${icon.superDark ? "border-dark" : ""}`
-              style=`background-color: #${icon.shortHex}`
-              title=`${icon.title} color`
-              disabled
-            ) ##{icon.hex}
-            if icon.guidelines
-              a(
-                class="grid-item__guidelines link-button"
-                title=`${icon.title} guidelines`
-                href=icon.guidelines
-                rel="noopner"
-                target="_blank"
-              ) Brand Guidelines
+            div(class="grid-item__preview")
+              button(class="copy-button copy-svg" title=`${icon.title} SVG` disabled)
+                img(src=`data:image/svg+xml;base64,${icon.base64Svg}` loading="lazy" class="icon-preview")
+            div(class="grid-item__row")
+              if icon.guidelines
+                a(
+                  class="grid-item__guidelines link-button"
+                  title=`${icon.title} guidelines`
+                  href=icon.guidelines
+                  rel="noopener"
+                  target="_blank"
+                ) Brand Guidelines
+              if icon.license
+                a(
+                  class="grid-item__legal"
+                  title=`${icon.title} icon license`
+                  href=icon.license.url
+                  rel="noopener"
+                  target="_blank"
+                ) #{icon.license.type}
+              h2(class="grid-item__title") #{icon.title}
             div(class="grid-item__footer")
-              button(class="grid-item__preview copy-button" title=`${icon.title} SVG` disabled)
-                svg(id=`${icon.slug}-svg` role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg")
-                  title #{icon.title} icon
-                  path(d=icon.path)
-              div(class="grid-item__downloads")
-                h3 Download
-                div(class="grid-item__button-row")
-                  a(
-                    class="grid-item__button"
-                    href=`./icons/${icon.slug}.svg`
-                    download
-                  ) SVG
-                  a(
-                    class="grid-item__button"
-                    href=`./icons/${icon.slug}.pdf`
-                    download
-                  ) PDF
+              button(
+                class=`grid-item__color copy-button copy-color ${icon.light ? "contrast-light" : "contrast-dark"} ${icon.superLight ? "border-light" : ""}  ${icon.superDark ? "border-dark" : ""}`
+                style=`background-color: #${icon.shortHex}`
+                title=`${icon.title} color`
+                disabled
+              ) ##{icon.hex}
+              a(
+                class="grid-item__button"
+                href=`./icons/${icon.slug}.svg`
+                download
+              ) SVG
+              a(
+                class="grid-item__button"
+                href=`./icons/${icon.slug}.pdf`
+                download
+              ) PDF
 
     footer(class="footer" role="contentinfo")
       div(class="footer-description")
@@ -146,11 +148,11 @@ html
         rel="noopener"
         role="button"
         target="_blank"
-        href="https://twitter.com/intent/tweet?url=https://simpleicons.org&text=Simple%20Icons%3A%20free%20SVG%20icons%20for%20popular%20brands.&via=bathtype"
+        href="https://twitter.com/intent/tweet?url=https://simpleicons.org&text=Simple%20Icons%3A%20free%20SVG%20icons%20for%20popular%20brands."
       )
         svg(class="footer-share--icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg")
           title Twitter logo
-          use(href=`#twitter-svg`)
+          path(d=twitterIcon.path)
         span Share this on Twitter!
 
     input(id="id-copy-input" class="hidden" aria-hidden="true")
