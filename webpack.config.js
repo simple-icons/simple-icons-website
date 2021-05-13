@@ -27,6 +27,14 @@ function simplifyHexIfPossible(hex) {
   return hex;
 }
 
+let displayIcons = icons;
+if (process.env.TEST_ENV) {
+  // Use fewer icons when building for a test run. This significantly speeds up
+  // page load time and therefor (integration) tests, reducing the chance of
+  // failed tests due to timeouts.
+  displayIcons = icons.slice(0, 255);
+}
+
 module.exports = {
   entry: {
     app: path.resolve(ROOT_DIR, 'scripts/index.js'),
@@ -74,7 +82,7 @@ module.exports = {
       inject: true,
       template: path.resolve(ROOT_DIR, 'index.pug'),
       templateParameters: {
-        icons: icons.map((icon, iconIndex) => {
+        icons: displayIcons.map((icon, iconIndex) => {
           const luminance = getRelativeLuminance(`#${icon.hex}`);
           return {
             base64Svg: Buffer.from(icon.svg).toString('base64'),

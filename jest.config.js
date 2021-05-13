@@ -13,7 +13,7 @@ switch (process.env.TEST_ENV) {
   case TEST_ENV_ALL:
     console.info('building website for integration tests...');
     execSync('npm run clean');
-    execSync('npm run build:dev');
+    execSync('npm run build');
 
     bail = 1; // Fail immediately to avoid running costly tests unnecessarily
     preset = 'jest-puppeteer';
