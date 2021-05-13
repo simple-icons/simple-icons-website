@@ -516,6 +516,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 .grid-item__preview .copy-button:not(:disabled).copied::before,
 .grid-item__preview .copy-button:not(:disabled):focus::before {
   display: block;
+  z-index: 1;
 }
 @media (hover: hover) {
   .grid-item__preview .copy-button:not(:disabled):hover::before {
