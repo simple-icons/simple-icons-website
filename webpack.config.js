@@ -94,6 +94,7 @@ module.exports = {
           };
         }),
         iconCount: icons.length,
+        twitterIcon: icons.find((icon) => icon.title === 'Twitter'),
       },
     }),
     new MiniCssExtractPlugin(),
