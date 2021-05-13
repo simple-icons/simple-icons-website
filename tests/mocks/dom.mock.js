@@ -63,3 +63,7 @@ export function newEventMock() {
     preventDefault: jest.fn().mockName('event.preventDefault'),
   };
 }
+
+export const window = {
+  atob: (base64Str) => Buffer.from(base64Str, 'base64').toString('utf8'),
+};

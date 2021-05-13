@@ -5,7 +5,7 @@ function setCopied($el) {
   setTimeout(() => $el.classList.remove('copied'), COPIED_TIMEOUT);
 }
 
-export default function initCopyButtons(document, navigator) {
+export default function initCopyButtons(window, document, navigator) {
   const $copyInput = document.getElementById('copy-input');
   const $colorButtons = document.querySelectorAll('.copy-color');
   const $svgButtons = document.querySelectorAll('.copy-svg');
@@ -27,8 +27,11 @@ export default function initCopyButtons(document, navigator) {
     $svgButton.addEventListener('click', (event) => {
       event.preventDefault();
 
-      const $svg = $svgButton.parentNode.querySelector('svg');
-      const value = $svg.outerHTML;
+      const $img = $svgButton.querySelector('img');
+      const srcValue = $img.getAttribute('src');
+      const base64Svg = srcValue.replace('data:image/svg+xml;base64,', '');
+
+      const value = window.atob(base64Svg);
       $svgButton.blur();
       copyValue(value);
       setCopied($svgButton);

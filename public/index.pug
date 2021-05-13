@@ -99,9 +99,7 @@ html
           li(class="grid-item" style=`--order-color: ${icon.indexByColor}` data-brand=`${icon.normalizedName}`)
             div(class="grid-item__preview")
               button(class="copy-button copy-svg" title=`${icon.title} SVG` disabled)
-                svg(id=`${icon.slug}-svg` role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg")
-                  title #{icon.title} icon
-                  path(d=icon.path)
+                img(src=`data:image/svg+xml;base64,${icon.base64Svg}` loading="lazy" class="icon-preview")
             div(class="grid-item__row")
               if icon.guidelines
                 a(
@@ -154,7 +152,7 @@ html
       )
         svg(class="footer-share--icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg")
           title Twitter logo
-          use(href=`#twitter-svg`)
+          path(d=twitterIcon.path)
         span Share this on Twitter!
 
     input(id="copy-input" class="hidden" aria-hidden="true")

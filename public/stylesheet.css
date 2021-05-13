@@ -100,6 +100,10 @@
     --color-link-hover: var(--dm-color-link-hover);
     --color-link-visited: var(--dm-color-link-visited);
   }
+
+  body:not(.dark):not(.light) .icon-preview {
+    filter: invert(1);
+  }
 }
 @media (prefers-color-scheme: light) {
   :root {
@@ -169,6 +173,10 @@ body.light {
   --color-link: var(--lm-color-link);
   --color-link-hover: var(--lm-color-link-hover);
   --color-link-visited: var(--lm-color-link-visited);
+}
+
+body.dark .icon-preview {
+  filter: invert(1);
 }
 
 /* General */
@@ -512,6 +520,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 @media (hover: hover) {
   .grid-item__preview .copy-button:not(:disabled):hover::before {
     display: block;
+    z-index: 1;
   }
 }
 

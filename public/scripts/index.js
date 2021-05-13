@@ -13,7 +13,7 @@ document.body.classList.remove('no-js');
 
 const storage = newStorage(localStorage);
 initColorScheme(document, storage);
-initCopyButtons(document, navigator);
+initCopyButtons(window, document, navigator);
 const orderingControls = initOrdering(document, storage);
 initSearch(window.history, document, orderingControls, domUtils);
 initFeedbackRequest(document, storage);

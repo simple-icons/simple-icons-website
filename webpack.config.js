@@ -77,6 +77,7 @@ module.exports = {
         icons: icons.map((icon, iconIndex) => {
           const luminance = getRelativeLuminance(`#${icon.hex}`);
           return {
+            base64Svg: Buffer.from(icon.svg).toString('base64'),
             guidelines: icon.guidelines,
             hex: icon.hex,
             indexByAlpha: iconIndex,
@@ -93,6 +94,7 @@ module.exports = {
           };
         }),
         iconCount: icons.length,
+        twitterIcon: icons.find((icon) => icon.title === 'Twitter'),
       },
     }),
     new MiniCssExtractPlugin(),
