@@ -2,7 +2,6 @@ const PREFIX = 'simple-icons-';
 
 export const STORAGE_KEY_COLOR_SCHEME = PREFIX + 'preferred-color-scheme';
 export const STORAGE_KEY_ORDERING = PREFIX + 'preferred-ordering';
-export const STORAGE_KEY_HIDE_TEMP_BANNER = PREFIX + 'temporary-banner';
 
 const mockStorage = {
   hasItem() {
