@@ -99,7 +99,7 @@ html
           li(class="grid-item" style=`--order-color: ${icon.indexByColor}` data-brand=`${icon.normalizedName}`)
             div(class="grid-item__row mv-2 fg-2")
               button(class="grid-item__preview copy-button copy-svg" title=`${icon.title} SVG` disabled)
-                img(src=`data:image/svg+xml;base64,${icon.base64Svg}` loading="lazy" class="icon-preview")
+                img(src=`data:image/svg+xml;base64,${icon.base64Svg}` loading="lazy" class="icon-preview" alt=`${icon.title} icon`)
             div(class="grid-item__row")
               if icon.guidelines
                 a(
