@@ -48,9 +48,6 @@ describe.each([
 ])('General (%s)', (name, device) => {
   beforeAll(async () => {
     await page.emulate(device);
-  });
-
-  beforeEach(async () => {
     await page.goto(url.href);
   });
 
@@ -62,22 +59,6 @@ describe.each([
 
   it('displays the text "Simple Icons"', async () => {
     await expect(page).toMatch('Simple Icons');
-  });
-
-  it('is possible to click the link to GitHub', async () => {
-    await expect(page).toClick('a', { text: 'GitHub' });
-  });
-
-  it('is possible to click the link to NPM', async () => {
-    await expect(page).toClick('a', { text: 'NPM' });
-  });
-
-  it('is possible to click the link to Packagist', async () => {
-    await expect(page).toClick('a', { text: 'Packagist' });
-  });
-
-  it('is possible to click the about link', async () => {
-    await expect(page).toClick('a', { text: 'About' });
   });
 
   it('has the search input in view on load', async () => {
@@ -105,6 +86,28 @@ describe.each([
 
   afterAll(async () => {
     await page.emulate(DEFAULT_DEVICE);
+  });
+});
+
+describe('External links', () => {
+  beforeEach(async () => {
+    await page.goto(url.href);
+  });
+
+  it('is possible to click the link to GitHub', async () => {
+    await expect(page).toClick('a', { text: 'GitHub' });
+  });
+
+  it('is possible to click the link to NPM', async () => {
+    await expect(page).toClick('a', { text: 'NPM' });
+  });
+
+  it('is possible to click the link to Packagist', async () => {
+    await expect(page).toClick('a', { text: 'Packagist' });
+  });
+
+  it('is possible to click the about link', async () => {
+    await expect(page).toClick('a', { text: 'About' });
   });
 });
 
@@ -254,7 +257,7 @@ describe('Ordering', () => {
   const titles = icons.map((icon) => icon.title);
   const hexes = icons.map((icon) => icon.hex).sort(sortColors);
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     await page.goto(url.href);
   });
 
@@ -291,7 +294,7 @@ describe('Ordering', () => {
     // Items are ordered using the CSS property `order`...
     await expect(page).toClick('#order-color');
 
-    const $gridItems = await page.$$('.grid-item__color');
+    const $gridItems = await page.$$('.copy-color');
     for (let i = 0; i < $gridItems.length; i++) {
       const $gridItem = $gridItems[i];
       const hex = hexes[i];
@@ -301,7 +304,7 @@ describe('Ordering', () => {
 });
 
 describe('Preferred color scheme', () => {
-  beforeEach(async () => {
+  beforeAll(async () => {
     await page.goto(url.href);
   });
 
@@ -384,7 +387,7 @@ describe('Grid item', () => {
     });
   });
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     await page.goto(url.href);
     await page._client.send('Page.setDownloadBehavior', {
       behavior: 'allow',
@@ -393,23 +396,23 @@ describe('Grid item', () => {
   });
 
   it('has the color value button enabled', async () => {
-    const $previewButton = await page.$('button.grid-item__color');
+    const $previewButton = await page.$('button.copy-color');
     expect(await isDisabled($previewButton)).toBeFalsy();
   });
 
   it('copies the hex value when it is clicked', async () => {
-    await expect(page).toClick('button.grid-item__color');
+    await expect(page).toClick('button.copy-color');
     const clipboardValue = await getClipboardValue(page);
     expect(clipboardValue).toMatch(COLOR_REGEX);
   });
 
   it('has the SVG preview button enabled', async () => {
-    const $previewButton = await page.$('button.grid-item__preview');
+    const $previewButton = await page.$('button.copy-svg');
     expect(await isDisabled($previewButton)).toBeFalsy();
   });
 
   it('copies the SVG value when the preview is clicked', async () => {
-    await expect(page).toClick('button.grid-item__preview');
+    await expect(page).toClick('button.copy-svg');
     const clipboardValue = await getClipboardValue(page);
     expect(clipboardValue).toMatch(SVG_REGEX);
   });
@@ -424,7 +427,7 @@ describe('Grid item', () => {
 });
 
 describe('JavaScript disabled', () => {
-  beforeEach(async () => {
+  beforeAll(async () => {
     page.setJavaScriptEnabled(false);
     await page.goto(url.href);
   });
@@ -457,16 +460,16 @@ describe('JavaScript disabled', () => {
   });
 
   it('has the color value button disabled', async () => {
-    const $colorButton = await page.$('button.grid-item__color');
+    const $colorButton = await page.$('button.copy-color');
     expect(await isDisabled($colorButton)).toBeTruthy();
   });
 
   it('has the SVG preview button disabled', async () => {
-    const $previewButton = await page.$('button.grid-item__preview');
+    const $previewButton = await page.$('button.copy-svg');
     expect(await isDisabled($previewButton)).toBeTruthy();
   });
 
-  afterEach(async () => {
+  afterAll(async () => {
     page.setJavaScriptEnabled(true);
   });
 });

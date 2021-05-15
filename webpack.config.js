@@ -5,7 +5,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const simpleIcons = require('simple-icons');
-const simpleIconsData = require('simple-icons/_data/simple-icons.json');
 const sortColors = require('color-sorter').sortFn;
 
 const { normalizeSearchTerm } = require('./public/scripts/utils.js');
@@ -18,7 +17,7 @@ const sortedHexes = icons
 
 const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const OUT_DIR = path.resolve(__dirname, '_site');
-const ROOT_DIR = path.resolve(__dirname);
+const ROOT_DIR = path.resolve(__dirname, 'public');
 
 function simplifyHexIfPossible(hex) {
   if (hex[0] === hex[1] && hex[2] === hex[3] && hex[4] == hex[5]) {
@@ -28,23 +27,17 @@ function simplifyHexIfPossible(hex) {
   return hex;
 }
 
-function getGuidelinesFor(title) {
-  let result;
-  simpleIconsData.icons.forEach((icon) => {
-    if (icon.title !== title) {
-      return;
-    }
-    if (icon.guidelines) {
-      result = icon.guidelines;
-    }
-  });
-
-  return result;
+let displayIcons = icons;
+if (process.env.TEST_ENV) {
+  // Use fewer icons when building for a test run. This significantly speeds up
+  // page load time and therefor (integration) tests, reducing the chance of
+  // failed tests due to timeouts.
+  displayIcons = icons.slice(0, 255);
 }
 
 module.exports = {
   entry: {
-    app: './public/scripts/index.js',
+    app: path.resolve(ROOT_DIR, 'scripts/index.js'),
   },
   output: {
     path: OUT_DIR,
@@ -80,22 +73,24 @@ module.exports = {
           filter: (path) => path.endsWith('.pdf'),
         },
         {
-          from: path.resolve(ROOT_DIR, 'public/images'),
+          from: path.resolve(ROOT_DIR, 'images'),
           to: path.resolve(OUT_DIR, 'images'),
         },
       ],
     }),
     new HtmlWebpackPlugin({
       inject: true,
-      template: path.resolve(ROOT_DIR, 'public/index.pug'),
+      template: path.resolve(ROOT_DIR, 'index.pug'),
       templateParameters: {
-        icons: icons.map((icon, iconIndex) => {
+        icons: displayIcons.map((icon, iconIndex) => {
           const luminance = getRelativeLuminance(`#${icon.hex}`);
           return {
-            guidelines: getGuidelinesFor(icon.title),
+            base64Svg: Buffer.from(icon.svg).toString('base64'),
+            guidelines: icon.guidelines,
             hex: icon.hex,
             indexByAlpha: iconIndex,
             indexByColor: sortedHexes.indexOf(icon.hex),
+            license: icon.license,
             light: luminance < 0.4,
             superLight: luminance > 0.95,
             superDark: luminance < 0.02,
@@ -107,6 +102,7 @@ module.exports = {
           };
         }),
         iconCount: icons.length,
+        twitterIcon: icons.find((icon) => icon.title === 'Twitter'),
       },
     }),
     new MiniCssExtractPlugin(),

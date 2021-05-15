@@ -12,22 +12,28 @@
   --color-twitter: rgb(29, 161, 242);
   --color-twitter-hover: rgba(29, 161, 242, 0.8);
   --side-offset: 6rem;
+  --border-radius-small: 3px;
+  --border-radius-large: 6px;
 
   /* Dark mode colors and assets */
   --dm-asset-svg-copy: url(./assets/copy-white.svg);
   --dm-asset-svg-copied: url(./assets/check-white.svg);
+  --dm-asset-svg-external-link: url(./assets/external-link-white.svg);
+  --dm-asset-svg-legal: url(./assets/legal-white.svg);
   --dm-color-background: rgb(34, 34, 34);
-  --dm-color-background-transparent: rgba(34, 34, 34, 0.7);
+  --dm-color-background-transparent: rgba(20, 20, 20, 0.7);
   --dm-color-background-header: rgb(25, 25, 25);
   --dm-color-background-card: rgb(20, 20, 20);
-  --dm-color-text-default: rgb(250, 250, 250);
+  --dm-color-text-default: rgb(236, 236, 236);
   --dm-color-text-light: rgb(170, 170, 170);
-  --dm-color-svg-default: rgb(255, 255, 255);
-  --dm-color-button-hover: rgb(221, 221, 221);
-  --dm-color-button-active: rgb(221, 221, 221);
+  --dm-color-svg-default: rgb(246, 246, 246);
+  --dm-color-button-border: rgb(186, 186, 186);
+  --dm-color-button-hover: rgb(212, 212, 212);
+  --dm-color-button-active: rgb(212, 212, 212);
   --dm-color-button-text-hover: rgb(0, 0, 0);
   --dm-color-disabled: rgb(170, 170, 170);
-  --dm-color-shadow: rgba(153, 153, 153, 0.75);
+  --dm-color-grid-item-divider: rgb(64, 64, 64);
+  --dm-color-shadow: rgba(75, 75, 75, 0.95);
   --dm-color-link: rgb(0, 100, 238);
   --dm-color-link-hover: rgb(0, 72, 238);
   --dm-color-link-visited: rgb(169, 144, 189);
@@ -35,23 +41,27 @@
   /* Light mode colors and assets */
   --lm-asset-svg-copy: url(./assets/copy.svg);
   --lm-asset-svg-copied: url(./assets/check.svg);
+  --lm-asset-svg-external-link: url(./assets/external-link.svg);
+  --lm-asset-svg-legal: url(./assets/legal.svg);
   --lm-color-background: rgb(252, 252, 252);
-  --lm-color-background-transparent: rgba(252, 252, 252, 0.7);
+  --lm-color-background-transparent: rgba(255, 255, 255, 0.7);
   --lm-color-background-header: rgb(255, 255, 255);
   --lm-color-background-card: rgb(255, 255, 255);
   --lm-color-text-default: rgb(0, 0, 0);
   --lm-color-text-light: rgb(102, 102, 102);
   --lm-color-svg-default: rgb(0, 0, 0);
+  --lm-color-button-border: rgb(51, 51, 51);
   --lm-color-button-hover: rgb(51, 51, 51);
   --lm-color-button-active: rgb(51, 51, 51);
   --lm-color-button-text-hover: rgb(255, 255, 255);
   --lm-color-disabled: rgb(170, 170, 170);
+  --lm-color-grid-item-divider: rgb(204, 204, 204);
   --lm-color-shadow: rgba(0, 0, 0, 0.5);
   --lm-color-link: rgb(0, 0, 238);
   --lm-color-link-hover: rgb(52, 52, 238);
   --lm-color-link-visited: rgb(85, 26, 139);
 }
-@media (max-width: 1080px) {
+@media (max-width: 1280px) {
   :root {
     --side-offset: 3rem;
   }
@@ -73,6 +83,8 @@
   :root {
     --asset-svg-copy: var(--dm-asset-svg-copy);
     --asset-svg-copied: var(--dm-asset-svg-copied);
+    --asset-svg-external-link: var(--dm-asset-svg-external-link);
+    --asset-svg-legal: var(--dm-asset-svg-legal);
     --color-background: var(--dm-color-background);
     --color-background-transparent: var(--dm-color-background-transparent);
     --color-background-header: var(--dm-color-background-header);
@@ -80,21 +92,28 @@
     --color-text-default: var(--dm-color-text-default);
     --color-text-light: var(--dm-color-text-light);
     --color-svg-default: var(--dm-color-svg-default);
+    --color-button-border: var(--dm-color-button-border);
     --color-button-hover: var(--dm-color-button-hover);
     --color-button-active: var(--dm-color-button-active);
     --color-button-text-hover: var(--dm-color-button-text-hover);
     --color-disabled: var(--dm-color-disabled);
+    --color-grid-item-divider: var(--dm-color-grid-item-divider);
     --color-shadows: var(--dm-color-shadow);
     --color-link: var(--dm-color-link);
     --color-link-hover: var(--dm-color-link-hover);
     --color-link-visited: var(--dm-color-link-visited);
+  }
+
+  body:not(.dark):not(.light) .icon-preview {
+    filter: invert(1);
   }
 }
 @media (prefers-color-scheme: light) {
   :root {
     --asset-svg-copy: var(--lm-asset-svg-copy);
     --asset-svg-copied: var(--lm-asset-svg-copied);
-    --asset-svg--link: var(--lm-asset-svg-ext-link);
+    --asset-svg-external-link: var(--lm-asset-svg-external-link);
+    --asset-svg-legal: var(--lm-asset-svg-legal);
     --color-background: var(--lm-color-background);
     --color-background-transparent: var(--lm-color-background-transparent);
     --color-background-header: var(--lm-color-background-header);
@@ -102,10 +121,12 @@
     --color-text-default: var(--lm-color-text-default);
     --color-text-light: var(--lm-color-text-light);
     --color-svg-default: var(--lm-color-svg-default);
+    --color-button-border: var(--lm-color-button-border);
     --color-button-hover: var(--lm-color-button-hover);
     --color-button-active: var(--lm-color-button-active);
     --color-button-text-hover: var(--lm-color-button-text-hover);
     --color-disabled: var(--lm-color-disabled);
+    --color-grid-item-divider: var(--lm-color-grid-item-divider);
     --color-shadows: var(--lm-color-shadow);
     --color-link: var(--lm-color-link);
     --color-link-hover: var(--lm-color-link-hover);
@@ -116,6 +137,8 @@
 body.dark {
   --asset-svg-copy: var(--dm-asset-svg-copy);
   --asset-svg-copied: var(--dm-asset-svg-copied);
+  --asset-svg-external-link: var(--dm-asset-svg-external-link);
+  --asset-svg-legal: var(--dm-asset-svg-legal);
   --color-background: var(--dm-color-background);
   --color-background-transparent: var(--dm-color-background-transparent);
   --color-background-header: var(--dm-color-background-header);
@@ -123,10 +146,12 @@ body.dark {
   --color-text-default: var(--dm-color-text-default);
   --color-text-light: var(--dm-color-text-light);
   --color-svg-default: var(--dm-color-svg-default);
+  --color-button-border: var(--dm-color-button-border);
   --color-button-hover: var(--dm-color-button-hover);
   --color-button-active: var(--dm-color-button-active);
   --color-button-text-hover: var(--dm-color-button-text-hover);
   --color-disabled: var(--dm-color-disabled);
+  --color-grid-item-divider: var(--dm-color-grid-item-divider);
   --color-shadows: var(--dm-color-shadow);
   --color-link: var(--dm-color-link);
   --color-link-hover: var(--dm-color-link-hover);
@@ -135,6 +160,8 @@ body.dark {
 body.light {
   --asset-svg-copy: var(--lm-asset-svg-copy);
   --asset-svg-copied: var(--lm-asset-svg-copied);
+  --asset-svg-external-link: var(--lm-asset-svg-external-link);
+  --asset-svg-legal: var(--lm-asset-svg-legal);
   --color-background: var(--lm-color-background);
   --color-background-transparent: var(--lm-color-background-transparent);
   --color-background-header: var(--lm-color-background-header);
@@ -142,14 +169,20 @@ body.light {
   --color-text-default: var(--lm-color-text-default);
   --color-text-light: var(--lm-color-text-light);
   --color-svg-default: var(--lm-color-svg-default);
+  --color-button-border: var(--lm-color-button-border);
   --color-button-hover: var(--lm-color-button-hover);
   --color-button-active: var(--lm-color-button-active);
   --color-button-text-hover: var(--lm-color-button-text-hover);
   --color-disabled: var(--lm-color-disabled);
+  --color-grid-item-divider: var(--lm-color-grid-item-divider);
   --color-shadows: var(--lm-color-shadow);
   --color-link: var(--lm-color-link);
   --color-link-hover: var(--lm-color-link-hover);
   --color-link-visited: var(--lm-color-link-visited);
+}
+
+body.dark .icon-preview {
+  filter: invert(1);
 }
 
 /* General */
@@ -309,7 +342,8 @@ body.no-js .control-field__title {
 .control__button,
 .control__input {
   background-color: transparent;
-  border: 0.1rem solid var(--color-button-hover);
+  border: 0.1rem solid var(--color-button-border);
+  border-radius: var(--border-radius-small);
   color: var(--color-text-default);
   height: 2.4rem;
   padding: 0.4rem;
@@ -371,12 +405,16 @@ body.no-js .control-field__title {
 .search #search-clear {
   cursor: pointer;
   display: inline;
+  font-family: 'Roboto Mono', monospace;
   font-size: 1.5rem;
-  line-height: 2.4rem;
+  line-height: 2.3rem;
   padding: 0 12px;
   position: absolute;
   right: 0;
-  top: 1px;
+  top: 0;
+}
+.search #search-clear::selection {
+  background-color: transparent;
 }
 
 /* Control - order */
@@ -414,17 +452,18 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 /* Grid */
 
 .grid {
-  align-content: flex-start;
-  align-items: stretch;
-  display: flex;
-  flex-wrap: wrap;
+  --grid-width: 13rem;
+
+  display: grid;
   list-style: none;
-  justify-content: flex-start;
-  margin: 0 -0.4rem 1.5rem; /* -0.4rem undoes the margin of grid items */
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fill, minmax(var(--grid-width), 1fr));
+  margin: 0 0 1.5rem;
 }
 
 .grid-item--if-empty {
   display: flex;
+  grid-column: 1 / span 2;
   margin: 0 0.4rem;
 }
 .grid-item--if-empty p {
@@ -443,38 +482,30 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   color: var(--color-link-visited);
 }
 
-.grid-item,
-#carbonads {
-  align-items: flex-start;
+#carbonads,
+.grid-item {
   background-color: var(--color-background-card);
-  border-radius: 4px;
+  border-radius: var(--border-radius-large);
   box-shadow: 0px 0px 3px 0px var(--color-shadows);
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  justify-content: flex-end;
-  margin: 0.4rem;
   overflow: hidden;
-  padding-top: 2.5rem;
+}
+
+.grid-item__row {
+  padding: 0 1rem;
+  width: 100%;
+}
+
+.grid-item__preview {
+  --preview-size: 3.5rem;
+
+  cursor: default;
+  display: block;
+  height: var(--preview-size);
+  margin: 1.5rem auto 1rem;
   position: relative;
-  width: 224px;
-}
-
-@media (max-width: 640px) {
-  .grid-item {
-    min-width: 10rem;
-    width: 30%; /* Roughly 3 per row at most */
-  }
-}
-
-.grid-item__decoration {
-  fill: var(--color-svg-default);
-  height: 6rem;
-  opacity: 0.05;
-  position: absolute;
-  right: -2rem;
-  top: -1.5rem;
-  width: 6rem;
+  width: var(--preview-size);
 }
 
 .grid-item__title {
@@ -482,155 +513,86 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   font-size: 1.2rem;
   font-weight: 600;
   line-height: 1.5rem;
-  margin: 0.4rem 1.7rem 0.4rem 1rem;
-  padding-right: 2rem;
+  margin: 0.4rem 0;
+  padding-right: 1rem;
 }
 
-.grid-item__color {
-  border: 1px solid transparent;
-  color: #000;
-  cursor: text; /* This should function as text when JS is disabled */
-  font-family: 'Roboto Mono', monospace;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  line-height: 1rem;
-  margin: 0.2rem 1rem;
-  overflow: hidden;
-  padding: 6px 8px;
-  position: relative;
-  user-select: text;
+.copy-svg::before {
+  background-color: var(--color-background-transparent);
+  background-size: 1.7rem 1.7rem;
+
+  /* Make this element behave as text when JS is disabled */
+  cursor: default;
 }
-.grid-item__color.border-light {
-  border-color: var(--dm-color-background-card);
-}
-.grid-item__color.border-dark {
-  border-color: var(--lm-color-background-card);
-}
-.grid-item__color.contrast-light {
-  color: #fff;
-}
-.grid-item__color::before {
+.copy-color::before {
   background-size: 1.2rem 1.2rem;
   background-color: inherit;
-  cursor: pointer;
-  display: none;
-  height: 100%;
-  left: 0;
-  line-height: 100%;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  text-align: center;
-}
-.grid-item__color:not(:disabled).copied::before,
-.grid-item__color:not(:disabled):focus::before {
-  display: block;
-}
-@media (hover: hover) {
-  .grid-item__color:not(:disabled):hover::before {
-    display: block;
-  }
+
+  /* Make this element behave as text when JS is disabled */
+  cursor: text;
+  user-select: text;
 }
 
-.grid-item__guidelines {
+.grid-item__link {
   align-items: center;
-  color: var(--color-text-light);
+  color: var(--color-text-default);
   display: flex;
   flex-direction: row;
   font-family: 'Roboto Mono', monospace;
   font-size: 0.8rem;
   line-height: 1rem;
-  margin: 0.3rem 1rem 0.2rem;
+  margin: 0.3rem 0;
+  opacity: 0.6;
   outline: none;
 }
-.grid-item__guidelines a {
-  display: inline;
-}
-.grid-item__guidelines svg {
-  display: inline;
-  margin: 0.05rem 0.2rem 0.05rem 0;
-  height: 0.85rem;
-}
-.grid-item__guidelines:focus {
-  color: var(--color-text-default);
+.grid-item__link:focus {
+  opacity: 1;
   text-decoration: underline;
 }
 @media (hover: hover) {
-  .grid-item__guidelines:hover {
-    color: var(--color-text-default);
+  .grid-item__link:hover {
+    opacity: 1;
     text-decoration: underline;
   }
 }
 
 .grid-item__footer {
-  border-top: 1px solid #ccc;
-  background-color: var(--color-background);
+  align-items: stretch;
+  align-self: stretch;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: flex-start;
-  margin: 0.5rem 0 0;
-  padding: 0.8rem 1rem;
-  align-self: stretch;
+  margin-top: 0.4rem;
 }
 
-.grid-item__preview {
-  cursor: default; /* This should function as decoration when JS is disabled */
-  fill: var(--color-svg-default);
-  flex-grow: 0;
-  height: 3rem;
-  margin-right: 1rem;
-  position: relative;
-  width: 3rem;
-}
-.grid-item__preview::before {
-  background-color: var(--color-background-transparent);
-  background-size: 1.7rem 1.7rem;
-  content: '';
-  cursor: pointer;
-  display: none;
-  height: 100%;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
-}
-.grid-item__preview:not(:disabled).copied::before,
-.grid-item__preview:not(:disabled):focus::before {
-  display: block;
-}
-@media (hover: hover) {
-  .grid-item__preview:not(:disabled):hover::before {
-    display: block;
-  }
-}
-
-.grid-item__downloads {
-  display: flex;
-  flex-direction: column;
-}
-.grid-item__downloads h3 {
-  font-family: 'Roboto Mono', monospace;
-  font-size: 0.95rem;
-  margin-bottom: 0.2rem;
-}
-
-.grid-item__button-row {
-  display: flex;
-  flex-direction: row;
-}
-
-.grid-item__button {
-  border: 0.1rem solid var(--color-button-hover);
-  padding: 0.3rem 0.4rem;
-  margin: 0 0.4rem;
+.grid-item__color {
+  border-top: 1px solid var(--color-grid-item-divider);
+  color: #000;
+  flex-grow: 2;
   font-family: 'Roboto Mono', monospace;
   font-size: 0.75rem;
   font-weight: 600;
+  letter-spacing: 1px;
+  line-height: 1rem;
+  padding: 8px;
+  position: relative;
 }
-.grid-item__button:first-child {
-  margin-left: 0;
+.grid-item__color.contrast-light {
+  color: #fff;
+}
+
+.grid-item__button {
+  border-top: 1px solid var(--color-grid-item-divider);
+  background-color: var(--color-background);
+  color: var(--color-button-active);
+  flex-grow: 1;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  outline: none;
+  padding: 8px;
+  text-align: center;
 }
 .grid-item__button:focus,
 .grid-item__button:hover {
@@ -638,18 +600,27 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   color: var(--color-button-text-hover);
 }
 
+/* Carbon ads */
+
 #carbonads {
   align-items: center;
   background-color: var(--color-background);
   box-shadow: none;
+  grid-column: -3 / -1;
+  grid-row: span 2;
   padding: 0;
   text-align: center;
 }
-@media (max-width: 640px) {
+@media (max-width: 1280px) {
+  #carbonads {
+    grid-column: -2 / -1;
+  }
+}
+/* @media (max-width: 640px) {
   #carbonads {
     width: 100%;
   }
-}
+} */
 #carbonads a {
   color: var(--color-text-default);
 }
@@ -745,13 +716,19 @@ body.order-by-relevance .grid-item {
   margin-right: 0.75rem;
 }
 
-/* Utility */
+/* .copy-button */
 
 .copy-button::before {
   content: '';
   background-image: var(--asset-svg-copy);
   background-position: 50% 50%;
   background-repeat: no-repeat;
+  display: none;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 .copy-button.contrast-dark::before {
   background-image: var(--lm-asset-svg-copy);
@@ -768,6 +745,39 @@ body.order-by-relevance .grid-item {
 .copy-button.copied.contrast-light::before {
   background-image: var(--dm-asset-svg-copied);
 }
+.copy-button:not(:disabled).copied::before,
+.copy-button:not(:disabled):focus::before {
+  display: block;
+  z-index: 1;
+}
+@media (hover: hover) {
+  .copy-button:not(:disabled):hover::before {
+    cursor: pointer;
+    display: block;
+    z-index: 1;
+  }
+}
+
+/* .link-button */
+
+.link-button::before {
+  content: '';
+  background-image: var(--asset-svg-external-link);
+  background-size: cover;
+  background-position: 50% 50%;
+  height: 0.85rem;
+  margin: 0.05rem 0.2rem 0.05rem 0;
+  width: 0.9rem;
+}
+.link-button.icon-legal::before {
+  background-image: var(--asset-svg-legal);
+}
+
+/* Utility */
+
+.fg-2 {
+  flex-grow: 2;
+}
 
 .hidden {
   display: none !important;
@@ -778,4 +788,33 @@ body.order-by-relevance .grid-item {
   display: block !important;
   height: 0;
   width: 0;
+}
+
+/* Temporary feedback banner */
+
+.banner-feedback {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.8rem;
+  padding: 8px var(--side-offset);
+}
+
+.banner-feedback a,
+.banner-feedback button {
+  color: var(--color-link);
+  font-family: inherit;
+  font-size: inherit;
+}
+.banner-feedback a:focus,
+.banner-feedback a:hover,
+.banner-feedback button:focus,
+.banner-feedback button:hover {
+  color: var(--color-link-hover);
+  text-decoration: underline;
+}
+.banner-feedback a:visited {
+  color: var(--color-link-visited);
+}
+
+.banner__hide {
+  float: right;
 }
