@@ -1,0 +1,7 @@
+name: Simple Icons website CodeQL config
+
+queries:
+  - uses: security-extended
+
+paths:
+  - public/

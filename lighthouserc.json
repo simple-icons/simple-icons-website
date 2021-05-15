@@ -1,0 +1,12 @@
+{
+  "ci": {
+    "collect": {
+      "settings": {
+        "preset": "desktop"
+      },
+      "collect": {
+        "staticDistDir": "./_site"
+      }
+    }
+  }
+}
