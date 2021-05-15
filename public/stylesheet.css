@@ -22,7 +22,6 @@
   --dm-asset-svg-legal: url(./assets/legal-white.svg);
   --dm-color-background: rgb(34, 34, 34);
   --dm-color-background-transparent: rgba(20, 20, 20, 0.7);
-  --dm-color-background-header: rgb(25, 25, 25);
   --dm-color-background-card: rgb(20, 20, 20);
   --dm-color-text-default: rgb(236, 236, 236);
   --dm-color-text-light: rgb(170, 170, 170);
@@ -45,7 +44,6 @@
   --lm-asset-svg-legal: url(./assets/legal.svg);
   --lm-color-background: rgb(252, 252, 252);
   --lm-color-background-transparent: rgba(255, 255, 255, 0.7);
-  --lm-color-background-header: rgb(255, 255, 255);
   --lm-color-background-card: rgb(255, 255, 255);
   --lm-color-text-default: rgb(0, 0, 0);
   --lm-color-text-light: rgb(102, 102, 102);
@@ -87,7 +85,6 @@
     --asset-svg-legal: var(--dm-asset-svg-legal);
     --color-background: var(--dm-color-background);
     --color-background-transparent: var(--dm-color-background-transparent);
-    --color-background-header: var(--dm-color-background-header);
     --color-background-card: var(--dm-color-background-card);
     --color-text-default: var(--dm-color-text-default);
     --color-text-light: var(--dm-color-text-light);
@@ -116,7 +113,6 @@
     --asset-svg-legal: var(--lm-asset-svg-legal);
     --color-background: var(--lm-color-background);
     --color-background-transparent: var(--lm-color-background-transparent);
-    --color-background-header: var(--lm-color-background-header);
     --color-background-card: var(--lm-color-background-card);
     --color-text-default: var(--lm-color-text-default);
     --color-text-light: var(--lm-color-text-light);
@@ -141,7 +137,6 @@ body.dark {
   --asset-svg-legal: var(--dm-asset-svg-legal);
   --color-background: var(--dm-color-background);
   --color-background-transparent: var(--dm-color-background-transparent);
-  --color-background-header: var(--dm-color-background-header);
   --color-background-card: var(--dm-color-background-card);
   --color-text-default: var(--dm-color-text-default);
   --color-text-light: var(--dm-color-text-light);
@@ -164,7 +159,6 @@ body.light {
   --asset-svg-legal: var(--lm-asset-svg-legal);
   --color-background: var(--lm-color-background);
   --color-background-transparent: var(--lm-color-background-transparent);
-  --color-background-header: var(--lm-color-background-header);
   --color-background-card: var(--lm-color-background-card);
   --color-text-default: var(--lm-color-text-default);
   --color-text-light: var(--lm-color-text-light);
@@ -211,8 +205,9 @@ a {
 /* Header */
 
 .header {
-  background-color: var(--color-background-header);
+  background-color: var(--color-background);
   padding: 5rem var(--side-offset);
+  z-index: 10;
 }
 @media (max-width: 860px) {
   .header {
@@ -278,16 +273,29 @@ a {
 
 /* Control */
 
+.sticky-header-shadow {
+  box-shadow: 0 3px 1px 0 var(--color-shadows);
+  height: 1px;
+  position: sticky;
+  width: 100%;
+  top: 3.85rem;
+  z-index: 9;
+}
+@media (max-width: 640px) {
+  .sticky-header-shadow {
+    display: none;
+  }
+}
+
 .control {
-  background-color: var(--color-background-header);
-  box-shadow: 0 2px 1px 0 var(--color-shadows);
+  background-color: var(--color-background);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap-reverse;
   margin: 0 calc(-1 * var(--side-offset)) 1.2rem;
   padding: 0.8rem var(--side-offset);
   position: sticky;
-  top: -1.75rem;
+  top: -1.7rem;
   z-index: 10;
 }
 @media (max-width: 640px) {
@@ -325,7 +333,7 @@ a {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.7rem;
   position: relative;
 }
 body.no-js .control-field__title {
