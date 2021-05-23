@@ -22,8 +22,10 @@
     "postinstall": "is-ci || husky install",
     "serve": "anywhere -p 8080 -d ./_site",
     "serve:watch": "run-p build:watch serve",
-    "test:all": "TEST_ENV=all jest",
-    "test:unit": "TEST_ENV=unit jest"
+    "test": "npm run test:unit",
+    "test:all": "cross-env TEST_ENV=all jest",
+    "test:integration": "cross-env TEST_ENV=integration jest",
+    "test:unit": "cross-env TEST_ENV=unit jest"
   },
   "dependencies": {
     "simple-icons": "4.25.0",
@@ -37,6 +39,7 @@
     "babel-jest": "26.6.3",
     "color-sorter": "4.0.1",
     "copy-webpack-plugin": "7.0.0",
+    "cross-env": "7.0.3",
     "css-loader": "5.0.1",
     "css-minimizer-webpack-plugin": "1.2.0",
     "get-relative-luminance": "1.0.0",
