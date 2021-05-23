@@ -274,11 +274,11 @@ a {
 /* Control */
 
 .sticky-header-shadow {
-  box-shadow: 0 3px 1px 0 var(--color-shadows);
+  box-shadow: 0 4px 1px 0 var(--color-shadows);
   height: 1px;
   position: sticky;
   width: 100%;
-  top: 3.85rem;
+  top: 3.75rem;
   z-index: 9;
 }
 @media (max-width: 640px) {

@@ -26,8 +26,6 @@ html(lang="en-US")
     link(rel="canonical" href="https://simpleicons.org/")
 
   body(class="no-js order-alphabetically")
-    div(class="sticky-header-shadow" aria-hidden)
-
     div(class="banner-feedback" role="banner")
       span #[a(href="https://github.com/simple-icons/simple-icons/discussions/4865" rel="noopener") Share your opinion of the redesign on GitHub] or #[a(href="https://simpleicons.org/" rel="noopener") Go to the old design]
       span(class="banner__hide") Hide this message #[button(id="hide-feedback-banner-once" disabled) Once] or #[button(id="hide-feedback-banner" disabled) Always]
@@ -46,6 +44,8 @@ html(lang="en-US")
           a(href="https://unpkg.com/browse/simple-icons/" rel="noopener") Unpkg
       h1(class="header__title") Simple Icons
       p(class="header__description") #{iconCount} Free #[abbr(title="Scalable Vector Graphic") SVG] icons for popular brands
+
+    div(class="sticky-header-shadow" aria-hidden)
 
     main(class="main" role="main")
       div(class="control")
