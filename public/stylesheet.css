@@ -10,7 +10,8 @@
   min-width: 280px;
 
   --font-family-text: 'Open Sans', 'Arial', 'Helvetica', sans-serif;
-  --font-family-stylized: 'Roboto Mono', 'Consolas', 'Courier New', monospace;
+  --font-family-stylized: 'Roboto Mono', 'DejaVu Sans Mono', 'Consolas',
+    monospace;
 
   --color-twitter: rgb(29, 161, 242);
   --color-twitter-hover: rgba(29, 161, 242, 0.8);
