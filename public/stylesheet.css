@@ -205,17 +205,19 @@ a {
 /* Header */
 
 .header {
-  margin: 5rem 0 2rem;
-  padding: 1rem var(--side-offset);
+  background-color: var(--color-background);
+  padding: 5rem var(--side-offset);
+  z-index: 10;
 }
 @media (max-width: 860px) {
   .header {
-    margin-top: 2rem;
+    padding-top: 2rem;
   }
 }
 @media (max-width: 640px) {
   .header {
-    margin: 1rem 0 2rem;
+    background-color: var(--color-background);
+    padding-top: 1rem;
   }
 }
 
@@ -264,24 +266,45 @@ a {
 /* Main */
 
 .main {
+  background-color: var(--color-background);
   flex-grow: 2;
-  margin: 2rem 0;
-  padding: 0 var(--side-offset);
+  padding: 0 var(--side-offset) 2rem;
 }
 
 /* Control */
 
+.sticky-header-shadow {
+  box-shadow: 0 4px 1px 0 var(--color-shadows);
+  height: 1px;
+  position: sticky;
+  width: 100%;
+  top: 3.75rem;
+  z-index: 9;
+}
+@media (max-width: 640px) {
+  .sticky-header-shadow {
+    display: none;
+  }
+}
+
 .control {
+  background-color: var(--color-background);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap-reverse;
-  margin: 2rem 0;
-  position: relative;
+  margin: 0 calc(-1 * var(--side-offset)) 1.2rem;
+  padding: 0.8rem var(--side-offset);
+  position: sticky;
+  top: -1.7rem;
+  z-index: 10;
 }
 @media (max-width: 640px) {
   .control {
+    background-color: var(--color-background);
+    box-shadow: none;
     justify-content: flex-end;
-    margin: 0.5rem 0;
+    margin-bottom: 0.5rem;
+    position: relative;
   }
 }
 
@@ -310,7 +333,7 @@ a {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.7rem;
   position: relative;
 }
 body.no-js .control-field__title {
@@ -651,13 +674,13 @@ body.order-by-relevance .grid-item {
 
 .footer {
   align-items: center;
+  background-color: var(--color-background);
   display: flex;
   font-family: 'Roboto Mono', monospace;
   font-size: 0.9rem;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 1rem 0 2rem;
-  padding: 0 var(--side-offset);
+  padding: 1rem var(--side-offset) 2rem;
 }
 
 .footer-description {
