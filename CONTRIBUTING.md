@@ -38,7 +38,9 @@ The repository defines the following commands that can be used for development p
 | `npm run lint` | Lint the source code of the project. |
 | `npm run serve` | Serve the files in the `_site/` directory. |
 | `npm run serve:watch` | Run `build:watch` and `serve` in parallel. |
-| `npm run test:all` | Run all unit & integration test suites. (**warning**: slow) |
+| `npm run test` | Run all unit test suites. |
+| `npm run test:all` | Run all unit & integration test suites. |
+| `npm run test:integration` | Run all integration test suites. |
 | `npm run test:unit` | Run all unit test suites. |
 
 ### Using Docker

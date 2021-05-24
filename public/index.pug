@@ -1,11 +1,9 @@
 doctype html
-html
+html(lang="en-US")
   head
-    meta(charset="utf-8")
+    meta(charset="UTF-8")
     meta(content="initial-scale=1, shrink-to-fit=no, width=device-width" name="viewport")
     link(rel="preconnect" href="https://fonts.gstatic.com")
-    link(rel="preconnect" href="https://cdn.carbonads.com")
-    link(rel="preconnect" href="https://github.com")
     title Simple Icons
     meta(name="description" content=`${iconCount} Free SVG icons for popular brands.`)
     meta(property="og:type" content="website")
@@ -25,6 +23,7 @@ html
     link(rel="apple-touch-icon" href="https://simpleicons.org/images/apple-touch-icon.png")
     link(rel="mask-icon" href="https://simpleicons.org/images/logo.svg" color="#111111")
     link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Roboto+Mono:wght@400;600&display=swap")
+    link(rel="canonical" href="https://simpleicons.org/")
 
   body(class="no-js order-alphabetically")
     header(class="header" role="banner")
@@ -36,9 +35,13 @@ html
         li(class="header__list-item")
           a(href="https://packagist.org/packages/simple-icons/simple-icons" rel="noopener") Packagist
         li(class="header__list-item")
-          a(href="https://github.com/simple-icons/simple-icons#readme" rel="noopener") About
+          a(href="https://www.jsdelivr.com/package/npm/simple-icons" rel="noopener") JSDelivr
+        li(class="header__list-item")
+          a(href="https://unpkg.com/browse/simple-icons/" rel="noopener") Unpkg
       h1(class="header__title") Simple Icons
       p(class="header__description") #{iconCount} Free #[abbr(title="Scalable Vector Graphic") SVG] icons for popular brands
+
+    div(class="sticky-header-shadow" aria-hidden)
 
     main(class="main" role="main")
       div(class="control")
@@ -93,13 +96,13 @@ html
 
         each icon in icons
           li(class="grid-item" style=`--order-color: ${icon.indexByColor}` data-brand=`${icon.normalizedName}`)
-            div(class="grid-item__preview")
-              button(class="copy-button copy-svg" title=`${icon.title} SVG` disabled)
-                img(src=`data:image/svg+xml;base64,${icon.base64Svg}` loading="lazy" class="icon-preview")
+            div(class="grid-item__row mv-2 fg-2")
+              button(class="grid-item__preview copy-button copy-svg" title=`${icon.title} SVG` disabled)
+                img(src=`data:image/svg+xml;base64,${icon.base64Svg}` loading="lazy" class="icon-preview" alt=`${icon.title} icon`)
             div(class="grid-item__row")
               if icon.guidelines
                 a(
-                  class="grid-item__guidelines link-button"
+                  class="grid-item__link link-button"
                   title=`${icon.title} guidelines`
                   href=icon.guidelines
                   rel="noopener"
@@ -107,7 +110,7 @@ html
                 ) Brand Guidelines
               if icon.license
                 a(
-                  class="grid-item__legal"
+                  class="grid-item__link link-button icon-legal"
                   title=`${icon.title} icon license`
                   href=icon.license.url
                   rel="noopener"

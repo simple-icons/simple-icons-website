@@ -32,6 +32,7 @@ jobs:
         run: npm run lint
   test:
     name: Test website
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -42,8 +43,10 @@ jobs:
           node-version: 12.x
       - name: Install dependencies
         run: npm ci
-      - name: Run tests
-        run: npm run test:all
+      - name: Run unit tests
+        run: npm run test:unit
+      - name: Run integration tests
+        run: npm run test:integration
       - name: Upload test screenshots
         uses: actions/upload-artifact@v2
         with:
