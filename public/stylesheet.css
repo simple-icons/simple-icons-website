@@ -9,6 +9,10 @@
   height: 100%;
   min-width: 280px;
 
+  --font-family-text: 'Open Sans', 'Arial', 'Helvetica', sans-serif;
+  --font-family-stylized: 'Roboto Mono', 'DejaVu Sans Mono', 'Consolas',
+    monospace;
+
   --color-twitter: rgb(29, 161, 242);
   --color-twitter-hover: rgba(29, 161, 242, 0.8);
   --side-offset: 6rem;
@@ -222,7 +226,7 @@ a {
 }
 
 .header__title {
-  font-family: 'Roboto Mono', monospace;
+  font-family: var(--font-family-stylized);
   font-size: 1.7rem;
   font-weight: 600;
   flex-basis: 40%;
@@ -230,7 +234,7 @@ a {
 }
 
 .header__description {
-  font-family: 'Roboto Mono', monospace;
+  font-family: var(--font-family-stylized);
   font-size: 0.9rem;
   margin: 0.2rem 0;
 }
@@ -253,7 +257,7 @@ a {
 }
 
 .header__list-item {
-  font-family: 'Roboto Mono', monospace;
+  font-family: var(--font-family-stylized);
   font-size: 1rem;
   font-weight: 600;
   margin: 0 0.7rem;
@@ -329,7 +333,7 @@ a {
 }
 
 .control-field__title {
-  font-family: 'Roboto Mono', monospace;
+  font-family: var(--font-family-stylized);
   font-size: 1rem;
   font-weight: 400;
   line-height: 1rem;
@@ -358,7 +362,7 @@ body.no-js .control-field__title {
 }
 
 .control__input {
-  font-family: 'Roboto Mono', monospace;
+  font-family: var(--font-family-stylized);
   outline: 0;
   padding: 0.4rem 2rem 0.4rem 0.8rem;
   width: 100%;
@@ -413,7 +417,7 @@ body.no-js .control-field__title {
 .search #search-clear {
   cursor: pointer;
   display: inline;
-  font-family: 'Roboto Mono', monospace;
+  font-family: var(--font-family-stylized);
   font-size: 1.5rem;
   line-height: 2.3rem;
   padding: 0 12px;
@@ -452,7 +456,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 
 .control noscript {
   position: absolute;
-  font-family: 'Roboto Mono', monospace;
+  font-family: var(--font-family-stylized);
   font-style: italic;
   top: -2rem;
 }
@@ -475,7 +479,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   margin: 0 0.4rem;
 }
 .grid-item--if-empty p {
-  font-family: 'Roboto Mono', monospace;
+  font-family: var(--font-family-stylized);
   font-size: 0.9rem;
 }
 .grid-item--if-empty a {
@@ -495,6 +499,8 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   background-color: var(--color-background-card);
   border-radius: var(--border-radius-large);
   box-shadow: 0px 0px 3px 0px var(--color-shadows);
+  contain-intrinsic-size: 0 11.25rem;
+  content-visibility: auto;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -517,7 +523,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 }
 
 .grid-item__title {
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--font-family-text);
   font-size: 1.2rem;
   font-weight: 600;
   line-height: 1.5rem;
@@ -546,7 +552,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   color: var(--color-text-default);
   display: flex;
   flex-direction: row;
-  font-family: 'Roboto Mono', monospace;
+  font-family: var(--font-family-stylized);
   font-size: 0.8rem;
   line-height: 1rem;
   margin: 0.3rem 0;
@@ -578,7 +584,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   border-top: 1px solid var(--color-grid-item-divider);
   color: #000;
   flex-grow: 2;
-  font-family: 'Roboto Mono', monospace;
+  font-family: var(--font-family-stylized);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 1px;
@@ -595,7 +601,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   background-color: var(--color-background);
   color: var(--color-button-active);
   flex-grow: 1;
-  font-family: 'Roboto Mono', monospace;
+  font-family: var(--font-family-stylized);
   font-size: 0.75rem;
   font-weight: 600;
   outline: none;
@@ -676,7 +682,7 @@ body.order-by-relevance .grid-item {
   align-items: center;
   background-color: var(--color-background);
   display: flex;
-  font-family: 'Roboto Mono', monospace;
+  font-family: var(--font-family-stylized);
   font-size: 0.9rem;
   flex-wrap: wrap;
   justify-content: space-between;
