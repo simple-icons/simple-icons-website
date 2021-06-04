@@ -38,7 +38,6 @@ describe('Search', () => {
       clearEventListeners.set(name, fn);
     });
 
-    $adSpace = newElementMock('#carbonads');
     $orderByRelevance = newElementMock('#id-order-relevance');
 
     document.getElementById.mockImplementation((query) => {
@@ -47,8 +46,6 @@ describe('Search', () => {
           return $searchInput;
         case 'id-search-clear':
           return $searchClear;
-        case 'carbonads':
-          return $adSpace;
         case 'id-order-relevance':
           return $orderByRelevance;
         default:
@@ -63,7 +60,6 @@ describe('Search', () => {
     expect(document.getElementById).toHaveBeenCalledWith('id-search-input');
     expect(document.getElementById).toHaveBeenCalledWith('id-search-clear');
     expect(document.getElementById).toHaveBeenCalledWith('id-order-relevance');
-    expect(document.getElementById).toHaveBeenCalledWith('carbonads');
     expect($searchInput.disabled).toBe(false);
     expect($searchInput.focus).toHaveBeenCalledTimes(1);
   });
@@ -98,7 +94,6 @@ describe('Search', () => {
 
         expect(domUtils.showElement).toHaveBeenCalledWith($searchClear);
         expect(domUtils.showElement).toHaveBeenCalledWith($orderByRelevance);
-        expect(domUtils.hideElement).toHaveBeenCalledWith($adSpace);
 
         done();
       }, 500);
@@ -129,7 +124,6 @@ describe('Search', () => {
 
         expect(domUtils.hideElement).toHaveBeenCalledWith($searchClear);
         expect(domUtils.hideElement).toHaveBeenCalledWith($orderByRelevance);
-        expect(domUtils.showElement).toHaveBeenCalledWith($adSpace);
 
         done();
       }, 500);
@@ -160,7 +154,6 @@ describe('Search', () => {
 
         expect(domUtils.hideElement).toHaveBeenCalledWith($searchClear);
         expect(domUtils.hideElement).toHaveBeenCalledWith($orderByRelevance);
-        expect(domUtils.showElement).toHaveBeenCalledWith($adSpace);
 
         done();
       }, 500);
@@ -192,7 +185,6 @@ describe('Search', () => {
 
       expect($searchInput.value).toEqual(expected);
       expect(domUtils.showElement).toHaveBeenCalled();
-      expect(domUtils.hideElement).toHaveBeenCalled();
       expect(history.replaceState).toHaveBeenCalled();
       expect(ordering.selectOrdering).toHaveBeenCalled();
     });

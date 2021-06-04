@@ -106,8 +106,12 @@ describe('External links', () => {
     await expect(page).toClick('a', { text: 'Packagist' });
   });
 
-  it('is possible to click the about link', async () => {
-    await expect(page).toClick('a', { text: 'About' });
+  it('is possible to click the JSDelivr link', async () => {
+    await expect(page).toClick('a', { text: 'JSDelivr' });
+  });
+
+  it('is possible to click the Unpkg link', async () => {
+    await expect(page).toClick('a', { text: 'Unpkg' });
   });
 });
 
