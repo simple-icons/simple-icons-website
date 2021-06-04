@@ -59,7 +59,7 @@
     "pug-loader": "2.4.0",
     "puppeteer": "9.1.1",
     "svg-url-loader": "7.1.1",
-    "webmangler": "0.1.20",
+    "webmangler": "0.1.21",
     "webmangler-cli": "0.1.6",
     "webpack": "5.37.1",
     "webpack-cli": "4.7.0"
