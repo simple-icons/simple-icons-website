@@ -6,16 +6,16 @@ const COLOR_SCHEME_SYSTEM = 'system';
 
 const DEFAULT_COLOR_SCHEME = COLOR_SCHEME_SYSTEM;
 
-const CLASS_DARK_MODE = 'dark';
-const CLASS_LIGHT_MODE = 'light';
+const CLASS_DARK_MODE = 'dark-mode';
+const CLASS_LIGHT_MODE = 'light-mode';
 
 export default function initColorScheme(document, storage) {
   let activeColorScheme = DEFAULT_COLOR_SCHEME;
 
   const $body = document.querySelector('body');
-  const $colorSchemeDark = document.getElementById('color-scheme-dark');
-  const $colorSchemeLight = document.getElementById('color-scheme-light');
-  const $colorSchemeSystem = document.getElementById('color-scheme-system');
+  const $colorSchemeDark = document.getElementById('id-color-scheme-dark');
+  const $colorSchemeLight = document.getElementById('id-color-scheme-light');
+  const $colorSchemeSystem = document.getElementById('id-color-scheme-system');
 
   $colorSchemeDark.disabled = false;
   $colorSchemeLight.disabled = false;

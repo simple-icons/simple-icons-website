@@ -14,6 +14,7 @@
   "license": "CC0-1.0",
   "scripts": {
     "build": "webpack --mode production",
+    "postbuild": "webmangler --write --stats -vv _site/",
     "build:dev": "webpack --mode development",
     "build:watch": "npm run build:dev -- --watch",
     "clean": "rm -rf _site tests/_artifacts",
@@ -58,6 +59,8 @@
     "pug-loader": "2.4.0",
     "puppeteer": "9.1.1",
     "svg-url-loader": "7.1.1",
+    "webmangler": "0.1.21",
+    "webmangler-cli": "0.1.6",
     "webpack": "5.37.1",
     "webpack-cli": "4.7.0"
   },

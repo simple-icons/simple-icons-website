@@ -27,26 +27,26 @@ describe('Search', () => {
   });
 
   beforeEach(() => {
-    $searchInput = newElementMock('#search-input');
+    $searchInput = newElementMock('#id-search-input');
     $searchInput.value = '';
     $searchInput.addEventListener.mockImplementation((name, fn) => {
       inputEventListeners.set(name, fn);
     });
 
-    $searchClear = newElementMock('#search-clear');
+    $searchClear = newElementMock('#id-search-clear');
     $searchClear.addEventListener.mockImplementation((name, fn) => {
       clearEventListeners.set(name, fn);
     });
 
-    $orderByRelevance = newElementMock('#order-relevance');
+    $orderByRelevance = newElementMock('#id-order-relevance');
 
     document.getElementById.mockImplementation((query) => {
       switch (query) {
-        case 'search-input':
+        case 'id-search-input':
           return $searchInput;
-        case 'search-clear':
+        case 'id-search-clear':
           return $searchClear;
-        case 'order-relevance':
+        case 'id-order-relevance':
           return $orderByRelevance;
         default:
           return newElementMock(query);
@@ -57,9 +57,9 @@ describe('Search', () => {
   });
 
   it('gets all elements of interest', () => {
-    expect(document.getElementById).toHaveBeenCalledWith('search-input');
-    expect(document.getElementById).toHaveBeenCalledWith('search-clear');
-    expect(document.getElementById).toHaveBeenCalledWith('order-relevance');
+    expect(document.getElementById).toHaveBeenCalledWith('id-search-input');
+    expect(document.getElementById).toHaveBeenCalledWith('id-search-clear');
+    expect(document.getElementById).toHaveBeenCalledWith('id-order-relevance');
     expect($searchInput.disabled).toBe(false);
     expect($searchInput.focus).toHaveBeenCalledTimes(1);
   });

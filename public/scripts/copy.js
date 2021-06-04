@@ -6,7 +6,7 @@ function setCopied($el) {
 }
 
 export default function initCopyButtons(window, document, navigator) {
-  const $copyInput = document.getElementById('copy-input');
+  const $copyInput = document.getElementById('id-copy-input');
   const $colorButtons = document.querySelectorAll('.copy-color');
   const $svgButtons = document.querySelectorAll('.copy-svg');
 

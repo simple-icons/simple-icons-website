@@ -14,18 +14,18 @@ describe('Color scheme', () => {
     localStorage.__resetAllMocks();
   });
 
-  it('gets the #color-scheme-dark button', () => {
+  it('gets the #id-color-scheme-dark button', () => {
     localStorage.__setStoredValueFor(STORAGE_KEY_COLOR_SCHEME, 'unknown');
 
     const eventListeners = new Map();
 
-    const $colorSchemeDark = newElementMock('#color-scheme-dark');
+    const $colorSchemeDark = newElementMock('#id-color-scheme-dark');
     $colorSchemeDark.addEventListener.mockImplementation((name, fn) => {
       eventListeners.set(name, fn);
     });
 
     document.getElementById.mockImplementation((query) => {
-      if (query === 'color-scheme-dark') {
+      if (query === 'id-color-scheme-dark') {
         return $colorSchemeDark;
       }
 
@@ -33,7 +33,9 @@ describe('Color scheme', () => {
     });
 
     initColorScheme(document, localStorage);
-    expect(document.getElementById).toHaveBeenCalledWith('color-scheme-dark');
+    expect(document.getElementById).toHaveBeenCalledWith(
+      'id-color-scheme-dark',
+    );
     expect($colorSchemeDark.disabled).toBe(false);
     expect($colorSchemeDark.addEventListener).toHaveBeenCalledWith(
       'click',
@@ -53,18 +55,18 @@ describe('Color scheme', () => {
     );
   });
 
-  it('gets the #color-scheme-light button', () => {
+  it('gets the #id-color-scheme-light button', () => {
     localStorage.__setStoredValueFor(STORAGE_KEY_COLOR_SCHEME, 'unknown');
 
     const eventListeners = new Map();
 
-    const $colorSchemeLight = newElementMock('#color-scheme-light');
+    const $colorSchemeLight = newElementMock('#id-color-scheme-light');
     $colorSchemeLight.addEventListener.mockImplementation((name, fn) => {
       eventListeners.set(name, fn);
     });
 
     document.getElementById.mockImplementation((query) => {
-      if (query === 'color-scheme-light') {
+      if (query === 'id-color-scheme-light') {
         return $colorSchemeLight;
       }
 
@@ -72,7 +74,9 @@ describe('Color scheme', () => {
     });
 
     initColorScheme(document, localStorage);
-    expect(document.getElementById).toHaveBeenCalledWith('color-scheme-light');
+    expect(document.getElementById).toHaveBeenCalledWith(
+      'id-color-scheme-light',
+    );
     expect($colorSchemeLight.disabled).toBe(false);
     expect($colorSchemeLight.addEventListener).toHaveBeenCalledWith(
       'click',
@@ -92,18 +96,18 @@ describe('Color scheme', () => {
     );
   });
 
-  it('gets the #color-scheme-system button', () => {
+  it('gets the #id-color-scheme-system button', () => {
     localStorage.__setStoredValueFor(STORAGE_KEY_COLOR_SCHEME, 'unknown');
 
     const eventListeners = new Map();
 
-    const $colorSchemeSystem = newElementMock('#color-scheme-system');
+    const $colorSchemeSystem = newElementMock('#id-color-scheme-system');
     $colorSchemeSystem.addEventListener.mockImplementation((name, fn) => {
       eventListeners.set(name, fn);
     });
 
     document.getElementById.mockImplementation((query) => {
-      if (query === 'color-scheme-system') {
+      if (query === 'id-color-scheme-system') {
         return $colorSchemeSystem;
       }
 
@@ -111,7 +115,9 @@ describe('Color scheme', () => {
     });
 
     initColorScheme(document, localStorage);
-    expect(document.getElementById).toHaveBeenCalledWith('color-scheme-system');
+    expect(document.getElementById).toHaveBeenCalledWith(
+      'id-color-scheme-system',
+    );
     expect($colorSchemeSystem.disabled).toBe(false);
     expect($colorSchemeSystem.addEventListener).toHaveBeenCalledWith(
       'click',
@@ -145,8 +151,8 @@ describe('Color scheme', () => {
     initColorScheme(document, localStorage);
     expect(localStorage.hasItem).toHaveBeenCalledWith(STORAGE_KEY_COLOR_SCHEME);
     expect(localStorage.getItem).toHaveBeenCalledWith(STORAGE_KEY_COLOR_SCHEME);
-    expect(document.$body.classList.add).toHaveBeenCalledWith('dark');
-    expect(document.$body.classList.remove).toHaveBeenCalledWith('light');
+    expect(document.$body.classList.add).toHaveBeenCalledWith('dark-mode');
+    expect(document.$body.classList.remove).toHaveBeenCalledWith('light-mode');
     expect(localStorage.setItem).toHaveBeenCalledTimes(1);
     expect(localStorage.setItem).toHaveBeenCalledWith(
       STORAGE_KEY_COLOR_SCHEME,
@@ -161,8 +167,8 @@ describe('Color scheme', () => {
     initColorScheme(document, localStorage);
     expect(localStorage.hasItem).toHaveBeenCalledWith(STORAGE_KEY_COLOR_SCHEME);
     expect(localStorage.getItem).toHaveBeenCalledWith(STORAGE_KEY_COLOR_SCHEME);
-    expect(document.$body.classList.add).toHaveBeenCalledWith('light');
-    expect(document.$body.classList.remove).toHaveBeenCalledWith('dark');
+    expect(document.$body.classList.add).toHaveBeenCalledWith('light-mode');
+    expect(document.$body.classList.remove).toHaveBeenCalledWith('dark-mode');
     expect(localStorage.setItem).toHaveBeenCalledTimes(1);
     expect(localStorage.setItem).toHaveBeenCalledWith(
       STORAGE_KEY_COLOR_SCHEME,

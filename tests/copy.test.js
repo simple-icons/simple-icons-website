@@ -14,9 +14,9 @@ describe('Copy', () => {
     navigator.__resetAllMocks();
   });
 
-  it('gets the #copy-input button', () => {
+  it('gets the #id-copy-input button', () => {
     initCopyButtons(window, document, navigator);
-    expect(document.getElementById).toHaveBeenCalledWith('copy-input');
+    expect(document.getElementById).toHaveBeenCalledWith('id-copy-input');
   });
 
   it('gets grid item color buttons', () => {
