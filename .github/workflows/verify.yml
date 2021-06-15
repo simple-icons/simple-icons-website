@@ -28,7 +28,9 @@ jobs:
           path: _site
           key: ${{ runner.os }}-build-${{ github.sha }}
       - name: Build website
-        run: npm run build
+        run: npm run build:dev
+        env:
+          TEST_ENV: true # Slice icon list
   lint:
     name: Lint
     runs-on: ubuntu-latest
