@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 12.x
-      - name: Restore Cached Dependencies
+      - name: Cache dependencies
         uses: actions/cache@v2
         with:
           path: ~/.npm
