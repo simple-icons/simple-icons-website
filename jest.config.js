@@ -11,7 +11,11 @@ if (!TEST_ENV_OPTIONS.includes(process.env.TEST_ENV)) {
   process.exit(1);
 }
 
-buildWebsite(process.env.TEST_ENV);
+if (process.env.ACTION_CACHE_HIT != 'true') {
+  buildWebsite(process.env.TEST_ENV);
+} else {
+  console.info('GitHub Action cache hit, skip building.');
+}
 
 module.exports = {
   bail: getBail(process.env.TEST_ENV),
