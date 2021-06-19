@@ -113,4 +113,11 @@ module.exports = {
       new CssMinimizerPlugin(),
     ],
   },
+  cache: process.argv.includes('--watch')
+    ? { type: 'memory' }
+    : {
+        cacheLocation: path.resolve(__dirname, '.cache', 'webpack'),
+        type: 'filesystem',
+        version: '1',
+      },
 };

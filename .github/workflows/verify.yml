@@ -19,14 +19,13 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - name: Install dependencies
-        run: npm ci
       - name: Cache build
         uses: actions/cache@v2
-        id: cache-build
         with:
-          path: _site
-          key: ${{ runner.os }}-build-${{ github.sha }}
+          path: .cache/webpack
+          key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
+      - name: Install dependencies
+        run: npm ci
       - name: Build website
         run: npm run build:dev
         env:
@@ -72,18 +71,15 @@ jobs:
             ${{ runner.os }}-node-
       - name: Cache build
         uses: actions/cache@v2
-        id: cache-build
         with:
-          path: _site
-          key: ${{ runner.os }}-build-${{ github.sha }}
+          path: .cache/webpack
+          key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         run: npm ci
       - name: Run unit tests
         run: npm run test:unit
       - name: Run integration tests
         run: npm run test:integration
-        env:
-          ACTION_CACHE_HIT: ${{ steps.cache-build.outputs.cache-hit }}
       - name: Upload test screenshots
         uses: actions/upload-artifact@v2
         with:
