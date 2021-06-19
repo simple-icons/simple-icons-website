@@ -27,9 +27,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build website
-        run: npm run build:dev
-        env:
-          TEST_ENV: true # Slice icon list
+        run: npm run build
   lint:
     name: Lint
     runs-on: ubuntu-latest

@@ -31,7 +31,7 @@ function buildWebsite(env) {
   if (buildWebsiteEnvs.includes(env)) {
     console.info('building website for integration tests...');
     execSync('npm run clean');
-    execSync('npm run build:dev');
+    execSync('npm run build');
   }
 }
 
