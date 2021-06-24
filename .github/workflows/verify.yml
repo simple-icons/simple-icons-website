@@ -24,6 +24,8 @@ jobs:
         with:
           path: .cache/webpack
           key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-
       - name: Install dependencies
         run: npm ci
       - name: Build website
@@ -75,6 +77,8 @@ jobs:
         with:
           path: .cache/webpack
           key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-
       - name: Cache Jest
         uses: actions/cache@v2
         with:
