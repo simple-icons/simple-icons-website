@@ -19,17 +19,18 @@
     "clean": "rm -rf _site tests/_artifacts",
     "format": "prettier --write --single-quote --trailing-comma all .",
     "lint": "prettier --check --single-quote --trailing-comma all .",
-    "postinstall": "is-ci || husky install",
+    "postinstall": "run-s setup:husky setup:pdfs",
     "serve": "anywhere -p 8080 -d ./_site",
     "serve:watch": "run-p build:watch serve",
+    "setup:husky": "is-ci || husky install",
+    "setup:pdfs": "npm install https://github.com/simple-icons/simple-icons-pdf/tarball/master --no-save",
     "test": "npm run test:unit",
     "test:all": "cross-env TEST_ENV=all jest",
     "test:integration": "cross-env TEST_ENV=integration jest",
     "test:unit": "cross-env TEST_ENV=unit jest"
   },
   "dependencies": {
-    "simple-icons": "5.3.0",
-    "simple-icons-pdf": "https://github.com/simple-icons/simple-icons-pdf/tarball/master"
+    "simple-icons": "5.3.0"
   },
   "devDependencies": {
     "@babel/core": "7.14.3",
