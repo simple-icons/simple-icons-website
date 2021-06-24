@@ -64,6 +64,7 @@ jobs:
           node-version: 12.x
       - name: Get Date
         id: get-date
+        shell: bash
         run: echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
       - name: Cache dependencies
         uses: actions/cache@v2
