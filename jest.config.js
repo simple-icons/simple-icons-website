@@ -15,6 +15,7 @@ buildWebsite(process.env.TEST_ENV);
 
 module.exports = {
   bail: getBail(process.env.TEST_ENV),
+  cacheDirectory: './.cache/jest',
   preset: getPreset(process.env.TEST_ENV),
   globals: {
     ARTIFACTS_DIR: path.resolve(__dirname, 'tests/_artifacts'),
