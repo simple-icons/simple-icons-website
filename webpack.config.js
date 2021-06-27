@@ -119,7 +119,11 @@ module.exports = {
   cache: process.argv.includes('--watch')
     ? { type: 'memory' }
     : {
-        cacheLocation: path.resolve(__dirname, '.cache', 'webpack'),
+        cacheLocation: path.resolve(
+          __dirname,
+          '.cache',
+          process.argv.includes('development') ? 'webpack-dev' : 'webpack',
+        ),
         type: 'filesystem',
         version: '1',
       },
