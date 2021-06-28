@@ -25,24 +25,24 @@ html(lang="en-US")
     link(rel="canonical" href=pageUrl)
 
   body(class="no-js order-alphabetically")
-    header(class="header" role="banner")
+    header(class="header")
       ul(class="header__list")
         li(class="header__list-item")
-          a(href="https://github.com/simple-icons/simple-icons" rel="noopener") GitHub
+          a(href="https://github.com/simple-icons/simple-icons") GitHub
         li(class="header__list-item")
-          a(href="https://www.npmjs.com/package/simple-icons" rel="noopener") NPM
+          a(href="https://www.npmjs.com/package/simple-icons") NPM
         li(class="header__list-item")
-          a(href="https://packagist.org/packages/simple-icons/simple-icons" rel="noopener") Packagist
+          a(href="https://packagist.org/packages/simple-icons/simple-icons") Packagist
         li(class="header__list-item")
-          a(href="https://www.jsdelivr.com/package/npm/simple-icons" rel="noopener") JSDelivr
+          a(href="https://www.jsdelivr.com/package/npm/simple-icons") JSDelivr
         li(class="header__list-item")
-          a(href="https://unpkg.com/browse/simple-icons/" rel="noopener") Unpkg
+          a(href="https://unpkg.com/browse/simple-icons/") Unpkg
       h1(class="header__title") Simple Icons
       p(class="header__description") #{iconCount} Free #[abbr(title="Scalable Vector Graphic") SVG] icons for popular brands
 
     div(class="sticky-header-shadow" aria-hidden)
 
-    main(class="main" role="main")
+    main(class="main")
       div(class="control")
         noscript Controls are only available when JavaScript is enabled.
         div(class="control-field search")
@@ -83,7 +83,7 @@ html(lang="en-US")
 
       ul(class="grid")
         li(class="grid-item--if-empty hidden" aria-hidden="true")
-          p Icon missing? #[a(href="https://github.com/simple-icons/simple-icons/issues/new?template=icon_request.md" rel="noopener") Submit a request]
+          p Icon missing? #[a(href="https://github.com/simple-icons/simple-icons/issues/new?template=icon_request.md") Submit a request]
 
         //- This script adds an extra element after itself.
         script(
@@ -126,23 +126,25 @@ html(lang="en-US")
               a(
                 class="grid-item__button"
                 href=`./icons/${icon.slug}.svg`
+                role="button"
                 download
               ) SVG
               a(
                 class="grid-item__button"
                 href=`./icons/${icon.slug}.pdf`
+                role="button"
                 download
               ) PDF
 
-    footer(class="footer" role="contentinfo")
+    footer(class="footer")
       div(class="footer-description")
         p.
-          A #[a(href="https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md" rel="noopener") CC0] project maintained
-          by the #[a(href="https://github.com/simple-icons/simple-icons/graphs/contributors" rel="noopener") Simple Icons Contributors].
+          A #[a(href="https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md") CC0] project maintained
+          by the #[a(href="https://github.com/simple-icons/simple-icons/graphs/contributors") Simple Icons Contributors].
         p.
-          Use #[a(href="https://github.com/simple-icons/simple-icons" rel="noopener") GitHub] for requests, corrections and contributions.
+          Use #[a(href="https://github.com/simple-icons/simple-icons") GitHub] for requests, corrections and contributions.
         p.
-          Kindly supported by your donations at #[a(href="https://opencollective.com/simple-icons" rel="noopener") Open Collective].
+          Kindly supported by your donations at #[a(href="https://opencollective.com/simple-icons") Open Collective].
       a(
         class="footer-share"
         rel="noopener"
