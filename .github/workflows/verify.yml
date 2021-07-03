@@ -89,7 +89,7 @@ jobs:
       - name: Run unit tests
         run: npm run test:unit
       - name: Run integration tests
-        run: npm run test:integration
+        run: npm run test:integration -- --runInBand
       - name: Upload test screenshots
         uses: actions/upload-artifact@v2
         with:
