@@ -26,7 +26,7 @@
     "setup:pdfs": "npm install https://github.com/simple-icons/simple-icons-pdf/tarball/master --no-save",
     "test": "npm run test:unit",
     "test:all": "cross-env TEST_ENV=all jest",
-    "test:integration": "cross-env TEST_ENV=integration jest",
+    "test:e2e": "cross-env TEST_ENV=e2e jest",
     "test:unit": "cross-env TEST_ENV=unit jest"
   },
   "dependencies": {
