@@ -159,13 +159,13 @@ describe('Search', () => {
       }, 500);
     });
 
-    it('works if search event is fired', () => {
+    it('works if change event is fired', () => {
       expect($searchInput.addEventListener).toHaveBeenCalledWith(
-        'search',
+        'change',
         expect.any(Function),
       );
 
-      const searchListener = inputEventListeners.get('search');
+      const searchListener = inputEventListeners.get('change');
       const event = newEventMock();
 
       $searchInput.value = 'Hello world!';
