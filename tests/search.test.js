@@ -158,6 +158,21 @@ describe('Search', () => {
         done();
       }, 500);
     });
+
+    it('works if search event is fired', () => {
+      expect($searchInput.addEventListener).toHaveBeenCalledWith(
+        'search',
+        expect.any(Function),
+      );
+
+      const searchListener = inputEventListeners.get('search');
+      const event = newEventMock();
+
+      $searchInput.value = 'Hello world!';
+      searchListener(event);
+
+      expect($searchInput.blur).toHaveBeenCalled();
+    });
   });
 
   describe('URL query', () => {
