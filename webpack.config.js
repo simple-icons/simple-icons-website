@@ -76,6 +76,10 @@ module.exports = {
           from: path.resolve(ROOT_DIR, 'images'),
           to: path.resolve(OUT_DIR, 'images'),
         },
+        {
+          from: path.resolve(__dirname, 'LICENSE.md'),
+          to: path.resolve(OUT_DIR, 'license.txt'),
+        },
       ],
     }),
     new HtmlWebpackPlugin({
