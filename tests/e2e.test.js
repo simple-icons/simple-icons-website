@@ -478,3 +478,8 @@ describe('JavaScript disabled', () => {
     page.setJavaScriptEnabled(true);
   });
 });
+
+it('has a license file available', async () => {
+  await page.goto(`${url.href}/license.txt`);
+  await expect(page).toMatch('CC0 1.0 Universal');
+});
