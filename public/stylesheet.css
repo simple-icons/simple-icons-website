@@ -499,6 +499,8 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   background-color: var(--color-background-card);
   border-radius: var(--border-radius-large);
   box-shadow: 0px 0px 3px 0px var(--color-shadows);
+  contain-intrinsic-size: 0 11.25rem;
+  content-visibility: auto;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -800,33 +802,4 @@ body.order-by-relevance .grid-item {
   display: block !important;
   height: 0;
   width: 0;
-}
-
-/* Temporary feedback banner */
-
-.banner-feedback {
-  font-family: var(--font-family-stylized);
-  font-size: 0.8rem;
-  padding: 8px var(--side-offset);
-}
-
-.banner-feedback a,
-.banner-feedback button {
-  color: var(--color-link);
-  font-family: inherit;
-  font-size: inherit;
-}
-.banner-feedback a:focus,
-.banner-feedback a:hover,
-.banner-feedback button:focus,
-.banner-feedback button:hover {
-  color: var(--color-link-hover);
-  text-decoration: underline;
-}
-.banner-feedback a:visited {
-  color: var(--color-link-visited);
-}
-
-.banner__hide {
-  float: right;
 }

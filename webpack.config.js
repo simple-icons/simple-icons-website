@@ -76,6 +76,10 @@ module.exports = {
           from: path.resolve(ROOT_DIR, 'images'),
           to: path.resolve(OUT_DIR, 'images'),
         },
+        {
+          from: path.resolve(__dirname, 'LICENSE.md'),
+          to: path.resolve(OUT_DIR, 'license.txt'),
+        },
       ],
     }),
     new HtmlWebpackPlugin({
@@ -103,6 +107,9 @@ module.exports = {
         }),
         iconCount: icons.length,
         twitterIcon: icons.find((icon) => icon.title === 'Twitter'),
+        pageTitle: 'Simple Icons',
+        pageDescription: `${icons.length} Free SVG icons for popular brands.`,
+        pageUrl: 'https://simpleicons.org',
       },
     }),
     new MiniCssExtractPlugin(),
@@ -113,4 +120,15 @@ module.exports = {
       new CssMinimizerPlugin(),
     ],
   },
+  cache: process.argv.includes('--watch')
+    ? { type: 'memory' }
+    : {
+        cacheLocation: path.resolve(
+          __dirname,
+          '.cache',
+          process.argv.includes('development') ? 'webpack-dev' : 'webpack',
+        ),
+        type: 'filesystem',
+        version: '1',
+      },
 };
