@@ -30,7 +30,7 @@ function simplifyHexIfPossible(hex) {
 let displayIcons = icons;
 if (process.env.TEST_ENV) {
   // Use fewer icons when building for a test run. This significantly speeds up
-  // page load time and therefor (integration) tests, reducing the chance of
+  // page load time and therefor (end-to-end) tests, reducing the chance of
   // failed tests due to timeouts.
   displayIcons = icons.slice(0, 255);
 }

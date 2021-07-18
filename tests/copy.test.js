@@ -9,6 +9,10 @@ const { navigator } = require('./mocks/navigator.mock.js');
 const initCopyButtons = require('../public/scripts/copy.js').default;
 
 describe('Copy', () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
   beforeEach(() => {
     document.__resetAllMocks();
     navigator.__resetAllMocks();
@@ -43,6 +47,8 @@ describe('Copy', () => {
     });
 
     initCopyButtons(window, document, navigator);
+    jest.runAllTimers();
+
     for (const $colorButton of $colorButtons) {
       const buttonEventListeners = eventListeners.get($colorButton);
 
@@ -91,6 +97,8 @@ describe('Copy', () => {
     });
 
     initCopyButtons(window, document, navigator);
+    jest.runAllTimers();
+
     for (const $svgButton of $svgButtons) {
       const buttonEventListeners = eventListeners.get($svgButton);
 
@@ -114,5 +122,9 @@ describe('Copy', () => {
       expect($svgButton.classList.add).toHaveBeenCalledWith('copied');
       expect(navigator.clipboard.writeText).toHaveBeenCalledWith(rawSvg);
     }
+  });
+
+  afterAll(() => {
+    jest.useFakeTimers();
   });
 });

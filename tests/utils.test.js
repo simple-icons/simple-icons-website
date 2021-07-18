@@ -21,6 +21,10 @@ describe('::decodeURIComponent', () => {
 });
 
 describe('::debounce', () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
   it('calls the debounced function only once', (done) => {
     const spy = jest.fn();
     const debouncedImmediateSpy = debounce(spy, 1000, true);
@@ -31,24 +35,31 @@ describe('::debounce', () => {
 
     spy.mockReset();
     const debouncedDelayedSpy = debounce(spy, 1000, false);
+
     debouncedDelayedSpy(1);
     debouncedDelayedSpy(2);
-    setTimeout(() => {
-      expect(spy).toHaveBeenCalledTimes(1);
-      expect(spy).toHaveBeenCalledWith(2);
-      done();
-    }, 1100);
+    jest.runAllTimers();
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith(2);
+    done();
   });
 
   it('can call the debounced function multiple times', (done) => {
     const spy = jest.fn();
     const debouncedImmediateSpy = debounce(spy, 1000, true);
+
     debouncedImmediateSpy();
-    setTimeout(() => {
-      debouncedImmediateSpy();
-      expect(spy).toHaveBeenCalledTimes(2);
-      done();
-    }, 1100);
+    jest.runAllTimers();
+    debouncedImmediateSpy();
+    jest.runAllTimers();
+
+    expect(spy).toHaveBeenCalledTimes(2);
+    done();
+  });
+
+  afterAll(() => {
+    jest.useFakeTimers();
   });
 });
 
