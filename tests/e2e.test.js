@@ -15,7 +15,8 @@ const {
   isVisible,
 } = require('./helpers.js');
 
-jest.setTimeout(10000);
+jest.retryTimes(3);
+jest.setTimeout(3000);
 
 const COLOR_REGEX = /^#[A-F0-9]{6}$/;
 const SVG_REGEX = /^<svg.*>.*<\/svg>$/;
@@ -46,7 +47,7 @@ describe.each([
   ['desktop', DEFAULT_DEVICE],
   ['mobile', devices['Nexus 7']],
 ])('General (%s)', (name, device) => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     await page.emulate(device);
     await page.goto(url.href);
   });
@@ -261,7 +262,7 @@ describe('Ordering', () => {
   const titles = icons.map((icon) => icon.title);
   const hexes = icons.map((icon) => icon.hex).sort(sortColors);
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     await page.goto(url.href);
   });
 
@@ -308,7 +309,7 @@ describe('Ordering', () => {
 });
 
 describe('Preferred color scheme', () => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     await page.goto(url.href);
   });
 
@@ -383,7 +384,7 @@ describe('Preferred color scheme', () => {
 });
 
 describe('Grid item', () => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     const context = browser.defaultBrowserContext();
     await context._connection.send('Browser.grantPermissions', {
       origin: url.origin,
@@ -391,7 +392,7 @@ describe('Grid item', () => {
     });
   });
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     await page.goto(url.href);
     await page._client.send('Page.setDownloadBehavior', {
       behavior: 'allow',
@@ -431,7 +432,7 @@ describe('Grid item', () => {
 });
 
 describe('JavaScript disabled', () => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     page.setJavaScriptEnabled(false);
     await page.goto(url.href);
   });
