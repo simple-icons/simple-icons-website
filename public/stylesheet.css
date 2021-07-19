@@ -193,13 +193,12 @@ body {
   color: var(--color-text-default);
   display: flex;
   flex-direction: column;
-  line-height: 1;
+  line-height: 1.4;
   min-height: 100%;
 }
 
 button {
   background: none;
-  border: none;
   cursor: pointer;
   outline: none;
 }
@@ -804,7 +803,6 @@ body.order-by-relevance .grid-item {
 }
 
 #copy-input.hidden {
-  border: 0;
   display: block !important;
   height: 0;
   width: 0;
