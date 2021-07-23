@@ -16,8 +16,11 @@ describe('Search', () => {
 
   let $searchInput;
   let $searchClear;
-  let $adSpace;
   let $orderByRelevance;
+
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
 
   beforeEach(() => {
     domUtils.__resetAllMocks();
@@ -78,25 +81,22 @@ describe('Search', () => {
 
       $searchInput.value = searchValue;
       inputListener(event);
+      jest.runAllTimers();
 
-      setTimeout(() => {
-        expect(event.preventDefault).toHaveBeenCalledTimes(1);
-        expect(ordering.selectOrdering).toHaveBeenCalledWith(
-          ORDER_BY_RELEVANCE,
-        );
-        expect(history.replaceState).toHaveBeenCalledWith(
-          null,
-          '',
-          expect.stringMatching(
-            `${document.location.pathname}?.*=${searchValue}$`,
-          ),
-        );
+      expect(event.preventDefault).toHaveBeenCalledTimes(1);
+      expect(ordering.selectOrdering).toHaveBeenCalledWith(ORDER_BY_RELEVANCE);
+      expect(history.replaceState).toHaveBeenCalledWith(
+        null,
+        '',
+        expect.stringMatching(
+          `${document.location.pathname}?.*=${searchValue}$`,
+        ),
+      );
 
-        expect(domUtils.showElement).toHaveBeenCalledWith($searchClear);
-        expect(domUtils.showElement).toHaveBeenCalledWith($orderByRelevance);
+      expect(domUtils.showElement).toHaveBeenCalledWith($searchClear);
+      expect(domUtils.showElement).toHaveBeenCalledWith($orderByRelevance);
 
-        done();
-      }, 500);
+      done();
     });
 
     it('works if the search input is emptied', (done) => {
@@ -112,21 +112,20 @@ describe('Search', () => {
 
       $searchInput.value = '';
       inputListener(event);
+      jest.runAllTimers();
 
-      setTimeout(() => {
-        expect(event.preventDefault).toHaveBeenCalledTimes(1);
-        expect(ordering.resetOrdering).toHaveBeenCalledTimes(1);
-        expect(history.replaceState).toHaveBeenCalledWith(
-          null,
-          '',
-          document.location.pathname,
-        );
+      expect(event.preventDefault).toHaveBeenCalledTimes(1);
+      expect(ordering.resetOrdering).toHaveBeenCalledTimes(1);
+      expect(history.replaceState).toHaveBeenCalledWith(
+        null,
+        '',
+        document.location.pathname,
+      );
 
-        expect(domUtils.hideElement).toHaveBeenCalledWith($searchClear);
-        expect(domUtils.hideElement).toHaveBeenCalledWith($orderByRelevance);
+      expect(domUtils.hideElement).toHaveBeenCalledWith($searchClear);
+      expect(domUtils.hideElement).toHaveBeenCalledWith($orderByRelevance);
 
-        done();
-      }, 500);
+      done();
     });
 
     it('works if the clear search button is clicked', (done) => {
@@ -142,21 +141,20 @@ describe('Search', () => {
 
       $searchInput.value = 'Hello world!';
       clickListener(event);
+      jest.runAllTimers();
 
-      setTimeout(() => {
-        expect(event.preventDefault).toHaveBeenCalledTimes(1);
-        expect(ordering.resetOrdering).toHaveBeenCalledTimes(1);
-        expect(history.replaceState).toHaveBeenCalledWith(
-          null,
-          '',
-          document.location.pathname,
-        );
+      expect(event.preventDefault).toHaveBeenCalledTimes(1);
+      expect(ordering.resetOrdering).toHaveBeenCalledTimes(1);
+      expect(history.replaceState).toHaveBeenCalledWith(
+        null,
+        '',
+        document.location.pathname,
+      );
 
-        expect(domUtils.hideElement).toHaveBeenCalledWith($searchClear);
-        expect(domUtils.hideElement).toHaveBeenCalledWith($orderByRelevance);
+      expect(domUtils.hideElement).toHaveBeenCalledWith($searchClear);
+      expect(domUtils.hideElement).toHaveBeenCalledWith($orderByRelevance);
 
-        done();
-      }, 500);
+      done();
     });
   });
 
@@ -188,5 +186,9 @@ describe('Search', () => {
       expect(history.replaceState).toHaveBeenCalled();
       expect(ordering.selectOrdering).toHaveBeenCalled();
     });
+  });
+
+  afterAll(() => {
+    jest.useFakeTimers();
   });
 });
