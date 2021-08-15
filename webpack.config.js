@@ -55,7 +55,7 @@ module.exports = {
       },
       {
         test: /\.svg$/i,
-        use: ['svg-url-loader'],
+        type: 'asset/inline',
       },
     ],
   },
