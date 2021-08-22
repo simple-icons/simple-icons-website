@@ -95,7 +95,7 @@ describe('External links', () => {
     await page.goto(url.href);
   });
 
-  const menuLinks = [
+  const menuLinksTitles = [
     'repository',
     'npm',
     'packagist',
@@ -106,7 +106,7 @@ describe('External links', () => {
     'About Simple Icons',
   ];
 
-  menuLinks.forEach((title) =>
+  menuLinksTitles.forEach((title) =>
     it(`is possible to click the link for ${title}`, async () => {
       await expect(page).toClick('a', { title });
     }),
