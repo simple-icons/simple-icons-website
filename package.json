@@ -36,7 +36,7 @@
     "@babel/core": "7.15.0",
     "@babel/preset-env": "7.15.0",
     "anywhere": "1.5.0",
-    "autoprefixer": "10.3.1",
+    "autoprefixer": "10.3.2",
     "babel-jest": "27.0.6",
     "color-sorter": "5.0.2",
     "copy-webpack-plugin": "9.0.1",
@@ -58,8 +58,8 @@
     "pug": "3.0.2",
     "pug-loader": "2.4.0",
     "puppeteer": "10.2.0",
-    "webpack": "5.49.0",
-    "webpack-cli": "4.7.2"
+    "webpack": "5.51.1",
+    "webpack-cli": "4.8.0"
   },
   "engine": {
     "node": ">=12.16.0"
