@@ -42,6 +42,7 @@
   --dm-color-disabled: rgb(170, 170, 170);
   --dm-color-grid-item-divider: rgb(64, 64, 64);
   --dm-color-menu-icon: rgb(212, 212, 212);
+  --dm-color-menu-icon-hover: rgb(212, 212, 212);
   --dm-color-shadow: rgba(75, 75, 75, 0.95);
   --dm-color-link: rgb(0, 100, 238);
   --dm-color-link-hover: rgb(0, 72, 238);
@@ -65,6 +66,7 @@
   --lm-color-disabled: rgb(170, 170, 170);
   --lm-color-grid-item-divider: rgb(204, 204, 204);
   --lm-color-menu-icon: rgb(51, 51, 51);
+  --lm-color-menu-icon-hover: rgb(51, 51, 51);
   --lm-color-shadow: rgba(0, 0, 0, 0.5);
   --lm-color-link: rgb(0, 0, 238);
   --lm-color-link-hover: rgb(52, 52, 238);
@@ -107,6 +109,7 @@
     --color-disabled: var(--dm-color-disabled);
     --color-grid-item-divider: var(--dm-color-grid-item-divider);
     --color-menu-icon: var(--dm-color-menu-icon);
+    --color-menu-icon-hover: var(--dm-color-menu-icon-hover);
     --color-shadows: var(--dm-color-shadow);
     --color-link: var(--dm-color-link);
     --color-link-hover: var(--dm-color-link-hover);
@@ -136,6 +139,7 @@
     --color-disabled: var(--lm-color-disabled);
     --color-grid-item-divider: var(--lm-color-grid-item-divider);
     --color-menu-icon: var(--lm-color-menu-icon);
+    --color-menu-icon-hover: var(--lm-color-menu-icon-hover);
     --color-shadows: var(--lm-color-shadow);
     --color-link: var(--lm-color-link);
     --color-link-hover: var(--lm-color-link-hover);
@@ -161,6 +165,7 @@ body.dark {
   --color-disabled: var(--dm-color-disabled);
   --color-grid-item-divider: var(--dm-color-grid-item-divider);
   --color-menu-icon: var(--dm-color-menu-icon);
+  --color-menu-icon-hover: var(--dm-color-menu-icon-hover);
   --color-shadows: var(--dm-color-shadow);
   --color-link: var(--dm-color-link);
   --color-link-hover: var(--dm-color-link-hover);
@@ -184,6 +189,7 @@ body.light {
   --color-disabled: var(--lm-color-disabled);
   --color-grid-item-divider: var(--lm-color-grid-item-divider);
   --color-menu-icon: var(--lm-color-menu-icon);
+  --color-menu-icon-hover: var(--lm-color-menu-icon-hover);
   --color-shadows: var(--lm-color-shadow);
   --color-link: var(--lm-color-link);
   --color-link-hover: var(--lm-color-link-hover);
@@ -270,26 +276,24 @@ a {
     margin: 0 0 1rem;
   }
 }
-.header__list-icon {
+.header__list-item {
+  height: 40px;
+  width: 40px;
+  margin: 10px;
+  padding: 5px;
   fill: var(--color-menu-icon);
-  background-color: transparent;
-  color: var(--color-text-default);
-  height: 1.4rem;
-  padding: 1rem;
 }
 
-.header__list-icon:hover {
-  color: var(--color-menu-icon);
+.header__list-item:hover,
+.header__list-item:focus {
+  cursor: pointer;
+  height: 48px;
+  width: 48px;
+  margin: 6px;
 }
-.header__list-item {
-  font-family: var(--font-family-stylized);
-  font-size: 1rem;
-  font-weight: 600;
-  margin: 0 0.7rem;
-}
-.header__list-item:hover {
-  color: var(--color-button-hover);
-  text-decoration: underline;
+
+.header__list-icon {
+  fill: var(--color-menu-icon) !important;
 }
 
 /* Main */
