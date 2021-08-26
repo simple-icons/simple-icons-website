@@ -19,7 +19,7 @@ If you want to request an icon, please [open an issue here][new icon request].
 ## Local Development
 
 * Make sure you have [NodeJS] installed. At least version 12.16.0 is required.
-* Install the dependencies using `$ npm install`.
+* Install the dependencies using `$ npm ci`.
 * Build the website using `$ npm run build`.
 * Serve the website using `$ npm run serve`.
 * Connect to the website in your browser via the _"Running at"_ provided by the output of this command, e.g. http://localhost:8080/
