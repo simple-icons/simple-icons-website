@@ -99,8 +99,8 @@ describe('External links', () => {
     await expect(page).toClick('a', { text: 'GitHub' });
   });
 
-  it('is possible to click the link to NPM', async () => {
-    await expect(page).toClick('a', { text: 'NPM' });
+  it('is possible to click the link to npm', async () => {
+    await expect(page).toClick('a', { text: 'npm' });
   });
 
   it('is possible to click the link to Packagist', async () => {
