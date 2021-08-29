@@ -268,22 +268,22 @@ a {
   height: 45px;
   width: 45px;
   margin: 10px;
-  padding: 8px;
-  margin: 6px;
   background-color: var(--color-background);
   fill: var(--color-button-active);
 }
 
 .header__list-item:hover,
-.header__list-item:focus {
+.header__list-item a:focus {
   cursor: pointer;
-  margin: 6px;
   fill: var(--color-background);
   background-color: var(--color-button-active);
   border-radius: 10%;
 }
 
 .header__list-icon {
+  height: 45px;
+  width: 45px;
+  display: inline-block;
   fill: inherit;
 }
 
