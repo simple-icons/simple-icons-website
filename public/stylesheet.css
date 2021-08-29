@@ -277,23 +277,26 @@ a {
   }
 }
 .header__list-item {
-  height: 40px;
-  width: 40px;
+  height: 45px;
+  width: 45px;
   margin: 10px;
-  padding: 5px;
+  padding: 8px;
+  margin: 6px;
+  background-color: var(--color-background);
   fill: var(--color-menu-icon);
 }
 
 .header__list-item:hover,
 .header__list-item:focus {
   cursor: pointer;
-  height: 48px;
-  width: 48px;
   margin: 6px;
+  fill: var(--color-background);
+  background-color: var(--color-menu-icon);
+  border-radius: 10%;
 }
 
 .header__list-icon {
-  fill: var(--color-menu-icon) !important;
+  fill: inherit;
 }
 
 /* Main */
