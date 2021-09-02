@@ -265,24 +265,24 @@ a {
   }
 }
 .header__list-item {
-  height: 45px;
-  width: 45px;
-  margin: 10px;
+  height: 55px;
+  width: 55px;
   background-color: var(--color-background);
   fill: var(--color-button-active);
 }
 
 .header__list-item:hover,
-.header__list-item a:focus {
+.header__list-icon:focus {
   cursor: pointer;
   fill: var(--color-background);
   background-color: var(--color-button-active);
-  border-radius: 10%;
+  border-radius: 50%;
 }
 
 .header__list-icon {
-  height: 45px;
-  width: 45px;
+  padding: 10px;
+  height: 55px;
+  width: 55px;
   display: inline-block;
   fill: inherit;
 }
