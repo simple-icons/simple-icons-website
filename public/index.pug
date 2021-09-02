@@ -110,6 +110,48 @@ html(lang="en-US")
           type="text/javascript"
         )
 
+        each icon in icons
+          li(class="grid-item" style=`--order-color: ${icon.indexByColor}` data-brand=`${icon.normalizedName}`)
+            div(class="grid-item__row mv-2 fg-2")
+              button(class="grid-item__preview copy-button copy-svg" title=`${icon.title} SVG` disabled)
+                img(src=`data:image/svg+xml;base64,${icon.base64Svg}` loading="lazy" class="icon-preview" alt=`${icon.title} icon`)
+            div(class="grid-item__row")
+              if icon.guidelines
+                a(
+                  class="grid-item__link link-button"
+                  title=`${icon.title} guidelines`
+                  href=icon.guidelines
+                  
+                  target="_blank"
+                ) Brand Guidelines
+              if icon.license
+                a(
+                  class="grid-item__link link-button icon-legal"
+                  title=`${icon.title} icon license`
+                  href=icon.license.url
+                  
+                  target="_blank"
+                ) #{icon.license.type}
+              h2(class="grid-item__title") #{icon.title}
+            div(class="grid-item__footer")
+              button(
+                class=`grid-item__color copy-button copy-color ${icon.light ? "contrast-light" : "contrast-dark"} ${icon.superLight ? "border-light" : ""}  ${icon.superDark ? "border-dark" : ""}`
+                style=`background-color: #${icon.shortHex}`
+                title=`${icon.title} color`
+                disabled
+              ) ##{icon.hex}
+              a(
+                class="grid-item__button"
+                href=`./icons/${icon.slug}.svg`
+                role="button"
+                download
+              ) SVG
+              a(
+                class="grid-item__button"
+                href=`./icons/${icon.slug}.pdf`
+                role="button"
+                download
+              ) PDF
 
     footer(class="footer")
       div(class="footer-description")
