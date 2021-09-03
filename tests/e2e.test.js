@@ -103,7 +103,6 @@ describe('External links', () => {
     'Unpkg (CDN)',
     'Open Collective',
     'Legal disclaimer',
-    'About Simple Icons',
   ];
 
   menuLinksTitles.forEach((title) =>
