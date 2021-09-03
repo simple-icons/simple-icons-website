@@ -281,8 +281,8 @@ a {
 
 .header__list-icon {
   padding: 10px;
-  height: 55px;
-  width: 55px;
+  height: 100%;
+  width: 100%;
   display: inline-block;
   fill: var(--color-button-active);
 }
