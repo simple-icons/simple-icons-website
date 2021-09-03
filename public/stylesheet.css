@@ -271,7 +271,7 @@ a {
   fill: var(--color-button-active);
 }
 
-.header__list-item:hover,
+.header__list-icon:hover,
 .header__list-icon:focus {
   cursor: pointer;
   fill: var(--color-background);
