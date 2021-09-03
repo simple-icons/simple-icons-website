@@ -276,7 +276,7 @@ a {
   cursor: pointer;
   fill: var(--color-background);
   background-color: var(--color-button-active);
-  border-radius: 50%;
+  border-radius: var(--border-radius-large);
 }
 
 .header__list-icon {
