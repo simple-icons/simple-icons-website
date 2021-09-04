@@ -61,7 +61,8 @@
     "webpack": "5.51.1",
     "webpack-cli": "4.8.0"
   },
-  "engine": {
-    "node": ">=12.16.0"
+  "engines": {
+    "node": ">=12.16.0",
+    "npm": "<7.0.0"
   }
 }
