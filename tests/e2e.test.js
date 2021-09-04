@@ -95,25 +95,21 @@ describe('External links', () => {
     await page.goto(url.href);
   });
 
-  it('is possible to click the link to GitHub', async () => {
-    await expect(page).toClick('a', { text: 'GitHub' });
-  });
+  const menuLinksTitles = [
+    'repository',
+    'npm',
+    'packagist',
+    'jsDelivr (CDN)',
+    'Unpkg (CDN)',
+    'Open Collective',
+    'Legal disclaimer',
+  ];
 
-  it('is possible to click the link to npm', async () => {
-    await expect(page).toClick('a', { text: 'npm' });
-  });
-
-  it('is possible to click the link to Packagist', async () => {
-    await expect(page).toClick('a', { text: 'Packagist' });
-  });
-
-  it('is possible to click the JSDelivr link', async () => {
-    await expect(page).toClick('a', { text: 'JSDelivr' });
-  });
-
-  it('is possible to click the Unpkg link', async () => {
-    await expect(page).toClick('a', { text: 'Unpkg' });
-  });
+  menuLinksTitles.forEach((title) =>
+    it(`is possible to click the link for ${title}`, async () => {
+      await expect(page).toClick('a', { title });
+    }),
+  );
 });
 
 describe('Search', () => {
