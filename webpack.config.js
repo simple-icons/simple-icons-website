@@ -7,7 +7,7 @@ const path = require('path');
 const simpleIcons = require('simple-icons');
 
 const { normalizeSearchTerm } = require('./public/scripts/utils.js');
-const { sortByColors } = require('./scripts/color-sorting.js');
+const sortByColors = require('./scripts/color-sorting.js');
 
 const icons = Object.values(simpleIcons);
 const sortedHexes = sortByColors(
