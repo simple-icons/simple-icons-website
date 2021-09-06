@@ -60,7 +60,7 @@ module.exports = {
 
     const GREY_RANGE = 10;
     const BLACK_CUTOFF = 15;
-    const WHITE_CUTOFF = 80;
+    const WHITE_CUTOFF = 90;
     var colored = [];
     var bgw = [];
     colors.map((c) => {
