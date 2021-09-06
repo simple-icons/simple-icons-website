@@ -60,7 +60,7 @@ module.exports = {
 
     const rgbToHsl = (rgb) => {
       var { r, g, b } = { ...rgb };
-      // Make r, g, and b fractions of 1
+      // Normalize r, g, and b
       r /= 255;
       g /= 255;
       b /= 255;
@@ -85,9 +85,9 @@ module.exports = {
 
       h = Math.round(h * 60);
 
-      // Make negative hues positive behind 360°
+      // Ensure all hues are positive
       if (h < 0) h += 360;
-      // Calculate lightness
+      // Calculate luminosity
       l = (cmax + cmin) / 2;
 
       // Calculate saturation
