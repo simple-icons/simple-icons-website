@@ -3,7 +3,7 @@
  * Color sorting algorithm.
  */
 const isGray = (rgb, range) => {
-  var { r, g, b } = { ...rgb };
+  let { r, g, b } = { ...rgb };
   return (
     r >= g - range &&
     r <= g + range &&
@@ -15,7 +15,7 @@ const isGray = (rgb, range) => {
 };
 
 const rgbToHsl = (rgb) => {
-  var { r, g, b } = { ...rgb };
+  let { r, g, b } = { ...rgb };
   // Normalize r, g, and b
   r /= 255;
   g /= 255;
@@ -59,16 +59,16 @@ module.exports = (colors) => {
   const GREY_RANGE = 10;
   const BLACK_CUTOFF = 15;
   const WHITE_CUTOFF = 90;
-  var colored = [];
-  var bgw = [];
+  let colored = [];
+  let bgw = [];
   colors.map((c) => {
-    var rgb = {
+    let rgb = {
       r: parseInt(`0x${c.substring(0, 2)}`),
       g: parseInt(`0x${c.substring(2, 4)}`),
       b: parseInt(`0x${c.substring(4, 6)}`),
     };
-    var color = rgbToHsl(rgb);
-    var mappedColor = {
+    let color = rgbToHsl(rgb);
+    let mappedColor = {
       color,
       hex: c,
       bgwFlag:
@@ -83,10 +83,10 @@ module.exports = (colors) => {
 
   return [
     ...colored.sort((c1, c2) => {
-      var hue = c1.color.h - c2.color.h;
+      let hue = c1.color.h - c2.color.h;
       if (!hue) {
         // If hue is the same, sort by saturation
-        var saturation = c1.color.s - c2.color.s;
+        let saturation = c1.color.s - c2.color.s;
 
         // If saturation is the same, sort by lightness
         return !saturation ? c1.color.s - c2.color.s : saturation;
