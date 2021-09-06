@@ -63,7 +63,7 @@ module.exports = {
     const WHITE_CUTOFF = 80;
     var colored = [];
     var bgw = [];
-    var mappedColors = colors.map((c) => {
+    colors.map((c) => {
       var rgb = {
         r: parseInt(`0x${c.substring(0, 2)}`),
         g: parseInt(`0x${c.substring(2, 4)}`),
