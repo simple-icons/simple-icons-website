@@ -87,7 +87,7 @@ module.exports = {
 
       // Ensure all hues are positive
       if (h < 0) h += 360;
-      // Calculate lightness
+      // Calculate luminosity
       l = (cmax + cmin) / 2;
 
       // Calculate saturation
