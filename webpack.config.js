@@ -7,13 +7,17 @@ const path = require('path');
 const simpleIcons = require('simple-icons');
 const sortColors = require('color-sorter').sortFn;
 
-const { normalizeSearchTerm } = require('./public/scripts/utils.js');
+const {
+  normalizeSearchTerm,
+  sortByColors,
+} = require('./public/scripts/utils.js');
 
 const icons = Object.values(simpleIcons);
-const sortedHexes = icons
-  .map((icon) => icon.hex)
-  .filter((hex, index, array) => array.indexOf(hex) === index)
-  .sort(sortColors);
+const sortedHexes = sortByColors(
+  icons
+    .map((icon) => icon.hex)
+    .filter((hex, index, array) => array.indexOf(hex) === index),
+);
 
 const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const OUT_DIR = path.resolve(__dirname, '_site');
