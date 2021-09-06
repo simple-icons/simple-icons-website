@@ -85,7 +85,7 @@ module.exports = {
 
       h = Math.round(h * 60);
 
-      // Make negative hues positive behind 360°
+      // Ensure all hues are positive
       if (h < 0) h += 360;
       // Calculate lightness
       l = (cmax + cmin) / 2;
