@@ -5,7 +5,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const simpleIcons = require('simple-icons');
-const sortColors = require('color-sorter').sortFn;
 
 const {
   normalizeSearchTerm,

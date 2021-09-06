@@ -1,4 +1,5 @@
-const sortColors = require('color-sorter').sortFn;
+const { sortByColors } = require('../public/scripts/utils.js');
+
 const fs = require('fs');
 const path = require('path');
 const { devices } = require('puppeteer');
@@ -256,7 +257,7 @@ describe('Search', () => {
 describe('Ordering', () => {
   const icons = Object.values(simpleIcons);
   const titles = icons.map((icon) => icon.title);
-  const hexes = icons.map((icon) => icon.hex).sort(sortColors);
+  const hexes = sortByColors(icons.map((icon) => icon.hex));
 
   beforeEach(async () => {
     await page.goto(url.href);
