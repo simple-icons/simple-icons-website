@@ -93,7 +93,7 @@ module.exports = {
       // Calculate saturation
       s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
 
-      // Multiply l and s by 100
+      // Multiply l and s by 100 to get the value in percent, rather than [0,1]
       s = +(s * 100);
       l = +(l * 100);
       return { h, s, l };
