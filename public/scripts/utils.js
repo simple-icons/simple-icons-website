@@ -60,7 +60,7 @@ module.exports = {
 
     const rgbToHsl = (rgb) => {
       var { r, g, b } = { ...rgb };
-      // Make r, g, and b fractions of 1
+      // Normalize r, g, and b
       r /= 255;
       g /= 255;
       b /= 255;
