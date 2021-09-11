@@ -297,10 +297,8 @@ describe('Ordering', () => {
     for (let i = 0; i < $items.length; i++) {
       const $button = await $items[i].$('button.grid-item__color');
 
-      const $text = await $items[i].evaluate((el) =>
-        JSON.stringify(el.getAttribute('style')),
-      );
-      const $idx = parseInt($text.substring(15, $text.length - 1));
+      const $text = await getAttribute($items[i], 'style');
+      const $idx = parseInt($text.substring(14, $text.length));
 
       const $color = await $button.evaluate((el) =>
         JSON.stringify(el.textContent),
