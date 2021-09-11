@@ -10,10 +10,7 @@ const { normalizeSearchTerm } = require('./public/scripts/utils.js');
 const sortByColors = require('./scripts/color-sorting.js');
 
 const icons = Object.values(simpleIcons);
-const sortedHexes = sortByColors(
-  icons.map((icon) => icon.hex),
-  // .filter((hex, index, array) => array.indexOf(hex) === index),
-);
+const sortedHexes = sortByColors(icons.map((icon) => icon.hex));
 
 const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const OUT_DIR = path.resolve(__dirname, '_site');
