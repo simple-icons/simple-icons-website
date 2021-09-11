@@ -11,9 +11,8 @@ const sortByColors = require('./scripts/color-sorting.js');
 
 const icons = Object.values(simpleIcons);
 const sortedHexes = sortByColors(
-  icons
-    .map((icon) => icon.hex)
-    .filter((hex, index, array) => array.indexOf(hex) === index),
+  icons.map((icon) => icon.hex),
+  // .filter((hex, index, array) => array.indexOf(hex) === index),
 );
 
 const NODE_MODULES = path.resolve(__dirname, 'node_modules');
