@@ -315,7 +315,7 @@ describe('Ordering', () => {
   });
 
   // issue: https://github.com/simple-icons/simple-icons-website/issues/66
-  it('compares the first two colors to make sure they are not black', async () => {
+  it('doesn't have a black-like color at the start', async () => {
     // should not match black colors
     await expect(hexes[0]).not.toMatch('181717');
     await expect(hexes[1]).not.toMatch('1D1717');
