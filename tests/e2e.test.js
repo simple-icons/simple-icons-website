@@ -296,16 +296,33 @@ describe('Ordering', () => {
     }
   });
 
-  it.skip('orders grid items by color', async () => {
-    // Items are ordered using the CSS property `order`...
-    await expect(page).toClick('#order-color');
+  it('orders grid items by color', async () => {
+    const $items = await page.$$('li.grid-item');
+    for (let i = 0; i < $items.length; i++) {
+      const $button = await $items[i].$('button.grid-item__color');
 
-    const $gridItems = await page.$$('.copy-color');
-    for (let i = 0; i < $gridItems.length; i++) {
-      const $gridItem = $gridItems[i];
-      const hex = hexes[i];
-      await expect($gridItem).toMatch(`#${hex}`);
+      const $text = await $items[i].evaluate((el) =>
+        JSON.stringify(el.getAttribute('style')),
+      );
+      const $idx = parseInt($text.substring(15, $text.length - 1));
+
+      const $color = await $button.evaluate((el) =>
+        JSON.stringify(el.textContent),
+      );
+
+      await expect($color).toMatch(`#${hexes[$idx]}`);
     }
+  });
+
+  // issue: https://github.com/simple-icons/simple-icons-website/issues/66
+  it('compares the first two colors to make sure they are not black', async () => {
+    // should not match black colors
+    await expect(hexes[0]).not.toMatch('181717');
+    await expect(hexes[1]).not.toMatch('1D1717');
+
+    // should match red colors
+    await expect(hexes[0]).toMatch('BE3939');
+    await expect(hexes[1]).toMatch('CB3837');
   });
 });
 
