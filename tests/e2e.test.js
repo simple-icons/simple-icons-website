@@ -110,6 +110,12 @@ describe('External links', () => {
       await expect(page).toClick('a', { title });
     }),
   );
+
+  const footerRepositoryTitle = 'github repository';
+
+  it(`is possible to click the link for Github repository`, async () => {
+    await expect(page).toClick('a', { footerRepositoryTitle });
+  });
 });
 
 describe('Search', () => {
