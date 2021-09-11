@@ -19,6 +19,14 @@ async function getAttribute($el, attributeName) {
   return result._remoteObject.value;
 }
 
+async function getTextContent($el, attributeName) {
+  const result = await $el.evaluateHandle((el, attribute) => {
+    return el.textContent;
+  });
+
+  return result._remoteObject.value;
+}
+
 async function getClipboardValue(page) {
   const result = await page.evaluate(() => navigator.clipboard.readText());
   return result;
@@ -76,6 +84,7 @@ async function isVisible($el) {
 
 module.exports = {
   getAttribute,
+  getTextContent,
   getClipboardValue,
   getValue,
   hasClass,
