@@ -294,7 +294,7 @@ describe('Ordering', () => {
     }
   });
 
-  it('orders grid items by color', async () => {
+  it.skip('orders grid items by color', async () => {
     const $items = await page.$$('li.grid-item');
     for (let i = 0; i < $items.length; i++) {
       const $button = await $items[i].$('button.grid-item__color');
