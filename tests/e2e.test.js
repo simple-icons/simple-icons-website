@@ -14,6 +14,8 @@ const {
   isHidden,
   isInViewport,
   isVisible,
+  getAttribute,
+  getTextContent,
 } = require('./helpers.js');
 
 jest.retryTimes(3);
