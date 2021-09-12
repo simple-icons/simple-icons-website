@@ -426,7 +426,7 @@ describe('Grid item', () => {
     expect(clipboardValue).toMatch(SVG_REGEX);
   });
 
-  it.each(['download-type-svg', 'download-type-pdf'])(
+  it.each(['download-svg', 'download-pdf'])(
     'is possible to download an icon "%s"',
     async (fileType) => {
       await expect(page).toClick(`button#${fileType}`);
