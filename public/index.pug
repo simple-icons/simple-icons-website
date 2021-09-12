@@ -25,7 +25,7 @@ html(lang="en-US")
     link(rel="license" href="license.txt")
     link(rel="canonical" href=pageUrl)
 
-  body(class="no-js order-alphabetically download-type-svg")
+  body(class="no-js order-alphabetically download-svg")
     header(class="header")
       ul(class="header__list")
         li(class="header__list-item")
@@ -102,10 +102,10 @@ html(lang="en-US")
         div(class="control-field")
           label(class="control-field__title") Download
           div(class="control-field__row")
-            button(id="download-type-pdf" class="control__button first__button control__button__download" title="download PDF" disabled)
+            button(id="download-pdf" class="control__button first__button control__button__download" title="download PDF" disabled)
               svg(viewBox="0 0 24 24" aria-labelledby="download-type-svg")
                 use(href="./images/sprite.svg#download-type-pdf")
-            button(id="download-type-svg" class="control__button last__button control__button__download" title="download SVG" disabled)
+            button(id="download-svg" class="control__button last__button control__button__download" title="download SVG" disabled)
               svg(viewBox="0 0 24 24" aria-labelledby="download-type-svg")
                 use(href="./images/sprite.svg#download-type-svg")
 
@@ -152,7 +152,7 @@ html(lang="en-US")
                 disabled
               ) ##{icon.hex}
               a(
-                class="download-type-file grid-item__download-button grid-item__button"
+                class="download-svg grid-item__download-button grid-item__button"
                 href=`./icons/${icon.slug}.svg`
                 role="button"
                 data-icon=`${icon.slug}`
