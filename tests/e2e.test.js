@@ -418,12 +418,13 @@ describe('Grid item', () => {
     expect(clipboardValue).toMatch(SVG_REGEX);
   });
 
-  it('is possible to download an icon as SVG', async () => {
-    await expect(page).toClick('a[download][href$="svg"]');
-  });
+  it('is possible to download an icon in all existing file types', async () => {
+    const fileTypes = ['download-svg', 'download-pdf'];
 
-  it('is possible to download an icon as PDF', async () => {
-    await expect(page).toClick('a[download][href$="pdf"]');
+    fileTypes.forEach(async (fileType) => {
+      await expect(page).toClick(`button#${fileType}`);
+      await expect(page).toClick(`a[download].${fileType}`);
+    });
   });
 });
 
