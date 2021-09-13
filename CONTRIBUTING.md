@@ -80,5 +80,5 @@ $ docker rm simple-icons-website-dev
 ```
 
 [github flow]: https://guides.github.com/introduction/flow/
-[new icon request]: https://github.com/simple-icons/simple-icons/issues/new?labels=new+icon&template=icon_request.md
+[new icon request]: https://github.com/simple-icons/simple-icons/issues/new?labels=new+icon&template=icon_request.yml&title=Request%3A+
 [NodeJS]: https://nodejs.org/en/download/
