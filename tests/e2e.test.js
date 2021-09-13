@@ -99,22 +99,21 @@ describe('External links', () => {
     'repository',
     'npm',
     'packagist',
-    'jsDelivr (CDN)',
-    'Unpkg (CDN)',
+    'jsDelivr (Content Delivery Network)',
+    'Unpkg (Content Delivery Network)',
     'Open Collective',
     'Legal disclaimer',
   ];
 
   menuLinksTitles.forEach((title) =>
     it(`is possible to click the link for ${title}`, async () => {
-      await expect(page).toClick('a', { title });
+      await expect(page).toClick(`a[title="${title}"]`);
     }),
   );
 
-  const footerRepositoryTitle = 'github repository';
-
-  it(`is possible to click the link for Github repository`, async () => {
-    await expect(page).toClick('a', { footerRepositoryTitle });
+  it('is possible to click the link for Github repository', async () => {
+    const footerRepositoryTitle = 'github repository';
+    await expect(page).toClick(`a[title="${footerRepositoryTitle}"]`);
   });
 });
 
