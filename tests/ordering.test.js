@@ -155,7 +155,7 @@ describe('Ordering', () => {
   });
 
   // issue: https://github.com/simple-icons/simple-icons-website/issues/66
-  it('does not have a black-like color at the start', async () => {
+  it('does not have a black-like color at the start', () => {
     const colors = [
       '181717',
       '1D1717',
@@ -180,12 +180,32 @@ describe('Ordering', () => {
       '0B2C4A',
     ];
 
-    const hexes = sortByColors(colors);
-    console.log(hexes);
-    // should not match black colors
-    await expect(hexes[0]).not.toMatch('181717');
-    await expect(hexes[1]).not.toMatch('1D1717');
+    const orderedColors = [
+      'FF0000',
+      'FF9E0F',
+      '83B81A',
+      '00A98F',
+      '0099E5',
+      '0085CA',
+      '40AEF0',
+      '0094F5',
+      '26689A',
+      '0B2C4A',
+      '004088',
+      '071D49',
+      '512BD4',
+      'A100FF',
+      'A9225C',
+      'EF2D5E',
+      '41454A',
+      '1D1717',
+      '191A1B',
+      '181717',
+      '000000',
+    ];
 
-    await expect(hexes[hexes.length - 1]).toMatch('000000');
+    const hexes = sortByColors(colors);
+    // should not match black colors
+    expect(hexes).toEqual(orderedColors);
   });
 });
