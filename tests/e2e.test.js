@@ -305,13 +305,6 @@ describe('Ordering', () => {
       const $color = await getTextContent($button);
     }
   });
-
-  // issue: https://github.com/simple-icons/simple-icons-website/issues/66
-  it('does not have a black-like color at the start', async () => {
-    // should not match black colors
-    await expect(hexes[0]).not.toMatch('181717');
-    await expect(hexes[1]).not.toMatch('1D1717');
-  });
 });
 
 describe('Preferred color scheme', () => {
