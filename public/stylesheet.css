@@ -748,7 +748,6 @@ body.order-by-relevance .grid-item {
   .footer .footer-share {
     flex-grow: 1;
     justify-content: center;
-    margin-bottom: 0.8rem;
   }
 }
 .footer .footer-share:focus,
@@ -763,6 +762,7 @@ body.order-by-relevance .grid-item {
 }
 
 .footer-repo {
+  margin-top: 0.8rem;
   flex: 0 0 100%;
   display: flex;
   flex-grow: 1;
