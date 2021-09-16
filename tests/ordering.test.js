@@ -4,6 +4,7 @@ const {
   newEventMock,
 } = require('./mocks/dom.mock.js');
 const { localStorage } = require('./mocks/local-storage.mock.js');
+
 const initOrdering = require('../public/scripts/ordering.js').default;
 const { STORAGE_KEY_ORDERING } = require('../public/scripts/storage.js');
 
