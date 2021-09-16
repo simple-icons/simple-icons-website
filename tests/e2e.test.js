@@ -1,4 +1,5 @@
-const sortColors = require('color-sorter').sortFn;
+const sortByColors = require('../scripts/color-sorting.js');
+
 const fs = require('fs');
 const path = require('path');
 const { devices } = require('puppeteer');
@@ -13,6 +14,8 @@ const {
   isHidden,
   isInViewport,
   isVisible,
+  getAttribute,
+  getTextContent,
 } = require('./helpers.js');
 
 jest.retryTimes(3);
@@ -256,7 +259,7 @@ describe('Search', () => {
 describe('Ordering', () => {
   const icons = Object.values(simpleIcons);
   const titles = icons.map((icon) => icon.title);
-  const hexes = icons.map((icon) => icon.hex).sort(sortColors);
+  const hexes = sortByColors(icons.map((icon) => icon.hex));
 
   beforeEach(async () => {
     await page.goto(url.href);
@@ -292,14 +295,14 @@ describe('Ordering', () => {
   });
 
   it.skip('orders grid items by color', async () => {
-    // Items are ordered using the CSS property `order`...
-    await expect(page).toClick('#order-color');
+    const $items = await page.$$('li.grid-item');
+    for (let i = 0; i < $items.length; i++) {
+      const $button = await $items[i].$('button.grid-item__color');
 
-    const $gridItems = await page.$$('.copy-color');
-    for (let i = 0; i < $gridItems.length; i++) {
-      const $gridItem = $gridItems[i];
-      const hex = hexes[i];
-      await expect($gridItem).toMatch(`#${hex}`);
+      const $text = await getAttribute($items[i], 'style');
+      const $idx = parseInt($text.substring(14, $text.length));
+
+      const $color = await getTextContent($button);
     }
   });
 });
