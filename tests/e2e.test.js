@@ -96,7 +96,7 @@ describe('External links', () => {
   });
 
   const menuLinksTitles = [
-    'repository',
+    'main repository',
     'npm',
     'packagist',
     'jsDelivr (Content Delivery Network)',
@@ -112,7 +112,7 @@ describe('External links', () => {
   );
 
   it('is possible to click the link for Github repository', async () => {
-    const footerRepositoryTitle = 'github repository';
+    const footerRepositoryTitle = 'website repository';
     await expect(page).toClick(`a[title="${footerRepositoryTitle}"]`);
   });
 });
