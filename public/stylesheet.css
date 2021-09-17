@@ -761,6 +761,24 @@ body.order-by-relevance .grid-item {
   margin-right: 0.75rem;
 }
 
+.footer-repo {
+  margin-top: 0.8rem;
+  flex: 0 0 100%;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.footer-repo a {
+  font-weight: 600;
+}
+
+.footer-repo a:focus,
+.footer-repo a:hover {
+  color: var(--color-button-hover);
+  text-decoration: underline;
+}
+
 /* .copy-button */
 
 .copy-button::before {
