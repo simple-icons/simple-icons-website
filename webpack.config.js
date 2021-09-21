@@ -33,6 +33,11 @@ if (process.env.TEST_ENV) {
 }
 
 module.exports = {
+  resolve: {
+    fallback: {
+      fs: false,
+    },
+  },
   entry: {
     app: path.resolve(ROOT_DIR, 'scripts/index.js'),
   },

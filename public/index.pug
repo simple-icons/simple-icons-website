@@ -149,8 +149,9 @@ html(lang="en-US")
                 download
               ) SVG
               a(
-                class="grid-item__button"
-                href=`./icons/${icon.slug}.pdf`
+                class="pdf-download grid-item__button"
+                href=`#`
+                data-slug=`${icon.slug}`
                 role="button"
                 download
               ) PDF

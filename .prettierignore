@@ -5,3 +5,7 @@
 
 # Exclude generated files
 _site/
+
+public/scripts/blob-stream.js
+public/scripts/pdfkit.standalone.js
+public/scripts/svg-to-pdfkit.js
