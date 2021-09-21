@@ -431,7 +431,7 @@ describe('Grid item', () => {
   });
 
   it('is possible to download an icon as PDF', async () => {
-    await expect(page).toClick('a[download][href$="pdf"]');
+    await expect(page).toClick('a.pdf-download');
   });
 });
 
