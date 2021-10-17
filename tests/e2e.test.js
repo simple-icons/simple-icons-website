@@ -430,9 +430,9 @@ describe('Grid item', () => {
     'is possible to download an icon "%s"',
     async (fileType) => {
       await expect(page).toClick(`button#${fileType}`);
-      await expect(page).toClick(`a[download].download-type-file`);
-    },
-  );
+      await expect(page).toClick(`a[download].download-file`);
+    });
+  });
 });
 
 describe('JavaScript disabled', () => {
