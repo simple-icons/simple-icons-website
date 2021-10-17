@@ -475,17 +475,6 @@ body.order-by-relevance #order-relevance {
   fill: var(--color-background);
 }
 
-/* Download type */
-body.download-svg a.download-svg,
-body.download-pdf a.download-pdf {
-  display: inline;
-}
-
-body:not(.download-svg) a.download-svg,
-body:not(.download-pdf) a.download-pdf {
-  display: none;
-}
-
 .grid-item__download-button {
   display: inline-block;
   fill: var(--color-button-active);
