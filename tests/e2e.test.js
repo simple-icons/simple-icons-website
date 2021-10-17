@@ -99,13 +99,13 @@ describe('External links', () => {
   });
 
   const menuLinksTitles = [
-    'main repository',
+    'Main Repository',
     'npm',
-    'packagist',
+    'Packagist',
     'jsDelivr (Content Delivery Network)',
-    'Unpkg (Content Delivery Network)',
+    'UNPKG (Content Delivery Network)',
     'Open Collective',
-    'Legal disclaimer',
+    'Legal Disclaimer',
   ];
 
   menuLinksTitles.forEach((title) =>
