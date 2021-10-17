@@ -152,20 +152,13 @@ html(lang="en-US")
                 disabled
               ) ##{icon.hex}
               a(
-                class="download-svg grid-item__download-button grid-item__button"
-                href=`./icons/${icon.slug}.svg`
+                class="download-file grid-item__download-button grid-item__button"
+                href='#'
                 role="button"
+                data-icon=`${icon.slug}`
                 download
               )
-                svg(role="img" height="12" width="12" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-labelledby="download")
-                  path(d="m11.2 0c-0.442 0-0.8 0.358-0.8 0.8v11.4l-3.14-2.76c-0.331-0.29-0.835-0.258-1.13 0.0735l-1.05 1.2c-0.293 0.333-0.259 0.84 0.0735 1.13l6.33 5.54c0.302 0.264 0.752 0.264 1.05 0l6.32-5.54c0.333-0.291 0.366-0.798 0.0735-1.13l-1.05-1.2c-0.291-0.331-0.795-0.363-1.13-0.0735l-3.14 2.76v-11.4c0-0.442-0.358-0.8-0.8-0.8zm-8 20.8c-0.442 0-0.8 0.358-0.8 0.8v1.6c0 0.442 0.358 0.8 0.8 0.8h17.6c0.442 0 0.8-0.358 0.8-0.8v-1.6c0-0.442-0.358-0.8-0.8-0.8z")               
-              a(
-                class="download-pdf grid-item__download-button grid-item__button"
-                href=`./icons/${icon.slug}.pdf`
-                role="button"
-                download
-              )
-                svg(role="img" height="12" width="12" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-labelledby="download")
+                svg(height="12" width="12" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-labelledby="download")
                   path(d="m11.2 0c-0.442 0-0.8 0.358-0.8 0.8v11.4l-3.14-2.76c-0.331-0.29-0.835-0.258-1.13 0.0735l-1.05 1.2c-0.293 0.333-0.259 0.84 0.0735 1.13l6.33 5.54c0.302 0.264 0.752 0.264 1.05 0l6.32-5.54c0.333-0.291 0.366-0.798 0.0735-1.13l-1.05-1.2c-0.291-0.331-0.795-0.363-1.13-0.0735l-3.14 2.76v-11.4c0-0.442-0.358-0.8-0.8-0.8zm-8 20.8c-0.442 0-0.8 0.358-0.8 0.8v1.6c0 0.442 0.358 0.8 0.8 0.8h17.6c0.442 0 0.8-0.358 0.8-0.8v-1.6c0-0.442-0.358-0.8-0.8-0.8z")               
 
     footer(class="footer")
