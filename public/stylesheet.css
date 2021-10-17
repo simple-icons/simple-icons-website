@@ -374,14 +374,13 @@ body.no-js .control-field__title {
 .control__button,
 .control__input {
   background-color: transparent;
-  border: 0.1rem solid var(--color-button-border);
-  border-radius: var(--border-radius-small);
   color: var(--color-text-default);
   height: 2.4rem;
   padding: 0.4rem;
 }
 
 .control__input {
+  border: 0.1rem solid var(--color-button-border);
   font-family: var(--font-family-stylized);
   outline: none;
   padding: 0.4rem 2rem 0.4rem 0.8rem;
@@ -397,13 +396,23 @@ body.no-js .control-field__title {
 }
 
 .control__button {
+  border-bottom: 0.1rem solid var(--color-button-border);
+  border-top: 0.1rem solid var(--color-button-border);
+  border-right: 0.1rem solid var(--color-button-border);
   cursor: default; /* Button should not work when JS is disabled */
   fill: var(--color-button-hover);
-  margin: 0 0.3rem;
   width: 2.4rem;
 }
 .control__button:first-of-type {
   margin-left: 0;
+  border-left: 0.1rem solid var(--color-button-border);
+  border-top-left-radius: var(--border-radius-small);
+  border-bottom-left-radius: var(--border-radius-small);
+}
+.control__button:last-of-type:not(.hidden) {
+  margin-right: 0;
+  border-top-right-radius: var(--border-radius-small);
+  border-bottom-right-radius: var(--border-radius-small);
 }
 .control__button:not(:disabled):focus,
 .control__button:not(:disabled):hover {
