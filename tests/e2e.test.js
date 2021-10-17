@@ -423,7 +423,7 @@ describe('Grid item', () => {
 
     fileTypes.forEach(async (fileType) => {
       await expect(page).toClick(`button#${fileType}`);
-      await expect(page).toClick(`a[download].${fileType}`);
+      await expect(page).toClick(`a[download].download-file`);
     });
   });
 });
