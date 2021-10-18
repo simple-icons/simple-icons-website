@@ -1,5 +1,6 @@
 import { ORDER_BY_RELEVANCE } from './ordering.js';
 import { decodeURIComponent, debounce, normalizeSearchTerm } from './utils.js';
+const { Searcher } = require('fast-fuzzy');
 
 const QUERY_PARAMETER = 'q';
 
@@ -13,21 +14,9 @@ function getQueryFromParameter(location, parameter) {
   return '';
 }
 
-function getScore(query, iconName) {
-  let score = iconName.length - query.length;
-  let index = 0;
-
-  for (const letter of query) {
-    index = iconName.indexOf(letter, index);
-    if (index === -1) {
-      return -1;
-    }
-
-    score += index;
-    index++;
-  }
-
-  return score;
+function getScore(results, iconName) {
+  const result = results.find((r) => r.original === iconName);
+  return result ? result.score : -1;
 }
 
 function setSearchQueryInURL(history, path, query) {
@@ -42,6 +31,8 @@ function setSearchQueryInURL(history, path, query) {
   }
 }
 
+const keySelector = (icon) => icon.querySelector('h2').textContent;
+
 export default function initSearch(history, document, ordering, domUtils) {
   let activeQuery = '';
 
@@ -50,6 +41,7 @@ export default function initSearch(history, document, ordering, domUtils) {
   const $orderByRelevance = document.getElementById('order-relevance');
   const $gridItemIfEmpty = document.querySelector('.grid-item--if-empty');
   const $icons = document.querySelectorAll('.grid-item[data-brand]');
+  const searcher = new Searcher($icons, { keySelector: keySelector });
 
   $searchInput.disabled = false;
   $searchInput.focus();
@@ -94,16 +86,17 @@ export default function initSearch(history, document, ordering, domUtils) {
         ordering.resetOrdering();
       }
     }
-
+    console.log($icons);
+    const results = searcher.search(query, { returnMatchData: true });
     let noResults = true;
     $icons.forEach(($icon) => {
-      const brandName = $icon.getAttribute('data-brand');
-      const score = getScore(query, brandName);
+      const brandName = $icon.querySelector('h2').textContent;
+      const score = getScore(results, brandName);
       if (score < 0) {
         $icon.style.removeProperty('--order-relevance');
         domUtils.hideElement($icon);
       } else {
-        $icon.style.setProperty('--order-relevance', score);
+        $icon.style.setProperty('--order-relevance', -1 * score);
         domUtils.showElement($icon);
         noResults = false;
       }
