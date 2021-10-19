@@ -62,7 +62,6 @@ describe('Copy', () => {
       const event = newEventMock();
       clickListener(event);
       expect(event.preventDefault).toHaveBeenCalledTimes(1);
-      expect($colorButton.blur).toHaveBeenCalledTimes(1);
       expect($colorButton.classList.add).toHaveBeenCalledWith('copied');
       expect(navigator.clipboard.writeText).toHaveBeenCalledWith(
         $colorButton.innerHTML,
@@ -118,7 +117,6 @@ describe('Copy', () => {
       const event = newEventMock();
       clickListener(event);
       expect(event.preventDefault).toHaveBeenCalledTimes(1);
-      expect($svgButton.blur).toHaveBeenCalledTimes(1);
       expect($svgButton.classList.add).toHaveBeenCalledWith('copied');
       expect(navigator.clipboard.writeText).toHaveBeenCalledWith(rawSvg);
     }
