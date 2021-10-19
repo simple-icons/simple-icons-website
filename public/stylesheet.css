@@ -409,7 +409,7 @@ body.no-js .control-field__title {
   border-top-left-radius: var(--border-radius-small);
   border-bottom-left-radius: var(--border-radius-small);
 }
-.control__button:last-of-type:not(.hidden) {
+.control__button:last-of-type {
   margin-right: 0;
   border-top-right-radius: var(--border-radius-small);
   border-bottom-right-radius: var(--border-radius-small);
