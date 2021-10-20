@@ -430,8 +430,16 @@ describe('Grid item', () => {
     'is possible to download an icon "%s"',
     async (fileType) => {
       await expect(page).toClick(`button#${fileType}`);
-      await expect(page).toClick(`a[download].download-file`);
+      await expect(page).toClick(`a[download].download-type-file`);
     });
+  });
+*/
+  it.each([
+    ['download-type-svg', 'svg'],
+    ['download-type-pdf', 'pdf'],
+  ])('is possible to download an icon in %s file type', async (fileType) => {
+    await expect(page).toClick(`button#${fileType}`);
+    await expect(page).toClick(`a[download].download-type-file`);
   });
 });
 
