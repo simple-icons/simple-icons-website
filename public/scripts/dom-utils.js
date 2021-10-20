@@ -17,9 +17,3 @@ export function toggleClass($el, clazz) {
     $el.classList.toggle(clazz);
   }
 }
-
-export function toggleClass($el, clazz) {
-  if ($el) {
-    $el.classList.toggle(clazz);
-  }
-}
