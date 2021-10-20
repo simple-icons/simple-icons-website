@@ -5,16 +5,16 @@ const SVG_DOWNLOAD_TYPE = 'svg';
 
 const DEFAULT_DOWNLOAD_TYPE = SVG_DOWNLOAD_TYPE;
 
-const CLASS_DOWNLOAD_TYPE_SVG = 'download-svg';
-const CLASS_DOWNLOAD_TYPE_PDF = 'download-pdf';
+const CLASS_DOWNLOAD_TYPE_SVG = 'download-type-svg';
+const CLASS_DOWNLOAD_TYPE_PDF = 'download-type-pdf';
 
 export default function initDownloadType(document, storage) {
   let activeDownloadType = DEFAULT_DOWNLOAD_TYPE;
 
   const $body = document.querySelector('body');
-  const $downloadPdf = document.getElementById('download-pdf');
-  const $downloadSvg = document.getElementById('download-svg');
-  const $downloadFiles = document.getElementsByClassName('download-file');
+  const $downloadPdf = document.getElementById('download-type-pdf');
+  const $downloadSvg = document.getElementById('download-type-svg');
+  const $downloadFiles = document.getElementsByClassName('download-type-file');
 
   $downloadPdf.disabled = false;
   $downloadSvg.disabled = false;
@@ -36,12 +36,6 @@ export default function initDownloadType(document, storage) {
   });
 
   for (var i = 0; i < $downloadFiles.length; i++) {
-    // svg event handler
-    $downloadFiles[i].children[0].addEventListener('click', (event) => {
-      event.preventDefault();
-      event.target.closest('a').click();
-    });
-    // link event handler
     $downloadFiles[i].addEventListener('click', (event) => {
       const slug = event.target.getAttribute('data-icon');
       const type = storage.getItem(STORAGE_KEY_DOWNLOAD_TYPE);
