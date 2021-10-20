@@ -16,7 +16,6 @@ export default function initCopyButtons(window, document, navigator) {
       event.preventDefault();
 
       const value = $colorButton.innerHTML;
-      $colorButton.blur();
       copyValue(value);
       setCopied($colorButton);
     });
@@ -32,7 +31,6 @@ export default function initCopyButtons(window, document, navigator) {
       const base64Svg = srcValue.replace('data:image/svg+xml;base64,', '');
 
       const value = window.atob(base64Svg);
-      $svgButton.blur();
       copyValue(value);
       setCopied($svgButton);
     });
@@ -45,7 +43,6 @@ export default function initCopyButtons(window, document, navigator) {
       $copyInput.value = value;
       $copyInput.select();
       document.execCommand('copy');
-      $copyInput.blur();
     }
   }
 }

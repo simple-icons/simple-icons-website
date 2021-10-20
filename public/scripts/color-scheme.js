@@ -29,17 +29,14 @@ export default function initColorScheme(document, storage) {
   $colorSchemeDark.addEventListener('click', (event) => {
     event.preventDefault();
     selectColorScheme(COLOR_SCHEME_DARK);
-    $colorSchemeDark.blur();
   });
   $colorSchemeLight.addEventListener('click', (event) => {
     event.preventDefault();
     selectColorScheme(COLOR_SCHEME_LIGHT);
-    $colorSchemeLight.blur();
   });
   $colorSchemeSystem.addEventListener('click', (event) => {
     event.preventDefault();
     selectColorScheme(COLOR_SCHEME_SYSTEM);
-    $colorSchemeSystem.blur();
   });
 
   function selectColorScheme(selected) {

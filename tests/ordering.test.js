@@ -46,7 +46,6 @@ describe('Ordering', () => {
     const event = newEventMock();
     clickListener(event);
     expect(event.preventDefault).toHaveBeenCalledTimes(1);
-    expect($orderAlphabetically.blur).toHaveBeenCalledTimes(1);
     expect(localStorage.setItem).toHaveBeenCalledWith(
       STORAGE_KEY_ORDERING,
       'alphabetically',
@@ -85,7 +84,6 @@ describe('Ordering', () => {
     const event = newEventMock();
     clickListener(event);
     expect(event.preventDefault).toHaveBeenCalledTimes(1);
-    expect($orderByColor.blur).toHaveBeenCalledTimes(1);
     expect(localStorage.setItem).toHaveBeenCalledWith(
       STORAGE_KEY_ORDERING,
       'color',
@@ -120,7 +118,6 @@ describe('Ordering', () => {
     const event = newEventMock();
     clickListener(event);
     expect(event.preventDefault).toHaveBeenCalledTimes(1);
-    expect($orderByRelevance.blur).toHaveBeenCalledTimes(1);
   });
 
   it('uses alphabetical ordering if no value is stored', () => {

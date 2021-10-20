@@ -156,21 +156,6 @@ describe('Search', () => {
 
       done();
     });
-
-    it('works if change event is fired', () => {
-      expect($searchInput.addEventListener).toHaveBeenCalledWith(
-        'change',
-        expect.any(Function),
-      );
-
-      const searchListener = inputEventListeners.get('change');
-      const event = newEventMock();
-
-      $searchInput.value = 'Hello world!';
-      searchListener(event);
-
-      expect($searchInput.blur).toHaveBeenCalled();
-    });
   });
 
   describe('URL query', () => {
