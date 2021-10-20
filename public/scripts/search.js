@@ -73,7 +73,7 @@ export default function initSearch(history, document, ordering, domUtils) {
   function search(rawQuery) {
     setSearchQueryInURL(history, document.location.pathname, rawQuery);
     const query = normalizeSearchTerm(rawQuery);
-    if (query !== '') {
+    if (!query) {
       domUtils.showElement($searchClear);
       domUtils.showElement($orderByRelevance);
       if (activeQuery === '') {
@@ -86,7 +86,6 @@ export default function initSearch(history, document, ordering, domUtils) {
         ordering.resetOrdering();
       }
     }
-    console.log($icons);
     const results = searcher.search(query, { returnMatchData: true });
     let noResults = true;
     $icons.forEach(($icon) => {
