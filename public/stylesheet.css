@@ -381,6 +381,7 @@ body.no-js .control-field__title {
 
 .control__input {
   border: 0.1rem solid var(--color-button-border);
+  border-radius: var(--border-radius-small);
   font-family: var(--font-family-stylized);
   outline: none;
   padding: 0.4rem 2rem 0.4rem 0.8rem;
@@ -396,20 +397,20 @@ body.no-js .control-field__title {
 }
 
 .control__button {
-  border-bottom: 0.1rem solid var(--color-button-border);
-  border-top: 0.1rem solid var(--color-button-border);
-  border-right: 0.1rem solid var(--color-button-border);
+  border: 0.1rem solid var(--color-button-border);
+  border-left-width: 0;
   cursor: default; /* Button should not work when JS is disabled */
   fill: var(--color-button-hover);
   width: 2.4rem;
 }
-.control__button:first-of-type {
+.first__button {
   margin-left: 0;
+  //border: 0.1rem solid var(--color-button-border);
   border-left: 0.1rem solid var(--color-button-border);
   border-top-left-radius: var(--border-radius-small);
   border-bottom-left-radius: var(--border-radius-small);
 }
-.control__button:last-of-type {
+.last__button {
   margin-right: 0;
   border-top-right-radius: var(--border-radius-small);
   border-bottom-right-radius: var(--border-radius-small);

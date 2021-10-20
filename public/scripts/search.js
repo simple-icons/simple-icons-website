@@ -47,6 +47,7 @@ export default function initSearch(history, document, ordering, domUtils) {
 
   const $searchInput = document.getElementById('search-input');
   const $searchClear = document.getElementById('search-clear');
+  const $orderByColor = document.getElementById('order-color');
   const $orderByRelevance = document.getElementById('order-relevance');
   const $gridItemIfEmpty = document.querySelector('.grid-item--if-empty');
   const $icons = document.querySelectorAll('.grid-item[data-brand]');
@@ -84,12 +85,16 @@ export default function initSearch(history, document, ordering, domUtils) {
     if (query !== '') {
       domUtils.showElement($searchClear);
       domUtils.showElement($orderByRelevance);
+      domUtils.toggleClass($orderByRelevance, 'last__button');
+      domUtils.toggleClass($orderByColor, 'last__button');
       if (activeQuery === '') {
         ordering.selectOrdering(ORDER_BY_RELEVANCE);
       }
     } else {
       domUtils.hideElement($searchClear);
       domUtils.hideElement($orderByRelevance);
+      domUtils.toggleClass($orderByRelevance, 'last__button');
+      domUtils.toggleClass($orderByColor, 'last__button');
       if (ordering.currentOrderingIs(ORDER_BY_RELEVANCE)) {
         ordering.resetOrdering();
       }
