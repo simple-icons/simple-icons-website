@@ -1,9 +1,14 @@
-const { hideElement, showElement } = require('../public/scripts/dom-utils.js');
+const {
+  hideElement,
+  showElement,
+  toggleClass,
+} = require('../public/scripts/dom-utils.js');
 
 const $el = {
   classList: {
     add: jest.fn().mockName('$el.classList.add'),
     remove: jest.fn().mockName('$el.classList.remove'),
+    toggle: jest.fn().mockName('$el.classList.toggle'),
   },
   removeAttribute: jest.fn().mockName('$el.removeAttribute'),
   setAttribute: jest.fn().mockName('$el.setAttribute'),
@@ -40,5 +45,27 @@ describe('::showElement', () => {
   it('removes the aria-hidden attribute', () => {
     showElement($el);
     expect($el.removeAttribute).toHaveBeenCalledWith('aria-hidden');
+  });
+});
+
+describe('::toggleClass', () => {
+  beforeEach(() => {
+    $el.classList.toggle.mockReset();
+  });
+
+  it('toggles a CSS class for addition/removal', () => {
+    toggleClass($el, 'last__button');
+    expect($el.classList.toggle).toHaveBeenCalledWith('last__button');
+  });
+});
+
+describe('::toggleClass', () => {
+  beforeEach(() => {
+    $el.classList.toggle.mockReset();
+  });
+
+  it('toggles a CSS class for addition/removal', () => {
+    toggleClass($el, 'last__button');
+    expect($el.classList.toggle).toHaveBeenCalledWith('last__button');
   });
 });
