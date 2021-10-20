@@ -407,10 +407,8 @@ body.no-js .control-field__title {
 }
 .control__button:not(:disabled):focus,
 .control__button:not(:disabled):hover {
-  background-color: var(--color-button-hover) !important;
-  border-color: var(--color-button-hover) !important;
+  box-shadow: 0 0 3px 0 var(--color-shadows);
   cursor: pointer;
-  fill: var(--color-background);
 }
 
 /* Control - disabled */
