@@ -428,9 +428,9 @@ describe('Grid item', () => {
   });
 */
   it.each([
-    ['download-type-svg', 'svg'],
-    ['download-type-pdf', 'pdf'],
-  ])('is possible to download an icon in %s file type', async (fileType) => {
+    'download-type-svg',
+    'download-type-pdf',
+  ])('is possible to download an icon (%s)', async (fileType) => {
     await expect(page).toClick(`button#${fileType}`);
     await expect(page).toClick(`a[download].download-type-file`);
   });
