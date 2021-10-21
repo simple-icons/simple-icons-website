@@ -35,7 +35,7 @@ export default function initDownloadType(document, storage) {
     $downloadSvg.blur();
   });
 
-  for (var i = 0; i < $downloadFiles.length; i++) {
+  for (let i = 0; i < $downloadFiles.length; i++) {
     $downloadFiles[i].addEventListener('click', (event) => {
       const slug = event.target.getAttribute('data-icon');
       const type = storage.getItem(STORAGE_KEY_DOWNLOAD_TYPE);
