@@ -417,23 +417,14 @@ describe('Grid item', () => {
     const clipboardValue = await getClipboardValue(page);
     expect(clipboardValue).toMatch(SVG_REGEX);
   });
-  /*
-  it("is possible to download an icon in all existing file types", async () => {
-    const fileTypes = ["download-type-svg", "download-type-pdf"];
 
-    fileTypes.forEach(async (fileType) => {
+  it.each(['download-type-svg', 'download-type-pdf'])(
+    'is possible to download an icon "%s"',
+    async (fileType) => {
       await expect(page).toClick(`button#${fileType}`);
       await expect(page).toClick(`a[download].download-type-file`);
-    });
-  });
-*/
-  it.each([
-    'download-type-svg',
-    'download-type-pdf',
-  ])('is possible to download an icon (%s)', async (fileType) => {
-    await expect(page).toClick(`button#${fileType}`);
-    await expect(page).toClick(`a[download].download-type-file`);
-  });
+    },
+  );
 });
 
 describe('JavaScript disabled', () => {
