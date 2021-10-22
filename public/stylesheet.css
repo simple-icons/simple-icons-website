@@ -216,6 +216,37 @@ a {
   text-decoration: none;
 }
 
+/* Modal */
+
+.popup-trigger {
+  display: inline-block;
+}
+
+.popup_modal {
+  height: 365px;
+  width: 650px;
+  background-color: #fff;
+  position: absolute;
+  left: 55%;
+  top: 25%;
+  padding: 45px;
+  transition: all 300ms ease-in-out;
+  border: 0.1rem solid var(--color-button-border);
+  box-shadow: 2px 2px;
+  z-index: 2011;
+}
+
+.popup__close {
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 2011;
+}
+
+.is__visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 /* Header */
 
 .header {

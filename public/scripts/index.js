@@ -7,6 +7,7 @@ import initCopyButtons from './copy.js';
 import initColorScheme from './color-scheme.js';
 import initOrdering from './ordering.js';
 import initSearch from './search.js';
+import initModal from './modal.js';
 
 document.body.classList.remove('no-js');
 
@@ -15,3 +16,4 @@ initColorScheme(document, storage);
 initCopyButtons(window, document, navigator);
 const orderingControls = initOrdering(document, storage);
 initSearch(window.history, document, orderingControls, domUtils);
+initModal(document, domUtils);
