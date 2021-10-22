@@ -431,16 +431,8 @@ describe('Grid item', () => {
     async (fileType) => {
       await expect(page).toClick(`button#${fileType}`);
       await expect(page).toClick(`a[download].download-type-file`);
-    });
-  });
-*/
-  it.each([
-    'download-type-svg',
-    'download-type-pdf',
-  ])('is possible to download an icon (%s)', async (fileType) => {
-    await expect(page).toClick(`button#${fileType}`);
-    await expect(page).toClick(`a[download].download-type-file`);
-  });
+    },
+  );
 });
 
 describe('JavaScript disabled', () => {
