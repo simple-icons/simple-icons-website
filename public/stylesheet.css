@@ -404,14 +404,11 @@ body.no-js .control-field__title {
   width: 2.4rem;
 }
 .first__button {
-  margin-left: 0;
-  //border: 0.1rem solid var(--color-button-border);
-  border-left: 0.1rem solid var(--color-button-border);
+  border-left-width: 0.1rem;
   border-top-left-radius: var(--border-radius-small);
   border-bottom-left-radius: var(--border-radius-small);
 }
 .last__button {
-  margin-right: 0;
   border-top-right-radius: var(--border-radius-small);
   border-bottom-right-radius: var(--border-radius-small);
 }
