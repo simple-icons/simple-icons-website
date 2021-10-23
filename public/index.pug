@@ -26,12 +26,28 @@ html(lang="en-US")
     link(rel="canonical" href=pageUrl)
 
   body(class="no-js order-alphabetically")
-    div(class="popup_modal hidden")
-      button(class="popup__close") close
-      div(class="popup-body") #{readme}
-        p.
-          A #[a(href="https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md") CC0] project maintained
-          by the #[a(href="https://github.com/simple-icons/simple-icons/graphs/contributors") Simple Icons Contributors].
+    div(class="popup_modal popup__top hidden")
+      div(class="popup-body") 
+        table(class="extensions__table")
+          tr
+            td Extensions
+            td Author 
+          each ext in extensions
+            tr
+              td            
+                a(
+                    class="link-button"
+                    href=ext.urlModule
+                    rel="noopener"
+                    target="_blank"
+                  ) #{ext.nameModule}
+              td
+                a(
+                  class="link-button"
+                  href=ext.urlAuthor
+                  rel="noopener"
+                  target="_blank"
+                ) #{ext.nameAuthor}
         
     header(class="header")
       ul(class="header__list")
@@ -122,7 +138,48 @@ html(lang="en-US")
           src="//cdn.carbonads.com/carbon.js?serve=CKYIPK7M&placement=simpleiconsorg"
           type="text/javascript"
         )
-
+        each icon in icons
+          li(class="grid-item" style=`--order-color: ${icon.indexByColor}` data-brand=`${icon.normalizedName}`)
+            div(class="grid-item__row mv-2 fg-2")
+              button(class="grid-item__preview copy-button copy-svg" title=`${icon.title} SVG` disabled)
+                img(src=`data:image/svg+xml;base64,${icon.base64Svg}` loading="lazy" class="icon-preview" alt=`${icon.title} icon`)
+            div(class="grid-item__row")
+              if icon.guidelines
+                a(
+                  class="grid-item__link link-button"
+                  title=`${icon.title} guidelines`
+                  href=icon.guidelines
+                  rel="noopener"
+                  target="_blank"
+                ) Brand Guidelines
+              if icon.license
+                a(
+                  class="grid-item__link link-button icon-legal"
+                  title=`${icon.title} icon license`
+                  href=icon.license.url
+                  rel="noopener"
+                  target="_blank"
+                ) #{icon.license.type}
+              h2(class="grid-item__title") #{icon.title}
+            div(class="grid-item__footer")
+              button(
+                class=`grid-item__color copy-button copy-color ${icon.light ? "contrast-light" : "contrast-dark"} ${icon.superLight ? "border-light" : ""}  ${icon.superDark ? "border-dark" : ""}`
+                style=`background-color: #${icon.shortHex}`
+                title=`${icon.title} color`
+                disabled
+              ) ##{icon.hex}
+              a(
+                class="grid-item__button"
+                href=`./icons/${icon.slug}.svg`
+                role="button"
+                download
+              ) SVG
+              a(
+                class="grid-item__button"
+                href=`./icons/${icon.slug}.pdf`
+                role="button"
+                download
+              ) PDF
     footer(class="footer")
       div(class="footer-description")
         p.
