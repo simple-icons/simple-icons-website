@@ -57,3 +57,20 @@ describe('::toggleVisibleElement', () => {
     expect($el.toggleAttribute).toHaveBeenCalledWith('aria-hidden');
   });
 });
+
+describe('::toggleVisibleElement', () => {
+  beforeEach(() => {
+    $el.classList.toggle.mockReset();
+    $el.toggleAttribute.mockReset();
+  });
+
+  it('toggles the .hidden class', () => {
+    toggleVisibleElement($el);
+    expect($el.classList.toggle).toHaveBeenCalledWith('hidden');
+  });
+
+  it('toggles the aria-hidden attribute', () => {
+    toggleVisibleElement($el);
+    expect($el.toggleAttribute).toHaveBeenCalledWith('aria-hidden');
+  });
+});
