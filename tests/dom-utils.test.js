@@ -1,4 +1,8 @@
-const { hideElement, showElement } = require('../public/scripts/dom-utils.js');
+const {
+  hideElement,
+  showElement,
+  toggleVisibleElement,
+} = require('../public/scripts/dom-utils.js');
 
 const $el = {
   classList: {
