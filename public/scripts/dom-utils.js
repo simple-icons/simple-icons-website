@@ -11,3 +11,10 @@ export function showElement($el) {
     $el.removeAttribute('aria-hidden');
   }
 }
+
+export function toggleVisibleElement($el) {
+  if ($el) {
+    $el.classList.toggle('hidden');
+    $el.toggleAttribute('aria-hidden');
+  }
+}

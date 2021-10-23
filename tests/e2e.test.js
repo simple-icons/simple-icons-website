@@ -106,17 +106,25 @@ describe('External links', () => {
     'UNPKG (Content Delivery Network)',
     'Open Collective',
     'Legal Disclaimer',
+    'Third party extensions',
   ];
 
   menuLinksTitles.forEach((title) =>
     it(`is possible to click the link for ${title}`, async () => {
-      await expect(page).toClick(`a[title="${title}"]`);
+      await expect(page).toClick(`a[title='${title}']`);
     }),
   );
 
   it('is possible to click the link for Github repository', async () => {
     const footerRepositoryTitle = 'website repository';
-    await expect(page).toClick(`a[title="${footerRepositoryTitle}"]`);
+    await expect(page).toClick(`a[title='${footerRepositoryTitle}']`);
+  });
+
+  it('is possible to click extensions link', async () => {
+    const extensionPopupLinks = await page.$$('.extensions__table a');
+    extensionPopupLinks.forEach((link) =>
+      expect(page).toClick(link.getProperty('innerText')),
+    );
   });
 });
 
@@ -427,11 +435,11 @@ describe('Grid item', () => {
   });
 
   it('is possible to download an icon as SVG', async () => {
-    await expect(page).toClick('a[download][href$="svg"]');
+    await expect(page).toClick("a[download][href$='svg']");
   });
 
   it('is possible to download an icon as PDF', async () => {
-    await expect(page).toClick('a[download][href$="pdf"]');
+    await expect(page).toClick("a[download][href$='pdf']");
   });
 });
 
