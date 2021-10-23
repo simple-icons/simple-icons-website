@@ -99,11 +99,11 @@ describe('Search', () => {
 
       expect(domUtils.showElement).toHaveBeenCalledWith($searchClear);
       expect(domUtils.showElement).toHaveBeenCalledWith($orderByRelevance);
-      expect(domUtils.toggleClass).toHaveBeenCalledWith(
+      expect(domUtils.addClass).toHaveBeenCalledWith(
         $orderByRelevance,
         'last__button',
       );
-      expect(domUtils.toggleClass).toHaveBeenCalledWith(
+      expect(domUtils.removeClass).toHaveBeenCalledWith(
         $orderByColor,
         'last__button',
       );
@@ -136,11 +136,11 @@ describe('Search', () => {
 
       expect(domUtils.hideElement).toHaveBeenCalledWith($searchClear);
       expect(domUtils.hideElement).toHaveBeenCalledWith($orderByRelevance);
-      expect(domUtils.toggleClass).toHaveBeenCalledWith(
+      expect(domUtils.removeClass).toHaveBeenCalledWith(
         $orderByRelevance,
         'last__button',
       );
-      expect(domUtils.toggleClass).toHaveBeenCalledWith(
+      expect(domUtils.addClass).toHaveBeenCalledWith(
         $orderByColor,
         'last__button',
       );
@@ -172,11 +172,11 @@ describe('Search', () => {
 
       expect(domUtils.hideElement).toHaveBeenCalledWith($searchClear);
       expect(domUtils.hideElement).toHaveBeenCalledWith($orderByRelevance);
-      expect(domUtils.toggleClass).toHaveBeenCalledWith(
+      expect(domUtils.removeClass).toHaveBeenCalledWith(
         $orderByRelevance,
         'last__button',
       );
-      expect(domUtils.toggleClass).toHaveBeenCalledWith(
+      expect(domUtils.addClass).toHaveBeenCalledWith(
         $orderByColor,
         'last__button',
       );
@@ -224,7 +224,8 @@ describe('Search', () => {
 
       expect($searchInput.value).toEqual(expected);
       expect(domUtils.showElement).toHaveBeenCalled();
-      expect(domUtils.toggleClass).toHaveBeenCalled();
+      expect(domUtils.addClass).toHaveBeenCalled();
+      expect(domUtils.removeClass).toHaveBeenCalled();
       expect(history.replaceState).toHaveBeenCalled();
       expect(ordering.selectOrdering).toHaveBeenCalled();
     });
