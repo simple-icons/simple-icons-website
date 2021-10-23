@@ -12,6 +12,18 @@ export function showElement($el) {
   }
 }
 
+export function addClass($el, clazz) {
+  if ($el) {
+    $el.classList.add(clazz);
+  }
+}
+
+export function removeClass($el, clazz) {
+  if ($el) {
+    $el.classList.remove(clazz);
+  }
+}
+
 export function toggleClass($el, clazz) {
   if ($el) {
     $el.classList.toggle(clazz);

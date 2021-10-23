@@ -85,16 +85,16 @@ export default function initSearch(history, document, ordering, domUtils) {
     if (query !== '') {
       domUtils.showElement($searchClear);
       domUtils.showElement($orderByRelevance);
-      domUtils.toggleClass($orderByRelevance, 'last__button');
-      domUtils.toggleClass($orderByColor, 'last__button');
+      domUtils.addClass($orderByRelevance, 'last__button');
+      domUtils.removeClass($orderByColor, 'last__button');
       if (activeQuery === '') {
         ordering.selectOrdering(ORDER_BY_RELEVANCE);
       }
     } else {
       domUtils.hideElement($searchClear);
       domUtils.hideElement($orderByRelevance);
-      domUtils.toggleClass($orderByRelevance, 'last__button');
-      domUtils.toggleClass($orderByColor, 'last__button');
+      domUtils.removeClass($orderByRelevance, 'last__button');
+      domUtils.addClass($orderByColor, 'last__button');
       if (ordering.currentOrderingIs(ORDER_BY_RELEVANCE)) {
         ordering.resetOrdering();
       }
