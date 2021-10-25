@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:17-alpine
 
 # Install system dependencies and development tools
 RUN apk add --no-cache \
