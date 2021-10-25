@@ -18,7 +18,7 @@
     "build:watch": "npm run build:dev -- --watch",
     "clean": "rm -rf _site tests/_artifacts",
     "format": "prettier --write .",
-    "lint": "prettier --check --single-quote --trailing-comma all .",
+    "lint": "prettier --check .",
     "postinstall": "run-s setup:husky setup:pdfs",
     "serve": "anywhere -p 8080 -d ./_site",
     "serve:watch": "run-p build:watch serve",
