@@ -4,8 +4,8 @@ const getRelativeLuminance = require('get-relative-luminance').default;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+const fs = require('fs');
 const simpleIcons = require('simple-icons');
-const fetch = require('sync-fetch');
 const { normalizeSearchTerm } = require('./public/scripts/utils.js');
 const sortByColors = require('./scripts/color-sorting.js');
 
@@ -17,10 +17,11 @@ const OUT_DIR = path.resolve(__dirname, '_site');
 const ROOT_DIR = path.resolve(__dirname, 'public');
 
 function parseExtensions() {
-  const response = fetch(
-    'https://raw.githubusercontent.com/simple-icons/simple-icons/develop/README.md',
+  const readmePath = path.resolve(
+    __dirname,
+    'node_modules/simple-icons/README.md',
   );
-  const body = response.text();
+  const body = fs.readFileSync(readmePath, 'utf8');
   const extRegExp = /## Third-Party Extensions\n\n(.*)\[slug\]/gs;
   return Array.from(body.match(extRegExp))[0]
     .split('\n')
