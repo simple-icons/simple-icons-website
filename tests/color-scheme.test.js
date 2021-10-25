@@ -46,7 +46,6 @@ describe('Color scheme', () => {
     const event = newEventMock();
     clickListener(event);
     expect(event.preventDefault).toHaveBeenCalledTimes(1);
-    expect($colorSchemeDark.blur).toHaveBeenCalledTimes(1);
     expect(localStorage.setItem).toHaveBeenCalledWith(
       STORAGE_KEY_COLOR_SCHEME,
       'dark',
@@ -85,7 +84,6 @@ describe('Color scheme', () => {
     const event = newEventMock();
     clickListener(event);
     expect(event.preventDefault).toHaveBeenCalledTimes(1);
-    expect($colorSchemeLight.blur).toHaveBeenCalledTimes(1);
     expect(localStorage.setItem).toHaveBeenCalledWith(
       STORAGE_KEY_COLOR_SCHEME,
       'light',
@@ -124,7 +122,6 @@ describe('Color scheme', () => {
     const event = newEventMock();
     clickListener(event);
     expect(event.preventDefault).toHaveBeenCalledTimes(1);
-    expect($colorSchemeSystem.blur).toHaveBeenCalledTimes(1);
     expect(localStorage.setItem).toHaveBeenCalledWith(
       STORAGE_KEY_COLOR_SCHEME,
       'system',
