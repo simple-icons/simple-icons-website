@@ -403,10 +403,6 @@ body.no-js .control-field__title {
   width: 2.4rem;
 }
 
-.control__button__download {
-  padding: 1px;
-}
-
 .control__button:first-of-type {
   margin-left: 0;
 }
@@ -478,17 +474,10 @@ body.order-by-relevance #order-relevance {
   fill: var(--color-background);
 }
 
-.grid-item__download-button {
-  display: inline-block;
-  fill: var(--color-button-active);
-}
+<<<<<<< Updated upstream
+=======
 
-.grid-item__download-button:hover,
-.grid-item__download-button:focus {
-  fill: var(--color-background);
-  background-color: var(--color-button-active);
-}
-
+>>>>>>> Stashed changes
 /* Control - color */
 body.download-type-pdf #download-type-pdf,
 body.download-type-svg #download-type-svg,
@@ -645,19 +634,20 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 }
 
 .grid-item__button {
+  fill: var(--color-button-active);
   border-top: 1px solid var(--color-grid-item-divider);
   background-color: var(--color-background);
-  color: var(--color-button-active);
   flex-grow: 1;
   font-family: var(--font-family-stylized);
   font-size: 0.75rem;
   font-weight: 600;
-  outline: none;
   padding: 8px;
   text-align: center;
 }
 .grid-item__button:focus,
 .grid-item__button:hover {
+  fill: var(--color-background);
+  background-color: var(--color-button-active);
   background: var(--color-button-hover);
   color: var(--color-button-text-hover);
 }

@@ -102,11 +102,11 @@ html(lang="en-US")
         div(class="control-field")
           label(class="control-field__title") Download
           div(class="control-field__row")
-            button(id="download-type-pdf" class="control__button control__button__download" title="download PDF" disabled)
+            button(id="download-type-pdf" class="control__button" title="download PDF" disabled)
               svg(viewBox="0 0 24 24" aria-labelledby="download-type-svg")
                 use(href="./images/sprite.svg#download-type-pdf")
-            button(id="download-type-svg" class="control__button control__button__download" title="download SVG" disabled)
-              svg(viewBox="0 0 24 24" aria-labelledby="download-type-svg")
+            button(id="download-type-svg" class="control__button" title="download SVG" disabled)
+              svg(height="32" viewBox="0 0 24 24" aria-labelledby="download-type-svg")
                 use(href="./images/sprite.svg#download-type-svg")
 
       ul(class="grid")
@@ -152,7 +152,7 @@ html(lang="en-US")
                 disabled
               ) ##{icon.hex}
               a(
-                class="grid-item__download-button grid-item__button"
+                class="grid-item__button"
                 href=`./icons/${icon.slug}.svg`
                 role="button"
                 data-icon=`${icon.slug}`
