@@ -482,18 +482,27 @@ body.order-by-relevance #order-relevance {
 }
 
 <<<<<<< Updated upstream
+<<<<<<< HEAD
 =======
 <<<<<<< Updated upstream
+=======
+>>>>>>> eb0818c0a689b417f8c9d9ed68b4e6657c7225ef
 <<<<<<< Updated upstream
 =======
 =======
 >>>>>>> Stashed changes
 
 >>>>>>> Stashed changes
+<<<<<<< HEAD
 >>>>>>> Stashed changes
 /* Control - color */
 body.download-pdf #download-pdf,
 body.download-svg #download-svg,
+=======
+/* Control - color */
+body.download-type-pdf #download-type-pdf,
+body.download-type-svg #download-type-svg,
+>>>>>>> eb0818c0a689b417f8c9d9ed68b4e6657c7225ef
 body.dark #color-scheme-dark,
 body.light #color-scheme-light,
 body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
@@ -660,6 +669,8 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 
 .grid-item__button:focus,
 .grid-item__button:hover {
+  fill: var(--color-background);
+  background-color: var(--color-button-active);
   background: var(--color-button-hover);
   fill: var(--color-button-text-hover);
 }
