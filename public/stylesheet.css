@@ -378,6 +378,13 @@ body.no-js .control-field__title {
   border-radius: var(--border-radius-small);
   color: var(--color-text-default);
   height: 2.4rem;
+}
+
+.padding_min {
+  padding: 1px;
+}
+
+.padding_large {
   padding: 0.4rem;
 }
 
@@ -475,7 +482,10 @@ body.order-by-relevance #order-relevance {
 }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 
 >>>>>>> Stashed changes
 /* Control - color */
