@@ -489,10 +489,6 @@ body.order-by-relevance #order-relevance {
   background-color: var(--color-button-active);
 }
 
-.download-type-file svg {
-  pointer-events: none;
-}
-
 /* Control - color */
 body.download-type-pdf #download-type-pdf,
 body.download-type-svg #download-type-svg,
