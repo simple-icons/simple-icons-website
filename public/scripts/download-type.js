@@ -5,16 +5,16 @@ const SVG_DOWNLOAD_TYPE = 'svg';
 
 const DEFAULT_DOWNLOAD_TYPE = SVG_DOWNLOAD_TYPE;
 
-const CLASS_DOWNLOAD_TYPE_SVG = 'download-type-svg';
-const CLASS_DOWNLOAD_TYPE_PDF = 'download-type-pdf';
+const CLASS_DOWNLOAD_TYPE_SVG = 'download-svg';
+const CLASS_DOWNLOAD_TYPE_PDF = 'download-pdf';
 
 export default function initDownloadType(document, storage) {
   let activeDownloadType = DEFAULT_DOWNLOAD_TYPE;
 
   const $body = document.querySelector('body');
-  const $downloadPdf = document.getElementById('download-type-pdf');
-  const $downloadSvg = document.getElementById('download-type-svg');
-  const $downloadFiles = document.getElementsByClassName('download-type-file');
+  const $downloadPdf = document.getElementById('download-pdf');
+  const $downloadSvg = document.getElementById('download-svg');
+  const $downloadFiles = document.getElementsByClassName('grid-item__button');
 
   $downloadPdf.disabled = false;
   $downloadSvg.disabled = false;

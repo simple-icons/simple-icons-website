@@ -378,11 +378,7 @@ body.no-js .control-field__title {
   height: 2.4rem;
 }
 
-.padding_min {
-  padding: 1px;
-}
-
-.padding_large {
+.control__button__padding {
   padding: 0.4rem;
 }
 
@@ -485,16 +481,9 @@ body.order-by-relevance #order-relevance {
   fill: var(--color-background);
 }
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-
->>>>>>> Stashed changes
 /* Control - color */
-body.download-type-pdf #download-type-pdf,
-body.download-type-svg #download-type-svg,
+body.download-pdf #download-pdf,
+body.download-svg #download-svg,
 body.dark #color-scheme-dark,
 body.light #color-scheme-light,
 body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
@@ -658,12 +647,11 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   padding: 8px;
   text-align: center;
 }
+
 .grid-item__button:focus,
 .grid-item__button:hover {
-  fill: var(--color-background);
-  background-color: var(--color-button-active);
   background: var(--color-button-hover);
-  color: var(--color-button-text-hover);
+  fill: var(--color-button-text-hover);
 }
 
 /* Carbon ads */
