@@ -3,6 +3,7 @@ const {
   newElementMock,
   newEventMock,
 } = require('./mocks/dom.mock.js');
+const { history } = require('./mocks/history.mock.js');
 const { localStorage } = require('./mocks/local-storage.mock.js');
 
 const initColorScheme = require('../public/scripts/color-scheme.js').default;
@@ -32,7 +33,7 @@ describe('Color scheme', () => {
       return newElementMock(query);
     });
 
-    initColorScheme(document, localStorage);
+    initColorScheme(document, history, localStorage);
     expect(document.getElementById).toHaveBeenCalledWith('color-scheme-dark');
     expect($colorSchemeDark.disabled).toBe(false);
     expect($colorSchemeDark.addEventListener).toHaveBeenCalledWith(
@@ -70,7 +71,7 @@ describe('Color scheme', () => {
       return newElementMock(query);
     });
 
-    initColorScheme(document, localStorage);
+    initColorScheme(document, history, localStorage);
     expect(document.getElementById).toHaveBeenCalledWith('color-scheme-light');
     expect($colorSchemeLight.disabled).toBe(false);
     expect($colorSchemeLight.addEventListener).toHaveBeenCalledWith(
@@ -108,7 +109,7 @@ describe('Color scheme', () => {
       return newElementMock(query);
     });
 
-    initColorScheme(document, localStorage);
+    initColorScheme(document, history, localStorage);
     expect(document.getElementById).toHaveBeenCalledWith('color-scheme-system');
     expect($colorSchemeSystem.disabled).toBe(false);
     expect($colorSchemeSystem.addEventListener).toHaveBeenCalledWith(
@@ -129,7 +130,7 @@ describe('Color scheme', () => {
   });
 
   it('uses the system color scheme if no value is stored', () => {
-    initColorScheme(document, localStorage);
+    initColorScheme(document, history, localStorage);
     expect(localStorage.hasItem).toHaveBeenCalledWith(STORAGE_KEY_COLOR_SCHEME);
     expect(localStorage.getItem).not.toHaveBeenCalled();
     expect(localStorage.setItem).not.toHaveBeenCalled();
@@ -139,11 +140,15 @@ describe('Color scheme', () => {
     const storedValue = 'dark';
     localStorage.__setStoredValueFor(STORAGE_KEY_COLOR_SCHEME, storedValue);
 
-    initColorScheme(document, localStorage);
+    initColorScheme(document, history, localStorage);
     expect(localStorage.hasItem).toHaveBeenCalledWith(STORAGE_KEY_COLOR_SCHEME);
     expect(localStorage.getItem).toHaveBeenCalledWith(STORAGE_KEY_COLOR_SCHEME);
     expect(document.$body.classList.add).toHaveBeenCalledWith('dark');
-    expect(document.$body.classList.remove).toHaveBeenCalledWith('light');
+    expect(document.$body.classList.remove).toHaveBeenCalledWith(
+      'dark',
+      'light',
+      'system',
+    );
     expect(localStorage.setItem).toHaveBeenCalledTimes(1);
     expect(localStorage.setItem).toHaveBeenCalledWith(
       STORAGE_KEY_COLOR_SCHEME,
@@ -155,11 +160,15 @@ describe('Color scheme', () => {
     const storedValue = 'light';
     localStorage.__setStoredValueFor(STORAGE_KEY_COLOR_SCHEME, storedValue);
 
-    initColorScheme(document, localStorage);
+    initColorScheme(document, history, localStorage);
     expect(localStorage.hasItem).toHaveBeenCalledWith(STORAGE_KEY_COLOR_SCHEME);
     expect(localStorage.getItem).toHaveBeenCalledWith(STORAGE_KEY_COLOR_SCHEME);
     expect(document.$body.classList.add).toHaveBeenCalledWith('light');
-    expect(document.$body.classList.remove).toHaveBeenCalledWith('dark');
+    expect(document.$body.classList.remove).toHaveBeenCalledWith(
+      'dark',
+      'light',
+      'system',
+    );
     expect(localStorage.setItem).toHaveBeenCalledTimes(1);
     expect(localStorage.setItem).toHaveBeenCalledWith(
       STORAGE_KEY_COLOR_SCHEME,
@@ -170,8 +179,8 @@ describe('Color scheme', () => {
   it('uses the stored value "system"', () => {
     const storedValue = 'system';
     localStorage.__setStoredValueFor(STORAGE_KEY_COLOR_SCHEME, storedValue);
-
-    initColorScheme(document, localStorage);
+    document.location.href = 'https://simpleicons.org';
+    initColorScheme(document, history, localStorage);
     expect(localStorage.hasItem).toHaveBeenCalledWith(STORAGE_KEY_COLOR_SCHEME);
     expect(localStorage.getItem).toHaveBeenCalledWith(STORAGE_KEY_COLOR_SCHEME);
     expect(localStorage.setItem).not.toHaveBeenCalled();

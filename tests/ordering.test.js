@@ -3,6 +3,7 @@ const {
   newElementMock,
   newEventMock,
 } = require('./mocks/dom.mock.js');
+const { history } = require('./mocks/history.mock.js');
 const { localStorage } = require('./mocks/local-storage.mock.js');
 
 const initOrdering = require('../public/scripts/ordering.js').default;
@@ -32,7 +33,7 @@ describe('Ordering', () => {
       return newElementMock(query);
     });
 
-    initOrdering(document, localStorage);
+    initOrdering(document, history, localStorage);
     expect(document.getElementById).toHaveBeenCalledWith('order-alpha');
     expect($orderAlphabetically.disabled).toBe(false);
     expect($orderAlphabetically.addEventListener).toHaveBeenCalledWith(
@@ -48,7 +49,7 @@ describe('Ordering', () => {
     expect(event.preventDefault).toHaveBeenCalledTimes(1);
     expect(localStorage.setItem).toHaveBeenCalledWith(
       STORAGE_KEY_ORDERING,
-      'alphabetically',
+      'order-alphabetically',
     );
   });
 
@@ -70,7 +71,7 @@ describe('Ordering', () => {
       return newElementMock(query);
     });
 
-    initOrdering(document, localStorage);
+    initOrdering(document, history, localStorage);
     expect(document.getElementById).toHaveBeenCalledWith('order-color');
     expect($orderByColor.disabled).toBe(false);
     expect($orderByColor.addEventListener).toHaveBeenCalledWith(
@@ -86,7 +87,7 @@ describe('Ordering', () => {
     expect(event.preventDefault).toHaveBeenCalledTimes(1);
     expect(localStorage.setItem).toHaveBeenCalledWith(
       STORAGE_KEY_ORDERING,
-      'color',
+      'order-color',
     );
   });
 
@@ -106,7 +107,7 @@ describe('Ordering', () => {
       return newElementMock(query);
     });
 
-    initOrdering(document, localStorage);
+    initOrdering(document, history, localStorage);
     expect(document.getElementById).toHaveBeenCalledWith('order-relevance');
     expect($orderByRelevance.disabled).toBe(false);
     expect($orderByRelevance.addEventListener).toHaveBeenCalledWith(
@@ -121,27 +122,27 @@ describe('Ordering', () => {
   });
 
   it('uses alphabetical ordering if no value is stored', () => {
-    initOrdering(document, localStorage);
+    initOrdering(document, history, localStorage);
     expect(localStorage.hasItem).toHaveBeenCalledWith(STORAGE_KEY_ORDERING);
     expect(localStorage.getItem).not.toHaveBeenCalled();
     expect(localStorage.setItem).not.toHaveBeenCalled();
   });
 
-  it('uses the stored value "alphabetically"', () => {
-    const storedValue = 'alphabetically';
+  it('uses the stored value "order-alphabetically"', () => {
+    const storedValue = 'order-alphabetically';
     localStorage.__setStoredValueFor(STORAGE_KEY_ORDERING, storedValue);
 
-    initOrdering(document, localStorage);
+    initOrdering(document, history, localStorage);
     expect(localStorage.hasItem).toHaveBeenCalledWith(STORAGE_KEY_ORDERING);
     expect(localStorage.getItem).toHaveBeenCalledWith(STORAGE_KEY_ORDERING);
-    expect(localStorage.setItem).not.toHaveBeenCalled();
+    expect(localStorage.setItem).not.toHaveBeenCalledWith();
   });
 
-  it('uses the stored value "color"', () => {
-    const storedValue = 'color';
+  it('uses the stored value "order-color"', () => {
+    const storedValue = 'order-color';
     localStorage.__setStoredValueFor(STORAGE_KEY_ORDERING, storedValue);
 
-    initOrdering(document, localStorage);
+    initOrdering(document, history, localStorage);
     expect(localStorage.hasItem).toHaveBeenCalledWith(STORAGE_KEY_ORDERING);
     expect(localStorage.getItem).toHaveBeenCalledWith(STORAGE_KEY_ORDERING);
     expect(document.$body.classList.add).toHaveBeenCalledWith('order-color');

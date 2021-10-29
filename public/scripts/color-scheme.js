@@ -12,7 +12,7 @@ const COLOR_SCHEME_SYSTEM = 'system';
 
 const DEFAULT_COLOR_SCHEME = COLOR_SCHEME_SYSTEM;
 
-export default function initColorScheme(document, storage) {
+export default function initColorScheme(document, history, storage) {
   let activeColorScheme = DEFAULT_COLOR_SCHEME;
 
   const $body = document.querySelector('body');
@@ -32,16 +32,23 @@ export default function initColorScheme(document, storage) {
 
     storage.setItem(STORAGE_KEY_COLOR_SCHEME, selected);
     activeColorScheme = selected;
-    setParameterInURL(COLOR_PARAMETER, selected);
+    setParameterInURL(document, history, COLOR_PARAMETER, selected);
   }
 
-  initControlButton('color-scheme-dark', COLOR_SCHEME_DARK, selectColorScheme);
   initControlButton(
+    document,
+    'color-scheme-dark',
+    COLOR_SCHEME_DARK,
+    selectColorScheme,
+  );
+  initControlButton(
+    document,
     'color-scheme-light',
     COLOR_SCHEME_LIGHT,
     selectColorScheme,
   );
   initControlButton(
+    document,
     'color-scheme-system',
     COLOR_SCHEME_SYSTEM,
     selectColorScheme,

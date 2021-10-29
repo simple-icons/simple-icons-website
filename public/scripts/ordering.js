@@ -12,7 +12,7 @@ export const ORDER_BY_RELEVANCE = 'order-relevance';
 
 const DEFAULT_ORDERING = ORDER_ALPHABETICALLY;
 
-export default function initOrdering(document, storage) {
+export default function initOrdering(document, history, storage) {
   let activeOrdering = DEFAULT_ORDERING;
   let preferredOrdering = DEFAULT_ORDERING;
 
@@ -22,9 +22,19 @@ export default function initOrdering(document, storage) {
     const storedOrdering = storage.getItem(STORAGE_KEY_ORDERING);
     selectOrdering(storedOrdering);
   }
-  initControlButton('order-alpha', ORDER_ALPHABETICALLY, selectOrdering);
-  initControlButton('order-color', ORDER_BY_COLOR, selectOrdering);
-  initControlButton('order-relevance', ORDER_BY_RELEVANCE, selectOrdering);
+  initControlButton(
+    document,
+    'order-alpha',
+    ORDER_ALPHABETICALLY,
+    selectOrdering,
+  );
+  initControlButton(document, 'order-color', ORDER_BY_COLOR, selectOrdering);
+  initControlButton(
+    document,
+    'order-relevance',
+    ORDER_BY_RELEVANCE,
+    selectOrdering,
+  );
 
   function currentOrderingIs(value) {
     return activeOrdering === value;

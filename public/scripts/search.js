@@ -101,6 +101,6 @@ export default function initSearch(history, document, ordering, domUtils) {
 
     activeQuery = query;
 
-    setParameterInURL(QUERY_PARAMETER, rawQuery);
+    setParameterInURL(document, history, QUERY_PARAMETER, rawQuery);
   }
 }

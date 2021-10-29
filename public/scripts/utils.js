@@ -51,13 +51,13 @@ module.exports = {
     const results = new URLSearchParams(location.search);
     return results ? results.get(parameter) : '';
   },
-  setParameterInURL: function (paramName, paramValue) {
+  setParameterInURL: function (document, history, paramName, paramValue) {
     const url = new URL(document.location.href);
     if (paramValue) url.searchParams.set(paramName, paramValue);
     history.replaceState(null, '', url.href);
   },
 
-  initControlButton: function (id, value, fn) {
+  initControlButton: function (document, id, value, fn) {
     const $button = document.getElementById(id);
     $button.disabled = false;
     $button.addEventListener('click', (event) => {

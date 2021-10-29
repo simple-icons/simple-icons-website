@@ -11,7 +11,7 @@ import initSearch from './search.js';
 document.body.classList.remove('no-js');
 
 const storage = newStorage(localStorage);
-initColorScheme(document, storage);
+initColorScheme(document, window.history, storage);
 initCopyButtons(window, document, navigator);
-const orderingControls = initOrdering(document, storage);
+const orderingControls = initOrdering(document, window.history, storage);
 initSearch(window.history, document, orderingControls, domUtils);

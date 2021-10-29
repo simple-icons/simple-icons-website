@@ -1,10 +1,11 @@
-const PATHNAME = 'https://www.simpleicons.org';
+const PATHNAME = 'https://www.simpleicons.org/';
 
 export const document = {
   getElementById: jest.fn().mockName('document.getElementById'),
   location: {
     pathname: PATHNAME,
     search: '',
+    href: PATHNAME,
   },
   querySelector: jest.fn().mockName('document.querySelector'),
   querySelectorAll: jest.fn().mockName('document.querySelectorAll'),
@@ -18,6 +19,7 @@ export const document = {
     this.getElementById.mockImplementation(newElementMock);
     this.location.pathname = PATHNAME;
     this.location.search = '';
+    this.location.href = PATHNAME;
     this.querySelector.mockReset();
     this.querySelector.mockImplementation((query) => {
       if (query === 'body') {
