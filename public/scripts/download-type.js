@@ -27,7 +27,6 @@ export default function initDownloadType(document, storage) {
   $downloadPdf.addEventListener('click', (event) => {
     event.preventDefault();
     selectDownloadType(PDF_DOWNLOAD_TYPE);
-    $downloadPdf.blur();
   });
   $downloadSvg.addEventListener('click', (event) => {
     event.preventDefault();
