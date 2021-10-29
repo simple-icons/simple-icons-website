@@ -32,7 +32,6 @@ export default function initDownloadType(document, storage) {
   $downloadSvg.addEventListener('click', (event) => {
     event.preventDefault();
     selectDownloadType(SVG_DOWNLOAD_TYPE);
-    $downloadSvg.blur();
   });
 
   for (let i = 0; i < $downloadFiles.length; i++) {
