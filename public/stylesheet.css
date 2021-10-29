@@ -493,6 +493,11 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   fill: var(--color-background);
 }
 
+#download-pdf svg,
+#download-svg svg {
+  height: 34px;
+}
+
 /* Control - noscript */
 
 .control noscript {
@@ -652,8 +657,6 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 .grid-item__button:hover {
   fill: var(--color-background);
   background-color: var(--color-button-active);
-  background: var(--color-button-hover);
-  fill: var(--color-button-text-hover);
 }
 
 /* Carbon ads */
