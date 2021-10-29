@@ -1,17 +1,12 @@
 import { ORDER_BY_RELEVANCE } from './ordering.js';
-import { decodeURIComponent, debounce, normalizeSearchTerm } from './utils.js';
-
-const QUERY_PARAMETER = 'q';
-
-function getQueryFromParameter(location, parameter) {
-  const expr = new RegExp(`[\\?&]${parameter}=([^&#]*)`);
-  const results = expr.exec(location.search);
-  if (results !== null) {
-    return decodeURIComponent(results[1].replace(/\+/g, ' '));
-  }
-
-  return '';
-}
+import {
+  decodeURIComponent,
+  debounce,
+  normalizeSearchTerm,
+  paramFromURL,
+  QUERY_PARAMETER,
+  setParameterInURL,
+} from './utils.js';
 
 function getScore(query, iconName) {
   let score = iconName.length - query.length;
@@ -28,18 +23,6 @@ function getScore(query, iconName) {
   }
 
   return score;
-}
-
-function setSearchQueryInURL(history, path, query) {
-  if (query !== '') {
-    history.replaceState(
-      null,
-      '',
-      `${path}?${QUERY_PARAMETER}=${encodeURIComponent(query)}`,
-    );
-  } else {
-    history.replaceState(null, '', path);
-  }
 }
 
 export default function initSearch(history, document, ordering, domUtils) {
@@ -70,14 +53,13 @@ export default function initSearch(history, document, ordering, domUtils) {
   });
 
   // Load search query if present
-  const query = getQueryFromParameter(document.location, QUERY_PARAMETER);
+  const query = paramFromURL(document.location, QUERY_PARAMETER);
   if (query) {
     $searchInput.value = query;
     search(query);
   }
 
   function search(rawQuery) {
-    setSearchQueryInURL(history, document.location.pathname, rawQuery);
     const query = normalizeSearchTerm(rawQuery);
     if (query !== '') {
       domUtils.showElement($searchClear);
@@ -118,5 +100,7 @@ export default function initSearch(history, document, ordering, domUtils) {
     }
 
     activeQuery = query;
+
+    setParameterInURL(QUERY_PARAMETER, rawQuery);
   }
 }

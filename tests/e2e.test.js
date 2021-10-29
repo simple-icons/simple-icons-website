@@ -161,7 +161,7 @@ describe('Search', () => {
     await $searchInput.type('adobe');
 
     const $body = await page.$('body');
-    expect(await hasClass($body, 'order-by-relevance')).toBeTruthy();
+    expect(await hasClass($body, 'order-relevance')).toBeTruthy();
   });
 
   it('does not show the "no results" message on search', async () => {
@@ -182,7 +182,7 @@ describe('Search', () => {
 
   it.each([
     ['order-alpha', 'order-alphabetically'],
-    ['order-color', 'order-by-color'],
+    ['order-color', 'order-color'],
   ])('switches back to "%s" when the search is removed', async (id, value) => {
     await page.click(`#${id}`);
 
@@ -193,13 +193,13 @@ describe('Search', () => {
     await $searchInput.press('Backspace');
 
     const $body = await page.$('body');
-    expect(await hasClass($body, 'order-by-relevance')).toBeFalsy();
+    expect(await hasClass($body, 'order-relevance')).toBeFalsy();
     expect(await hasClass($body, value)).toBeTruthy();
   });
 
   it.each([
     ['order-alpha', 'order-alphabetically'],
-    ['order-color', 'order-by-color'],
+    ['order-color', 'order-color'],
   ])('switches back to "%s" when search is cleared', async (id, value) => {
     await page.click(`#${id}`);
 
@@ -210,7 +210,7 @@ describe('Search', () => {
     await $searchClear.click();
 
     const $body = await page.$('body');
-    expect(await hasClass($body, 'order-by-relevance')).toBeFalsy();
+    expect(await hasClass($body, 'order-relevance')).toBeFalsy();
     expect(await hasClass($body, value)).toBeTruthy();
   });
 
@@ -285,7 +285,7 @@ describe('Ordering', () => {
     await page.reload();
 
     const $body = await page.$('body');
-    expect(await hasClass($body, 'order-by-color')).toBeTruthy();
+    expect(await hasClass($body, 'order-color')).toBeTruthy();
   });
 
   it('orders grid items alphabetically', async () => {

@@ -144,7 +144,7 @@ describe('Ordering', () => {
     initOrdering(document, localStorage);
     expect(localStorage.hasItem).toHaveBeenCalledWith(STORAGE_KEY_ORDERING);
     expect(localStorage.getItem).toHaveBeenCalledWith(STORAGE_KEY_ORDERING);
-    expect(document.$body.classList.add).toHaveBeenCalledWith('order-by-color');
+    expect(document.$body.classList.add).toHaveBeenCalledWith('order-color');
     expect(localStorage.setItem).toHaveBeenCalledWith(
       STORAGE_KEY_ORDERING,
       storedValue,

@@ -470,8 +470,8 @@ input[type='search']::-ms-reveal {
 /* Control - order */
 
 body.order-alphabetically #order-alpha,
-body.order-by-color #order-color,
-body.order-by-relevance #order-relevance {
+body.order-color #order-color,
+body.order-relevance #order-relevance {
   background-color: var(--color-button-active);
   border-color: var(--color-button-active);
   color: var(--color-background);
@@ -705,10 +705,10 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 
 /* Ordering grid-items */
 
-body.order-by-color .grid-item {
+body.order-color .grid-item {
   order: var(--order-color);
 }
-body.order-by-relevance .grid-item {
+body.order-relevance .grid-item {
   order: var(--order-relevance);
 }
 

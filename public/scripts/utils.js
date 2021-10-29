@@ -44,4 +44,25 @@ module.exports = {
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '');
   },
+  QUERY_PARAMETER: 'q',
+  COLOR_PARAMETER: 'c',
+  ORDER_PARAMETER: 'o',
+  paramFromURL: function (location, parameter) {
+    const results = new URLSearchParams(location.search);
+    return results ? results.get(parameter) : '';
+  },
+  setParameterInURL: function (paramName, paramValue) {
+    const url = new URL(document.location.href);
+    if (paramValue) url.searchParams.set(paramName, paramValue);
+    history.replaceState(null, '', url.href);
+  },
+
+  initControlButton: function (id, value, fn) {
+    const $button = document.getElementById(id);
+    $button.disabled = false;
+    $button.addEventListener('click', (event) => {
+      event.preventDefault();
+      fn(value);
+    });
+  },
 };
