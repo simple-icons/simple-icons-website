@@ -41,7 +41,7 @@
   --dm-color-button-text-hover: rgb(0, 0, 0);
   --dm-color-disabled: rgb(170, 170, 170);
   --dm-color-grid-item-divider: rgb(64, 64, 64);
-  --dm-color-shadow: rgba(75, 75, 75, 0.95);
+  --dm-color-shadow: rgba(215, 215, 215, 0.95);
   --dm-color-link: rgb(0, 100, 238);
   --dm-color-link-hover: rgb(0, 72, 238);
   --dm-color-link-visited: rgb(169, 144, 189);
@@ -267,6 +267,7 @@ a {
 .header__list-item {
   height: 55px;
   width: 55px;
+  margin: 2px;
   background-color: var(--color-background);
   fill: var(--color-button-active);
 }
