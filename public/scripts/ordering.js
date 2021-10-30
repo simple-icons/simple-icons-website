@@ -18,10 +18,14 @@ export default function initOrdering(document, history, storage) {
 
   const $body = document.querySelector('body');
 
-  if (storage.hasItem(STORAGE_KEY_ORDERING)) {
+  const ordering = paramFromURL(document.location, ORDER_PARAMETER);
+  if (ordering) {
+    selectOrdering(ordering, false);
+  } else if (storage.hasItem(STORAGE_KEY_ORDERING)) {
     const storedOrdering = storage.getItem(STORAGE_KEY_ORDERING);
     selectOrdering(storedOrdering);
   }
+
   initControlButton(
     document,
     'order-alpha',
@@ -40,7 +44,7 @@ export default function initOrdering(document, history, storage) {
     return activeOrdering === value;
   }
 
-  function selectOrdering(selected) {
+  function selectOrdering(selected, persistLocally = true) {
     if (selected === activeOrdering) {
       return;
     }
@@ -52,10 +56,10 @@ export default function initOrdering(document, history, storage) {
     );
 
     $body.classList.add(selected);
-
     if (selected !== ORDER_BY_RELEVANCE) {
+      console.log(selected);
       preferredOrdering = selected;
-      storage.setItem(STORAGE_KEY_ORDERING, selected);
+      if (persistLocally) storage.setItem(STORAGE_KEY_ORDERING, selected);
     }
 
     activeOrdering = selected;

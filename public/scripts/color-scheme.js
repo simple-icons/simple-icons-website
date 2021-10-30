@@ -17,7 +17,7 @@ export default function initColorScheme(document, history, storage) {
 
   const $body = document.querySelector('body');
 
-  function selectColorScheme(selected) {
+  function selectColorScheme(selected, persistLocally = true) {
     if (selected === activeColorScheme) {
       return;
     }
@@ -30,9 +30,8 @@ export default function initColorScheme(document, history, storage) {
 
     $body.classList.add(selected);
 
-    storage.setItem(STORAGE_KEY_COLOR_SCHEME, selected);
     activeColorScheme = selected;
-    setParameterInURL(document, history, COLOR_PARAMETER, selected);
+    if (persistLocally) storage.setItem(STORAGE_KEY_COLOR_SCHEME, selected);
   }
 
   initControlButton(
@@ -56,7 +55,7 @@ export default function initColorScheme(document, history, storage) {
 
   const color = paramFromURL(document.location, COLOR_PARAMETER);
   if (color) {
-    selectColorScheme(color);
+    selectColorScheme(color, false);
   } else if (storage.hasItem(STORAGE_KEY_COLOR_SCHEME)) {
     const storedColorScheme = storage.getItem(STORAGE_KEY_COLOR_SCHEME);
     selectColorScheme(storedColorScheme);
