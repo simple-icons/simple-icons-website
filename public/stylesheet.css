@@ -229,7 +229,7 @@ a {
   }
 }
 @media (max-width: 640px) {
-  .header {
+  x .header {
     background-color: var(--color-background);
     padding-top: 1rem;
   }
@@ -267,7 +267,6 @@ a {
 .header__list-item {
   height: 55px;
   width: 55px;
-  margin: 2px;
   background-color: var(--color-background);
   fill: var(--color-button-active);
 }
@@ -284,6 +283,7 @@ a {
   padding: 10px;
   height: 100%;
   width: 100%;
+  outline: none;
   display: inline-block;
   fill: var(--color-button-active);
 }
