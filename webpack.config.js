@@ -4,6 +4,7 @@ const getRelativeLuminance = require('get-relative-luminance').default;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+const fs = require('fs');
 const simpleIcons = require('simple-icons');
 
 const { normalizeSearchTerm } = require('./public/scripts/utils.js');
@@ -16,6 +17,28 @@ const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const OUT_DIR = path.resolve(__dirname, '_site');
 const ROOT_DIR = path.resolve(__dirname, 'public');
 
+function parseExtensions() {
+  const readmePath = path.resolve(
+    __dirname,
+    'node_modules/simple-icons/README.md',
+  );
+  const body = fs.readFileSync(readmePath, 'utf8');
+  const extRegExp = /## Third-Party Extensions\n\n(.*)\[slug\]/gs;
+  return Array.from(body.match(extRegExp))[0]
+    .split('\n')
+    .filter((line) => line.startsWith('| ['))
+    .map((line) => {
+      const module = line.split(' | ')[0];
+      const author = line.split(' | ')[1];
+      return {
+        nameModule: module.match(/\[(.*?)\]/gs)[0].slice(1, -1),
+        urlModule: module.match(/\((.*?)\)/gs)[0].slice(1, -1),
+        nameAuthor: author.match(/\[(.*?)\]/gs)[0].slice(1, -1),
+        urlAuthor: author.match(/\((.*?)\)/gs)[0].slice(1, -1),
+      };
+    });
+}
+
 function simplifyHexIfPossible(hex) {
   if (hex[0] === hex[1] && hex[2] === hex[3] && hex[4] == hex[5]) {
     return `${hex[0]}${hex[2]}${hex[4]}`;
@@ -23,7 +46,7 @@ function simplifyHexIfPossible(hex) {
 
   return hex;
 }
-
+let extensions = parseExtensions();
 let displayIcons = icons;
 if (process.env.TEST_ENV) {
   // Use fewer icons when building for a test run. This significantly speeds up
@@ -83,6 +106,7 @@ module.exports = {
       inject: true,
       template: path.resolve(ROOT_DIR, 'index.pug'),
       templateParameters: {
+        extensions: extensions,
         icons: displayIcons.map((icon, iconIndex) => {
           const luminance = getRelativeLuminance(`#${icon.hex}`);
           return {
