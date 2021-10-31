@@ -410,6 +410,7 @@ body.no-js .control-field__title {
   border-left-width: 0.1rem;
   border-top-left-radius: var(--border-radius-small);
   border-bottom-left-radius: var(--border-radius-small);
+  width: 2.5rem;
 }
 .last__button {
   border-top-right-radius: var(--border-radius-small);
@@ -491,11 +492,6 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   border-color: var(--color-button-active);
   cursor: default;
   fill: var(--color-background);
-}
-
-#download-pdf svg,
-#download-svg svg {
-  height: 34px;
 }
 
 /* Control - noscript */
