@@ -41,7 +41,7 @@
   --dm-color-button-text-hover: rgb(0, 0, 0);
   --dm-color-disabled: rgb(170, 170, 170);
   --dm-color-grid-item-divider: rgb(64, 64, 64);
-  --dm-color-shadow: rgba(75, 75, 75, 0.95);
+  --dm-color-shadow: rgba(215, 215, 215, 0.95);
   --dm-color-link: rgb(0, 100, 238);
   --dm-color-link-hover: rgb(0, 72, 238);
   --dm-color-link-visited: rgb(169, 144, 189);
@@ -229,7 +229,7 @@ a {
   }
 }
 @media (max-width: 640px) {
-  .header {
+  x .header {
     background-color: var(--color-background);
     padding-top: 1rem;
   }
@@ -283,6 +283,7 @@ a {
   padding: 10px;
   height: 100%;
   width: 100%;
+  outline: none;
   display: inline-block;
   fill: var(--color-button-active);
 }
