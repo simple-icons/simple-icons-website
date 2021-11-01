@@ -619,6 +619,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   flex-wrap: nowrap;
   justify-content: flex-start;
   margin-top: 0.4rem;
+  height: 2rem;
 }
 
 .grid-item__color {
@@ -647,6 +648,11 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   font-weight: 600;
   padding: 8px;
   text-align: center;
+}
+
+.grid-item__button svg {
+  height: 1rem;
+  pointer-events: none;
 }
 
 .grid-item__button:focus,
