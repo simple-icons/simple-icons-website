@@ -23,18 +23,16 @@ function parseExtensions() {
     'node_modules/simple-icons/README.md',
   );
   const body = fs.readFileSync(readmePath, 'utf8');
-  const extRegExp = /## Third-Party Extensions\n\n(.*)\[slug\]/gs;
-  return Array.from(body.match(extRegExp))[0]
+  return body.split("## Third-Party Extensions\n\n")[1].split("\n\n")[0]
     .split('\n')
-    .filter((line) => line.startsWith('| ['))
+    .slice(2)
     .map((line) => {
-      const module = line.split(' | ')[0];
-      const author = line.split(' | ')[1];
+      const [module, author] = line.split(' | ');
       return {
-        nameModule: module.match(/\[(.*?)\]/gs)[0].slice(1, -1),
-        urlModule: module.match(/\((.*?)\)/gs)[0].slice(1, -1),
-        nameAuthor: author.match(/\[(.*?)\]/gs)[0].slice(1, -1),
-        urlAuthor: author.match(/\((.*?)\)/gs)[0].slice(1, -1),
+        nameModule: /\[(.*?)\]/.exec(module)[1],
+        urlModule: /\((.*?)\)/.exec(module)[1],
+        nameAuthor: /\[(.*?)\]/.exec(author)[1],
+        urlAuthor: /\((.*?)\)/.exec(author)[1],
       };
     });
 }
