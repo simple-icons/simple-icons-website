@@ -8,6 +8,9 @@
 
   dependencyDashboard: false,
 
+  // Only provide updates for these
+  enabledManagers: ['github-actions', 'npm'],
+
   // We will keep simple-icons up-to-date separately from renovate
   ignoreDeps: ['simple-icons'],
 
