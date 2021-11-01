@@ -114,8 +114,8 @@ describe('External links', () => {
     }),
   );
 
-  it(`is possible to click the button for Third party extensions`, async () => {
-    await expect(page).toClick('button[title="Third party extensions"]');
+  it(`is possible to click the button for Third-Party Extensions`, async () => {
+    await expect(page).toClick('button[title="Third-Party Extensions"]');
   });
 
   it('is possible to click the link for Github repository', async () => {
