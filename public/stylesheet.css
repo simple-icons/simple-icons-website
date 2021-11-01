@@ -275,6 +275,12 @@ a {
   border-collapse: collapse;
 }
 
+.extensions__table tr:nth-child(1) {
+  font-weight: bold;
+  font-size: 1rem;
+  text-indent: 8px;
+}
+
 .extensions__table tr:nth-child(odd) {
   color: var(--color-text-default);
   background-color: var(--color-background);
