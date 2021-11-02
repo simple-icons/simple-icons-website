@@ -58,9 +58,10 @@ export function newElementMock(elName, opts) {
   };
 }
 
-export function newEventMock() {
+export function newEventMock(key) {
   return {
     preventDefault: jest.fn().mockName('event.preventDefault'),
+    key,
   };
 }
 
