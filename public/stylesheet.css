@@ -378,10 +378,6 @@ body.no-js .control-field__title {
   height: 2.4rem;
 }
 
-.control__button__padding {
-  padding: 0.4rem;
-}
-
 .control__input {
   border: 0.1rem solid var(--color-button-border);
   border-radius: var(--border-radius-small);
@@ -405,12 +401,12 @@ body.no-js .control-field__title {
   cursor: default; /* Button should not work when JS is disabled */
   fill: var(--color-button-hover);
   width: 2.4rem;
+  padding: 0.4rem;
 }
 .first__button {
   border-left-width: 0.1rem;
   border-top-left-radius: var(--border-radius-small);
   border-bottom-left-radius: var(--border-radius-small);
-  width: 2.5rem;
 }
 .last__button {
   border-top-right-radius: var(--border-radius-small);
@@ -619,7 +615,6 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   flex-wrap: nowrap;
   justify-content: flex-start;
   margin-top: 0.4rem;
-  height: 2rem;
 }
 
 .grid-item__color {
@@ -652,13 +647,12 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 
 .grid-item__button svg {
   height: 1rem;
-  pointer-events: none;
 }
 
 .grid-item__button:focus,
 .grid-item__button:hover {
-  fill: var(--color-background);
-  background-color: var(--color-button-active);
+  fill: var(--color-button-text-hover);
+  background: var(--color-button-hover);
 }
 
 /* Carbon ads */
