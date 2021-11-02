@@ -23,7 +23,9 @@ function parseExtensions() {
     'node_modules/simple-icons/README.md',
   );
   const body = fs.readFileSync(readmePath, 'utf8');
-  return body.split("## Third-Party Extensions\n\n")[1].split("\n\n")[0]
+  return body
+    .split('## Third-Party Extensions\n\n')[1]
+    .split('\n\n')[0]
     .split('\n')
     .slice(2)
     .map((line) => {
