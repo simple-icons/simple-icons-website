@@ -122,7 +122,7 @@ module.exports = (env, argv) => {
     optimization: {
       minimizer:
         env.mode === 'development'
-          ? false
+          ? []
           : [
               '...', // <- Load all default minimizers
               new CssMinimizerPlugin(),
