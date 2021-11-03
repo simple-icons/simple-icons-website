@@ -1,6 +1,7 @@
 export default async function initModal(document, domUtils) {
   const $modalTrigger = document.querySelector('.popup-trigger');
   const $popupModal = document.querySelector('.popup_modal');
+  const $popupBody = document.querySelector('.popup-body');
   $modalTrigger.addEventListener('click', (e) => {
     domUtils.toggleVisibleElement($popupModal);
     e.stopPropagation();
@@ -13,6 +14,8 @@ export default async function initModal(document, domUtils) {
   });
 
   document.body.addEventListener('click', (e) => {
-    domUtils.hideElement($popupModal);
+    if (!e.path.includes($popupBody)) {
+      domUtils.hideElement($popupModal);
+    }
   });
 }
