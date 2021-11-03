@@ -260,12 +260,6 @@ a {
   cursor: pointer;
   z-index: 2011;
 }
-
-.is__visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-
 /* Extensions */
 .extensions__table {
   font-family: var(--font-family-stylized);
