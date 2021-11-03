@@ -31,7 +31,7 @@ html(lang='en-US')
     link(rel='license', href='license.txt')
     link(rel='canonical', href=pageUrl)
 
-  body.no-js.order-alphabetically
+  body.no-js.order-alphabetically(tabindex='-1')
     header.header
       ul.header__list
         li.header__list-item
@@ -313,4 +313,4 @@ html(lang='en-US')
       .footer-repo
         p.
           #[a(title='website repository', href='https://github.com/simple-icons/simple-icons-website') Made with &#10084; on GitHub]
-    input#copy-input.hidden(aria-hidden='true')
+    input#copy-input.hidden(aria-hidden='true', tabindex='-1')
