@@ -32,100 +32,112 @@ if (process.env.TEST_ENV) {
   displayIcons = icons.slice(0, 255);
 }
 
-module.exports = {
-  entry: {
-    app: path.resolve(ROOT_DIR, 'scripts/index.js'),
-  },
-  output: {
-    path: OUT_DIR,
-    filename: 'script.js',
-  },
-  module: {
-    rules: [
-      {
-        test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
-      },
-      {
-        test: /\.pug$/i,
-        use: ['pug-loader'],
-      },
-      {
-        test: /\.svg$/i,
-        type: 'asset/inline',
-      },
-    ],
-  },
-  plugins: [
-    new CopyPlugin({
-      patterns: [
+module.exports = (env, argv) => {
+  return {
+    entry: {
+      app: path.resolve(ROOT_DIR, 'scripts/index.js'),
+    },
+    output: {
+      path: OUT_DIR,
+      filename: 'script.js',
+    },
+    module: {
+      rules: [
         {
-          from: path.resolve(NODE_MODULES, 'simple-icons/icons'),
-          to: path.resolve(OUT_DIR, 'icons'),
-          filter: (path) => path.endsWith('.svg'),
+          test: /\.css$/i,
+          use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
         },
         {
-          from: path.resolve(NODE_MODULES, 'simple-icons-pdf/icons'),
-          to: path.resolve(OUT_DIR, 'icons'),
-          filter: (path) => path.endsWith('.pdf'),
+          test: /\.pug$/i,
+          use: [
+            {
+              loader: 'pug-loader',
+              options: {
+                pretty: env.mode === 'development',
+              },
+            },
+          ],
         },
         {
-          from: path.resolve(ROOT_DIR, 'images'),
-          to: path.resolve(OUT_DIR, 'images'),
-        },
-        {
-          from: path.resolve(__dirname, 'LICENSE.md'),
-          to: path.resolve(OUT_DIR, 'license.txt'),
+          test: /\.svg$/i,
+          type: 'asset/inline',
         },
       ],
-    }),
-    new HtmlWebpackPlugin({
-      inject: true,
-      template: path.resolve(ROOT_DIR, 'index.pug'),
-      templateParameters: {
-        icons: displayIcons.map((icon, iconIndex) => {
-          const luminance = getRelativeLuminance(`#${icon.hex}`);
-          return {
-            base64Svg: Buffer.from(icon.svg).toString('base64'),
-            guidelines: icon.guidelines,
-            hex: icon.hex,
-            indexByAlpha: iconIndex,
-            indexByColor: sortedHexes.indexOf(icon.hex),
-            license: icon.license,
-            light: luminance < 0.4,
-            superLight: luminance > 0.95,
-            superDark: luminance < 0.02,
-            normalizedName: normalizeSearchTerm(icon.title),
-            path: icon.path,
-            shortHex: simplifyHexIfPossible(icon.hex),
-            slug: icon.slug,
-            title: icon.title,
-          };
-        }),
-        iconCount: icons.length,
-        twitterIcon: icons.find((icon) => icon.title === 'Twitter'),
-        pageTitle: 'Simple Icons',
-        pageDescription: `${icons.length} Free SVG icons for popular brands.`,
-        pageUrl: 'https://simpleicons.org',
-      },
-    }),
-    new MiniCssExtractPlugin(),
-  ],
-  optimization: {
-    minimizer: [
-      '...', // <- Load all default minimizers
-      new CssMinimizerPlugin(),
+    },
+    plugins: [
+      new CopyPlugin({
+        patterns: [
+          {
+            from: path.resolve(NODE_MODULES, 'simple-icons/icons'),
+            to: path.resolve(OUT_DIR, 'icons'),
+            filter: (path) => path.endsWith('.svg'),
+          },
+          {
+            from: path.resolve(NODE_MODULES, 'simple-icons-pdf/icons'),
+            to: path.resolve(OUT_DIR, 'icons'),
+            filter: (path) => path.endsWith('.pdf'),
+          },
+          {
+            from: path.resolve(ROOT_DIR, 'images'),
+            to: path.resolve(OUT_DIR, 'images'),
+          },
+          {
+            from: path.resolve(__dirname, 'LICENSE.md'),
+            to: path.resolve(OUT_DIR, 'license.txt'),
+          },
+        ],
+      }),
+      new HtmlWebpackPlugin({
+        inject: true,
+        template: path.resolve(ROOT_DIR, 'index.pug'),
+        templateParameters: {
+          icons: displayIcons.map((icon, iconIndex) => {
+            const luminance = getRelativeLuminance(`#${icon.hex}`);
+            return {
+              base64Svg: Buffer.from(icon.svg).toString('base64'),
+              guidelines: icon.guidelines,
+              hex: icon.hex,
+              indexByAlpha: iconIndex,
+              indexByColor: sortedHexes.indexOf(icon.hex),
+              license: icon.license,
+              light: luminance < 0.4,
+              superLight: luminance > 0.95,
+              superDark: luminance < 0.02,
+              normalizedName: normalizeSearchTerm(icon.title),
+              path: icon.path,
+              shortHex: simplifyHexIfPossible(icon.hex),
+              slug: icon.slug,
+              title: icon.title,
+            };
+          }),
+          iconCount: icons.length,
+          twitterIcon: icons.find((icon) => icon.title === 'Twitter'),
+          pageTitle: 'Simple Icons',
+          pageDescription: `${icons.length} Free SVG icons for popular brands.`,
+          pageUrl: 'https://simpleicons.org',
+        },
+      }),
+      new MiniCssExtractPlugin(),
     ],
-  },
-  cache: process.argv.includes('--watch')
-    ? { type: 'memory' }
-    : {
-        cacheLocation: path.resolve(
-          __dirname,
-          '.cache',
-          process.argv.includes('development') ? 'webpack-dev' : 'webpack',
-        ),
-        type: 'filesystem',
-        version: '1',
-      },
+    optimization: {
+      minimizer:
+        env.mode === 'development'
+          ? false
+          : [
+              '...', // <- Load all default minimizers
+              new CssMinimizerPlugin(),
+            ],
+    },
+    cache: process.argv.includes('--watch')
+      ? { type: 'memory' }
+      : {
+          cacheLocation: path.resolve(
+            __dirname,
+            '.cache',
+            process.argv.includes('development') ? 'webpack-dev' : 'webpack',
+          ),
+          type: 'filesystem',
+          version: '1',
+        },
+  };
 };
