@@ -252,7 +252,7 @@ a {
 .popup__close {
   font-size: 1.2rem;
   cursor: pointer;
-  z-index: 2011;
+  z-index: 100;
 }
 /* Extensions */
 .extensions__table {
