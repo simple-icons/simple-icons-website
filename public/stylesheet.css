@@ -244,7 +244,7 @@ a {
   background-color: #fff;
   position: absolute;
   border: 0.13rem solid var(--color-button-border);
-  z-index: 2011;
+  z-index: 100;
   background-color: var(--color-background);
   border-radius: var(--border-radius-large);
 }
