@@ -173,10 +173,13 @@ html(lang="en-US")
                 href=`./icons/${icon.slug}.svg`
                 role="button"
                 download
-              )
-                svg(role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-labelledby="download")
-                  path(d="M 11.2,0 C 10.758,0 10.4,0.358 10.4,0.8 V 12.2 L 7.26,9.44 C 6.929,9.15 6.425,9.182 6.13,9.5135 l -1.05,1.2 c -0.293,0.333 -0.259,0.84 0.0735,1.13 l 6.33,5.54 c 0.302,0.264 0.752,0.264 1.05,0 l 6.32,-5.54 c 0.333,-0.291 0.366,-0.798 0.0735,-1.13 l -1.05,-1.2 C 17.586,9.1825 17.082,9.1505 16.747,9.44 l -3.14,2.76 V 0.8 c 0,-0.442 -0.358,-0.8 -0.8,-0.8 z m -8,20.8 c -0.442,0 -0.8,0.358 -0.8,0.8 v 1.6 c 0,0.442 0.358,0.8 0.8,0.8 h 17.6 c 0.442,0 0.8,-0.358 0.8,-0.8 v -1.6 c 0,-0.442 -0.358,-0.8 -0.8,-0.8 z")
-
+              ) SVG
+              a(
+                class="grid-item__button"
+                href=`./icons/${icon.slug}.pdf`
+                role="button"
+                download
+              ) PDF
     footer(class="footer")
       div(class="footer-description")
         p.
