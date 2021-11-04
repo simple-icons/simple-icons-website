@@ -8,30 +8,23 @@ const { domUtils } = require('./mocks/dom-utils.mock.js');
 const initModal = require('../public/scripts/modal.js').default;
 
 describe('Extensions modal', () => {
+  let eventListeners = new Map();
+
   beforeEach(() => {
     document.__resetAllMocks();
     domUtils.__resetAllMocks();
+    eventListeners = new Map();
   });
 
   it('clicks the menu button for 3rd party extensions', () => {
-    const eventListeners = new Map();
-
-    const $menuButton = newElementMock('button.popup-trigger');
+    const $menuButton = newElementMock('.popup-trigger');
     $menuButton.addEventListener.mockImplementation((name, fn) => {
-      console.log('++++++++++++++++++++++++++++++');
-      console.log('++++++++++++++++++++++++++++++');
-      console.log('++++++++++++++++++++++++++++++');
-      console.log('++++++++++++++++++++++++++++++');
       eventListeners.set(name, fn);
     });
 
-    document.getElementById.mockImplementation((query) => {
-      if (query === 'button.popup-trigger') {
-        return $menuButton;
-      }
-
-      return newElementMock(query);
-    });
+    document.querySelector.mockImplementation((query) =>
+      query === '.popup-trigger' ? $menuButton : newElementMock(query),
+    );
 
     initModal(document, domUtils);
 
@@ -43,32 +36,26 @@ describe('Extensions modal', () => {
   });
 
   it("pressed 'Escape' to close the extension modal", () => {
-    const eventListeners = new Map();
-
-    document.$body.addEventListener.mockImplementation((name, fn) => {
+    document.addEventListener.mockImplementation((name, fn) => {
       eventListeners.set(name, fn);
     });
 
     initModal(document, domUtils);
 
-    const keyListener = eventListeners.get('keyup');
-    var event = newEventMock('Escape');
-    keyListener(event);
+    const clickListener = eventListeners.get('keyup');
+    const event = newEventMock({ key: 'Escape' });
+    clickListener(event);
     expect(domUtils.hideElement).toHaveBeenCalledTimes(1);
   });
 
   it('click outside the extensions modal to close it', () => {
-    const eventListeners = new Map();
-
-    document.$body.addEventListener.mockImplementation((name, fn) => {
+    document.body.addEventListener.mockImplementation((name, fn) => {
       eventListeners.set(name, fn);
     });
 
     initModal(document, domUtils);
 
-    const keyListener = eventListeners.get('keyup');
-    var event = newEventMock('Escape');
-    keyListener(event);
+    eventListeners.get('click')(newEventMock({ path: [] }));
     expect(domUtils.hideElement).toHaveBeenCalledTimes(1);
   });
 });
