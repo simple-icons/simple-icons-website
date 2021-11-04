@@ -2,6 +2,7 @@ const PATHNAME = 'https://www.simpleicons.org';
 
 export const document = {
   getElementById: jest.fn().mockName('document.getElementById'),
+  addEventListener: jest.fn().mockName('document.addEventListener'),
   location: {
     pathname: PATHNAME,
     search: '',
@@ -10,7 +11,7 @@ export const document = {
   querySelectorAll: jest.fn().mockName('document.querySelectorAll'),
 
   // Common elements
-  $body: newElementMock('body'),
+  body: newElementMock('body'),
 
   // Utility to quickly clear the entire document mock.
   __resetAllMocks: function () {
@@ -58,10 +59,13 @@ export function newElementMock(elName, opts) {
   };
 }
 
-export function newEventMock(key) {
+export function newEventMock(opts) {
+  opts = opts || {};
   return {
     preventDefault: jest.fn().mockName('event.preventDefault'),
-    key,
+    stopPropagation: jest.fn().mockName('event.stopPropagation'),
+    key: opts.key || '',
+    path: opts.path || '',
   };
 }
 
