@@ -713,6 +713,12 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   padding: 8px;
   text-align: center;
 }
+
+.grid-item__button svg {
+  height: 1rem;
+  pointer-events: none;
+}
+
 .grid-item__button:focus,
 .grid-item__button:hover {
   background: var(--color-button-hover);
