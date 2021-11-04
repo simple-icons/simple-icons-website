@@ -716,7 +716,6 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 
 .grid-item__button svg {
   height: 1rem;
-  pointer-events: none;
 }
 
 .grid-item__button:focus,
