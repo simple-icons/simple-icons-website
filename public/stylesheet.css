@@ -721,7 +721,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 .grid-item__button:focus,
 .grid-item__button:hover {
   background: var(--color-button-hover);
-  color: var(--color-button-text-hover);
+  fill: var(--color-button-text-hover);
 }
 
 /* Carbon ads */

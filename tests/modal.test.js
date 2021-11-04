@@ -28,34 +28,23 @@ describe('Extensions modal', () => {
 
     initModal(document, domUtils);
 
-    const clickListener = eventListeners.get('click');
     const event = newEventMock();
-    clickListener(event);
+    eventListeners.get('click')(event);
     expect(event.stopPropagation).toHaveBeenCalledTimes(1);
     expect(domUtils.toggleVisibleElement).toHaveBeenCalledTimes(1);
   });
 
-  it("pressed 'Escape' to close the extension modal", () => {
+  it.each([
+    ["pressing 'Escape'", 'keyup', { key: 'Escape' }],
+    ['clicking outside the modal', 'click', { path: [] }],
+  ])('closes the extensions modal by %s', (msg, event, eventParam) => {
     document.addEventListener.mockImplementation((name, fn) => {
       eventListeners.set(name, fn);
     });
 
     initModal(document, domUtils);
 
-    const clickListener = eventListeners.get('keyup');
-    const event = newEventMock({ key: 'Escape' });
-    clickListener(event);
-    expect(domUtils.hideElement).toHaveBeenCalledTimes(1);
-  });
-
-  it('click outside the extensions modal to close it', () => {
-    document.body.addEventListener.mockImplementation((name, fn) => {
-      eventListeners.set(name, fn);
-    });
-
-    initModal(document, domUtils);
-
-    eventListeners.get('click')(newEventMock({ path: [] }));
+    eventListeners.get(event)(newEventMock(eventParam));
     expect(domUtils.hideElement).toHaveBeenCalledTimes(1);
   });
 });
