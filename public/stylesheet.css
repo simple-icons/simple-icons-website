@@ -227,8 +227,6 @@ a {
 }
 @media (max-width: 860px) {
   .popup__top {
-    top: -webkit-calc(var(--header-top-offset) + 65px);
-    top: -moz-calc(var(--header-top-offset) + 65px);
     top: calc(var(--header-top-offset) + 65px);
   }
 }
