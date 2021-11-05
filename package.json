@@ -35,6 +35,7 @@
   "devDependencies": {
     "@babel/core": "7.15.8",
     "@babel/preset-env": "7.15.8",
+    "@prettier/plugin-pug": "1.17.1",
     "anywhere": "1.5.0",
     "autoprefixer": "10.3.7",
     "babel-jest": "27.3.1",
