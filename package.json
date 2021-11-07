@@ -31,7 +31,6 @@
   },
   "dependencies": {
     "fast-fuzzy": "1.10.10",
-    "graphemesplit": "2.4.4",
     "simple-icons": "5.22.0"
   },
   "devDependencies": {
