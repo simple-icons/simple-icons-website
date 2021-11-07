@@ -1,6 +1,6 @@
 import { ORDER_BY_RELEVANCE } from './ordering.js';
 import { decodeURIComponent, debounce, normalizeSearchTerm } from './utils.js';
-const { Searcher } = require('fast-fuzzy');
+import FuzzySearch from 'fuzzy-search';
 
 const QUERY_PARAMETER = 'q';
 
@@ -41,7 +41,10 @@ export default function initSearch(history, document, ordering, domUtils) {
   const $orderByRelevance = document.getElementById('order-relevance');
   const $gridItemIfEmpty = document.querySelector('.grid-item--if-empty');
   const $icons = document.querySelectorAll('.grid-item[data-brand]');
-  const searcher = new Searcher($icons, { keySelector: keySelector });
+  const searcher = new FuzzySearch($icons, ['dataset.brand'], {
+    caseSensitive: false,
+    sort: true,
+  });
 
   $searchInput.disabled = false;
   $searchInput.focus();
@@ -86,16 +89,17 @@ export default function initSearch(history, document, ordering, domUtils) {
         ordering.resetOrdering();
       }
     }
-    const results = searcher.search(query, { returnMatchData: true });
+    const result = searcher.search(query);
     let noResults = true;
+    var index = 1;
     $icons.forEach(($icon) => {
       const brandName = $icon.querySelector('h2').textContent;
-      const score = getScore(results, brandName);
-      if (score < 0) {
+      const score = result.indexOf($icon);
+      if (score === -1) {
         $icon.style.removeProperty('--order-relevance');
         domUtils.hideElement($icon);
       } else {
-        $icon.style.setProperty('--order-relevance', -1 * score);
+        $icon.style.setProperty('--order-relevance', index++);
         domUtils.showElement($icon);
         noResults = false;
       }

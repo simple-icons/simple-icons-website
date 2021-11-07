@@ -30,7 +30,7 @@
     "test:unit": "cross-env TEST_ENV=unit jest"
   },
   "dependencies": {
-    "fast-fuzzy": "1.10.10",
+    "fuzzy-search": "3.2.1",
     "graphemesplit": "2.4.4",
     "simple-icons": "5.19.0"
   },
