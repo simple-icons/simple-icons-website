@@ -11,3 +11,21 @@ export function showElement($el) {
     $el.removeAttribute('aria-hidden');
   }
 }
+
+export function addClass($el, clazz) {
+  if ($el) {
+    $el.classList.add(clazz);
+  }
+}
+
+export function removeClass($el, clazz) {
+  if ($el) {
+    $el.classList.remove(clazz);
+  }
+}
+
+export function toggleClass($el, clazz) {
+  if ($el) {
+    $el.classList.toggle(clazz);
+  }
+}

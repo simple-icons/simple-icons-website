@@ -31,17 +31,14 @@ export default function initOrdering(document, storage) {
   $orderAlphabetically.addEventListener('click', (event) => {
     event.preventDefault();
     selectOrdering(ORDER_ALPHABETICALLY);
-    $orderAlphabetically.blur();
   });
   $orderByColor.addEventListener('click', (event) => {
     event.preventDefault();
     selectOrdering(ORDER_BY_COLOR);
-    $orderByColor.blur();
   });
   $orderByRelevance.addEventListener('click', (event) => {
     event.preventDefault();
     selectOrdering(ORDER_BY_RELEVANCE);
-    $orderByRelevance.blur();
   });
 
   function currentOrderingIs(value) {
