@@ -17,6 +17,7 @@ describe('Search', () => {
   let $searchInput;
   let $searchClear;
   let $orderByRelevance;
+  let $orderByColor;
 
   beforeAll(() => {
     jest.useFakeTimers();
@@ -42,6 +43,7 @@ describe('Search', () => {
     });
 
     $orderByRelevance = newElementMock('#order-relevance');
+    $orderByColor = newElementMock('#order-color');
 
     document.getElementById.mockImplementation((query) => {
       switch (query) {
@@ -51,6 +53,8 @@ describe('Search', () => {
           return $searchClear;
         case 'order-relevance':
           return $orderByRelevance;
+        case 'order-color':
+          return $orderByColor;
         default:
           return newElementMock(query);
       }
@@ -95,6 +99,14 @@ describe('Search', () => {
 
       expect(domUtils.showElement).toHaveBeenCalledWith($searchClear);
       expect(domUtils.showElement).toHaveBeenCalledWith($orderByRelevance);
+      expect(domUtils.addClass).toHaveBeenCalledWith(
+        $orderByRelevance,
+        'last__button',
+      );
+      expect(domUtils.removeClass).toHaveBeenCalledWith(
+        $orderByColor,
+        'last__button',
+      );
 
       done();
     });
@@ -124,7 +136,14 @@ describe('Search', () => {
 
       expect(domUtils.hideElement).toHaveBeenCalledWith($searchClear);
       expect(domUtils.hideElement).toHaveBeenCalledWith($orderByRelevance);
-
+      expect(domUtils.removeClass).toHaveBeenCalledWith(
+        $orderByRelevance,
+        'last__button',
+      );
+      expect(domUtils.addClass).toHaveBeenCalledWith(
+        $orderByColor,
+        'last__button',
+      );
       done();
     });
 
@@ -153,23 +172,15 @@ describe('Search', () => {
 
       expect(domUtils.hideElement).toHaveBeenCalledWith($searchClear);
       expect(domUtils.hideElement).toHaveBeenCalledWith($orderByRelevance);
-
-      done();
-    });
-
-    it('works if change event is fired', () => {
-      expect($searchInput.addEventListener).toHaveBeenCalledWith(
-        'change',
-        expect.any(Function),
+      expect(domUtils.removeClass).toHaveBeenCalledWith(
+        $orderByRelevance,
+        'last__button',
       );
-
-      const searchListener = inputEventListeners.get('change');
-      const event = newEventMock();
-
-      $searchInput.value = 'Hello world!';
-      searchListener(event);
-
-      expect($searchInput.blur).toHaveBeenCalled();
+      expect(domUtils.addClass).toHaveBeenCalledWith(
+        $orderByColor,
+        'last__button',
+      );
+      done();
     });
   });
 
@@ -198,6 +209,8 @@ describe('Search', () => {
 
       expect($searchInput.value).toEqual(expected);
       expect(domUtils.showElement).toHaveBeenCalled();
+      expect(domUtils.addClass).toHaveBeenCalled();
+      expect(domUtils.removeClass).toHaveBeenCalled();
       expect(history.replaceState).toHaveBeenCalled();
       expect(ordering.selectOrdering).toHaveBeenCalled();
     });
