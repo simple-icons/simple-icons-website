@@ -49,49 +49,53 @@ beforeAll(() => {
 describe.each([
   ['desktop', DEFAULT_DEVICE],
   ['mobile', devices['Nexus 7']],
-])('General (%s)', (name, device) => {
-  beforeEach(async () => {
-    await page.emulate(device);
-    await page.goto(url.href);
-  });
-
-  it('produces a screenshot', async () => {
-    await page.screenshot({
-      path: path.resolve(ARTIFACTS_DIR, `${name}.png`),
+])(
+  'General (%s)',
+  (name, device) => {
+    beforeEach(async () => {
+      await page.emulate(device);
+      await page.goto(url.href);
     });
-  });
 
-  it('displays the text "Simple Icons"', async () => {
-    await expect(page).toMatch('Simple Icons');
-  });
+    it('produces a screenshot', async () => {
+      await page.screenshot({
+        path: path.resolve(ARTIFACTS_DIR, `${name}.png`),
+      });
+    });
 
-  it('has the search input in view on load', async () => {
-    const $searchInput = await page.$('#search-input');
-    expect(await isInViewport($searchInput)).toBeTruthy();
-  });
+    it('displays the text "Simple Icons"', async () => {
+      await expect(page).toMatch('Simple Icons');
+    });
 
-  it('has the order controls in view on load', async () => {
-    const $orderAlphabetically = await page.$('#order-alpha');
-    expect(await isInViewport($orderAlphabetically)).toBeTruthy();
+    it('has the search input in view on load', async () => {
+      const $searchInput = await page.$('#search-input');
+      expect(await isInViewport($searchInput)).toBeTruthy();
+    });
 
-    const $orderByColor = await page.$('#order-color');
-    expect(await isInViewport($orderByColor)).toBeTruthy();
-  });
+    it('has the order controls in view on load', async () => {
+      const $orderAlphabetically = await page.$('#order-alpha');
+      expect(await isInViewport($orderAlphabetically)).toBeTruthy();
 
-  it('has the first grid item in view on load', async () => {
-    const $firstGridItem = await page.$('.grid-item');
-    expect(await isInViewport($firstGridItem)).toBeTruthy();
-  });
+      const $orderByColor = await page.$('#order-color');
+      expect(await isInViewport($orderByColor)).toBeTruthy();
+    });
 
-  it('hides the #copy-input element', async () => {
-    const $copyInput = await page.$('#copy-input');
-    expect(await isHidden($copyInput)).toBeTruthy();
-  });
+    it('has the first grid item in view on load', async () => {
+      const $firstGridItem = await page.$('.grid-item');
+      expect(await isInViewport($firstGridItem)).toBeTruthy();
+    });
 
-  afterAll(async () => {
-    await page.emulate(DEFAULT_DEVICE);
-  });
-});
+    it('hides the #copy-input element', async () => {
+      const $copyInput = await page.$('#copy-input');
+      expect(await isHidden($copyInput)).toBeTruthy();
+    });
+
+    afterAll(async () => {
+      await page.emulate(DEFAULT_DEVICE);
+    });
+  },
+  100000,
+);
 
 describe('External links', () => {
   beforeEach(async () => {
@@ -106,11 +110,15 @@ describe('External links', () => {
     'UNPKG (Content Delivery Network)',
     'Open Collective',
     'Legal Disclaimer',
-  ])(`is possible to click menu links`, (title) => {
-    it(`is possible to click the link for ${title}`, async () => {
-      await expect(page).toClick(`a[title="${title}"]`);
-    });
-  });
+  ])(
+    `is possible to click menu links`,
+    (title) => {
+      it(`is possible to click the link for ${title}`, async () => {
+        await expect(page).toClick(`a[title="${title}"]`);
+      });
+    },
+    100000,
+  );
 
   it(`is possible to click the button for Third-Party Extensions`, async () => {
     await expect(page).toClick('button[title="Third-Party Extensions"]');
@@ -127,7 +135,7 @@ describe('External links', () => {
       expect(page).toClick(link.getProperty('innerText')),
     );
   });
-});
+}, 100000);
 
 describe('Search', () => {
   beforeEach(async () => {
@@ -268,7 +276,7 @@ describe('Search', () => {
     const $gridItemIfEmpty = await page.$('.grid-item--if-empty');
     expect(await isHidden($gridItemIfEmpty)).toBeTruthy();
   });
-});
+}, 100000);
 
 describe('Ordering', () => {
   const icons = Object.values(simpleIcons);
@@ -319,7 +327,7 @@ describe('Ordering', () => {
       const $color = await getTextContent($button);
     }
   });
-});
+}, 100000);
 
 describe('Preferred color scheme', () => {
   beforeEach(async () => {
@@ -394,7 +402,7 @@ describe('Preferred color scheme', () => {
     expect(await hasClass($body, 'dark')).toBeFalsy();
     expect(await hasClass($body, 'light')).toBeTruthy();
   });
-});
+}, 100000);
 
 describe('Grid item', () => {
   beforeEach(async () => {
@@ -442,7 +450,7 @@ describe('Grid item', () => {
   it('is possible to download an icon as PDF', async () => {
     await expect(page).toClick('a[download][href$="pdf"]');
   });
-});
+}, 100000);
 
 describe('JavaScript disabled', () => {
   beforeEach(async () => {
@@ -490,9 +498,9 @@ describe('JavaScript disabled', () => {
   afterAll(async () => {
     page.setJavaScriptEnabled(true);
   });
-});
+}, 100000);
 
 it('has a license file available', async () => {
   await page.goto(`${url.href}/license.txt`);
   await expect(page).toMatch('CC0 1.0 Universal');
-});
+}, 100000);

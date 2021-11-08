@@ -114,6 +114,7 @@ module.exports = (env, argv) => {
         inject: true,
         template: path.resolve(ROOT_DIR, 'index.pug'),
         templateParameters: {
+          extensions,
           icons: displayIcons.map((icon, iconIndex) => {
             const luminance = getRelativeLuminance(`#${icon.hex}`);
             return {
