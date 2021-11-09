@@ -112,9 +112,20 @@ describe('External links', () => {
     });
   });
 
+  it(`is possible to click the button for Third-Party Extensions`, async () => {
+    await expect(page).toClick('button[title="Third-Party Extensions"]');
+  });
+
   it('is possible to click the link for Github repository', async () => {
     const footerRepositoryTitle = 'website repository';
     await expect(page).toClick(`a[title="${footerRepositoryTitle}"]`);
+  });
+
+  it('is possible to click extensions link', async () => {
+    const extensionPopupLinks = await page.$$('.extensions__table a');
+    extensionPopupLinks.forEach((link) =>
+      expect(page).toClick(link.getProperty('innerText')),
+    );
   });
 });
 
