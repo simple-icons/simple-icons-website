@@ -641,6 +641,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   font-family: var(--font-family-stylized);
   font-size: 0.75rem;
   font-weight: 600;
+  outline: none;
   padding: 8px;
   text-align: center;
 }
