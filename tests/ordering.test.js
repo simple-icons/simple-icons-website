@@ -48,7 +48,7 @@ describe('Ordering', () => {
     expect(event.preventDefault).toHaveBeenCalledTimes(1);
     expect(localStorage.setItem).toHaveBeenCalledWith(
       STORAGE_KEY_ORDERING,
-      'alphabetically',
+      'alpha',
     );
   });
 
@@ -127,8 +127,8 @@ describe('Ordering', () => {
     expect(localStorage.setItem).not.toHaveBeenCalled();
   });
 
-  it('uses the stored value "alphabetically"', () => {
-    const storedValue = 'alphabetically';
+  it("uses the stored value 'alpha'", () => {
+    const storedValue = 'alpha';
     localStorage.__setStoredValueFor(STORAGE_KEY_ORDERING, storedValue);
 
     initOrdering(document, localStorage);
@@ -137,7 +137,7 @@ describe('Ordering', () => {
     expect(localStorage.setItem).not.toHaveBeenCalled();
   });
 
-  it('uses the stored value "color"', () => {
+  it("uses the stored value 'color'", () => {
     const storedValue = 'color';
     localStorage.__setStoredValueFor(STORAGE_KEY_ORDERING, storedValue);
 

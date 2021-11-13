@@ -801,15 +801,6 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   text-transform: uppercase;
 }
 
-/* Ordering grid-items */
-
-body.order-by-color .grid-item {
-  order: var(--order-color);
-}
-body.order-by-relevance .grid-item {
-  order: var(--order-relevance);
-}
-
 /* Footer */
 
 .footer {

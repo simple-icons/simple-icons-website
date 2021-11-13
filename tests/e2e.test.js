@@ -197,7 +197,7 @@ describe('Search', () => {
   });
 
   it.each([
-    ['order-alpha', 'order-alphabetically'],
+    ['order-alpha', 'order-alpha'],
     ['order-color', 'order-by-color'],
   ])('switches back to "%s" when the search is removed', async (id, value) => {
     await page.click(`#${id}`);
@@ -214,7 +214,7 @@ describe('Search', () => {
   });
 
   it.each([
-    ['order-alpha', 'order-alphabetically'],
+    ['order-alpha', 'order-alpha'],
     ['order-color', 'order-by-color'],
   ])('switches back to "%s" when search is cleared', async (id, value) => {
     await page.click(`#${id}`);
@@ -286,13 +286,13 @@ describe('Ordering', () => {
     await page.goto(url.href);
   });
 
-  it('reloads ordering alphabetically', async () => {
+  it('reloads alpha order', async () => {
     await expect(page).toClick('#order-alpha');
 
     await page.reload();
 
     const $body = await page.$('body');
-    expect(await hasClass($body, 'order-alphabetically')).toBeTruthy();
+    expect(await hasClass($body, 'order-alpha')).toBeTruthy();
   });
 
   it('reloads ordering by color', async () => {
