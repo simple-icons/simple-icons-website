@@ -1,12 +1,12 @@
 import { STORAGE_KEY_ORDERING } from './storage.js';
 
-export const ORDER_ALPHABETICALLY = 'alphabetically';
+export const ORDER_ALPHABETICALLY = 'alpha';
 export const ORDER_BY_COLOR = 'color';
 export const ORDER_BY_RELEVANCE = 'relevance';
 
 const DEFAULT_ORDERING = ORDER_ALPHABETICALLY;
 
-const CLASS_ORDER_ALPHABETICALLY = 'order-alphabetically';
+const CLASS_ORDER_ALPHABETICALLY = 'order-alpha';
 const CLASS_ORDER_BY_COLOR = 'order-by-color';
 const CLASS_ORDER_BY_RELEVANCE = 'order-by-relevance';
 
@@ -31,10 +31,12 @@ export default function initOrdering(document, storage) {
   $orderAlphabetically.addEventListener('click', (event) => {
     event.preventDefault();
     selectOrdering(ORDER_ALPHABETICALLY);
+    reorderIcons(ORDER_ALPHABETICALLY);
   });
   $orderByColor.addEventListener('click', (event) => {
     event.preventDefault();
     selectOrdering(ORDER_BY_COLOR);
+    reorderIcons(ORDER_BY_COLOR);
   });
   $orderByRelevance.addEventListener('click', (event) => {
     event.preventDefault();
@@ -43,6 +45,27 @@ export default function initOrdering(document, storage) {
 
   function currentOrderingIs(value) {
     return activeOrdering === value;
+  }
+
+  function reorderIcons(selected) {
+    const $grid = document.querySelector('ul.grid');
+    if (selected === ORDER_ALPHABETICALLY) {
+      [...$grid.children]
+        .sort(
+          (a, b) =>
+            parseInt(a.getAttribute('order-alpha')) -
+            parseInt(b.getAttribute('order-alpha')),
+        )
+        .forEach((node) => $grid.appendChild(node));
+    } else if (selected === ORDER_BY_COLOR) {
+      [...$grid.children]
+        .sort(
+          (a, b) =>
+            parseInt(a.getAttribute('order-color')) -
+            parseInt(b.getAttribute('order-color')),
+        )
+        .forEach((node) => $grid.appendChild(node));
+    }
   }
 
   function selectOrdering(selected) {

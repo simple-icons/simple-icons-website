@@ -537,7 +537,7 @@ input[type='search']::-ms-reveal {
 
 /* Control - order */
 
-body.order-alphabetically #order-alpha,
+body.order-alpha #order-alpha,
 body.order-by-color #order-color,
 body.order-by-relevance #order-relevance {
   background-color: var(--color-button-active);
@@ -769,15 +769,6 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   line-height: 1.5rem;
   opacity: 0.5;
   text-transform: uppercase;
-}
-
-/* Ordering grid-items */
-
-body.order-by-color .grid-item {
-  order: var(--order-color);
-}
-body.order-by-relevance .grid-item {
-  order: var(--order-relevance);
 }
 
 /* Footer */

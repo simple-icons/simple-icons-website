@@ -97,14 +97,23 @@ export default function initSearch(history, document, ordering, domUtils) {
       const brandName = $icon.getAttribute('data-brand');
       const score = getScore(query, brandName);
       if (score < 0) {
-        $icon.style.removeProperty('--order-relevance');
+        $icon.setAttribute('order-relevance', 0);
         domUtils.hideElement($icon);
       } else {
-        $icon.style.setProperty('--order-relevance', score);
+        $icon.setAttribute('order-relevance', score);
         domUtils.showElement($icon);
         noResults = false;
       }
     });
+
+    const $grid = document.querySelector('ul.grid');
+    [...$grid.children]
+      .sort(
+        (a, b) =>
+          parseInt(a.getAttribute('order-relevance')) -
+          parseInt(b.getAttribute('order-relevance')),
+      )
+      .forEach((node) => $grid.appendChild(node));
 
     if (noResults) {
       domUtils.showElement($gridItemIfEmpty);
