@@ -1,4 +1,4 @@
-import { ORDER_BY_RELEVANCE } from './ordering.js';
+import { ORDER_RELEVANCE } from './ordering.js';
 import { decodeURIComponent, debounce, normalizeSearchTerm } from './utils.js';
 import { Searcher } from 'fast-fuzzy';
 
@@ -103,15 +103,6 @@ export default function initSearch(history, document, ordering, domUtils) {
         noResults = false;
       }
     });
-
-    const $grid = document.querySelector('ul.grid');
-    [...$grid.children]
-      .sort(
-        (a, b) =>
-          parseInt(a.getAttribute('order-relevance')) -
-          parseInt(b.getAttribute('order-relevance')),
-      )
-      .forEach((node) => $grid.appendChild(node));
 
     if (noResults) {
       domUtils.showElement($gridItemIfEmpty);

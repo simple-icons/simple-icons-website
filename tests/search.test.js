@@ -7,7 +7,7 @@ const {
 const { history } = require('./mocks/history.mock.js');
 const { ordering } = require('./mocks/ordering.mock.js');
 
-const { ORDER_BY_RELEVANCE } = require('../public/scripts/ordering.js');
+const { ORDER_RELEVANCE } = require('../public/scripts/ordering.js');
 const initSearch = require('../public/scripts/search.js').default;
 
 describe('Search', () => {
@@ -87,7 +87,7 @@ describe('Search', () => {
       jest.runAllTimers();
 
       expect(event.preventDefault).toHaveBeenCalledTimes(1);
-      expect(ordering.selectOrdering).toHaveBeenCalledWith(ORDER_BY_RELEVANCE);
+      expect(ordering.selectOrdering).toHaveBeenCalledWith(ORDER_RELEVANCE);
       expect(history.replaceState).toHaveBeenCalledWith(
         null,
         '',

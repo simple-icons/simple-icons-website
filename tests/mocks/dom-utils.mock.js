@@ -13,5 +13,6 @@ export const domUtils = {
     this.addClass.mockReset();
     this.removeClass.mockReset();
     this.toggleVisibleElement.mockReset();
+    this.sortChildren.mockReset();
   },
 };

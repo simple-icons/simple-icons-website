@@ -2,13 +2,32 @@ const {
   hideElement,
   showElement,
   toggleVisibleElement,
+  sortChildren,
 } = require('../public/scripts/dom-utils.js');
 
+const orderedData = [
+  { 'order-alpha': 1, getAttribute: (order) => 1 },
+  { 'order-alpha': 2, getAttribute: (order) => 2 },
+  { 'order-alpha': 3, getAttribute: (order) => 3 },
+];
+const testData = [
+  { 'order-alpha': 3, getAttribute: (order) => 3 },
+  { 'order-alpha': 2, getAttribute: (order) => 2 },
+  { 'order-alpha': 1, getAttribute: (order) => 1 },
+];
 const $el = {
   classList: {
     add: jest.fn().mockName('$el.classList.add'),
     remove: jest.fn().mockName('$el.classList.remove'),
     toggle: jest.fn().mockName('$el.classList.toggle'),
+  },
+  children: testData,
+  appendChild: (obj) => {
+    const index = testData.indexOf(obj);
+    if (index > -1) {
+      testData.splice(index, 1);
+    }
+    testData.push(obj);
   },
   removeAttribute: jest.fn().mockName('$el.removeAttribute'),
   setAttribute: jest.fn().mockName('$el.setAttribute'),
@@ -72,5 +91,16 @@ describe('::toggleVisibleElement', () => {
   it('toggles the aria-hidden attribute', () => {
     toggleVisibleElement($el);
     expect($el.toggleAttribute).toHaveBeenCalledWith('aria-hidden');
+  });
+});
+
+describe('::sortChildren', () => {
+  beforeEach(() => {
+    $el.children = testData;
+  });
+
+  it('sorts children elements', () => {
+    sortChildren($el, 'order-alpha');
+    expect(JSON.stringify($el.children)).toEqual(JSON.stringify(orderedData));
   });
 });
