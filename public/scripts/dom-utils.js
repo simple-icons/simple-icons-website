@@ -18,3 +18,13 @@ export function toggleVisibleElement($el) {
     $el.toggleAttribute('aria-hidden');
   }
 }
+
+export function sortChildren($el, attribute) {
+  [...$el.children]
+    .sort(
+      (a, b) =>
+        parseInt(a.getAttribute(attribute)) -
+        parseInt(b.getAttribute(attribute)),
+    )
+    .forEach((node) => $el.appendChild(node));
+}

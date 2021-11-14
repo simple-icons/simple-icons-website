@@ -1,4 +1,4 @@
-import { ORDER_BY_RELEVANCE } from './ordering.js';
+import { ORDER_RELEVANCE } from './ordering.js';
 import { decodeURIComponent, debounce, normalizeSearchTerm } from './utils.js';
 
 const QUERY_PARAMETER = 'q';
@@ -47,7 +47,7 @@ export default function initSearch(history, document, ordering, domUtils) {
 
   const $searchInput = document.getElementById('search-input');
   const $searchClear = document.getElementById('search-clear');
-  const $orderByRelevance = document.getElementById('order-relevance');
+  const $orderRelevance = document.getElementById('order-relevance');
   const $gridItemIfEmpty = document.querySelector('.grid-item--if-empty');
   const $icons = document.querySelectorAll('.grid-item[data-brand]');
 
@@ -80,14 +80,14 @@ export default function initSearch(history, document, ordering, domUtils) {
     const query = normalizeSearchTerm(rawQuery);
     if (query !== '') {
       domUtils.showElement($searchClear);
-      domUtils.showElement($orderByRelevance);
+      domUtils.showElement($orderRelevance);
       if (activeQuery === '') {
-        ordering.selectOrdering(ORDER_BY_RELEVANCE);
+        ordering.selectOrdering(ORDER_RELEVANCE);
       }
     } else {
       domUtils.hideElement($searchClear);
-      domUtils.hideElement($orderByRelevance);
-      if (ordering.currentOrderingIs(ORDER_BY_RELEVANCE)) {
+      domUtils.hideElement($orderRelevance);
+      if (ordering.currentOrderingIs(ORDER_RELEVANCE)) {
         ordering.resetOrdering();
       }
     }
@@ -105,15 +105,6 @@ export default function initSearch(history, document, ordering, domUtils) {
         noResults = false;
       }
     });
-
-    const $grid = document.querySelector('ul.grid');
-    [...$grid.children]
-      .sort(
-        (a, b) =>
-          parseInt(a.getAttribute('order-relevance')) -
-          parseInt(b.getAttribute('order-relevance')),
-      )
-      .forEach((node) => $grid.appendChild(node));
 
     if (noResults) {
       domUtils.showElement($gridItemIfEmpty);

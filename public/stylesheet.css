@@ -538,8 +538,8 @@ input[type='search']::-ms-reveal {
 /* Control - order */
 
 body.order-alpha #order-alpha,
-body.order-by-color #order-color,
-body.order-by-relevance #order-relevance {
+body.order-color #order-color,
+body.order-relevance #order-relevance {
   background-color: var(--color-button-active);
   border-color: var(--color-button-active);
   color: var(--color-background);

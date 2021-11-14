@@ -7,7 +7,7 @@ const {
 const { history } = require('./mocks/history.mock.js');
 const { ordering } = require('./mocks/ordering.mock.js');
 
-const { ORDER_BY_RELEVANCE } = require('../public/scripts/ordering.js');
+const { ORDER_RELEVANCE } = require('../public/scripts/ordering.js');
 const initSearch = require('../public/scripts/search.js').default;
 
 describe('Search', () => {
@@ -16,7 +16,7 @@ describe('Search', () => {
 
   let $searchInput;
   let $searchClear;
-  let $orderByRelevance;
+  let $orderRelevance;
 
   beforeAll(() => {
     jest.useFakeTimers();
@@ -41,7 +41,7 @@ describe('Search', () => {
       clearEventListeners.set(name, fn);
     });
 
-    $orderByRelevance = newElementMock('#order-relevance');
+    $orderRelevance = newElementMock('#order-relevance');
 
     document.getElementById.mockImplementation((query) => {
       switch (query) {
@@ -50,7 +50,7 @@ describe('Search', () => {
         case 'search-clear':
           return $searchClear;
         case 'order-relevance':
-          return $orderByRelevance;
+          return $orderRelevance;
         default:
           return newElementMock(query);
       }
@@ -84,7 +84,7 @@ describe('Search', () => {
       jest.runAllTimers();
 
       expect(event.preventDefault).toHaveBeenCalledTimes(1);
-      expect(ordering.selectOrdering).toHaveBeenCalledWith(ORDER_BY_RELEVANCE);
+      expect(ordering.selectOrdering).toHaveBeenCalledWith(ORDER_RELEVANCE);
       expect(history.replaceState).toHaveBeenCalledWith(
         null,
         '',
@@ -94,7 +94,7 @@ describe('Search', () => {
       );
 
       expect(domUtils.showElement).toHaveBeenCalledWith($searchClear);
-      expect(domUtils.showElement).toHaveBeenCalledWith($orderByRelevance);
+      expect(domUtils.showElement).toHaveBeenCalledWith($orderRelevance);
 
       done();
     });
@@ -123,7 +123,7 @@ describe('Search', () => {
       );
 
       expect(domUtils.hideElement).toHaveBeenCalledWith($searchClear);
-      expect(domUtils.hideElement).toHaveBeenCalledWith($orderByRelevance);
+      expect(domUtils.hideElement).toHaveBeenCalledWith($orderRelevance);
 
       done();
     });
@@ -152,7 +152,7 @@ describe('Search', () => {
       );
 
       expect(domUtils.hideElement).toHaveBeenCalledWith($searchClear);
-      expect(domUtils.hideElement).toHaveBeenCalledWith($orderByRelevance);
+      expect(domUtils.hideElement).toHaveBeenCalledWith($orderRelevance);
 
       done();
     });
