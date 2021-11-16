@@ -12,6 +12,13 @@ export function showElement($el) {
   }
 }
 
+export function toggleVisibleElement($el) {
+  if ($el) {
+    $el.classList.toggle('hidden');
+    $el.toggleAttribute('aria-hidden');
+  }
+}
+
 export function addClass($el, clazz) {
   if ($el) {
     $el.classList.add(clazz);
