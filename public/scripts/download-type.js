@@ -16,8 +16,8 @@ export default function initDownloadType(document, storage) {
   const $downloadSvg = document.getElementById('download-svg');
   const $downloadFiles = document.getElementsByClassName('grid-item__button');
 
-  $downloadPdf.removeElement('disabled');
-  $downloadSvg.removeElement('disabled');
+  $downloadPdf.disabled = false;
+  $downloadSvg.disabled = false;
 
   if (storage.hasItem(STORAGE_KEY_DOWNLOAD_TYPE)) {
     const storedDownloadType = storage.getItem(STORAGE_KEY_DOWNLOAD_TYPE);
