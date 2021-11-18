@@ -40,13 +40,9 @@ describe('::hideElement', () => {
     $el.setAttribute.mockReset();
   });
 
-  it('adds the .hidden class', () => {
+  it('adds the .hidden class and the aria-hidden attribute', () => {
     hideElement($el);
     expect($el.classList.add).toHaveBeenCalledWith('hidden');
-  });
-
-  it('adds the aria-hidden attribute', () => {
-    hideElement($el);
     expect($el.setAttribute).toHaveBeenCalledWith('aria-hidden', 'true');
   });
 });
@@ -57,14 +53,27 @@ describe('::showElement', () => {
     $el.removeAttribute.mockReset();
   });
 
-  it('removes the .hidden class', () => {
+  it('removes the .hidden class and the aria-hidden attribute', () => {
     showElement($el);
     expect($el.classList.remove).toHaveBeenCalledWith('hidden');
+    expect($el.removeAttribute).toHaveBeenCalledWith('aria-hidden');
+  });
+});
+
+describe('::toggleVisibleElement', () => {
+  beforeEach(() => {
+    $el.classList.toggle.mockReset();
+    $el.toggleAttribute.mockReset();
   });
 
-  it('removes the aria-hidden attribute', () => {
-    showElement($el);
-    expect($el.removeAttribute).toHaveBeenCalledWith('aria-hidden');
+  it('toggles the .hidden class', () => {
+    toggleVisibleElement($el);
+    expect($el.classList.toggle).toHaveBeenCalledWith('hidden');
+  });
+
+  it('toggles the aria-hidden attribute', () => {
+    toggleVisibleElement($el);
+    expect($el.toggleAttribute).toHaveBeenCalledWith('aria-hidden');
   });
 });
 

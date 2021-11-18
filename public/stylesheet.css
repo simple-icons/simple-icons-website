@@ -42,7 +42,7 @@
   --dm-color-button-text-hover: rgb(0, 0, 0);
   --dm-color-disabled: rgb(170, 170, 170);
   --dm-color-grid-item-divider: rgb(64, 64, 64);
-  --dm-color-shadow: rgba(75, 75, 75, 0.95);
+  --dm-color-shadow: rgba(215, 215, 215, 0.95);
   --dm-color-link: rgb(0, 100, 238);
   --dm-color-link-hover: rgb(0, 72, 238);
   --dm-color-link-visited: rgb(169, 144, 189);
@@ -222,22 +222,16 @@ a {
 /* Modal */
 
 .popup__top {
-  top: -webkit-calc(var(--header-top-offset) + 65px);
-  top: -moz-calc(var(--header-top-offset) + 65px);
   top: calc(var(--header-top-offset) + 65px);
   right: var(--side-offset);
 }
 @media (max-width: 860px) {
   .popup__top {
-    top: -webkit-calc(var(--header-top-offset) + 65px);
-    top: -moz-calc(var(--header-top-offset) + 65px);
     top: calc(var(--header-top-offset) + 65px);
   }
 }
 @media (max-width: 640px) {
   .popup__top {
-    top: -webkit-calc(var(--header-top-offset) + 65px);
-    top: -moz-calc(var(--header-top-offset) + 65px);
     top: calc(var(--header-top-offset) + 65px);
   }
 }
@@ -249,8 +243,8 @@ a {
 .popup_modal {
   background-color: #fff;
   position: absolute;
-  border: 0.1rem solid var(--color-button-border);
-  z-index: 2011;
+  border: 0.13rem solid var(--color-button-border);
+  z-index: 100;
   background-color: var(--color-background);
   border-radius: var(--border-radius-large);
 }
@@ -258,12 +252,7 @@ a {
 .popup__close {
   font-size: 1.2rem;
   cursor: pointer;
-  z-index: 2011;
-}
-
-.is__visible {
-  opacity: 1;
-  pointer-events: auto;
+  z-index: 100;
 }
 
 /* Extensions */
@@ -273,6 +262,12 @@ a {
   border-radius: var(--border-radius-large);
   border-spacing: 0;
   border-collapse: collapse;
+}
+
+.extensions__table tr:nth-child(1) {
+  font-weight: bold;
+  font-size: 1rem;
+  text-indent: 8px;
 }
 
 .extensions__table tr:nth-child(odd) {
@@ -356,6 +351,7 @@ a {
   padding: 10px;
   height: 100%;
   width: 100%;
+  outline: none;
   display: inline-block;
   fill: var(--color-button-active);
 }
@@ -447,14 +443,14 @@ body.no-js .control-field__title {
 .control__button,
 .control__input {
   background-color: transparent;
-  border: 0.1rem solid var(--color-button-border);
-  border-radius: var(--border-radius-small);
   color: var(--color-text-default);
   height: 2.4rem;
   padding: 0.4rem;
 }
 
 .control__input {
+  border: 0.1rem solid var(--color-button-border);
+  border-radius: var(--border-radius-small);
   font-family: var(--font-family-stylized);
   outline: none;
   padding: 0.4rem 2rem 0.4rem 0.8rem;
@@ -470,20 +466,25 @@ body.no-js .control-field__title {
 }
 
 .control__button {
+  border: 0.1rem solid var(--color-button-border);
+  border-left-width: 0;
   cursor: default; /* Button should not work when JS is disabled */
   fill: var(--color-button-hover);
-  margin: 0 0.3rem;
   width: 2.4rem;
 }
-.control__button:first-of-type {
-  margin-left: 0;
+.first__button {
+  border-left-width: 0.1rem;
+  border-top-left-radius: var(--border-radius-small);
+  border-bottom-left-radius: var(--border-radius-small);
+}
+.last__button {
+  border-top-right-radius: var(--border-radius-small);
+  border-bottom-right-radius: var(--border-radius-small);
 }
 .control__button:not(:disabled):focus,
 .control__button:not(:disabled):hover {
-  background-color: var(--color-button-hover) !important;
-  border-color: var(--color-button-hover) !important;
+  box-shadow: 0 0 3px 0 var(--color-shadows);
   cursor: pointer;
-  fill: var(--color-background);
 }
 
 /* Control - disabled */
@@ -683,6 +684,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   flex-wrap: nowrap;
   justify-content: flex-start;
   margin-top: 0.4rem;
+  height: 2rem;
 }
 
 .grid-item__color {
@@ -713,10 +715,16 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   padding: 8px;
   text-align: center;
 }
+
+.grid-item__button svg {
+  height: 1rem;
+  pointer-events: none;
+}
+
 .grid-item__button:focus,
 .grid-item__button:hover {
   background: var(--color-button-hover);
-  color: var(--color-button-text-hover);
+  fill: var(--color-button-text-hover);
 }
 
 /* Carbon ads */

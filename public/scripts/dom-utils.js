@@ -19,6 +19,7 @@ export function toggleVisibleElement($el) {
   }
 }
 
+
 export function sortChildren($el, attribute) {
   [...$el.children]
     .sort(
@@ -27,4 +28,21 @@ export function sortChildren($el, attribute) {
         parseInt(b.getAttribute(attribute)),
     )
     .forEach((node) => $el.appendChild(node));
+
+export function addClass($el, clazz) {
+  if ($el) {
+    $el.classList.add(clazz);
+  }
+}
+
+export function removeClass($el, clazz) {
+  if ($el) {
+    $el.classList.remove(clazz);
+  }
+}
+
+export function toggleClass($el, clazz) {
+  if ($el) {
+    $el.classList.toggle(clazz);
+  }
 }
