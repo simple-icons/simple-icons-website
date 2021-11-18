@@ -94,9 +94,13 @@ export default function initSearch(history, document, ordering, domUtils) {
       domUtils.hideElement($orderByRelevance);
       domUtils.removeClass($orderByRelevance, 'last__button');
       domUtils.addClass($orderByColor, 'last__button');
-      if (ordering.currentOrderingIs(ORDER_BY_RELEVANCE)) {
+      if (ordering.currentOrderingIs(ORDER_RELEVANCE)) {
         ordering.resetOrdering();
       }
+
+      $icons.forEach(($icon) => {
+        domUtils.showElement($icon);
+      });
     }
 
     let noResults = true;

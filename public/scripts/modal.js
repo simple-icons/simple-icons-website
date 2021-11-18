@@ -1,4 +1,3 @@
-
 export default async function initModal(document, domUtils) {
   const $modalTrigger = document.querySelector('.popup-trigger');
   const $popupModal = document.querySelector('.popup_modal');
