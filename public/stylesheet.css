@@ -443,7 +443,6 @@ body.no-js .control-field__title {
   background-color: transparent;
   color: var(--color-text-default);
   height: 2.4rem;
-  padding: 0.4rem;
 }
 
 .control__input {
@@ -469,6 +468,7 @@ body.no-js .control-field__title {
   cursor: default; /* Button should not work when JS is disabled */
   fill: var(--color-button-hover);
   width: 2.4rem;
+  padding: 0.4rem;
 }
 .first__button {
   border-left-width: 0.1rem;
@@ -535,7 +535,6 @@ input[type='search']::-ms-reveal {
 }
 
 /* Control - order */
-
 body.order-alphabetically #order-alpha,
 body.order-by-color #order-color,
 body.order-by-relevance #order-relevance {
@@ -547,7 +546,8 @@ body.order-by-relevance #order-relevance {
 }
 
 /* Control - color */
-
+body.download-pdf #download-pdf,
+body.download-svg #download-svg,
 body.dark #color-scheme-dark,
 body.light #color-scheme-light,
 body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
@@ -702,9 +702,9 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 }
 
 .grid-item__button {
+  fill: var(--color-button-active);
   border-top: 1px solid var(--color-grid-item-divider);
   background-color: var(--color-background);
-  color: var(--color-button-active);
   flex-grow: 1;
   font-family: var(--font-family-stylized);
   font-size: 0.75rem;
@@ -721,8 +721,8 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 
 .grid-item__button:focus,
 .grid-item__button:hover {
-  background: var(--color-button-hover);
   fill: var(--color-button-text-hover);
+  background: var(--color-button-hover);
 }
 
 /* Carbon ads */

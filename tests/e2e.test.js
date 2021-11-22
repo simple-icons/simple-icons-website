@@ -435,13 +435,13 @@ describe('Grid item', () => {
     expect(clipboardValue).toMatch(SVG_REGEX);
   });
 
-  it('is possible to download an icon as SVG', async () => {
-    await expect(page).toClick('a[download][href$="svg"]');
-  });
-
-  it('is possible to download an icon as PDF', async () => {
-    await expect(page).toClick('a[download][href$="pdf"]');
-  });
+  it.each(['download-svg', 'download-pdf'])(
+    'is possible to download an icon "%s"',
+    async (fileType) => {
+      await expect(page).toClick(`button#${fileType}`);
+      await expect(page).toClick('a[download].grid-item__button');
+    },
+  );
 });
 
 describe('JavaScript disabled', () => {
