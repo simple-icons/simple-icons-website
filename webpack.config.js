@@ -75,7 +75,7 @@ module.exports = (env, argv) => {
             {
               loader: 'pug-loader',
               options: {
-                pretty: env.mode === 'development',
+                pretty: argv.mode === 'development',
               },
             },
           ],
@@ -144,7 +144,7 @@ module.exports = (env, argv) => {
     ],
     optimization: {
       minimizer:
-        env.mode === 'development'
+        argv.mode === 'development'
           ? []
           : [
               '...', // <- Load all default minimizers
