@@ -1,6 +1,6 @@
 import { ORDER_BY_RELEVANCE } from './ordering.js';
 import { decodeURIComponent, debounce, normalizeSearchTerm } from './utils.js';
-const { Searcher } = require('fast-fuzzy');
+import { Searcher } from 'fast-fuzzy';
 
 const QUERY_PARAMETER = 'q';
 
@@ -14,11 +14,6 @@ function getQueryFromParameter(location, parameter) {
   return '';
 }
 
-function getScore(results, iconName) {
-  const result = results.find((r) => r.original === iconName);
-  return result ? result.score : -1;
-}
-
 function setSearchQueryInURL(history, path, query) {
   if (query !== '') {
     history.replaceState(
@@ -30,8 +25,6 @@ function setSearchQueryInURL(history, path, query) {
     history.replaceState(null, '', path);
   }
 }
-
-const keySelector = (icon) => icon.querySelector('h2').textContent;
 
 export default function initSearch(history, document, ordering, domUtils) {
   let activeQuery = '';
@@ -73,15 +66,7 @@ export default function initSearch(history, document, ordering, domUtils) {
   function search(rawQuery) {
     setSearchQueryInURL(history, document.location.pathname, rawQuery);
     const query = normalizeSearchTerm(rawQuery);
-    if (query) {
-      domUtils.showElement($searchClear);
-      domUtils.showElement($orderByRelevance);
-      domUtils.addClass($orderByRelevance, 'last__button');
-      domUtils.removeClass($orderByColor, 'last__button');
-      if (activeQuery === '') {
-        ordering.selectOrdering(ORDER_BY_RELEVANCE);
-      }
-    } else {
+    if (!query) {
       domUtils.hideElement($searchClear);
       domUtils.hideElement($orderByRelevance);
       domUtils.removeClass($orderByRelevance, 'last__button');
@@ -89,11 +74,24 @@ export default function initSearch(history, document, ordering, domUtils) {
       if (ordering.currentOrderingIs(ORDER_BY_RELEVANCE)) {
         ordering.resetOrdering();
       }
+      domUtils.hideElement($gridItemIfEmpty);
+
+      $icons.forEach(($icon) => domUtils.showElement($icon));
+      return;
     }
+
+    domUtils.showElement($searchClear);
+    domUtils.showElement($orderByRelevance);
+    domUtils.addClass($orderByRelevance, 'last__button');
+    domUtils.removeClass($orderByColor, 'last__button');
+    if (activeQuery === '') {
+      ordering.selectOrdering(ORDER_BY_RELEVANCE);
+    }
+
     const result = searcher.search(query);
     let noResults = true;
     $icons.forEach(($icon) => {
-      const brandName = $icon.querySelector('h2').textContent;
+      const brandName = $icon.getAttribute('data-brand');
       const score = result.indexOf($icon);
       if (score === -1) {
         $icon.style.removeProperty('--order-relevance');

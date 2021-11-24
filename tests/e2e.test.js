@@ -255,7 +255,7 @@ describe('Search', () => {
     await $searchInput.press('Backspace');
 
     const $gridItemIfEmpty = await page.$('.grid-item--if-empty');
-    expect(await isHidden($gridItemIfEmpty)).toBeFalsy();
+    expect(await isHidden($gridItemIfEmpty)).toBeTruthy();
   });
 });
 
