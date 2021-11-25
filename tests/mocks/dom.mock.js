@@ -65,7 +65,7 @@ export function newEventMock(opts) {
     preventDefault: jest.fn().mockName('event.preventDefault'),
     stopPropagation: jest.fn().mockName('event.stopPropagation'),
     key: opts.key || '',
-    path: opts.path || '',
+    composedPath: () => opts.composedPath() || '',
   };
 }
 

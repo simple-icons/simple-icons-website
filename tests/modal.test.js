@@ -36,7 +36,7 @@ describe('Extensions modal', () => {
 
   it.each([
     ["pressing 'Escape'", 'keyup', { key: 'Escape' }],
-    ['clicking outside the modal', 'click', { path: [] }],
+    ['clicking outside the modal', 'click', { composedPath: () => [] }],
   ])('closes the extensions modal by %s', (msg, event, eventParam) => {
     document.addEventListener.mockImplementation((name, fn) => {
       eventListeners.set(name, fn);
