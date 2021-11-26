@@ -14,7 +14,7 @@ export default async function initModal(document, domUtils) {
   });
 
   document.addEventListener('click', (e) => {
-    if (!e.path.includes($popupBody)) {
+    if (!e.composedPath().includes($popupBody)) {
       domUtils.hideElement($popupModal);
     }
   });
