@@ -112,9 +112,20 @@ describe('External links', () => {
     });
   });
 
+  it(`is possible to click the button for Third-Party Extensions`, async () => {
+    await expect(page).toClick('button[title="Third-Party Extensions"]');
+  });
+
   it('is possible to click the link for Github repository', async () => {
     const footerRepositoryTitle = 'website repository';
     await expect(page).toClick(`a[title="${footerRepositoryTitle}"]`);
+  });
+
+  it('is possible to click extensions link', async () => {
+    const extensionPopupLinks = await page.$$('.extensions__table a');
+    extensionPopupLinks.forEach((link) =>
+      expect(page).toClick(link.getProperty('innerText')),
+    );
   });
 });
 
@@ -424,13 +435,13 @@ describe('Grid item', () => {
     expect(clipboardValue).toMatch(SVG_REGEX);
   });
 
-  it('is possible to download an icon as SVG', async () => {
-    await expect(page).toClick('a[download][href$="svg"]');
-  });
-
-  it('is possible to download an icon as PDF', async () => {
-    await expect(page).toClick('a[download][href$="pdf"]');
-  });
+  it.each(['download-svg', 'download-pdf'])(
+    'is possible to download an icon "%s"',
+    async (fileType) => {
+      await expect(page).toClick(`button#${fileType}`);
+      await expect(page).toClick('a[download].grid-item__button');
+    },
+  );
 });
 
 describe('JavaScript disabled', () => {
