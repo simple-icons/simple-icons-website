@@ -74,17 +74,16 @@ describe('Search', () => {
   describe('Searching', () => {
     it('works if a value is searched for', (done) => {
       const searchValue = 'foobar';
+      $searchInput.value = searchValue;
+      const inputListener = inputEventListeners.get('input');
+      const event = newEventMock();
+      inputListener(event);
 
       expect($searchInput.addEventListener).toHaveBeenCalledWith(
         'input',
         expect.any(Function),
       );
 
-      const inputListener = inputEventListeners.get('input');
-      const event = newEventMock();
-
-      $searchInput.value = searchValue;
-      inputListener(event);
       jest.runAllTimers();
 
       expect(event.preventDefault).toHaveBeenCalledTimes(1);

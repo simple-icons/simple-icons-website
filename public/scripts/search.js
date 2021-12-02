@@ -1,5 +1,6 @@
 import { ORDER_BY_RELEVANCE } from './ordering.js';
 import { decodeURIComponent, debounce, normalizeSearchTerm } from './utils.js';
+import { Searcher } from 'fast-fuzzy';
 
 const QUERY_PARAMETER = 'q';
 
@@ -11,23 +12,6 @@ function getQueryFromParameter(location, parameter) {
   }
 
   return '';
-}
-
-function getScore(query, iconName) {
-  let score = iconName.length - query.length;
-  let index = 0;
-
-  for (const letter of query) {
-    index = iconName.indexOf(letter, index);
-    if (index === -1) {
-      return -1;
-    }
-
-    score += index;
-    index++;
-  }
-
-  return score;
 }
 
 function setSearchQueryInURL(history, path, query) {
@@ -51,7 +35,9 @@ export default function initSearch(history, document, ordering, domUtils) {
   const $orderByRelevance = document.getElementById('order-relevance');
   const $gridItemIfEmpty = document.querySelector('.grid-item--if-empty');
   const $icons = document.querySelectorAll('.grid-item[data-brand]');
-
+  const searcher = new Searcher($icons, {
+    keySelector: (obj) => obj.dataset.brand,
+  });
   $searchInput.disabled = false;
   $searchInput.focus();
   $searchInput.addEventListener(
@@ -79,15 +65,7 @@ export default function initSearch(history, document, ordering, domUtils) {
   function search(rawQuery) {
     setSearchQueryInURL(history, document.location.pathname, rawQuery);
     const query = normalizeSearchTerm(rawQuery);
-    if (query !== '') {
-      domUtils.showElement($searchClear);
-      domUtils.showElement($orderByRelevance);
-      domUtils.addClass($orderByRelevance, 'last__button');
-      domUtils.removeClass($orderByColor, 'last__button');
-      if (activeQuery === '') {
-        ordering.selectOrdering(ORDER_BY_RELEVANCE);
-      }
-    } else {
+    if (!query) {
       domUtils.hideElement($searchClear);
       domUtils.hideElement($orderByRelevance);
       domUtils.removeClass($orderByRelevance, 'last__button');
@@ -95,17 +73,31 @@ export default function initSearch(history, document, ordering, domUtils) {
       if (ordering.currentOrderingIs(ORDER_BY_RELEVANCE)) {
         ordering.resetOrdering();
       }
+      domUtils.hideElement($gridItemIfEmpty);
+
+      $icons.forEach(($icon) => domUtils.showElement($icon));
+      return;
     }
 
+    domUtils.showElement($searchClear);
+    domUtils.showElement($orderByRelevance);
+    domUtils.addClass($orderByRelevance, 'last__button');
+    domUtils.removeClass($orderByColor, 'last__button');
+
+    if (activeQuery === '') {
+      ordering.selectOrdering(ORDER_BY_RELEVANCE);
+    }
+
+    const result = searcher.search(query);
     let noResults = true;
     $icons.forEach(($icon) => {
       const brandName = $icon.getAttribute('data-brand');
-      const score = getScore(query, brandName);
-      if (score < 0) {
+      const score = result.indexOf($icon);
+      if (score === -1) {
         $icon.style.removeProperty('--order-relevance');
         domUtils.hideElement($icon);
       } else {
-        $icon.style.setProperty('--order-relevance', score);
+        $icon.style.setProperty('--order-relevance', 1 + score);
         domUtils.showElement($icon);
         noResults = false;
       }

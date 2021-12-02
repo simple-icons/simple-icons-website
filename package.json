@@ -31,6 +31,7 @@
     "test:unit": "cross-env TEST_ENV=unit jest"
   },
   "dependencies": {
+    "fast-fuzzy": "1.10.10",
     "simple-icons": "6.0.0"
   },
   "devDependencies": {
