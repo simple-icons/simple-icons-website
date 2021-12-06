@@ -22,6 +22,8 @@ export default function initDownloadType(document, storage) {
   if (storage.hasItem(STORAGE_KEY_DOWNLOAD_TYPE)) {
     const storedDownloadType = storage.getItem(STORAGE_KEY_DOWNLOAD_TYPE);
     selectDownloadType(storedDownloadType);
+  } else {
+    storage.setItem(STORAGE_KEY_DOWNLOAD_TYPE, DEFAULT_DOWNLOAD_TYPE);
   }
 
   $downloadPdf.addEventListener('click', (event) => {
