@@ -1,0 +1,67 @@
+doctype html
+html(lang='en-US')
+  head
+    meta(charset='UTF-8')
+    meta(
+      content='initial-scale=1, shrink-to-fit=no, width=device-width',
+      name='viewport'
+    )
+    link(rel='preconnect', href='https://fonts.gstatic.com')
+    title #{ pageTitle }
+    meta(name='description', content=pageDescription)
+    meta(property='og:type', content='website')
+    meta(property='og:title', content=pageTitle)
+    meta(property='og:description', content=pageDescription)
+    meta(property='og:url', content=pageUrl)
+    meta(property='og:site_name', content=pageTitle)
+    meta(property='og:image', content=`${pageUrl}/images/og.png`)
+    link(rel='icon', type='image/x-icon', href=`${pageUrl}/images/favicon.ico`)
+    link(rel='icon', type='image/png', href=`${pageUrl}/images/favicon.png`)
+    link(rel='apple-touch-icon', href=`${pageUrl}/images/apple-touch-icon.png`)
+    link(rel='mask-icon', href=`${pageUrl}/images/logo.svg`, color='#111111')
+    link(
+      rel='stylesheet',
+      href='https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Roboto+Mono:wght@400;600&display=swap'
+    )
+    link(rel='license', href='license.txt')
+    link(rel='canonical', href=pageUrl)
+
+  body.no-js.removed
+    .header
+      p.control-field__title Removed icons
+    main.main.no-header
+      ul.grid.grid-top-padding
+        each icon in removedIcons
+          li.grid-item
+            .grid-item__row.mv-2.fg-2
+              button(
+                class=`grid-item__color copy-button copy-color ${icon.light ? "contrast-light" : "contrast-dark"} ${icon.superLight ? "border-light" : ""}  ${icon.superDark ? "border-dark" : ""}`,
+                style=`background-color: #${icon.hex}`,
+                title=`${icon.title} color`,
+                disabled
+              ) #{ icon.hex }
+              button.grid-item__preview.copy-button.copy-svg(
+                title=`${icon.title} SVG`,
+                disabled
+              )
+                if (icon.path)
+                  svg.icon-preview(
+                    role='img',
+                    viewBox='0 0 24 24',
+                    xmlns='http://www.w3.org/2000/svg',
+                    alt=`${icon.title} icon`
+                  )
+                    path(fill=`#${icon.hex}`, d=`${icon.path}`) 
+                else
+                  svg.icon-preview(
+                    role='img',
+                    viewBox='0 0 24 24',
+                    xmlns='http://www.w3.org/2000/svg',
+                    alt=`${icon.title} icon`
+                  )
+                    path(
+                      fill='#DDDDDD',
+                      d='M 11.455899,0.00555608 C 10.337678,0.07713592 9.6134609,0.19580776 8.6978704,0.4557556 5.4501509,1.3768751 2.7108843,3.673081 1.2117925,6.72841 0.56637626,8.0432186 0.18362942,9.4258398 0.03540883,10.96669 c -0.05816251,0.623498 -0.04315283,1.748055 0.03377178,2.401692 0.26642182,2.273602 1.14261189,4.375789 2.56477909,6.150215 0.3808706,0.476571 1.0412965,1.162231 1.4859583,1.546501 1.8368096,1.582292 4.0000797,2.550503 6.369733,2.850008 0.568492,0.07158 0.829285,0.08665 1.529111,0.08477 0.733598,0 1.060059,-0.0226 1.688589,-0.113021 2.078841,-0.295738 4.037604,-1.132092 5.69805,-2.431831 0.788008,-0.615963 1.58915,-1.43348 2.197042,-2.243463 1.283327,-1.706614 2.076964,-3.699547 2.328376,-5.843175 0.07692,-0.653637 0.09193,-1.778194 0.03377,-2.401692 -0.0394,-0.403108 -0.10882,-0.902283 -0.174487,-1.2432288 C 23.09403,6.1030282 20.754396,2.9949562 17.45039,1.3034116 16.084509,0.60456632 14.637951,0.18827304 13.060059,0.041346 12.763617,0.0130908 11.696054,-0.01139704 11.455899,0.00555608 Z m 0.981258,3.84082352 c 1.371509,0.050859 2.874354,0.5726387 4.056366,1.407109 0.300194,0.2109721 0.617273,0.4690363 0.598511,0.4841057 -0.01689,0.01507 -5.382847,3.9387749 -10.274126,7.5139997 -1.2364224,0.904166 -2.2552044,1.642569 -2.2627093,1.642569 -0.033772,0 -0.2495359,-0.717682 -0.339594,-1.130208 C 3.7840764,11.795509 4.1067845,9.648114 5.1011758,7.90571 5.6640388,6.916778 6.4445422,6.0314484 7.3376181,5.3721604 8.4464583,4.5546433 9.7072714,4.049817 11.071276,3.8840532 c 0.260793,-0.032023 0.833037,-0.062161 1.003772,-0.054627 0.05629,0.00377 0.219517,0.011302 0.362109,0.016953 z m 7.082693,5.4476026 c 0.529091,1.5088278 0.594758,3.2116748 0.181992,4.8184538 -0.230774,0.896631 -0.619149,1.76124 -1.138859,2.533549 -0.470929,0.698845 -1.076945,1.348715 -1.750504,1.874262 -1.804914,1.41276 -4.174568,1.966562 -6.407257,1.495642 C 9.4164588,19.808684 8.5083732,19.424413 7.6565738,18.857426 7.3676375,18.66529 6.9811382,18.369552 6.9811382,18.341297 c 0,-0.01507 12.4617868,-9.1509172 12.4880538,-9.1528009 0.0075,-0.00188 0.02814,0.047092 0.05066,0.1054861 z'
+                    )
+            .grid-item__row
+              h2.grid-item__title(title=`${icon.title}`) #{ icon.title }

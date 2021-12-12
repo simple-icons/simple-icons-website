@@ -8,6 +8,7 @@ const fs = require('fs');
 const simpleIcons = require('simple-icons');
 const { normalizeSearchTerm } = require('./public/scripts/utils.js');
 const sortByColors = require('./scripts/color-sorting.js');
+const removedIcons = require('./scripts/removed-icons.js');
 
 const icons = Object.values(simpleIcons);
 const sortedHexes = sortByColors(icons.map((icon) => icon.hex));
@@ -138,6 +139,34 @@ module.exports = (env, argv) => {
           pageTitle: 'Simple Icons',
           pageDescription: `${icons.length} Free SVG icons for popular brands.`,
           pageUrl: 'https://simpleicons.org',
+        },
+      }),
+      new HtmlWebpackPlugin({
+        inject: true,
+        filename: 'removed.html',
+        template: path.resolve(ROOT_DIR, 'removed.pug'),
+        templateParameters: {
+          removedIcons: removedIcons
+            .sort((v1, v2) => v1.title.localeCompare(v2.title))
+            .map((icon, iconIndex) => {
+              const luminance = getRelativeLuminance(`#${icon.hex}`);
+              return {
+                base64Svg: Buffer.from(icon.path).toString('base64'),
+                hex: icon.hex,
+                light: luminance < 0.4,
+                superLight: luminance > 0.95,
+                superDark: luminance < 0.02,
+                issue: icon.issue,
+                versionIssue: icon.versionIssue,
+                path: icon.path,
+                title: icon.title,
+              };
+            }),
+          iconCount: removedIcons.length,
+          pageTitle: 'Removed Icons',
+          pageDescription:
+            "Removed icons in all previous versions. Some icons can't be shown since they were removed because the brand does not allow them to be modified to fit this library.",
+          pageUrl: 'https://simpleicons.org/removed',
         },
       }),
       new MiniCssExtractPlugin(),
