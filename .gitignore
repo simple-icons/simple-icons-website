@@ -9,3 +9,4 @@ node_modules/
 .cache/
 _site/
 tests/_artifacts/
+.DS_Store
