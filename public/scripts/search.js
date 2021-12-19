@@ -53,6 +53,7 @@ export default function initSearch(history, document, ordering, domUtils) {
     event.preventDefault();
     $searchInput.value = '';
     search('');
+    $searchInput.focus();
   });
 
   // Load search query if present
