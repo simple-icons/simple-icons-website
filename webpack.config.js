@@ -117,7 +117,6 @@ module.exports = (env, argv) => {
           icons: displayIcons.map((icon, iconIndex) => {
             const luminance = getRelativeLuminance(`#${icon.hex}`);
             return {
-              base64Svg: Buffer.from(icon.svg).toString('base64'),
               guidelines: icon.guidelines,
               hex: icon.hex,
               indexByAlpha: iconIndex,

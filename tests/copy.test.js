@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 const {
   document,
   newElementMock,
@@ -5,6 +8,7 @@ const {
   window,
 } = require('./mocks/dom.mock.js');
 const { navigator } = require('./mocks/navigator.mock.js');
+const { fetch, newFetchTextMock } = require('./mocks/fetch.mock.js');
 
 const initCopyButtons = require('../public/scripts/copy.js').default;
 
@@ -19,7 +23,7 @@ describe('Copy', () => {
   });
 
   it('gets the #copy-input button', () => {
-    initCopyButtons(window, document, navigator);
+    initCopyButtons(document, navigator, fetch);
     expect(document.getElementById).toHaveBeenCalledWith('copy-input');
   });
 
@@ -46,7 +50,7 @@ describe('Copy', () => {
       return [];
     });
 
-    initCopyButtons(window, document, navigator);
+    initCopyButtons(document, navigator, fetch);
     jest.runAllTimers();
 
     for (const $colorButton of $colorButtons) {
@@ -69,10 +73,18 @@ describe('Copy', () => {
     }
   });
 
-  it('gets grid item copy SVG source buttons', () => {
-    const rawSvg =
-      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
-    const base64Svg = Buffer.from(rawSvg).toString('base64');
+  it('gets grid item copy SVG source buttons', async () => {
+    const simpleIconsIconPath = path.resolve(
+      __dirname,
+      '..',
+      'node_modules',
+      'simple-icons',
+      'icons',
+      'simpleicons.svg',
+    );
+    const rawSvg = fs.readFileSync(simpleIconsIconPath, 'utf-8');
+    const iconUrl = 'icons/simpleicons.svg';
+
     const eventListeners = new Map();
     const $svgButtons = [
       newElementMock('preview button 1', { parentNode: true }),
@@ -95,16 +107,15 @@ describe('Copy', () => {
       return [];
     });
 
-    initCopyButtons(window, document, navigator);
+    const fetchMock = newFetchTextMock(rawSvg);
+    initCopyButtons(document, navigator, fetchMock);
     jest.runAllTimers();
 
     for (const $svgButton of $svgButtons) {
       const buttonEventListeners = eventListeners.get($svgButton);
 
       const $img = newElementMock('img');
-      $img.getAttribute.mockReturnValue(
-        `data:image/svg+xml;base64,${base64Svg}`,
-      );
+      $img.getAttribute.mockReturnValue(iconUrl);
       $svgButton.querySelector.mockReturnValue($img);
 
       expect($svgButton.removeAttribute).toHaveBeenCalledWith('disabled');
@@ -115,8 +126,10 @@ describe('Copy', () => {
 
       const clickListener = buttonEventListeners.get('click');
       const event = newEventMock();
-      clickListener(event);
+      await clickListener(event);
+
       expect(event.preventDefault).toHaveBeenCalledTimes(1);
+      expect(fetchMock).toHaveBeenCalledWith(iconUrl);
       expect($svgButton.classList.add).toHaveBeenCalledWith('copied');
       expect(navigator.clipboard.writeText).toHaveBeenCalledWith(rawSvg);
     }
