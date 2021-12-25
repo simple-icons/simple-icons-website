@@ -86,7 +86,7 @@ export default function initSearch(history, document, ordering, domUtils) {
     domUtils.removeClass($orderByColor, 'last__button');
 
     if (activeQuery === '') {
-      ordering.selectOrdering(ORDER_BY_RELEVANCE);
+      ordering.selectOrdering(ORDER_RELEVANCE);
     }
 
     const result = searcher.search(query);
