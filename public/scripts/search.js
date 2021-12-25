@@ -33,6 +33,7 @@ export default function initSearch(history, document, ordering, domUtils) {
   const $searchClear = document.getElementById('search-clear');
   const $orderByColor = document.getElementById('order-color');
   const $orderByRelevance = document.getElementById('order-relevance');
+
   const $gridItemIfEmpty = document.querySelector('.grid-item--if-empty');
   const $icons = document.querySelectorAll('.grid-item[data-brand]');
   const searcher = new Searcher($icons, {

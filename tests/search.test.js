@@ -106,7 +106,6 @@ describe('Search', () => {
         $orderByColor,
         'last__button',
       );
-
       done();
     });
 

@@ -36,7 +36,7 @@ html(lang='en-US')
       .popup-body 
         table.extensions__table
           tr
-            td Extension
+            td Extensions
             td Author
           each ext in extensions
             tr
@@ -159,7 +159,6 @@ html(lang='en-US')
               )
       h1.header__title Simple Icons
       p.header__description #{ iconCount } Free #[abbr(title='Scalable Vector Graphic') SVG] icons for popular brands
-
     .sticky-header-shadow(aria-hidden='true')
 
     main.main
@@ -289,7 +288,11 @@ html(lang='en-US')
                   d='M17.612 7.239H24l-.006.882-.01.885-2.006.012h-2.01v2.151h3.753v1.751h-3.752v3.841h-2.357V12Zm-7.653.02c.56-.024 1.078-.02 1.545.013.92.062 1.597.221 2.217.522.843.406 1.473 1.03 1.845 1.825.614 1.315.567 3.328-.109 4.661-.793 1.567-2.167 2.308-4.564 2.458-.713.046-2.226-.015-2.79-.11L8 16.61V7.435l.164-.022a22.974 22.974 0 0 1 1.795-.151zm-7.917 0c.687-.019 1.344 0 1.71.053.623.1 1.063.255 1.47.523.834.55 1.271 1.57 1.166 2.703-.078.802-.33 1.392-.8 1.872-.462.47-1.042.759-1.842.918-.301.059-.45.071-1.04.071h-.69l-.007 1.675L2 16.748l-1.002.013H0l.006-4.66.01-4.662.14-.024c.483-.084 1.2-.137 1.886-.157Zm.78 1.62c-.283 0-.57 0-.645.019a.968.968 0 0 0-.162.045c-.018.013-.03.526-.03 1.398v1.38l.117.025c.214.043.937.024 1.148-.03.778-.206 1.19-.774 1.144-1.573-.034-.6-.32-.987-.875-1.186-.158-.059-.263-.071-.697-.078Zm8.244 0a5.62 5.62 0 0 0-.725.015 1.973 1.973 0 0 0-.254.043c-.031.013-.04.651-.04 3.057 0 2.87.002 3.045.055 3.066.096.041 1.188.026 1.417-.021 1.24-.243 2-1.036 2.233-2.329a5.674 5.674 0 0 0 .05-1.389c-.056-.46-.137-.743-.317-1.11-.142-.279-.198-.359-.443-.598-.372-.366-.72-.55-1.29-.68a4.624 4.624 0 0 0-.686-.055z'
                 )
       ul.grid
-        li.grid-item--if-empty.hidden(aria-hidden='true')
+        li.grid-item--if-empty.hidden(
+          aria-hidden='true',
+          order-color=-1,
+          order-alpha=-1
+        )
           p Icon missing? #[a(href='https://github.com/simple-icons/simple-icons/issues/new?labels=new+icon&template=icon_request.yml&title=Request%3A+') Submit a request]
 
         //- This script adds an extra element after itself.
@@ -298,10 +301,10 @@ html(lang='en-US')
           src='//cdn.carbonads.com/carbon.js?serve=CKYIPK7M&placement=simpleiconsorg',
           type='text/javascript'
         )
-
         each icon in icons
           li.grid-item(
-            style=`--order-color: ${icon.indexByColor}`,
+            order-color=`${icon.indexByColor}`,
+            order-alpha=`${icon.indexByAlpha}`,
             data-brand=`${icon.normalizedName}`
           )
             .grid-item__row.mv-2.fg-2
