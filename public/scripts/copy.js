@@ -5,7 +5,7 @@ function setCopied($el) {
   setTimeout(() => $el.classList.remove('copied'), COPIED_TIMEOUT);
 }
 
-export default function initCopyButtons(window, document, navigator) {
+export default function initCopyButtons(document, navigator, fetch) {
   const $copyInput = document.getElementById('copy-input');
   const $colorButtons = document.querySelectorAll('.copy-color');
   const $svgButtons = document.querySelectorAll('.copy-svg');
@@ -23,16 +23,20 @@ export default function initCopyButtons(window, document, navigator) {
 
   $svgButtons.forEach(($svgButton) => {
     $svgButton.removeAttribute('disabled');
-    $svgButton.addEventListener('click', (event) => {
+    $svgButton.addEventListener('click', async (event) => {
       event.preventDefault();
 
       const $img = $svgButton.querySelector('img');
-      const srcValue = $img.getAttribute('src');
-      const base64Svg = srcValue.replace('data:image/svg+xml;base64,', '');
+      const iconUrl = $img.getAttribute('src');
 
-      const value = window.atob(base64Svg);
-      copyValue(value);
-      setCopied($svgButton);
+      try {
+        const data = await fetch(iconUrl);
+        const svgValue = await data.text();
+        copyValue(svgValue);
+        setCopied($svgButton);
+      } catch (err) {
+        console.error(err);
+      }
     });
   });
 
