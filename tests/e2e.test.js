@@ -278,7 +278,9 @@ describe('Search', () => {
 });
 
 describe('Ordering', () => {
-  const icons = Object.values(simpleIcons);
+  const icons = Object.values(simpleIcons).sort((icon1, icon2) =>
+    icon1.title.localeCompare(icon2.title),
+  );
   const titles = icons.map((icon) => icon.title);
   const hexes = sortByColors(icons.map((icon) => icon.hex));
 

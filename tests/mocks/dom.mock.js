@@ -68,7 +68,3 @@ export function newEventMock(opts) {
     composedPath: opts.composedPath ? opts.composedPath : () => '',
   };
 }
-
-export const window = {
-  atob: (base64Str) => Buffer.from(base64Str, 'base64').toString('utf8'),
-};
