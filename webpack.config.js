@@ -9,7 +9,9 @@ const simpleIcons = require('simple-icons');
 const { normalizeSearchTerm } = require('./public/scripts/utils.js');
 const sortByColors = require('./scripts/color-sorting.js');
 
-const icons = Object.values(simpleIcons);
+const icons = Object.values(simpleIcons).sort((a, b) => {
+  return a.title.localeCompare(b.title);
+});
 const sortedHexes = sortByColors(icons.map((icon) => icon.hex));
 
 const NODE_MODULES = path.resolve(__dirname, 'node_modules');
