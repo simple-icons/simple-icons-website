@@ -15,7 +15,7 @@ document.body.classList.remove('no-js');
 const storage = newStorage(localStorage);
 initColorScheme(document, storage);
 initCopyButtons(document, navigator, fetch);
-const orderingControls = initOrdering(document, storage,domUtils);
+const orderingControls = initOrdering(document, storage, domUtils);
 initSearch(window.history, document, orderingControls, domUtils);
 initDownloadType(document, storage);
 initModal(document, domUtils);
