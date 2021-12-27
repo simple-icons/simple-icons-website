@@ -47,7 +47,6 @@ function simplifyHexIfPossible(hex) {
 
   return hex;
 }
-
 let extensions = parseExtensions();
 let displayIcons = icons;
 if (process.env.TEST_ENV) {

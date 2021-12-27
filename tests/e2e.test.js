@@ -61,7 +61,7 @@ describe.each([
     });
   });
 
-  it("displays the text 'Simple Icons'", async () => {
+  it('displays the text "Simple Icons"', async () => {
     await expect(page).toMatch('Simple Icons');
   });
 
@@ -118,7 +118,7 @@ describe('External links', () => {
 
   it('is possible to click the link for Github repository', async () => {
     const footerRepositoryTitle = 'website repository';
-    await expect(page).toClick(`a[title='${footerRepositoryTitle}']`);
+    await expect(page).toClick(`a[title="${footerRepositoryTitle}"]`);
   });
 
   it('is possible to click extensions link', async () => {
@@ -141,22 +141,22 @@ describe('Search', () => {
     await page.goto(url.href);
   });
 
-  it("does not show the 'order by relevance' button on load", async () => {
+  it('does not show the "order by relevance" button on load', async () => {
     const $orderRelevance = await page.$('#order-relevance');
     expect(await isHidden($orderRelevance)).toBeTruthy();
   });
 
-  it("does not show the 'clear search' button on load", async () => {
+  it('does not show the "clear search" button on load', async () => {
     const $searchClear = await page.$('#search-clear');
     expect(await isHidden($searchClear)).toBeTruthy();
   });
 
-  it("does not show the 'no results' message on load", async () => {
+  it('does not show the "no results" message on load', async () => {
     const $gridItemIfEmpty = await page.$('.grid-item--if-empty');
     expect(await isHidden($gridItemIfEmpty)).toBeTruthy();
   });
 
-  it("shows the 'order by relevance' button on search", async () => {
+  it('shows the "order by relevance" button on search', async () => {
     const $searchInput = await page.$('#search-input');
     await $searchInput.type('adobe');
 
@@ -164,7 +164,7 @@ describe('Search', () => {
     expect(await isVisible($orderRelevance)).toBeTruthy();
   });
 
-  it("shows the 'clear search' button on search", async () => {
+  it('shows the "clear search" button on search', async () => {
     const $searchInput = await page.$('#search-input');
     await $searchInput.type('adobe');
 
@@ -180,12 +180,12 @@ describe('Search', () => {
     expect(await hasClass($body, 'order-relevance')).toBeTruthy();
   });
 
-  it("does not show the 'no results' message on search", async () => {
+  it('does not show the "no results" message on search', async () => {
     const $gridItemIfEmpty = await page.$('.grid-item--if-empty');
     expect(await isHidden($gridItemIfEmpty)).toBeTruthy();
   });
 
-  it("resets the search when clicking the 'clear search' button", async () => {
+  it('resets the search when clicking the "clear search" button', async () => {
     const $searchInput = await page.$('#search-input');
     await $searchInput.type('adobe');
 
@@ -199,7 +199,7 @@ describe('Search', () => {
   it.each([
     ['order-alpha', 'order-alpha'],
     ['order-color', 'order-color'],
-  ])("switches back to '%s' when the search is removed", async (id, value) => {
+  ])('switches back to "%s" when the search is removed', async (id, value) => {
     await page.click(`#${id}`);
 
     const $searchInput = await page.$('#search-input');
@@ -216,7 +216,7 @@ describe('Search', () => {
   it.each([
     ['order-alpha', 'order-alpha'],
     ['order-color', 'order-color'],
-  ])("switches back to '%s' when search is cleared", async (id, value) => {
+  ])('switches back to "%s" when search is cleared', async (id, value) => {
     await page.click(`#${id}`);
 
     const $searchInput = await page.$('#search-input');
@@ -255,7 +255,7 @@ describe('Search', () => {
     expect(await isVisible($orderRelevance)).toBeTruthy();
   });
 
-  it("shows the 'no results' message if no brand was found", async () => {
+  it('shows the "no results" message if no brand was found', async () => {
     await page.type('#search-input', 'this is definitely not going to match');
     await page.screenshot({
       path: path.resolve(ARTIFACTS_DIR, 'desktop_no-search-results.png'),
@@ -265,7 +265,7 @@ describe('Search', () => {
     expect(await isVisible($gridItemIfEmpty)).toBeTruthy();
   });
 
-  it("hides the 'no results' message when the search is removed", async () => {
+  it('hides the "no results" message when the search is removed', async () => {
     const $searchInput = await page.$('#search-input');
     await $searchInput.type('this is definitely not going to match');
 
@@ -357,7 +357,7 @@ describe('Preferred color scheme', () => {
     ['light', '#color-scheme-light', 'rgb(252, 252, 252)'],
     ['dark', '#color-scheme-dark', 'rgb(34, 34, 34)'],
     ['dark', '#color-scheme-light', 'rgb(252, 252, 252)'],
-  ])("is '%s' but '%s' is selected", async (scheme, id, expected) => {
+  ])('is "%s" but "%s" is selected', async (scheme, id, expected) => {
     await page.emulateMediaFeatures([
       { name: 'prefers-color-scheme', value: scheme },
     ]);
@@ -463,12 +463,12 @@ describe('JavaScript disabled', () => {
     });
   });
 
-  it("does not show the 'order by relevance' button", async () => {
+  it('does not show the "order by relevance" button', async () => {
     const $orderRelevance = await page.$('#order-relevance');
     expect(await isHidden($orderRelevance)).toBeTruthy();
   });
 
-  it("does not show the 'clear search' button on load", async () => {
+  it('does not show the "clear search" button on load', async () => {
     const $searchClear = await page.$('#search-clear');
     expect(await isHidden($searchClear)).toBeTruthy();
   });

@@ -284,29 +284,6 @@ a {
   padding: 0.2rem;
 }
 
-/* Extensions */
-.extensions__table {
-  font-family: var(--font-family-stylized);
-  font-size: 0.9rem;
-  border-radius: var(--border-radius-large);
-  border-spacing: 0;
-  border-collapse: collapse;
-}
-
-.extensions__table tr:nth-child(odd) {
-  color: var(--color-text-default);
-  background-color: var(--color-background);
-}
-
-.extensions__table tr:nth-child(even) {
-  color: var(--color-background);
-  background-color: var(--color-text-default);
-}
-
-.extensions__table td {
-  padding: 0.2rem;
-}
-
 /* Header */
 
 .header {
