@@ -10,7 +10,9 @@ const { normalizeSearchTerm } = require('./public/scripts/utils.js');
 const sortByColors = require('./scripts/color-sorting.js');
 const removedIcons = require('./scripts/removed-icons.js');
 
-const icons = Object.values(simpleIcons);
+const icons = Object.values(simpleIcons).sort((icon1, icon2) =>
+  icon1.title.localeCompare(icon2.title),
+);
 const sortedHexes = sortByColors(icons.map((icon) => icon.hex));
 
 const NODE_MODULES = path.resolve(__dirname, 'node_modules');
@@ -118,7 +120,6 @@ module.exports = (env, argv) => {
           icons: displayIcons.map((icon, iconIndex) => {
             const luminance = getRelativeLuminance(`#${icon.hex}`);
             return {
-              base64Svg: Buffer.from(icon.svg).toString('base64'),
               guidelines: icon.guidelines,
               hex: icon.hex,
               indexByAlpha: iconIndex,
