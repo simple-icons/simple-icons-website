@@ -1,6 +1,3 @@
-.header label {
-  display: none;
-}
 .header__list {
   display: flex;
   flex-direction: row;
@@ -9,39 +6,25 @@
   margin: 0.2rem 0 0;
   flex-grow: 1;
 }
+.header__list span {
+  display: none;
+  color: var(--color-text-default);
+}
+.header__list svg {
+  display: block;
+}
 input#hamburger {
   display: none;
 }
-@media (max-width: 768px) {
-  .header__title-container {
-    flex-grow: 0;
-  }
-  .header__list {
-    flex-direction: column;
-    float: left;
-    top: 4em;
-  }
-  .header__list-item {
-    box-sizing: border-box;
-    width: 4em;
-    border-top: 1px solid #333;
-  }
 
-  .header label {
-    display: flex;
-    float: right;
-    color: white;
-    font-style: normal;
-    font-size: 2em;
-    padding: 10px;
-  }
+#menuToggle {
+  display: none;
+  z-index: 15;
+  fill: var(--color-svg-default);
+}
 
-  .header__list {
-    display: none;
-  }
-  .header input:checked ~ ul.header__list {
-    display: flex;
-  }
+.header__title-container {
+  flex-grow: 1;
 }
 
 *,
@@ -114,23 +97,6 @@ input#hamburger {
   --lm-color-link: rgb(0, 0, 238);
   --lm-color-link-hover: rgb(52, 52, 238);
   --lm-color-link-visited: rgb(85, 26, 139);
-}
-@media (max-width: 1280px) {
-  :root {
-    --side-offset: 3rem;
-  }
-}
-@media (max-width: 860px) {
-  :root {
-    --header-top-offset: 2rem;
-    --side-offset: 1.5rem;
-  }
-}
-@media (max-width: 640px) {
-  :root {
-    --header-top-offset: 1rem;
-    font-size: 130%;
-  }
 }
 
 /* Color schemes */
@@ -271,16 +237,6 @@ a {
   top: calc(var(--header-top-offset) + 65px);
   right: var(--side-offset);
 }
-@media (max-width: 860px) {
-  .popup__top {
-    top: calc(var(--header-top-offset) + 65px);
-  }
-}
-@media (max-width: 640px) {
-  .popup__top {
-    top: calc(var(--header-top-offset) + 65px);
-  }
-}
 
 .popup-trigger {
   display: inline-block;
@@ -333,20 +289,8 @@ a {
 .header {
   background-color: var(--color-background);
   padding: var(--header-top-offset) var(--side-offset);
-  z-index: 10;
+  z-index: 11;
   display: flex;
-}
-
-@media (max-width: 860px) {
-  .header {
-    padding-top: 2rem;
-  }
-}
-@media (max-width: 640px) {
-  .header {
-    background-color: var(--color-background);
-    padding-top: 1rem;
-  }
 }
 
 .header__title {
@@ -363,12 +307,6 @@ a {
   margin: 0.2rem 0;
 }
 
-@media (max-width: 640px) {
-  .header__list {
-    justify-content: space-around;
-    margin: 0 0 1rem;
-  }
-}
 .header__list-item {
   height: 55px;
   width: 55px;
@@ -376,21 +314,17 @@ a {
   fill: var(--color-button-active);
 }
 
-.header__list-icon:hover,
-.header__list-icon:focus {
-  cursor: pointer;
-  fill: var(--color-background);
-  background-color: var(--color-button-active);
-  border-radius: var(--border-radius-large);
-}
-
 .header__list-icon {
   padding: 10px;
   height: 100%;
   width: 100%;
   outline: none;
-  display: inline-block;
+  display: block;
   fill: var(--color-button-active);
+}
+
+.header__list-icon span {
+  margin-left: 10px;
 }
 
 /* Main */
@@ -411,11 +345,6 @@ a {
   top: 3.75rem;
   z-index: 9;
 }
-@media (max-width: 640px) {
-  .sticky-header-shadow {
-    display: none;
-  }
-}
 
 .control {
   background-color: var(--color-background);
@@ -428,14 +357,6 @@ a {
   top: -1.7rem;
   z-index: 10;
 }
-@media (max-width: 640px) {
-  .control {
-    background-color: var(--color-background);
-    box-shadow: none;
-    justify-content: flex-end;
-    margin-bottom: 0.5rem;
-  }
-}
 
 .control-field {
   display: flex;
@@ -445,16 +366,6 @@ a {
 .control-field:first-of-type {
   flex-basis: 25%;
   min-width: 260px;
-}
-@media (max-width: 640px) {
-  .control-field {
-    margin: 0.5rem 0 0.5rem 1rem;
-  }
-  .control-field:first-of-type {
-    flex-basis: 70%;
-    flex-grow: 1;
-    margin: 0.5rem 0;
-  }
 }
 
 .control-field__title {
@@ -493,11 +404,6 @@ body.no-js .control-field__title {
 }
 .control__input:focus {
   box-shadow: 0 0 3px 0 var(--color-shadows);
-}
-@media (max-width: 640px) {
-  .control__input {
-    font-size: 1.1rem;
-  }
 }
 
 .control__button {
@@ -705,12 +611,6 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   opacity: 1;
   text-decoration: underline;
 }
-@media (hover: hover) {
-  .grid-item__link:hover {
-    opacity: 1;
-    text-decoration: underline;
-  }
-}
 
 .grid-item__footer {
   align-items: stretch;
@@ -773,16 +673,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   grid-row: span 2;
   text-align: center;
 }
-@media (max-width: 1280px) {
-  #carbonads {
-    grid-column: -2 / -1;
-  }
-}
-/* @media (max-width: 640px) {
-  #carbonads {
-    width: 100%;
-  }
-} */
+
 #carbonads a {
   color: var(--color-text-default);
 }
@@ -861,12 +752,7 @@ body.order-by-relevance .grid-item {
   padding: 0.75rem 1.25rem;
   text-align: center;
 }
-@media (max-width: 640px) {
-  .footer .footer-share {
-    flex-grow: 1;
-    justify-content: center;
-  }
-}
+
 .footer .footer-share:focus,
 .footer .footer-share:hover {
   background-color: var(--color-twitter-hover);
@@ -930,13 +816,6 @@ body.order-by-relevance .grid-item {
   display: block;
   z-index: 1;
 }
-@media (hover: hover) {
-  .copy-button:not(:disabled):hover::before {
-    cursor: pointer;
-    display: block;
-    z-index: 1;
-  }
-}
 
 /* .link-button */
 
@@ -967,4 +846,278 @@ body.order-by-relevance .grid-item {
   display: block !important;
   height: 0;
   width: 0;
+}
+
+@media (hover: hover) {
+  .grid-item__link:hover {
+    opacity: 1;
+    text-decoration: underline;
+  }
+
+  .copy-button:not(:disabled):hover::before {
+    cursor: pointer;
+    display: block;
+    z-index: 1;
+  }
+}
+
+@media (max-width: 1280px) {
+  :root {
+    --side-offset: 3rem;
+  }
+  #carbonads {
+    grid-column: -2 / -1;
+  }
+}
+
+@media (max-width: 860px) {
+  :root {
+    --header-top-offset: 2rem;
+    --side-offset: 1.5rem;
+  }
+
+  .popup__top {
+    top: calc(var(--header-top-offset) + 65px);
+  }
+
+  .header {
+    padding-top: 2rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .header__list-icon:hover,
+  .header__list-icon:focus {
+    cursor: pointer;
+    fill: var(--color-background);
+    background-color: var(--color-button-active);
+    border-radius: var(--border-radius-large);
+  }
+}
+
+@media (max-width: 768px) {
+  .header__title-container {
+    flex-grow: 1;
+  }
+
+  .header__list-icon {
+    padding: 0px;
+  }
+
+  .hidden-768 {
+    display: none;
+  }
+
+  .header__list {
+    flex-direction: column;
+    float: left;
+    top: 4em;
+  }
+  .header__list svg {
+    display: none;
+  }
+  .header__list span {
+    display: block;
+    width: max-content;
+  }
+  .header__list-item {
+    box-sizing: border-box;
+    width: 4em;
+  }
+
+  .header label {
+    display: flex;
+    float: right;
+    color: white;
+    font-style: normal;
+    font-size: 2em;
+    padding: 10px;
+  }
+
+  .header input:checked ~ ul.header__list {
+    display: flex;
+  }
+
+  #menuToggle {
+    display: block;
+    position: relative;
+
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  #menuToggle a {
+    text-decoration: none;
+    color: #232323;
+
+    transition: color 0.3s ease;
+  }
+
+  #menuToggle input {
+    display: block;
+    width: 40px;
+    height: 32px;
+    position: absolute;
+    top: -7px;
+    left: -5px;
+
+    cursor: pointer;
+
+    opacity: 0; /* hide this */
+    z-index: 2; /* and place it over the hamburger */
+
+    -webkit-touch-callout: none;
+  }
+
+  /*
+ * Just a quick hamburger
+ */
+  #menuToggle span {
+    display: block;
+    width: 33px;
+    height: 4px;
+    margin-bottom: 5px;
+    position: relative;
+    left: 0;
+    background: #cdcdcd;
+    border-radius: 3px;
+
+    z-index: 15;
+
+    transform-origin: 4px 0px;
+  }
+
+  #menuToggle span:first-child {
+    transform-origin: 0% 0%;
+  }
+
+  #menuToggle span:nth-last-child(2) {
+    transform-origin: 0% 100%;
+  }
+
+  /* 
+ * Transform all the slices of hamburger
+ * into a crossmark.
+ */
+  #menuToggle input:checked ~ span {
+    opacity: 1;
+    transform: rotate(45deg) translate(-2px, -1px);
+    background: #232323;
+  }
+
+  /*
+ * But let's hide the middle one.
+ */
+  #menuToggle input:checked ~ span:nth-last-child(3) {
+    opacity: 0;
+    transform: rotate(0deg) scale(0.2, 0.2);
+  }
+
+  /*
+ * Ohyeah and the last one should go the other direction
+ */
+  #menuToggle input:checked ~ span:nth-last-child(2) {
+    transform: rotate(-45deg) translate(0, -1px);
+  }
+
+  /*
+ * Make this absolute positioned
+ * at the top left of the screen
+ */
+  #menu {
+    position: absolute;
+    width: 300px;
+    padding-top: 80px;
+    top: -4px;
+    right: -30px;
+    list-style-type: none;
+    -webkit-font-smoothing: antialiased;
+    border: 1px solid;
+    background-color: var(--color-background);
+    /* to stop flickering of text in safari */
+  }
+
+  #menu li {
+    font-size: 22px;
+  }
+
+  /*
+ * And let's slide it in from the left
+ */
+  #menuToggle input:checked ~ ul {
+    transform: none;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --header-top-offset: 1rem;
+    font-size: 130%;
+  }
+
+  .control-field {
+    margin: 0.5rem 0 0.5rem 1rem;
+  }
+
+  .control-field:first-of-type {
+    flex-basis: 70%;
+    flex-grow: 1;
+    margin: 0.5rem 0;
+  }
+
+  #menuToggle {
+    display: block;
+
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  #menuToggle input {
+    display: block;
+    width: 40px;
+    height: 32px;
+    top: -7px;
+    left: -5px;
+
+    cursor: pointer;
+
+    opacity: 0; /* hide this */
+    z-index: 2; /* and place it over the hamburger */
+
+    -webkit-touch-callout: none;
+  }
+
+  .footer .footer-share {
+    flex-grow: 1;
+    justify-content: center;
+  }
+
+  .control__input {
+    font-size: 1.1rem;
+  }
+
+  .popup__top {
+    top: calc(var(--header-top-offset) + 65px);
+  }
+
+  .sticky-header-shadow {
+    display: none;
+  }
+
+  .control {
+    background-color: var(--color-background);
+    box-shadow: none;
+    justify-content: flex-end;
+    margin-bottom: 0.5rem;
+  }
+
+  .header {
+    background-color: var(--color-background);
+    padding-top: 1rem;
+  }
+
+  .header__list {
+    justify-content: space-around;
+    margin: 0 0 1rem;
+  }
 }

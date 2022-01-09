@@ -9,10 +9,12 @@ import initOrdering from './ordering.js';
 import initDownloadType from './download-type.js';
 import initSearch from './search.js';
 import initModal from './modal.js';
+import initMenu from './menu.js';
 
 document.body.classList.remove('no-js');
 
 const storage = newStorage(localStorage);
+initMenu(document, domUtils);
 initColorScheme(document, storage);
 initCopyButtons(window, document, navigator);
 const orderingControls = initOrdering(document, storage);
