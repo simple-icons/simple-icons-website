@@ -1055,6 +1055,15 @@ body.order-by-relevance .grid-item {
     font-size: 130%;
   }
 
+  .control {
+    background-color: var(--color-background);
+    box-shadow: none;
+    justify-content: flex-end;
+    margin-bottom: 0.5rem;
+    position: relative;
+    top: -1.2rem;
+  }
+
   .control-field {
     margin: 0.5rem 0 0.5rem 1rem;
   }
@@ -1109,6 +1118,8 @@ body.order-by-relevance .grid-item {
     box-shadow: none;
     justify-content: flex-end;
     margin-bottom: 0.5rem;
+    position: relative;
+    top: -1.2rem;
   }
 
   .header {
