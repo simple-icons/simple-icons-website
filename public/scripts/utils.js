@@ -1,3 +1,19 @@
+const NORMALIZE_SEARCH_TERM_REPLACER = {
+  đ: 'd',
+  ħ: 'h',
+  ı: 'i',
+  ĸ: 'k',
+  ŀ: 'l',
+  ł: 'l',
+  ß: 'ss',
+  ŧ: 't',
+};
+
+const NORMALIZE_SEARCH_TERM_REGEX = RegExp(
+  Object.keys(NORMALIZE_SEARCH_TERM_REPLACER).join('|'),
+  'g',
+);
+
 module.exports = {
   decodeURIComponent: decodeURIComponent,
   debounce: function (func, wait, immediate) {
@@ -33,14 +49,10 @@ module.exports = {
   normalizeSearchTerm: function (value) {
     return value
       .toLowerCase()
-      .replace(/đ/g, 'd')
-      .replace(/ħ/g, 'h')
-      .replace(/ı/g, 'i')
-      .replace(/ĸ/g, 'k')
-      .replace(/ŀ/g, 'l')
-      .replace(/ł/g, 'l')
-      .replace(/ß/g, 'ss')
-      .replace(/ŧ/g, 't')
+      .replace(
+        NORMALIZE_SEARCH_TERM_REGEX,
+        (char) => NORMALIZE_SEARCH_TERM_REPLACER[char],
+      )
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '');
   },
