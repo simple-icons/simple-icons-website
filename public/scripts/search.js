@@ -92,7 +92,6 @@ export default function initSearch(history, document, ordering, domUtils) {
     const result = searcher.search(query);
     let noResults = true;
     $icons.forEach(($icon) => {
-      const brandName = $icon.getAttribute('data-brand');
       const score = result.indexOf($icon);
       if (score === -1) {
         $icon.style.removeProperty('--order-relevance');
