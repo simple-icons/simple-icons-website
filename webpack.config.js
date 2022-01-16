@@ -140,6 +140,18 @@ module.exports = (env, argv) => {
           pageDescription: `${icons.length} Free SVG icons for popular brands.`,
           pageUrl: 'https://simpleicons.org',
         },
+        minify:
+          argv.mode === 'development'
+            ? {}
+            : {
+                collapseWhitespace: true,
+                collapseBooleanAttributes: true,
+                decodeEntities: true,
+                removeAttributeQuotes: true,
+                removeComments: true,
+                removeOptionalTags: true,
+                removeRedundantAttributes: true,
+              },
       }),
       new MiniCssExtractPlugin(),
     ],
