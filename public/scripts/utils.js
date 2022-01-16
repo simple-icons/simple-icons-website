@@ -48,7 +48,6 @@ module.exports = {
   },
   normalizeSearchTerm: function (value) {
     return value
-      .toLowerCase()
       .replace(
         NORMALIZE_SEARCH_TERM_REGEX,
         (char) => NORMALIZE_SEARCH_TERM_REPLACEMENTS[char],
