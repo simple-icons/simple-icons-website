@@ -9,10 +9,11 @@ const NORMALIZE_SEARCH_TERM_REPLACEMENTS = {
   ŧ: 't',
 };
 
-const NORMALIZE_SEARCH_TERM_REGEX = RegExp(
+const NORMALIZE_SEARCH_TERM_CHARS_REGEX = RegExp(
   Object.keys(NORMALIZE_SEARCH_TERM_REPLACEMENTS).join('|'),
   'g',
 );
+const NORMALIZE_SEARCH_TERM_RANGE_REGEX = RegExp('[\u0300-\u036f]', 'g');
 
 module.exports = {
   decodeURIComponent: decodeURIComponent,
@@ -49,10 +50,10 @@ module.exports = {
   normalizeSearchTerm: function (value) {
     return value
       .replace(
-        NORMALIZE_SEARCH_TERM_REGEX,
+        NORMALIZE_SEARCH_TERM_CHARS_REGEX,
         (char) => NORMALIZE_SEARCH_TERM_REPLACEMENTS[char],
       )
       .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '');
+      .replace(NORMALIZE_SEARCH_TERM_RANGE_REGEX, '');
   },
 };
