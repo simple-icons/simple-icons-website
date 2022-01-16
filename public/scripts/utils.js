@@ -1,4 +1,4 @@
-const NORMALIZE_SEARCH_TERM_REPLACER = {
+const NORMALIZE_SEARCH_TERM_REPLACEMENTS = {
   đ: 'd',
   ħ: 'h',
   ı: 'i',
@@ -10,7 +10,7 @@ const NORMALIZE_SEARCH_TERM_REPLACER = {
 };
 
 const NORMALIZE_SEARCH_TERM_REGEX = RegExp(
-  Object.keys(NORMALIZE_SEARCH_TERM_REPLACER).join('|'),
+  Object.keys(NORMALIZE_SEARCH_TERM_REPLACEMENTS).join('|'),
   'g',
 );
 
@@ -51,7 +51,7 @@ module.exports = {
       .toLowerCase()
       .replace(
         NORMALIZE_SEARCH_TERM_REGEX,
-        (char) => NORMALIZE_SEARCH_TERM_REPLACER[char],
+        (char) => NORMALIZE_SEARCH_TERM_REPLACEMENTS[char],
       )
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '');
