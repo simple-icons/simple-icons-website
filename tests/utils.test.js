@@ -70,12 +70,6 @@ describe('::normalizeSearchTerm', () => {
     expect(result).toEqual(input);
   });
 
-  it('capitalized string', () => {
-    const input = 'FooBar';
-    const result = normalizeSearchTerm(input);
-    expect(result).toEqual(input.toLowerCase());
-  });
-
   it.each([
     ['àáâãä', 'aaaaa'],
     ['çčć', 'ccc'],

@@ -127,7 +127,7 @@ module.exports = (env, argv) => {
               light: luminance < 0.4,
               superLight: luminance > 0.95,
               superDark: luminance < 0.02,
-              normalizedName: normalizeSearchTerm(icon.title),
+              normalizedName: normalizeSearchTerm(icon.title.toLowerCase()),
               path: icon.path,
               shortHex: simplifyHexIfPossible(icon.hex),
               slug: icon.slug,
