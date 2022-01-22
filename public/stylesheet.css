@@ -17,7 +17,7 @@ input#hamburger {
   display: none;
 }
 
-#menuToggle {
+#menu-Toggle {
   display: none;
   z-index: 15;
   fill: var(--color-svg-default);
@@ -938,7 +938,7 @@ body.order-by-relevance .grid-item {
     display: flex;
   }
 
-  #menuToggle {
+  #menu-Toggle {
     display: block;
     position: relative;
 
@@ -946,14 +946,14 @@ body.order-by-relevance .grid-item {
     user-select: none;
   }
 
-  #menuToggle a {
+  #menu-Toggle a {
     text-decoration: none;
     color: #232323;
 
     transition: color 0.3s ease;
   }
 
-  #menuToggle input {
+  #menu-Toggle input {
     display: block;
     width: 40px;
     height: 32px;
@@ -972,7 +972,7 @@ body.order-by-relevance .grid-item {
   /*
  * Just a quick hamburger
  */
-  #menuToggle span {
+  #menu-Toggle span {
     display: block;
     width: 33px;
     height: 4px;
@@ -987,11 +987,11 @@ body.order-by-relevance .grid-item {
     transform-origin: 4px 0px;
   }
 
-  #menuToggle span:first-child {
+  #menu-Toggle span:first-child {
     transform-origin: 0% 0%;
   }
 
-  #menuToggle span:nth-last-child(2) {
+  #menu-Toggle span:nth-last-child(2) {
     transform-origin: 0% 100%;
   }
 
@@ -999,7 +999,7 @@ body.order-by-relevance .grid-item {
  * Transform all the slices of hamburger
  * into a crossmark.
  */
-  #menuToggle input:checked ~ span {
+  #menu-Toggle input:checked ~ span {
     opacity: 1;
     transform: rotate(45deg) translate(-2px, -1px);
     background: #232323;
@@ -1008,7 +1008,7 @@ body.order-by-relevance .grid-item {
   /*
  * But let's hide the middle one.
  */
-  #menuToggle input:checked ~ span:nth-last-child(3) {
+  #menu-Toggle input:checked ~ span:nth-last-child(3) {
     opacity: 0;
     transform: rotate(0deg) scale(0.2, 0.2);
   }
@@ -1016,7 +1016,7 @@ body.order-by-relevance .grid-item {
   /*
  * Ohyeah and the last one should go the other direction
  */
-  #menuToggle input:checked ~ span:nth-last-child(2) {
+  #menu-Toggle input:checked ~ span:nth-last-child(2) {
     transform: rotate(-45deg) translate(0, -1px);
   }
 
@@ -1044,7 +1044,7 @@ body.order-by-relevance .grid-item {
   /*
  * And let's slide it in from the left
  */
-  #menuToggle input:checked ~ ul {
+  #menu-Toggle input:checked ~ ul {
     transform: none;
   }
 }
@@ -1074,14 +1074,14 @@ body.order-by-relevance .grid-item {
     margin: 0.5rem 0;
   }
 
-  #menuToggle {
+  #menu-Toggle {
     display: block;
 
     -webkit-user-select: none;
     user-select: none;
   }
 
-  #menuToggle input {
+  #menu-Toggle input {
     display: block;
     width: 40px;
     height: 32px;
