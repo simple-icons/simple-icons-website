@@ -11,8 +11,8 @@ const orderedData = [
   { 'order-alpha': 3, getAttribute: (order) => 3 },
 ];
 const testData = [
-  { 'order-alpha': 3, getAttribute: (order) => 3 },
   { 'order-alpha': 2, getAttribute: (order) => 2 },
+  { 'order-alpha': 3, getAttribute: (order) => 3 },
   { 'order-alpha': 1, getAttribute: (order) => 1 },
 ];
 const $el = {
