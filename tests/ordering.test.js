@@ -138,7 +138,7 @@ describe('Ordering', () => {
     expect(localStorage.setItem).toHaveBeenCalledTimes(1);
   });
 
-  it('uses the stored value "color"', () => {
+  it('uses the stored value "order-color"', () => {
     const storedValue = 'order-color';
     localStorage.__setStoredValueFor(STORAGE_KEY_ORDERING, storedValue);
 
