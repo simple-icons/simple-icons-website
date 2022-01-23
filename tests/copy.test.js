@@ -63,7 +63,7 @@ describe('Copy', () => {
       );
 
       const clickListener = buttonEventListeners.get('click');
-      const event = newEventMock();
+      const event = newEventMock({ target: $colorButton });
       clickListener(event);
       expect(event.preventDefault).toHaveBeenCalledTimes(1);
       expect($colorButton.classList.add).toHaveBeenCalledWith('copied');
@@ -125,7 +125,7 @@ describe('Copy', () => {
       );
 
       const clickListener = buttonEventListeners.get('click');
-      const event = newEventMock();
+      const event = newEventMock({ target: $svgButton });
       await clickListener(event);
 
       expect(event.preventDefault).toHaveBeenCalledTimes(1);
