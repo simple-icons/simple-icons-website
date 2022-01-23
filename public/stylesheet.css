@@ -904,7 +904,7 @@ body.order-by-relevance .grid-item {
     padding: 0px;
   }
 
-  .hidden-768 {
+  .hidden-gt-768px {
     display: none;
   }
 
