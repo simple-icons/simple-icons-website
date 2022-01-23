@@ -22,7 +22,6 @@ export default function initOrdering(document, storage, domUtils) {
   if (storage.hasItem(STORAGE_KEY_ORDERING)) {
     const storedOrdering = storage.getItem(STORAGE_KEY_ORDERING);
     selectOrdering(storedOrdering);
-    domUtils.sortChildren(document.querySelector('ul.grid'), storedOrdering);
   }
 
   $orderAlpha.addEventListener('click', (event) => {
