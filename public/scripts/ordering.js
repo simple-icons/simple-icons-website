@@ -14,7 +14,6 @@ export default function initOrdering(document, storage, domUtils) {
   const $orderAlpha = document.getElementById('order-alpha');
   const $orderColor = document.getElementById('order-color');
   const $orderRelevance = document.getElementById('order-relevance');
-  const $gridIcons = document.querySelector('ul.grid');
 
   $orderAlpha.disabled = false;
   $orderColor.disabled = false;
