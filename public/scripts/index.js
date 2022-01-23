@@ -3,19 +3,40 @@ import '../stylesheet.css';
 import * as domUtils from './dom-utils.js';
 import newStorage from './storage.js';
 
-import initCopyButtons from './copy.js';
-import initColorScheme from './color-scheme.js';
 import initOrdering from './ordering.js';
-import initDownloadType from './download-type.js';
-import initSearch from './search.js';
-import initModal from './modal.js';
 
 document.body.classList.remove('no-js');
 
 const storage = newStorage(localStorage);
-initColorScheme(document, storage);
-initCopyButtons(document, navigator, fetch);
-const orderingControls = initOrdering(document, storage, domUtils);
-initSearch(window.history, document, orderingControls, domUtils);
-initDownloadType(document, storage);
-initModal(document, domUtils);
+const orderingControls = initOrdering(document, storage);
+
+async function detachedInitColorScheme() {
+  const { default: initColorScheme } = await import('./color-scheme.js');
+  initColorScheme(document, storage);
+}
+
+async function detachedInitCopyButtons() {
+  const { default: initCopyButtons } = await import('./copy.js');
+  initCopyButtons(document, navigator, fetch);
+}
+
+async function detachedInitSearch() {
+  const { default: initSearch } = await import('./search.js');
+  initSearch(window.history, document, orderingControls, domUtils);
+}
+
+async function detachedInitDownloadType() {
+  const { default: initDownloadType } = await import('./download-type.js');
+  initDownloadType(document, storage);
+}
+
+async function detachedInitModal() {
+  const { default: initModal } = await import('./modal.js');
+  initModal(document, domUtils);
+}
+
+detachedInitColorScheme();
+detachedInitCopyButtons();
+detachedInitSearch();
+detachedInitDownloadType();
+detachedInitModal();
