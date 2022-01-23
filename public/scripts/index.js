@@ -8,7 +8,7 @@ import initOrdering from './ordering.js';
 document.body.classList.remove('no-js');
 
 const storage = newStorage(localStorage);
-const orderingControls = initOrdering(document, storage);
+const orderingControls = initOrdering(document, storage, domUtils);
 
 async function detachedInitColorScheme() {
   const { default: initColorScheme } = await import('./color-scheme.js');
