@@ -309,9 +309,9 @@ html(lang='en-US')
         )
         each icon in icons
           li.grid-item(
-            order-color=`${icon.indexByColor}`,
-            order-alpha=`${icon.indexByAlpha}`,
-            data-brand=`${icon.normalizedName}`
+            order-color=icon.indexByColor,
+            order-alpha=icon.indexByAlpha,
+            data-brand=icon.normalizedName
           )
             .grid-item__row.mv-2.fg-2
               button.grid-item__preview.copy-button.copy-svg(
