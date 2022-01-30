@@ -60,7 +60,7 @@
     "pug": "3.0.2",
     "pug-lexer": "5.0.1",
     "pug-loader": "2.4.0",
-    "puppeteer": "13.0.1",
+    "puppeteer": "13.1.2",
     "rimraf": "3.0.2",
     "sdown": "1.0.2",
     "svgo": "2.8.0",
