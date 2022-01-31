@@ -33,6 +33,13 @@ export const document = {
   },
 };
 
+export const window = {
+  scrollTo: jest.fn().mockName('window.scrollTo'),
+  __resetAllMocks: function () {
+    this.scrollTo.mockReset();
+  },
+};
+
 export function newElementMock(elName, opts) {
   opts = opts || {};
   return {

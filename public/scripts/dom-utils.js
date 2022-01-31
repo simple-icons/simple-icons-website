@@ -19,14 +19,17 @@ export function toggleVisibleElement($el) {
   }
 }
 
-export function sortChildren($el, attribute) {
-  [...$el.children]
-    .sort(
-      (a, b) =>
-        parseInt(a.getAttribute(attribute)) -
-        parseInt(b.getAttribute(attribute)),
-    )
-    .forEach((node) => $el.appendChild(node));
+export async function sortChildren($el, attribute, nFirstChildren) {
+  const sorted = [...$el.children].sort(
+    (a, b) =>
+      parseInt(a.getAttribute(attribute)) - parseInt(b.getAttribute(attribute)),
+  );
+  const firstChildren = sorted.slice(0, nFirstChildren);
+  $el.innerHTML = '';
+  firstChildren.forEach((node) => $el.appendChild(node));
+  setTimeout(async () => {
+    sorted.slice(nFirstChildren).forEach((node) => $el.appendChild(node));
+  }, 0);
 }
 
 export function addClass($el, clazz) {

@@ -6,7 +6,7 @@ export const ORDER_RELEVANCE = 'order-relevance';
 
 const DEFAULT_ORDERING = ORDER_ALPHA;
 
-export default function initOrdering(document, storage, domUtils) {
+export default function initOrdering(window, document, storage, domUtils) {
   let activeOrdering = DEFAULT_ORDERING;
   let preferredOrdering = DEFAULT_ORDERING;
 
@@ -50,7 +50,10 @@ export default function initOrdering(document, storage, domUtils) {
 
     $body.classList.add(selected);
 
-    domUtils.sortChildren(document.querySelector('ul.grid'), selected);
+    window.scrollTo(0, 0);
+    setTimeout(() => {
+      domUtils.sortChildren(document.querySelector('ul.grid'), selected, 30);
+    }, 0);
 
     if (selected !== ORDER_RELEVANCE) {
       preferredOrdering = selected;
