@@ -27,7 +27,7 @@ export async function sortChildren($el, attribute, nFirstChildren) {
   const firstChildren = sorted.slice(0, nFirstChildren);
   $el.innerHTML = '';
   firstChildren.forEach((node) => $el.appendChild(node));
-  setTimeout(async () => {
+  setTimeout(() => {
     sorted.slice(nFirstChildren).forEach((node) => $el.appendChild(node));
   }, 0);
 }
