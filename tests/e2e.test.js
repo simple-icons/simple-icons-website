@@ -277,7 +277,7 @@ describe('Search', () => {
 });
 
 describe('Ordering', () => {
-  // only first 30 icons its enough
+  // only first 30 icons, it's enough to test ordering
   const nIcons = 30;
   const icons = Object.values(simpleIcons).slice(0, nIcons);
   const titles = icons
