@@ -1,4 +1,4 @@
-import { ORDER_BY_RELEVANCE } from './ordering.js';
+import { ORDER_RELEVANCE } from './ordering.js';
 import { decodeURIComponent, debounce, normalizeSearchTerm } from './utils.js';
 import { Searcher } from 'fast-fuzzy';
 
@@ -33,6 +33,7 @@ export default function initSearch(history, document, ordering, domUtils) {
   const $searchClear = document.getElementById('search-clear');
   const $orderByColor = document.getElementById('order-color');
   const $orderByRelevance = document.getElementById('order-relevance');
+
   const $gridItemIfEmpty = document.querySelector('.grid-item--if-empty');
   const $icons = document.querySelectorAll('.grid-item[data-brand]');
   const searcher = new Searcher($icons, {
@@ -71,7 +72,7 @@ export default function initSearch(history, document, ordering, domUtils) {
       domUtils.hideElement($orderByRelevance);
       domUtils.removeClass($orderByRelevance, 'last__button');
       domUtils.addClass($orderByColor, 'last__button');
-      if (ordering.currentOrderingIs(ORDER_BY_RELEVANCE)) {
+      if (ordering.currentOrderingIs(ORDER_RELEVANCE)) {
         ordering.resetOrdering();
       }
       domUtils.hideElement($gridItemIfEmpty);
@@ -86,7 +87,7 @@ export default function initSearch(history, document, ordering, domUtils) {
     domUtils.removeClass($orderByColor, 'last__button');
 
     if (activeQuery === '') {
-      ordering.selectOrdering(ORDER_BY_RELEVANCE);
+      ordering.selectOrdering(ORDER_RELEVANCE);
     }
 
     const result = searcher.search(query);
@@ -94,10 +95,10 @@ export default function initSearch(history, document, ordering, domUtils) {
     $icons.forEach(($icon) => {
       const score = result.indexOf($icon);
       if (score === -1) {
-        $icon.style.removeProperty('--order-relevance');
+        $icon.removeAttribute('order-relevance');
         domUtils.hideElement($icon);
       } else {
-        $icon.style.setProperty('--order-relevance', 1 + score);
+        $icon.setAttribute('order-relevance', 1 + score);
         domUtils.showElement($icon);
         noResults = false;
       }

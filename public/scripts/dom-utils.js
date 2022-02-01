@@ -19,6 +19,20 @@ export function toggleVisibleElement($el) {
   }
 }
 
+export function sortChildren($el, attribute, nFirstChildren) {
+  const sorted = [...$el.children].sort(
+    (a, b) =>
+      parseInt(a.getAttribute(attribute)) - parseInt(b.getAttribute(attribute)),
+  );
+  nFirstChildren = nFirstChildren || sorted.length;
+  const firstChildren = sorted.slice(0, nFirstChildren);
+  $el.innerHTML = '';
+  firstChildren.forEach((node) => $el.appendChild(node));
+  setTimeout(() => {
+    sorted.slice(nFirstChildren).forEach((node) => $el.appendChild(node));
+  }, 0);
+}
+
 export function addClass($el, clazz) {
   if ($el) {
     $el.classList.add(clazz);

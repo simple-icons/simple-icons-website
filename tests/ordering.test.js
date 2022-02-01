@@ -2,7 +2,9 @@ const {
   document,
   newElementMock,
   newEventMock,
+  window,
 } = require('./mocks/dom.mock.js');
+const { domUtils } = require('./mocks/dom-utils.mock.js');
 const { localStorage } = require('./mocks/local-storage.mock.js');
 
 const initOrdering = require('../public/scripts/ordering.js').default;
@@ -12,6 +14,7 @@ describe('Ordering', () => {
   beforeEach(() => {
     document.__resetAllMocks();
     localStorage.__resetAllMocks();
+    window.__resetAllMocks();
   });
 
   it('gets the #order-alpha button', () => {
@@ -19,28 +22,29 @@ describe('Ordering', () => {
 
     const eventListeners = new Map();
 
-    const $orderAlphabetically = newElementMock('#order-alpha');
-    $orderAlphabetically.addEventListener.mockImplementation((name, fn) => {
+    const $orderAlpha = newElementMock('#order-alpha');
+    $orderAlpha.addEventListener.mockImplementation((name, fn) => {
       eventListeners.set(name, fn);
     });
 
     document.getElementById.mockImplementation((query) => {
       if (query === 'order-alpha') {
-        return $orderAlphabetically;
+        return $orderAlpha;
       }
 
       return newElementMock(query);
     });
 
-    initOrdering(document, localStorage);
+    initOrdering(window, document, localStorage, domUtils);
     expect(document.getElementById).toHaveBeenCalledWith('order-alpha');
-    expect($orderAlphabetically.disabled).toBe(false);
-    expect($orderAlphabetically.addEventListener).toHaveBeenCalledWith(
+    expect($orderAlpha.disabled).toBe(false);
+    expect($orderAlpha.addEventListener).toHaveBeenCalledWith(
       'click',
       expect.any(Function),
     );
 
     localStorage.setItem.mockClear();
+    window.scrollTo.mockClear();
 
     const clickListener = eventListeners.get('click');
     const event = newEventMock();
@@ -48,8 +52,10 @@ describe('Ordering', () => {
     expect(event.preventDefault).toHaveBeenCalledTimes(1);
     expect(localStorage.setItem).toHaveBeenCalledWith(
       STORAGE_KEY_ORDERING,
-      'alphabetically',
+      'order-alpha',
     );
+    expect(window.scrollTo).toHaveBeenCalledTimes(1);
+    expect(window.scrollTo).toHaveBeenCalledWith(0, 0);
   });
 
   it('gets the #order-color button', () => {
@@ -57,23 +63,23 @@ describe('Ordering', () => {
 
     const eventListeners = new Map();
 
-    const $orderByColor = newElementMock('#order-color');
-    $orderByColor.addEventListener.mockImplementation((name, fn) => {
+    const $orderColor = newElementMock('#order-color');
+    $orderColor.addEventListener.mockImplementation((name, fn) => {
       eventListeners.set(name, fn);
     });
 
     document.getElementById.mockImplementation((query) => {
       if (query === 'order-color') {
-        return $orderByColor;
+        return $orderColor;
       }
 
       return newElementMock(query);
     });
 
-    initOrdering(document, localStorage);
+    initOrdering(window, document, localStorage, domUtils);
     expect(document.getElementById).toHaveBeenCalledWith('order-color');
-    expect($orderByColor.disabled).toBe(false);
-    expect($orderByColor.addEventListener).toHaveBeenCalledWith(
+    expect($orderColor.disabled).toBe(false);
+    expect($orderColor.addEventListener).toHaveBeenCalledWith(
       'click',
       expect.any(Function),
     );
@@ -86,30 +92,30 @@ describe('Ordering', () => {
     expect(event.preventDefault).toHaveBeenCalledTimes(1);
     expect(localStorage.setItem).toHaveBeenCalledWith(
       STORAGE_KEY_ORDERING,
-      'color',
+      'order-color',
     );
   });
 
   it('gets the #order-relevance button', () => {
     const eventListeners = new Map();
 
-    const $orderByRelevance = newElementMock('#order-relevance');
-    $orderByRelevance.addEventListener.mockImplementation((name, fn) => {
+    const $orderRelevance = newElementMock('#order-relevance');
+    $orderRelevance.addEventListener.mockImplementation((name, fn) => {
       eventListeners.set(name, fn);
     });
 
     document.getElementById.mockImplementation((query) => {
       if (query === 'order-relevance') {
-        return $orderByRelevance;
+        return $orderRelevance;
       }
 
       return newElementMock(query);
     });
 
-    initOrdering(document, localStorage);
+    initOrdering(window, document, localStorage, domUtils);
     expect(document.getElementById).toHaveBeenCalledWith('order-relevance');
-    expect($orderByRelevance.disabled).toBe(false);
-    expect($orderByRelevance.addEventListener).toHaveBeenCalledWith(
+    expect($orderRelevance.disabled).toBe(false);
+    expect($orderRelevance.addEventListener).toHaveBeenCalledWith(
       'click',
       expect.any(Function),
     );
@@ -121,30 +127,30 @@ describe('Ordering', () => {
   });
 
   it('uses alphabetical ordering if no value is stored', () => {
-    initOrdering(document, localStorage);
+    initOrdering(window, document, localStorage, domUtils);
     expect(localStorage.hasItem).toHaveBeenCalledWith(STORAGE_KEY_ORDERING);
     expect(localStorage.getItem).not.toHaveBeenCalled();
     expect(localStorage.setItem).not.toHaveBeenCalled();
   });
 
-  it('uses the stored value "alphabetically"', () => {
-    const storedValue = 'alphabetically';
+  it('uses the stored value "alpha"', () => {
+    const storedValue = 'alpha';
     localStorage.__setStoredValueFor(STORAGE_KEY_ORDERING, storedValue);
 
-    initOrdering(document, localStorage);
+    initOrdering(window, document, localStorage, domUtils);
     expect(localStorage.hasItem).toHaveBeenCalledWith(STORAGE_KEY_ORDERING);
     expect(localStorage.getItem).toHaveBeenCalledWith(STORAGE_KEY_ORDERING);
-    expect(localStorage.setItem).not.toHaveBeenCalled();
+    expect(localStorage.setItem).toHaveBeenCalledTimes(1);
   });
 
-  it('uses the stored value "color"', () => {
-    const storedValue = 'color';
+  it('uses the stored value "order-color"', () => {
+    const storedValue = 'order-color';
     localStorage.__setStoredValueFor(STORAGE_KEY_ORDERING, storedValue);
 
-    initOrdering(document, localStorage);
+    initOrdering(window, document, localStorage, domUtils);
     expect(localStorage.hasItem).toHaveBeenCalledWith(STORAGE_KEY_ORDERING);
     expect(localStorage.getItem).toHaveBeenCalledWith(STORAGE_KEY_ORDERING);
-    expect(document.$body.classList.add).toHaveBeenCalledWith('order-by-color');
+    expect(document.$body.classList.add).toHaveBeenCalledWith('order-color');
     expect(localStorage.setItem).toHaveBeenCalledWith(
       STORAGE_KEY_ORDERING,
       storedValue,

@@ -1,44 +1,40 @@
 import { STORAGE_KEY_ORDERING } from './storage.js';
 
-export const ORDER_ALPHABETICALLY = 'alphabetically';
-export const ORDER_BY_COLOR = 'color';
-export const ORDER_BY_RELEVANCE = 'relevance';
+export const ORDER_ALPHA = 'order-alpha';
+export const ORDER_COLOR = 'order-color';
+export const ORDER_RELEVANCE = 'order-relevance';
 
-const DEFAULT_ORDERING = ORDER_ALPHABETICALLY;
+const DEFAULT_ORDERING = ORDER_ALPHA;
 
-const CLASS_ORDER_ALPHABETICALLY = 'order-alphabetically';
-const CLASS_ORDER_BY_COLOR = 'order-by-color';
-const CLASS_ORDER_BY_RELEVANCE = 'order-by-relevance';
-
-export default function initOrdering(document, storage) {
+export default function initOrdering(window, document, storage, domUtils) {
   let activeOrdering = DEFAULT_ORDERING;
   let preferredOrdering = DEFAULT_ORDERING;
 
   const $body = document.querySelector('body');
-  const $orderAlphabetically = document.getElementById('order-alpha');
-  const $orderByColor = document.getElementById('order-color');
-  const $orderByRelevance = document.getElementById('order-relevance');
+  const $orderAlpha = document.getElementById('order-alpha');
+  const $orderColor = document.getElementById('order-color');
+  const $orderRelevance = document.getElementById('order-relevance');
 
-  $orderAlphabetically.disabled = false;
-  $orderByColor.disabled = false;
-  $orderByRelevance.disabled = false;
+  $orderAlpha.disabled = false;
+  $orderColor.disabled = false;
+  $orderRelevance.disabled = false;
 
   if (storage.hasItem(STORAGE_KEY_ORDERING)) {
     const storedOrdering = storage.getItem(STORAGE_KEY_ORDERING);
     selectOrdering(storedOrdering);
   }
 
-  $orderAlphabetically.addEventListener('click', (event) => {
+  $orderAlpha.addEventListener('click', (event) => {
     event.preventDefault();
-    selectOrdering(ORDER_ALPHABETICALLY);
+    selectOrdering(ORDER_ALPHA);
   });
-  $orderByColor.addEventListener('click', (event) => {
+  $orderColor.addEventListener('click', (event) => {
     event.preventDefault();
-    selectOrdering(ORDER_BY_COLOR);
+    selectOrdering(ORDER_COLOR);
   });
-  $orderByRelevance.addEventListener('click', (event) => {
+  $orderRelevance.addEventListener('click', (event) => {
     event.preventDefault();
-    selectOrdering(ORDER_BY_RELEVANCE);
+    selectOrdering(ORDER_RELEVANCE);
   });
 
   function currentOrderingIs(value) {
@@ -50,21 +46,14 @@ export default function initOrdering(document, storage) {
       return;
     }
 
-    $body.classList.remove(
-      CLASS_ORDER_ALPHABETICALLY,
-      CLASS_ORDER_BY_COLOR,
-      CLASS_ORDER_BY_RELEVANCE,
-    );
+    $body.classList.remove(ORDER_ALPHA, ORDER_COLOR, ORDER_RELEVANCE);
 
-    if (selected === ORDER_ALPHABETICALLY) {
-      $body.classList.add(CLASS_ORDER_ALPHABETICALLY);
-    } else if (selected === ORDER_BY_COLOR) {
-      $body.classList.add(CLASS_ORDER_BY_COLOR);
-    } else if (selected === ORDER_BY_RELEVANCE) {
-      $body.classList.add(CLASS_ORDER_BY_RELEVANCE);
-    }
+    $body.classList.add(selected);
 
-    if (selected !== ORDER_BY_RELEVANCE) {
+    window.scrollTo(0, 0);
+    domUtils.sortChildren(document.querySelector('ul.grid'), selected, 30);
+
+    if (selected !== ORDER_RELEVANCE) {
       preferredOrdering = selected;
       storage.setItem(STORAGE_KEY_ORDERING, selected);
     }

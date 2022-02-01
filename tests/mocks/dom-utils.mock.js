@@ -5,6 +5,7 @@ export const domUtils = {
   addClass: jest.fn().mockName('domUtils.addClass'),
   removeClass: jest.fn().mockName('domUtils.removeClass'),
   toggleVisibleElement: jest.fn().mockName('domUtils.toggleVisibleElement'),
+  sortChildren: jest.fn().mockName('domUtils.sortChildren'),
   // Utility to quickly clear the entire dom-utils mock.
   __resetAllMocks: function () {
     this.hideElement.mockReset();
@@ -13,5 +14,6 @@ export const domUtils = {
     this.addClass.mockReset();
     this.removeClass.mockReset();
     this.toggleVisibleElement.mockReset();
+    this.sortChildren.mockReset();
   },
 };

@@ -14,7 +14,6 @@ const {
   isHidden,
   isInViewport,
   isVisible,
-  getAttribute,
   getTextContent,
 } = require('./helpers.js');
 
@@ -71,11 +70,11 @@ describe.each([
   });
 
   it('has the order controls in view on load', async () => {
-    const $orderAlphabetically = await page.$('#order-alpha');
-    expect(await isInViewport($orderAlphabetically)).toBeTruthy();
+    const $orderAlpha = await page.$('#order-alpha');
+    expect(await isInViewport($orderAlpha)).toBeTruthy();
 
-    const $orderByColor = await page.$('#order-color');
-    expect(await isInViewport($orderByColor)).toBeTruthy();
+    const $orderColor = await page.$('#order-color');
+    expect(await isInViewport($orderColor)).toBeTruthy();
   });
 
   it('has the first grid item in view on load', async () => {
@@ -127,6 +126,13 @@ describe('External links', () => {
       expect(page).toClick(link.getProperty('innerText')),
     );
   });
+
+  it('is possible to click extensions link', async () => {
+    const extensionPopupLinks = await page.$$('.extensions__table a');
+    extensionPopupLinks.forEach((link) =>
+      expect(page).toClick(link.getProperty('innerText')),
+    );
+  });
 });
 
 describe('Search', () => {
@@ -135,8 +141,8 @@ describe('Search', () => {
   });
 
   it('does not show the "order by relevance" button on load', async () => {
-    const $orderByRelevance = await page.$('#order-relevance');
-    expect(await isHidden($orderByRelevance)).toBeTruthy();
+    const $orderRelevance = await page.$('#order-relevance');
+    expect(await isHidden($orderRelevance)).toBeTruthy();
   });
 
   it('does not show the "clear search" button on load', async () => {
@@ -153,8 +159,8 @@ describe('Search', () => {
     const $searchInput = await page.$('#search-input');
     await $searchInput.type('adobe');
 
-    const $orderByRelevance = await page.$('#order-relevance');
-    expect(await isVisible($orderByRelevance)).toBeTruthy();
+    const $orderRelevance = await page.$('#order-relevance');
+    expect(await isVisible($orderRelevance)).toBeTruthy();
   });
 
   it('shows the "clear search" button on search', async () => {
@@ -170,7 +176,7 @@ describe('Search', () => {
     await $searchInput.type('adobe');
 
     const $body = await page.$('body');
-    expect(await hasClass($body, 'order-by-relevance')).toBeTruthy();
+    expect(await hasClass($body, 'order-relevance')).toBeTruthy();
   });
 
   it('does not show the "no results" message on search', async () => {
@@ -190,8 +196,8 @@ describe('Search', () => {
   });
 
   it.each([
-    ['order-alpha', 'order-alphabetically'],
-    ['order-color', 'order-by-color'],
+    ['order-alpha', 'order-alpha'],
+    ['order-color', 'order-color'],
   ])('switches back to "%s" when the search is removed', async (id, value) => {
     await page.click(`#${id}`);
 
@@ -202,13 +208,13 @@ describe('Search', () => {
     await $searchInput.press('Backspace');
 
     const $body = await page.$('body');
-    expect(await hasClass($body, 'order-by-relevance')).toBeFalsy();
+    expect(await hasClass($body, 'order-relevance')).toBeFalsy();
     expect(await hasClass($body, value)).toBeTruthy();
   });
 
   it.each([
-    ['order-alpha', 'order-alphabetically'],
-    ['order-color', 'order-by-color'],
+    ['order-alpha', 'order-alpha'],
+    ['order-color', 'order-color'],
   ])('switches back to "%s" when search is cleared', async (id, value) => {
     await page.click(`#${id}`);
 
@@ -219,7 +225,7 @@ describe('Search', () => {
     await $searchClear.click();
 
     const $body = await page.$('body');
-    expect(await hasClass($body, 'order-by-relevance')).toBeFalsy();
+    expect(await hasClass($body, 'order-relevance')).toBeFalsy();
     expect(await hasClass($body, value)).toBeTruthy();
   });
 
@@ -244,8 +250,8 @@ describe('Search', () => {
     const $searchClear = await page.$('#search-clear');
     expect(await isVisible($searchClear)).toBeTruthy();
 
-    const $orderByRelevance = await page.$('#order-relevance');
-    expect(await isVisible($orderByRelevance)).toBeTruthy();
+    const $orderRelevance = await page.$('#order-relevance');
+    expect(await isVisible($orderRelevance)).toBeTruthy();
   });
 
   it('shows the "no results" message if no brand was found', async () => {
@@ -271,23 +277,24 @@ describe('Search', () => {
 });
 
 describe('Ordering', () => {
-  const icons = Object.values(simpleIcons).sort((icon1, icon2) =>
-    icon1.title.localeCompare(icon2.title),
-  );
-  const titles = icons.map((icon) => icon.title);
-  const hexes = sortByColors(icons.map((icon) => icon.hex));
+  // only first 30 icons, it's enough to test ordering
+  const nIcons = 30;
+  const icons = Object.values(simpleIcons).slice(0, nIcons);
+  const titles = icons
+    .map((icon) => icon.title)
+    .sort((titleA, titleB) => titleA.localeCompare(titleB));
 
   beforeEach(async () => {
     await page.goto(url.href);
   });
 
-  it('reloads ordering alphabetically', async () => {
+  it('reloads alpha order', async () => {
     await expect(page).toClick('#order-alpha');
 
     await page.reload();
 
     const $body = await page.$('body');
-    expect(await hasClass($body, 'order-alphabetically')).toBeTruthy();
+    expect(await hasClass($body, 'order-alpha')).toBeTruthy();
   });
 
   it('reloads ordering by color', async () => {
@@ -296,30 +303,32 @@ describe('Ordering', () => {
     await page.reload();
 
     const $body = await page.$('body');
-    expect(await hasClass($body, 'order-by-color')).toBeTruthy();
+    expect(await hasClass($body, 'order-color')).toBeTruthy();
   });
 
   it('orders grid items alphabetically', async () => {
     await expect(page).toClick('#order-alpha');
 
     const $gridItems = await page.$$('.grid-item');
-    for (let i = 0; i < $gridItems.length; i++) {
+    for (let i = 0; i < nIcons; i++) {
       const $gridItem = $gridItems[i];
       const title = titles[i];
       await expect($gridItem).toMatch(title);
     }
   });
 
-  it.skip('orders grid items by color', async () => {
-    const $items = await page.$$('li.grid-item');
-    for (let i = 0; i < $items.length; i++) {
-      const $button = await $items[i].$('button.grid-item__color');
+  it('orders grid items by color', async () => {
+    await expect(page).toClick('#order-color');
+    const $gridItems = await page.$$('button.grid-item__color');
 
-      const $text = await getAttribute($items[i], 'style');
-      const $idx = parseInt($text.substring(14, $text.length));
-
-      const $color = await getTextContent($button);
+    const hexes = [];
+    for (let i = 0; i < nIcons; i++) {
+      const $gridItem = $gridItems[i];
+      const color = await getTextContent($gridItem);
+      const hex = color.slice(1);
+      hexes.push(hex);
     }
+    await expect(sortByColors(hexes)).toEqual(hexes);
   });
 });
 
@@ -331,7 +340,7 @@ describe('Preferred color scheme', () => {
   it.each([
     ['dark', 'rgb(34, 34, 34)'],
     ['light', 'rgb(252, 252, 252)'],
-  ])('has color scheme "%s"', async (scheme, expected) => {
+  ])("has color scheme '%s'", async (scheme, expected) => {
     await page.emulateMediaFeatures([
       { name: 'prefers-color-scheme', value: scheme },
     ]);
@@ -459,8 +468,8 @@ describe('JavaScript disabled', () => {
   });
 
   it('does not show the "order by relevance" button', async () => {
-    const $orderByRelevance = await page.$('#order-relevance');
-    expect(await isHidden($orderByRelevance)).toBeTruthy();
+    const $orderRelevance = await page.$('#order-relevance');
+    expect(await isHidden($orderRelevance)).toBeTruthy();
   });
 
   it('does not show the "clear search" button on load', async () => {
@@ -469,14 +478,14 @@ describe('JavaScript disabled', () => {
   });
 
   it('has disabled ordering buttons', async () => {
-    const $orderAlphabetically = await page.$('#order-alpha');
-    expect(await isDisabled($orderAlphabetically)).toBeTruthy();
+    const $orderAlpha = await page.$('#order-alpha');
+    expect(await isDisabled($orderAlpha)).toBeTruthy();
 
-    const $orderByColor = await page.$('#order-color');
-    expect(await isDisabled($orderByColor)).toBeTruthy();
+    const $orderColor = await page.$('#order-color');
+    expect(await isDisabled($orderColor)).toBeTruthy();
 
-    const $orderByRelevance = await page.$('#order-relevance');
-    expect(await isDisabled($orderByRelevance)).toBeTruthy();
+    const $orderRelevance = await page.$('#order-relevance');
+    expect(await isDisabled($orderRelevance)).toBeTruthy();
   });
 
   it('has the color value button disabled', async () => {
