@@ -35,9 +35,15 @@ export default function initSearch(history, document, ordering, domUtils) {
   const $orderByRelevance = document.getElementById('order-relevance');
 
   const $gridItemIfEmpty = document.querySelector('.grid-item--if-empty');
-  const $icons = document.querySelectorAll('.grid-item[data-brand]');
+  const $icons = document.querySelectorAll('.grid-item');
+
   const searcher = new Searcher($icons, {
-    keySelector: (obj) => obj.dataset.brand,
+    keySelector: (obj) => {
+      const previewButtonTitle =
+        obj.children[0].children[0].getAttribute('title');
+      const title = previewButtonTitle.slice(0, previewButtonTitle.length - 4);
+      return normalizeSearchTerm(title.toLowerCase());
+    },
   });
   $searchInput.disabled = false;
   $searchInput.focus();

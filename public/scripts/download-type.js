@@ -1,4 +1,5 @@
 import { STORAGE_KEY_DOWNLOAD_TYPE } from './storage.js';
+import { iconHrefToSlug } from './utils.js';
 
 const PDF_DOWNLOAD_TYPE = 'pdf';
 const SVG_DOWNLOAD_TYPE = 'svg';
@@ -37,7 +38,7 @@ export default function initDownloadType(document, storage) {
 
   for (let i = 0; i < $downloadFiles.length; i++) {
     $downloadFiles[i].addEventListener('click', (event) => {
-      const slug = event.target.getAttribute('data-icon');
+      const slug = iconHrefToSlug(event.target.getAttribute('href'));
       const type = storage.getItem(STORAGE_KEY_DOWNLOAD_TYPE);
       event.target.setAttribute('href', `./icons/${slug}.${type}`);
     });
