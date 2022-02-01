@@ -14,6 +14,7 @@ const {
   isHidden,
   isInViewport,
   isVisible,
+  getTextContent,
 } = require('./helpers.js');
 
 jest.retryTimes(3);
@@ -276,11 +277,12 @@ describe('Search', () => {
 });
 
 describe('Ordering', () => {
-  const icons = Object.values(simpleIcons).sort((icon1, icon2) =>
-    icon1.title.localeCompare(icon2.title),
-  );
-  const titles = icons.map((icon) => icon.title);
-  const hexes = sortByColors(icons.map((icon) => icon.hex));
+  // only first 30 icons its enough
+  const nIcons = 30;
+  const icons = Object.values(simpleIcons).slice(0, nIcons);
+  const titles = icons
+    .map((icon) => icon.title)
+    .sort((titleA, titleB) => titleA.localeCompare(titleB));
 
   beforeEach(async () => {
     await page.goto(url.href);
@@ -308,7 +310,7 @@ describe('Ordering', () => {
     await expect(page).toClick('#order-alpha');
 
     const $gridItems = await page.$$('.grid-item');
-    for (let i = 0; i < $gridItems.length; i++) {
+    for (let i = 0; i < nIcons; i++) {
       const $gridItem = $gridItems[i];
       const title = titles[i];
       await expect($gridItem).toMatch(title);
@@ -318,11 +320,15 @@ describe('Ordering', () => {
   it('orders grid items by color', async () => {
     await expect(page).toClick('#order-color');
     const $gridItems = await page.$$('button.grid-item__color');
-    for (let i = 0; i < $gridItems.length; i++) {
+
+    const hexes = [];
+    for (let i = 0; i < nIcons; i++) {
       const $gridItem = $gridItems[i];
-      const hex = hexes[i];
-      await expect(hex).toMatch(hex);
+      const color = await getTextContent($gridItem);
+      const hex = color.slice(1);
+      hexes.push(hex);
     }
+    await expect(sortByColors(hexes)).toEqual(hexes);
   });
 });
 

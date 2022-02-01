@@ -51,9 +51,7 @@ export default function initOrdering(window, document, storage, domUtils) {
     $body.classList.add(selected);
 
     window.scrollTo(0, 0);
-    setTimeout(() => {
-      domUtils.sortChildren(document.querySelector('ul.grid'), selected, 30);
-    }, 0);
+    domUtils.sortChildren(document.querySelector('ul.grid'), selected, 30);
 
     if (selected !== ORDER_RELEVANCE) {
       preferredOrdering = selected;
