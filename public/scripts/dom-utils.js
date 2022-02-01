@@ -19,7 +19,7 @@ export function toggleVisibleElement($el) {
   }
 }
 
-export async function sortChildren($el, attribute, nFirstChildren) {
+export function sortChildren($el, attribute, nFirstChildren) {
   const sorted = [...$el.children].sort(
     (a, b) =>
       parseInt(a.getAttribute(attribute)) - parseInt(b.getAttribute(attribute)),
