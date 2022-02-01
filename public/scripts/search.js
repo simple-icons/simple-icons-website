@@ -44,14 +44,12 @@ export default function initSearch(history, document, ordering, domUtils) {
   $searchInput.addEventListener(
     'input',
     debounce((event) => {
-      event.preventDefault();
       const value = $searchInput.value;
       search(value);
     }),
   );
 
   $searchClear.addEventListener('click', (event) => {
-    event.preventDefault();
     $searchInput.value = '';
     search('');
     $searchInput.focus();

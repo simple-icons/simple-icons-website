@@ -24,16 +24,13 @@ export default function initOrdering(window, document, storage, domUtils) {
     selectOrdering(storedOrdering);
   }
 
-  $orderAlpha.addEventListener('click', (event) => {
-    event.preventDefault();
+  $orderAlpha.addEventListener('click', () => {
     selectOrdering(ORDER_ALPHA);
   });
-  $orderColor.addEventListener('click', (event) => {
-    event.preventDefault();
+  $orderColor.addEventListener('click', () => {
     selectOrdering(ORDER_COLOR);
   });
-  $orderRelevance.addEventListener('click', (event) => {
-    event.preventDefault();
+  $orderRelevance.addEventListener('click', () => {
     selectOrdering(ORDER_RELEVANCE);
   });
 
