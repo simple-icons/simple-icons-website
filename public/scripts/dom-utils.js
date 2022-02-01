@@ -24,6 +24,7 @@ export async function sortChildren($el, attribute, nFirstChildren) {
     (a, b) =>
       parseInt(a.getAttribute(attribute)) - parseInt(b.getAttribute(attribute)),
   );
+  nFirstChildren = nFirstChildren || sorted.length;
   const firstChildren = sorted.slice(0, nFirstChildren);
   $el.innerHTML = '';
   firstChildren.forEach((node) => $el.appendChild(node));
