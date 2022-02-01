@@ -95,10 +95,10 @@ export default function initSearch(history, document, ordering, domUtils) {
     $icons.forEach(($icon) => {
       const score = result.indexOf($icon);
       if (score === -1) {
-        $icon.style.removeProperty('--order-relevance');
+        $icon.removeAttribute('order-relevance');
         domUtils.hideElement($icon);
       } else {
-        $icon.style.setProperty('--order-relevance', 1 + score);
+        $icon.setAttribute('order-relevance', 1 + score);
         domUtils.showElement($icon);
         noResults = false;
       }
