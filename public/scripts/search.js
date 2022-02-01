@@ -39,9 +39,11 @@ export default function initSearch(history, document, ordering, domUtils) {
 
   const searcher = new Searcher($icons, {
     keySelector: (obj) => {
+      // extract title from icon card
       const previewButtonTitle =
         obj.children[0].children[0].getAttribute('title');
       const title = previewButtonTitle.slice(0, previewButtonTitle.length - 4);
+
       return normalizeSearchTerm(title.toLowerCase());
     },
   });
