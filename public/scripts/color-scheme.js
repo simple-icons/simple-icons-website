@@ -26,16 +26,13 @@ export default function initColorScheme(document, storage) {
     selectColorScheme(storedColorScheme);
   }
 
-  $colorSchemeDark.addEventListener('click', (event) => {
-    event.preventDefault();
+  $colorSchemeDark.addEventListener('click', () => {
     selectColorScheme(COLOR_SCHEME_DARK);
   });
-  $colorSchemeLight.addEventListener('click', (event) => {
-    event.preventDefault();
+  $colorSchemeLight.addEventListener('click', () => {
     selectColorScheme(COLOR_SCHEME_LIGHT);
   });
-  $colorSchemeSystem.addEventListener('click', (event) => {
-    event.preventDefault();
+  $colorSchemeSystem.addEventListener('click', () => {
     selectColorScheme(COLOR_SCHEME_SYSTEM);
   });
 

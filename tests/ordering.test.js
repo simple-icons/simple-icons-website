@@ -15,6 +15,7 @@ describe('Ordering', () => {
     document.__resetAllMocks();
     localStorage.__resetAllMocks();
     window.__resetAllMocks();
+    domUtils.__resetAllMocks();
   });
 
   it('gets the #order-alpha button', () => {
@@ -49,7 +50,6 @@ describe('Ordering', () => {
     const clickListener = eventListeners.get('click');
     const event = newEventMock();
     clickListener(event);
-    expect(event.preventDefault).toHaveBeenCalledTimes(1);
     expect(localStorage.setItem).toHaveBeenCalledWith(
       STORAGE_KEY_ORDERING,
       'order-alpha',
@@ -89,7 +89,6 @@ describe('Ordering', () => {
     const clickListener = eventListeners.get('click');
     const event = newEventMock();
     clickListener(event);
-    expect(event.preventDefault).toHaveBeenCalledTimes(1);
     expect(localStorage.setItem).toHaveBeenCalledWith(
       STORAGE_KEY_ORDERING,
       'order-color',
@@ -123,7 +122,9 @@ describe('Ordering', () => {
     const clickListener = eventListeners.get('click');
     const event = newEventMock();
     clickListener(event);
-    expect(event.preventDefault).toHaveBeenCalledTimes(1);
+    expect(localStorage.setItem).not.toHaveBeenCalled();
+
+    expect(domUtils.sortChildren).toHaveBeenCalledTimes(1);
   });
 
   it('uses alphabetical ordering if no value is stored', () => {
