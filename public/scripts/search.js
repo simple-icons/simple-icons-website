@@ -26,20 +26,6 @@ function setSearchQueryInURL(history, path, query) {
   }
 }
 
-function getNonIcons($els) {
-  const nonIcons = [];
-  for (let node of $els) {
-    // grid-item-if-empty and other like carbon ads
-    if (!node.classList.contains('grid-item')) {
-      nonIcons.push(node);
-    } else {
-      // these non-icon nodes are placed first in the grid
-      break;
-    }
-  }
-  return nonIcons;
-}
-
 export default function initSearch(history, document, ordering, domUtils) {
   const $searchInput = document.getElementById('search-input');
   const $searchClear = document.getElementById('search-clear');
@@ -80,6 +66,20 @@ export default function initSearch(history, document, ordering, domUtils) {
     search(query);
   }
 
+  function getNonIcons() {
+    const nonIcons = [];
+    for (let node of document.querySelector('ul.grid').children) {
+      // grid-item-if-empty and other like carbon ads
+      if (!node.classList.contains('grid-item')) {
+        nonIcons.push(node);
+      } else {
+        // these non-icon nodes are placed first in the grid
+        break;
+      }
+    }
+    return nonIcons;
+  }
+
   function search(rawQuery) {
     setSearchQueryInURL(history, document.location.pathname, rawQuery);
     const query = normalizeSearchTerm(rawQuery);
@@ -91,10 +91,9 @@ export default function initSearch(history, document, ordering, domUtils) {
       domUtils.hideElement($gridItemIfEmpty);
 
       // add all icons to the grid again
-      const $gridChildren = document.querySelector('ul.grid').children;
       domUtils.replaceChildren(
         document.querySelector('ul.grid'),
-        getNonIcons($gridChildren).concat($allIcons),
+        getNonIcons().concat($allIcons),
       );
       setTimeout(() => {
         // reset to the preferred ordering
@@ -111,8 +110,7 @@ export default function initSearch(history, document, ordering, domUtils) {
 
     // fuzzy search
     let result = searcher.search(query);
-    const $gridChildren = document.querySelector('ul.grid').children;
-    const nonIcons = getNonIcons($gridChildren);
+    const nonIcons = getNonIcons();
     result = nonIcons.concat(result);
 
     ordering.selectOrdering(ORDER_RELEVANCE, result);
