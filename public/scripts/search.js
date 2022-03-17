@@ -95,10 +95,8 @@ export default function initSearch(history, document, ordering, domUtils) {
         document.querySelector('ul.grid'),
         getNonIcons().concat($allIcons),
       );
-      setTimeout(() => {
-        // reset to the preferred ordering
-        ordering.resetOrdering();
-      }, 5);
+      // and reset to the preferred ordering
+      ordering.resetOrdering();
 
       return;
     }
