@@ -140,6 +140,20 @@ describe('Search', () => {
     await page.goto(url.href);
   });
 
+  it('full match on search displays the matching icon first', async () => {
+    const $searchInput = await page.$('#search-input');
+    await $searchInput.type('adobe');
+
+    const $gridItem = await page.$('.grid-item');
+    let content = await (
+      await $gridItem.getProperty('textContent')
+    ).jsonValue();
+
+    // content should be 'Adobe#FF0000'
+    const [title, hex] = content.split('#');
+    expect(title).toBe('Adobe');
+  });
+
   it('does not show the "order by relevance" button on load', async () => {
     const $orderRelevance = await page.$('#order-relevance');
     expect(await isHidden($orderRelevance)).toBeTruthy();
