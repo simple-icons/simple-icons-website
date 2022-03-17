@@ -1,4 +1,4 @@
-import { ORDER_ALPHA, ORDER_RELEVANCE } from './ordering.js';
+import { ORDER_RELEVANCE } from './ordering.js';
 import { decodeURIComponent, debounce, normalizeSearchTerm } from './utils.js';
 import { Searcher } from 'fast-fuzzy';
 
@@ -29,11 +29,11 @@ function setSearchQueryInURL(history, path, query) {
 function getNonIcons() {
   const nonIcons = [];
   for (let child of document.querySelector('ul.grid').children) {
-    // grid item if empty node is and other nodes like carbon ads are always
-    // included in the result
+    // grid-item-if-empty and other like carbon ads
     if (!child.classList.contains('grid-item')) {
       nonIcons.push(child);
     } else {
+      // these non-icon nodes are placed first in the grid
       break;
     }
   }
@@ -42,8 +42,6 @@ function getNonIcons() {
 }
 
 export default function initSearch(history, document, ordering, domUtils) {
-  let activeQuery = '';
-
   const $searchInput = document.getElementById('search-input');
   const $searchClear = document.getElementById('search-clear');
   const $orderByColor = document.getElementById('order-color');
