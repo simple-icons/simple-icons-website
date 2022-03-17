@@ -27,18 +27,22 @@ function setSearchQueryInURL(history, path, query) {
 }
 
 export default function initSearch(history, document, ordering, domUtils) {
-  let activeQuery = '';
-
   const $searchInput = document.getElementById('search-input');
   const $searchClear = document.getElementById('search-clear');
   const $orderByColor = document.getElementById('order-color');
   const $orderByRelevance = document.getElementById('order-relevance');
 
   const $gridItemIfEmpty = document.querySelector('.grid-item--if-empty');
+
+  // when loaded for first time, all icon nodes exist in the DOM
   const $icons = document.querySelectorAll('.grid-item[data-brand]');
+  const $allIcons = [...$icons];
+
+  // the searcher is initialized for all icons
   const searcher = new Searcher($icons, {
     keySelector: (obj) => obj.dataset.brand,
   });
+
   $searchInput.disabled = false;
   $searchInput.focus();
   $searchInput.addEventListener(
@@ -62,6 +66,20 @@ export default function initSearch(history, document, ordering, domUtils) {
     search(query);
   }
 
+  function getNonIcons() {
+    const nonIcons = [];
+    for (let node of document.querySelector('ul.grid').children) {
+      // grid-item-if-empty and other like carbon ads
+      if (!node.classList.contains('grid-item')) {
+        nonIcons.push(node);
+      } else {
+        // these non-icon nodes are placed first in the grid
+        break;
+      }
+    }
+    return nonIcons;
+  }
+
   function search(rawQuery) {
     setSearchQueryInURL(history, document.location.pathname, rawQuery);
     const query = normalizeSearchTerm(rawQuery);
@@ -70,12 +88,16 @@ export default function initSearch(history, document, ordering, domUtils) {
       domUtils.hideElement($orderByRelevance);
       domUtils.removeClass($orderByRelevance, 'last__button');
       domUtils.addClass($orderByColor, 'last__button');
-      if (ordering.currentOrderingIs(ORDER_RELEVANCE)) {
-        ordering.resetOrdering();
-      }
       domUtils.hideElement($gridItemIfEmpty);
 
-      $icons.forEach(($icon) => domUtils.showElement($icon));
+      // add all icons to the grid again
+      domUtils.replaceChildren(
+        document.querySelector('ul.grid'),
+        getNonIcons().concat($allIcons),
+      );
+      // and reset to the preferred ordering
+      ordering.resetOrdering();
+
       return;
     }
 
@@ -84,30 +106,16 @@ export default function initSearch(history, document, ordering, domUtils) {
     domUtils.addClass($orderByRelevance, 'last__button');
     domUtils.removeClass($orderByColor, 'last__button');
 
-    if (activeQuery === '') {
-      ordering.selectOrdering(ORDER_RELEVANCE);
-    }
+    // fuzzy search
+    let result = searcher.search(query);
+    const nonIcons = getNonIcons();
+    result = nonIcons.concat(result);
 
-    const result = searcher.search(query);
-    let noResults = true;
-    $icons.forEach(($icon) => {
-      const score = result.indexOf($icon);
-      if (score === -1) {
-        $icon.removeAttribute('order-relevance');
-        domUtils.hideElement($icon);
-      } else {
-        $icon.setAttribute('order-relevance', 1 + score);
-        domUtils.showElement($icon);
-        noResults = false;
-      }
-    });
-
-    if (noResults) {
-      domUtils.showElement($gridItemIfEmpty);
-    } else {
+    ordering.selectOrdering(ORDER_RELEVANCE, result);
+    if (result.length !== nonIcons.length) {
       domUtils.hideElement($gridItemIfEmpty);
+    } else {
+      domUtils.showElement($gridItemIfEmpty);
     }
-
-    activeQuery = query;
   }
 }

@@ -54,6 +54,7 @@ export function newElementMock(elName, opts) {
     querySelector: jest.fn().mockName(`${elName}.querySelector`),
     removeAttribute: jest.fn().mockName(`${elName}.removeAttribute`),
     setAttribute: jest.fn().mockName(`${elName}.setAttribute`),
+    children: [],
 
     // Values
     innerHTML: opts.innerHTML || '',

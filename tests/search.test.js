@@ -86,7 +86,7 @@ describe('Search', () => {
 
       jest.runAllTimers();
 
-      expect(ordering.selectOrdering).toHaveBeenCalledWith(ORDER_RELEVANCE);
+      expect(ordering.selectOrdering).toHaveBeenCalledWith(ORDER_RELEVANCE, []);
       expect(history.replaceState).toHaveBeenCalledWith(
         null,
         '',
