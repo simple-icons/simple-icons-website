@@ -3,6 +3,7 @@ const {
   showElement,
   toggleVisibleElement,
   sortChildren,
+  replaceChildren,
 } = require('../public/scripts/dom-utils.js');
 
 const $el = {
@@ -102,5 +103,26 @@ describe('::sortChildren', () => {
 
     sortChildren($el, 'order-alpha');
     expect(JSON.stringify($el.children)).toEqual(JSON.stringify(expectedOrder));
+  });
+});
+
+describe('::replaceChildren', () => {
+  it('replace children elements', () => {
+    $el.children = [
+      { 'order-alpha': 2, getAttribute: () => 2 },
+      { 'order-alpha': 3, getAttribute: () => 3 },
+      { 'order-alpha': 1, getAttribute: () => 1 },
+    ];
+
+    const expectedNewChildren = [
+      { 'order-alpha': 3, getAttribute: () => 3 },
+      { 'order-alpha': 1, getAttribute: () => 1 },
+      { 'order-alpha': 2, getAttribute: () => 2 },
+    ];
+
+    replaceChildren($el, expectedNewChildren);
+    expect(JSON.stringify($el.children)).toEqual(
+      JSON.stringify(expectedNewChildren),
+    );
   });
 });

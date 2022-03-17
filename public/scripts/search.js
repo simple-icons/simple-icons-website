@@ -26,18 +26,17 @@ function setSearchQueryInURL(history, path, query) {
   }
 }
 
-function getNonIcons() {
+function getNonIcons($els) {
   const nonIcons = [];
-  for (let child of document.querySelector('ul.grid').children) {
+  for (let node of $els) {
     // grid-item-if-empty and other like carbon ads
-    if (!child.classList.contains('grid-item')) {
-      nonIcons.push(child);
+    if (!node.classList.contains('grid-item')) {
+      nonIcons.push(node);
     } else {
       // these non-icon nodes are placed first in the grid
       break;
     }
   }
-
   return nonIcons;
 }
 
@@ -92,9 +91,10 @@ export default function initSearch(history, document, ordering, domUtils) {
       domUtils.hideElement($gridItemIfEmpty);
 
       // add all icons to the grid again
+      const $gridChildren = document.querySelector('ul.grid').children;
       domUtils.replaceChildren(
         document.querySelector('ul.grid'),
-        getNonIcons().concat($allIcons),
+        getNonIcons($gridChildren).concat($allIcons),
       );
       setTimeout(() => {
         // reset to the preferred ordering
@@ -111,7 +111,8 @@ export default function initSearch(history, document, ordering, domUtils) {
 
     // fuzzy search
     let result = searcher.search(query);
-    const nonIcons = getNonIcons();
+    const $gridChildren = document.querySelector('ul.grid').children;
+    const nonIcons = getNonIcons($gridChildren);
     result = nonIcons.concat(result);
 
     ordering.selectOrdering(ORDER_RELEVANCE, result);
@@ -120,7 +121,5 @@ export default function initSearch(history, document, ordering, domUtils) {
     } else {
       domUtils.showElement($gridItemIfEmpty);
     }
-
-    activeQuery = query;
   }
 }
