@@ -6,6 +6,7 @@ const {
 } = require('./mocks/dom.mock.js');
 const { history } = require('./mocks/history.mock.js');
 const { ordering } = require('./mocks/ordering.mock.js');
+const { localStorage } = require('./mocks/local-storage.mock.js');
 
 const { ORDER_RELEVANCE } = require('../public/scripts/ordering.js');
 const initSearch = require('../public/scripts/search.js').default;
@@ -16,7 +17,7 @@ describe('Search', () => {
 
   let $searchInput;
   let $searchClear;
-  let $orderByRelevance;
+  let $orderRelevance;
   let $orderByColor;
 
   beforeAll(() => {
@@ -42,7 +43,7 @@ describe('Search', () => {
       clearEventListeners.set(name, fn);
     });
 
-    $orderByRelevance = newElementMock('#order-relevance');
+    $orderRelevance = newElementMock('#order-relevance');
     $orderByColor = newElementMock('#order-color');
 
     document.getElementById.mockImplementation((query) => {
@@ -52,7 +53,7 @@ describe('Search', () => {
         case 'search-clear':
           return $searchClear;
         case 'order-relevance':
-          return $orderByRelevance;
+          return $orderRelevance;
         case 'order-color':
           return $orderByColor;
         default:
@@ -69,6 +70,36 @@ describe('Search', () => {
     expect(document.getElementById).toHaveBeenCalledWith('order-relevance');
     expect($searchInput.disabled).toBe(false);
     expect($searchInput.focus).toHaveBeenCalledTimes(1);
+  });
+
+  it('gets the #order-relevance button', () => {
+    const eventListeners = new Map();
+
+    const $orderRelevance = newElementMock('#order-relevance');
+    $orderRelevance.addEventListener.mockImplementation((name, fn) => {
+      eventListeners.set(name, fn);
+    });
+
+    document.getElementById.mockImplementation((query) => {
+      if (query === 'order-relevance') {
+        return $orderRelevance;
+      }
+
+      return newElementMock(query);
+    });
+
+    initSearch(history, document, ordering, domUtils);
+    expect(document.getElementById).toHaveBeenCalledWith('order-relevance');
+    expect($orderRelevance.disabled).toBe(false);
+    expect($orderRelevance.addEventListener).toHaveBeenCalledWith(
+      'click',
+      expect.any(Function),
+    );
+
+    const clickListener = eventListeners.get('click');
+    const event = newEventMock();
+    clickListener(event);
+    expect(localStorage.setItem).not.toHaveBeenCalled();
   });
 
   describe('Searching', () => {
@@ -96,9 +127,9 @@ describe('Search', () => {
       );
 
       expect(domUtils.showElement).toHaveBeenCalledWith($searchClear);
-      expect(domUtils.showElement).toHaveBeenCalledWith($orderByRelevance);
+      expect(domUtils.showElement).toHaveBeenCalledWith($orderRelevance);
       expect(domUtils.addClass).toHaveBeenCalledWith(
-        $orderByRelevance,
+        $orderRelevance,
         'last__button',
       );
       expect(domUtils.removeClass).toHaveBeenCalledWith(
@@ -132,9 +163,9 @@ describe('Search', () => {
       );
 
       expect(domUtils.hideElement).toHaveBeenCalledWith($searchClear);
-      expect(domUtils.hideElement).toHaveBeenCalledWith($orderByRelevance);
+      expect(domUtils.hideElement).toHaveBeenCalledWith($orderRelevance);
       expect(domUtils.removeClass).toHaveBeenCalledWith(
-        $orderByRelevance,
+        $orderRelevance,
         'last__button',
       );
       expect(domUtils.addClass).toHaveBeenCalledWith(
@@ -167,9 +198,9 @@ describe('Search', () => {
       );
 
       expect(domUtils.hideElement).toHaveBeenCalledWith($searchClear);
-      expect(domUtils.hideElement).toHaveBeenCalledWith($orderByRelevance);
+      expect(domUtils.hideElement).toHaveBeenCalledWith($orderRelevance);
       expect(domUtils.removeClass).toHaveBeenCalledWith(
-        $orderByRelevance,
+        $orderRelevance,
         'last__button',
       );
       expect(domUtils.addClass).toHaveBeenCalledWith(

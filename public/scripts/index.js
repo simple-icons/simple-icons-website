@@ -22,7 +22,11 @@ async function detachedInitCopyButtons() {
 
 async function detachedInitSearch() {
   const { default: initSearch } = await import('./search.js');
-  initSearch(window.history, document, orderingControls, domUtils);
+
+  // detach searcher initialization to avoid blocking the page loading
+  setTimeout(() => {
+    initSearch(window.history, document, orderingControls, domUtils);
+  }, 0);
 }
 
 async function detachedInitDownloadType() {

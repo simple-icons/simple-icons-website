@@ -6,7 +6,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const fs = require('fs');
 const simpleIcons = require('simple-icons');
-const { normalizeSearchTerm } = require('./public/scripts/utils.js');
 const sortByColors = require('./scripts/color-sorting.js');
 
 const icons = Object.values(simpleIcons).sort((icon1, icon2) =>
@@ -127,7 +126,6 @@ module.exports = (env, argv) => {
               light: luminance < 0.4,
               superLight: luminance > 0.95,
               superDark: luminance < 0.02,
-              normalizedName: normalizeSearchTerm(icon.title.toLowerCase()),
               path: icon.path,
               shortHex: simplifyHexIfPossible(icon.hex),
               slug: icon.slug,

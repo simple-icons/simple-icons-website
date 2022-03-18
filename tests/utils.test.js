@@ -2,6 +2,7 @@ const {
   decodeURIComponent,
   debounce,
   normalizeSearchTerm,
+  iconHrefToSlug,
 } = require('../public/scripts/utils.js');
 
 describe('::decodeURIComponent', () => {
@@ -84,6 +85,17 @@ describe('::normalizeSearchTerm', () => {
     ['đħıĸŀłßŧ', 'dhikllsst'],
   ])('accented latin characters (%s)', (input, output) => {
     const result = normalizeSearchTerm(input);
+    expect(result).toEqual(output);
+  });
+});
+
+describe('::iconHrefToSlug', () => {
+  it.each([
+    ['./icons/simpleicons.svg', 'simpleicons'],
+    ['/simple-icons-website/icons/foobarbaz.svg', 'foobarbaz'],
+    ['./simple-icons-website/icons/foobarbaz.svg', 'foobarbaz'],
+  ])('accented latin characters (%s)', (input, output) => {
+    const result = iconHrefToSlug(input);
     expect(result).toEqual(output);
   });
 });

@@ -56,4 +56,7 @@ module.exports = {
       .normalize('NFD')
       .replace(NORMALIZE_SEARCH_TERM_RANGE_REGEX, '');
   },
+  iconHrefToSlug: function (href) {
+    return /icons\/(.+)\.svg$/.exec(href)[1];
+  },
 };

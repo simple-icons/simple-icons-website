@@ -318,8 +318,7 @@ html(lang='en-US')
         each icon in icons
           li.grid-item(
             order-color=icon.indexByColor,
-            order-alpha=icon.indexByAlpha,
-            data-brand=icon.normalizedName
+            order-alpha=icon.indexByAlpha
           )
             .grid-item__row.mv-2.fg-2
               button.grid-item__preview.copy-button.copy-svg(
@@ -357,7 +356,6 @@ html(lang='en-US')
               a.grid-item__button(
                 href=`./icons/${icon.slug}.svg`,
                 role='button',
-                data-icon=icon.slug,
                 download
               )
                 svg(role='img', viewBox='0 0 24 24')
