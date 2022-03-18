@@ -24,12 +24,17 @@ export function sortChildren($el, attribute, nFirstChildren) {
     (a, b) =>
       parseInt(a.getAttribute(attribute)) - parseInt(b.getAttribute(attribute)),
   );
-  nFirstChildren = nFirstChildren || sorted.length;
-  const firstChildren = sorted.slice(0, nFirstChildren);
+  replaceChildren($el, sorted, nFirstChildren);
+}
+
+export function replaceChildren($el, newChildren, nFirstChildren) {
+  nFirstChildren =
+    Math.min(nFirstChildren, newChildren.length) || newChildren.length;
+  const firstChildren = newChildren.slice(0, nFirstChildren);
   $el.innerHTML = '';
   firstChildren.forEach((node) => $el.appendChild(node));
   setTimeout(() => {
-    sorted.slice(nFirstChildren).forEach((node) => $el.appendChild(node));
+    newChildren.slice(nFirstChildren).forEach((node) => $el.appendChild(node));
   }, 0);
 }
 

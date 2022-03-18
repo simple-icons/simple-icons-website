@@ -24,16 +24,13 @@ export default function initOrdering(window, document, storage, domUtils) {
     selectOrdering(storedOrdering);
   }
 
-  $orderAlpha.addEventListener('click', (event) => {
-    event.preventDefault();
+  $orderAlpha.addEventListener('click', () => {
     selectOrdering(ORDER_ALPHA);
   });
-  $orderColor.addEventListener('click', (event) => {
-    event.preventDefault();
+  $orderColor.addEventListener('click', () => {
     selectOrdering(ORDER_COLOR);
   });
-  $orderRelevance.addEventListener('click', (event) => {
-    event.preventDefault();
+  $orderRelevance.addEventListener('click', () => {
     selectOrdering(ORDER_RELEVANCE);
   });
 
@@ -41,17 +38,23 @@ export default function initOrdering(window, document, storage, domUtils) {
     return activeOrdering === value;
   }
 
-  function selectOrdering(selected) {
-    if (selected === activeOrdering) {
+  function selectOrdering(selected, newItems) {
+    if (newItems === undefined && selected === activeOrdering) {
+      // only skip ordering when is the same if not an ordering
+      // with defined children set
       return;
     }
 
     $body.classList.remove(ORDER_ALPHA, ORDER_COLOR, ORDER_RELEVANCE);
-
     $body.classList.add(selected);
 
-    window.scrollTo(0, 0);
-    domUtils.sortChildren(document.querySelector('ul.grid'), selected, 30);
+    const $grid = document.querySelector('ul.grid');
+    if (newItems) {
+      domUtils.replaceChildren($grid, newItems, 30);
+    } else {
+      window.scrollTo(0, 0);
+      domUtils.sortChildren($grid, selected, 30);
+    }
 
     if (selected !== ORDER_RELEVANCE) {
       preferredOrdering = selected;

@@ -56,12 +56,7 @@ module.exports = {
       .normalize('NFD')
       .replace(NORMALIZE_SEARCH_TERM_RANGE_REGEX, '');
   },
-<<<<<<< Updated upstream
   iconHrefToSlug: function (href) {
     return /icons\/(.+)\.svg$/.exec(href)[1];
-=======
-  iconHrefToSlug: function(href) {
-    return /icons\/(.+)\.svg$/.exec(href)[1]
->>>>>>> Stashed changes
   },
 };

@@ -86,8 +86,7 @@ describe('Search', () => {
 
       jest.runAllTimers();
 
-      expect(event.preventDefault).toHaveBeenCalledTimes(1);
-      expect(ordering.selectOrdering).toHaveBeenCalledWith(ORDER_RELEVANCE);
+      expect(ordering.selectOrdering).toHaveBeenCalledWith(ORDER_RELEVANCE, []);
       expect(history.replaceState).toHaveBeenCalledWith(
         null,
         '',
@@ -125,7 +124,6 @@ describe('Search', () => {
       inputListener(event);
       jest.runAllTimers();
 
-      expect(event.preventDefault).toHaveBeenCalledTimes(1);
       expect(ordering.resetOrdering).toHaveBeenCalledTimes(1);
       expect(history.replaceState).toHaveBeenCalledWith(
         null,
@@ -161,7 +159,6 @@ describe('Search', () => {
       clickListener(event);
       jest.runAllTimers();
 
-      expect(event.preventDefault).toHaveBeenCalledTimes(1);
       expect(ordering.resetOrdering).toHaveBeenCalledTimes(1);
       expect(history.replaceState).toHaveBeenCalledWith(
         null,

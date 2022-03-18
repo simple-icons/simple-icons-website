@@ -27,12 +27,10 @@ export default function initDownloadType(document, storage) {
     storage.setItem(STORAGE_KEY_DOWNLOAD_TYPE, DEFAULT_DOWNLOAD_TYPE);
   }
 
-  $downloadPdf.addEventListener('click', (event) => {
-    event.preventDefault();
+  $downloadPdf.addEventListener('click', () => {
     selectDownloadType(PDF_DOWNLOAD_TYPE);
   });
-  $downloadSvg.addEventListener('click', (event) => {
-    event.preventDefault();
+  $downloadSvg.addEventListener('click', () => {
     selectDownloadType(SVG_DOWNLOAD_TYPE);
   });
 
