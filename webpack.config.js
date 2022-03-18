@@ -5,8 +5,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const fs = require('fs');
+const os = require('os');
 const simpleIcons = require('simple-icons');
 const sortByColors = require('./scripts/color-sorting.js');
+const GET = require('./scripts/GET.js');
 
 const icons = Object.values(simpleIcons).sort((icon1, icon2) =>
   icon1.title.localeCompare(icon2.title),
@@ -46,6 +48,7 @@ function simplifyHexIfPossible(hex) {
 
   return hex;
 }
+
 let extensions = parseExtensions();
 let displayIcons = icons;
 if (process.env.TEST_ENV) {
@@ -55,7 +58,84 @@ if (process.env.TEST_ENV) {
   displayIcons = icons.slice(0, 255);
 }
 
-module.exports = (env, argv) => {
+const pageDescription = `${icons.length} Free SVG icons for popular brands.`,
+  pageTitle = 'Simple Icons',
+  pageUrl = 'https://simpleicons.org',
+  logoUrl = 'https://simpleicons.org/icons/simpleicons.svg';
+
+async function generateStructuredData() {
+  const getSimpleIconsMembers = () => {
+    return new Promise(async (resolve, reject) => {
+      const siMembersCacheFilePath = path.join(
+        os.tmpdir(),
+        'simple-icons-members.json',
+      );
+      if (fs.existsSync(siMembersCacheFilePath)) {
+        try {
+          const siMembersFileContent = fs.readFileSync(siMembersCacheFilePath, {
+            encoding: 'UTF8',
+          });
+          resolve(JSON.parse(siMembersFileContent));
+        } catch (error) {
+          reject(error);
+        }
+      } else {
+        try {
+          const siOrgMembers = await GET(
+            'api.github.com',
+            '/orgs/simple-icons/members',
+          );
+
+          const structuredDataMembersPromises = siOrgMembers.map((member) => {
+            return new Promise(async (_resolve) => {
+              try {
+                _resolve(
+                  Object.assign(
+                    member,
+                    await GET('api.github.com', `/users/${member.login}`),
+                  ),
+                );
+              } catch (error) {
+                reject(error);
+              }
+            });
+          });
+          Promise.all(structuredDataMembersPromises).then((users) => {
+            const structuredDataMembers = users.map((user) => {
+              return {
+                '@type': 'Person',
+                name: user.name,
+                jobTitle: 'Maintainer',
+                url: user.html_url,
+                image: user.avatar_url,
+              };
+            });
+            fs.writeFileSync(
+              siMembersCacheFilePath,
+              JSON.stringify(structuredDataMembers),
+            );
+            resolve(structuredDataMembers);
+          });
+        } catch (error) {
+          reject(error);
+        }
+      }
+    });
+  };
+
+  return {
+    '@context': 'http://schema.org',
+    '@type': 'Organization',
+    name: pageTitle,
+    description: pageDescription,
+    logo: logoUrl,
+    image: logoUrl,
+    url: pageUrl,
+    members: await getSimpleIconsMembers(),
+  };
+}
+
+module.exports = async (env, argv) => {
   return {
     entry: {
       app: path.resolve(ROOT_DIR, 'scripts/index.js'),
@@ -134,9 +214,10 @@ module.exports = (env, argv) => {
           }),
           iconCount: icons.length,
           twitterIcon: icons.find((icon) => icon.title === 'Twitter'),
-          pageTitle: 'Simple Icons',
-          pageDescription: `${icons.length} Free SVG icons for popular brands.`,
-          pageUrl: 'https://simpleicons.org',
+          pageTitle,
+          pageDescription,
+          pageUrl,
+          structuredData: await generateStructuredData(),
         },
         minify:
           argv.mode === 'development'
