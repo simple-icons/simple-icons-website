@@ -28,7 +28,6 @@ function setSearchQueryInURL(history, path, query) {
 
 const searchKeySelector = (obj) => {
   // extract title from icon card
-  console.log(obj);
   const previewButtonTitle = obj.children[0].children[0].getAttribute('title');
   return normalizeSearchTerm(
     previewButtonTitle.slice(0, previewButtonTitle.length - 4),
