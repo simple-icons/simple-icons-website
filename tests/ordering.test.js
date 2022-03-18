@@ -95,38 +95,6 @@ describe('Ordering', () => {
     );
   });
 
-  it('gets the #order-relevance button', () => {
-    const eventListeners = new Map();
-
-    const $orderRelevance = newElementMock('#order-relevance');
-    $orderRelevance.addEventListener.mockImplementation((name, fn) => {
-      eventListeners.set(name, fn);
-    });
-
-    document.getElementById.mockImplementation((query) => {
-      if (query === 'order-relevance') {
-        return $orderRelevance;
-      }
-
-      return newElementMock(query);
-    });
-
-    initOrdering(window, document, localStorage, domUtils);
-    expect(document.getElementById).toHaveBeenCalledWith('order-relevance');
-    expect($orderRelevance.disabled).toBe(false);
-    expect($orderRelevance.addEventListener).toHaveBeenCalledWith(
-      'click',
-      expect.any(Function),
-    );
-
-    const clickListener = eventListeners.get('click');
-    const event = newEventMock();
-    clickListener(event);
-    expect(localStorage.setItem).not.toHaveBeenCalled();
-
-    expect(domUtils.sortChildren).toHaveBeenCalledTimes(1);
-  });
-
   it('uses alphabetical ordering if no value is stored', () => {
     initOrdering(window, document, localStorage, domUtils);
     expect(localStorage.hasItem).toHaveBeenCalledWith(STORAGE_KEY_ORDERING);

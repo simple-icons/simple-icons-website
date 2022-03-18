@@ -20,9 +20,9 @@ async function detachedInitCopyButtons() {
   initCopyButtons(document, navigator, fetch);
 }
 
-async function detachedInitSearch() {
-  const { default: initSearch } = await import('./search.js');
-  initSearch(window.history, document, orderingControls, domUtils);
+async function _detachedInitSearch() {
+  const { detachedInitSearch } = await import('./search.js');
+  detachedInitSearch(window.history, document, orderingControls, domUtils);
 }
 
 async function detachedInitDownloadType() {
@@ -37,6 +37,6 @@ async function detachedInitModal() {
 
 detachedInitColorScheme();
 detachedInitCopyButtons();
-detachedInitSearch();
+_detachedInitSearch();
 detachedInitDownloadType();
 detachedInitModal();

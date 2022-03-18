@@ -13,11 +13,9 @@ export default function initOrdering(window, document, storage, domUtils) {
   const $body = document.querySelector('body');
   const $orderAlpha = document.getElementById('order-alpha');
   const $orderColor = document.getElementById('order-color');
-  const $orderRelevance = document.getElementById('order-relevance');
 
   $orderAlpha.disabled = false;
   $orderColor.disabled = false;
-  $orderRelevance.disabled = false;
 
   if (storage.hasItem(STORAGE_KEY_ORDERING)) {
     const storedOrdering = storage.getItem(STORAGE_KEY_ORDERING);
@@ -29,9 +27,6 @@ export default function initOrdering(window, document, storage, domUtils) {
   });
   $orderColor.addEventListener('click', () => {
     selectOrdering(ORDER_COLOR);
-  });
-  $orderRelevance.addEventListener('click', () => {
-    selectOrdering(ORDER_RELEVANCE);
   });
 
   function currentOrderingIs(value) {
