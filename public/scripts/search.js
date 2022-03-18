@@ -26,6 +26,14 @@ function setSearchQueryInURL(history, path, query) {
   }
 }
 
+const searchKeySelector = (obj) => {
+  // extract title from icon card
+  const previewButtonTitle = obj.children[0].children[0].getAttribute('title');
+  return normalizeSearchTerm(
+    previewButtonTitle.slice(0, previewButtonTitle.length - 4),
+  );
+};
+
 export default function initSearch(history, document, ordering, domUtils) {
   const $searchInput = document.getElementById('search-input');
   const $searchClear = document.getElementById('search-clear');
@@ -35,28 +43,24 @@ export default function initSearch(history, document, ordering, domUtils) {
   const $gridItemIfEmpty = document.querySelector('.grid-item--if-empty');
 
   // when loaded for first time, all icon nodes exist in the DOM
-  const $icons = document.querySelectorAll('.grid-item[data-brand]');
+  const $icons = document.querySelectorAll('.grid-item');
+
+  // mantain a copy in memory to be able to rebuild the whole grid later
   const $allIcons = [...$icons];
 
   // the searcher is initialized for all icons
+  performance.mark('new Searcher - start');
   const searcher = new Searcher($icons, {
-    keySelector: (obj) => {
-      // extract title from icon card
-      const previewButtonTitle =
-        obj.children[0].children[0].getAttribute('title');
-      const title = previewButtonTitle.slice(0, previewButtonTitle.length - 4);
-
-      return normalizeSearchTerm(title.toLowerCase());
-    },
+    keySelector: searchKeySelector,
   });
+  performance.mark('new Searcher - end');
 
   $searchInput.disabled = false;
   $searchInput.focus();
   $searchInput.addEventListener(
     'input',
-    debounce((event) => {
-      const value = $searchInput.value;
-      search(value);
+    debounce(() => {
+      search($searchInput.value);
     }),
   );
 
@@ -98,9 +102,10 @@ export default function initSearch(history, document, ordering, domUtils) {
       domUtils.hideElement($gridItemIfEmpty);
 
       // add all icons to the grid again
+      const $gridChildren = document.querySelector('ul.grid').children;
       domUtils.replaceChildren(
         document.querySelector('ul.grid'),
-        getNonIcons().concat($allIcons),
+        getNonIcons($gridChildren).concat($allIcons),
       );
       // and reset to the preferred ordering
       ordering.resetOrdering();
@@ -115,7 +120,8 @@ export default function initSearch(history, document, ordering, domUtils) {
 
     // fuzzy search
     let result = searcher.search(query);
-    const nonIcons = getNonIcons();
+    const $gridChildren = document.querySelector('ul.grid').children;
+    const nonIcons = getNonIcons($gridChildren);
     result = nonIcons.concat(result);
 
     ordering.selectOrdering(ORDER_RELEVANCE, result);
