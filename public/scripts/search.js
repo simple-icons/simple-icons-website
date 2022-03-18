@@ -49,11 +49,9 @@ export default function initSearch(history, document, ordering, domUtils) {
   const $allIcons = [...$icons];
 
   // the searcher is initialized for all icons
-  performance.mark('new Searcher - start');
   const searcher = new Searcher($icons, {
     keySelector: searchKeySelector,
   });
-  performance.mark('new Searcher - end');
 
   $searchInput.disabled = false;
   $searchInput.focus();
