@@ -152,6 +152,7 @@ describe('Search', () => {
     // content should be 'Adobe#FF0000'
     const [title, hex] = content.split('#');
     expect(title).toBe('Adobe');
+    expect([3, 6, 8].includes(hex.length)).toBeTruthy();
   });
 
   it('does not show the "order by relevance" button on load', async () => {
