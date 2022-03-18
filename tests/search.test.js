@@ -9,7 +9,7 @@ const { ordering } = require('./mocks/ordering.mock.js');
 const { localStorage } = require('./mocks/local-storage.mock.js');
 
 const { ORDER_RELEVANCE } = require('../public/scripts/ordering.js');
-const { initSearch } = require('../public/scripts/search.js');
+const initSearch = require('../public/scripts/search.js').default;
 
 describe('Search', () => {
   const inputEventListeners = new Map();

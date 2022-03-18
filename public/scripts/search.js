@@ -26,22 +26,16 @@ function setSearchQueryInURL(history, path, query) {
   }
 }
 
-const searchKeySelector = (obj) => {
+const searcherKeySelector = (iconCard) => {
   // extract title from icon card
-  const previewButtonTitle = obj.children[0].children[0].getAttribute('title');
+  const previewButtonTitle =
+    iconCard.children[0].children[0].getAttribute('title');
   return normalizeSearchTerm(
     previewButtonTitle.slice(0, previewButtonTitle.length - 4),
   );
 };
 
-export function detachedInitSearch(history, document, ordering, domUtils) {
-  // detach searcher initialization to avoid blocking the page loading
-  setTimeout(() => {
-    initSearch(history, document, ordering, domUtils);
-  }, 0);
-}
-
-export function initSearch(history, document, ordering, domUtils) {
+export default function initSearch(history, document, ordering, domUtils) {
   const $searchInput = document.getElementById('search-input');
   const $searchClear = document.getElementById('search-clear');
   const $orderColor = document.getElementById('order-color');
@@ -57,7 +51,7 @@ export function initSearch(history, document, ordering, domUtils) {
 
   // the searcher is initialized for all icons
   const searcher = new Searcher($icons, {
-    keySelector: searchKeySelector,
+    keySelector: searcherKeySelector,
   });
 
   $searchInput.disabled = false;
