@@ -64,64 +64,62 @@ const pageDescription = `${icons.length} Free SVG icons for popular brands.`,
   logoUrl = 'https://simpleicons.org/icons/simpleicons.svg';
 
 async function generateStructuredData() {
-  const getSimpleIconsMembers = () => {
-    return new Promise(async (resolve, reject) => {
-      const siMembersCacheFilePath = path.join(
-        os.tmpdir(),
-        'simple-icons-members.json',
-      );
-      if (fs.existsSync(siMembersCacheFilePath)) {
-        try {
-          const siMembersFileContent = fs.readFileSync(siMembersCacheFilePath, {
-            encoding: 'UTF8',
-          });
-          resolve(JSON.parse(siMembersFileContent));
-        } catch (error) {
-          reject(error);
-        }
-      } else {
-        try {
-          const siOrgMembers = await GET(
-            'api.github.com',
-            '/orgs/simple-icons/members',
-          );
-
-          const structuredDataMembersPromises = siOrgMembers.map((member) => {
-            return new Promise(async (_resolve) => {
-              try {
-                _resolve(
-                  Object.assign(
-                    member,
-                    await GET('api.github.com', `/users/${member.login}`),
-                  ),
-                );
-              } catch (error) {
-                reject(error);
-              }
-            });
-          });
-          Promise.all(structuredDataMembersPromises).then((users) => {
-            const structuredDataMembers = users.map((user) => {
-              return {
-                '@type': 'Person',
-                name: user.name,
-                jobTitle: 'Maintainer',
-                url: user.html_url,
-                image: user.avatar_url,
-              };
-            });
-            fs.writeFileSync(
-              siMembersCacheFilePath,
-              JSON.stringify(structuredDataMembers),
-            );
-            resolve(structuredDataMembers);
-          });
-        } catch (error) {
-          reject(error);
-        }
+  const getSimpleIconsMembers = new Promise(async (resolve, reject) => {
+    const siMembersCacheFilePath = path.join(
+      os.tmpdir(),
+      'simple-icons-members.json',
+    );
+    if (fs.existsSync(siMembersCacheFilePath)) {
+      try {
+        const siMembersFileContent = fs.readFileSync(siMembersCacheFilePath, {
+          encoding: 'UTF8',
+        });
+        resolve(JSON.parse(siMembersFileContent));
+      } catch (error) {
+        reject(error);
       }
-    });
-  };
+    } else {
+      try {
+        const siOrgMembers = await GET(
+          'api.github.com',
+          '/orgs/simple-icons/members',
+        );
+
+        const structuredDataMembersPromises = siOrgMembers.map((member) => {
+          return new Promise(async (_resolve) => {
+            try {
+              _resolve(
+                Object.assign(
+                  member,
+                  await GET('api.github.com', `/users/${member.login}`),
+                ),
+              );
+            } catch (error) {
+              reject(error);
+            }
+          });
+        });
+        Promise.all(structuredDataMembersPromises).then((users) => {
+          const structuredDataMembers = users.map((user) => {
+            return {
+              '@type': 'Person',
+              name: user.name,
+              jobTitle: 'Maintainer',
+              url: user.html_url,
+              image: user.avatar_url,
+            };
+          });
+          fs.writeFileSync(
+            siMembersCacheFilePath,
+            JSON.stringify(structuredDataMembers),
+          );
+          resolve(structuredDataMembers);
+        });
+      } catch (error) {
+        reject(error);
+      }
+    }
+  });
 
   return {
     '@context': 'http://schema.org',
@@ -131,7 +129,7 @@ async function generateStructuredData() {
     logo: logoUrl,
     image: logoUrl,
     url: pageUrl,
-    members: await getSimpleIconsMembers(),
+    members: await getSimpleIconsMembers,
   };
 }
 
