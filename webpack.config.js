@@ -117,6 +117,11 @@ async function generateStructuredData() {
     image: logoUrl,
     url: pageUrl,
     members: await getSimpleIconsMembers(),
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://simpleicons.org/?q={search-term}',
+      'query-input': 'required name=search-term',
+    },
   };
 }
 
