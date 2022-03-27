@@ -61,7 +61,7 @@ if (process.env.TEST_ENV) {
 const pageDescription = `${icons.length} Free SVG icons for popular brands.`,
   pageTitle = 'Simple Icons',
   pageUrl = 'https://simpleicons.org',
-  logoUrl = 'https://simpleicons.org/icons/simpleicons.svg';
+  logoUrl = `${pageUrl}/icons/simpleicons.svg`;
 
 async function generateStructuredData() {
   const getSimpleIconsMembers = async () => {
@@ -119,7 +119,7 @@ async function generateStructuredData() {
     members: await getSimpleIconsMembers(),
     potentialAction: {
       '@type': 'SearchAction',
-      target: 'https://simpleicons.org/?q={search-term}',
+      target: `${pageUrl}/?q={search-term}`,
       'query-input': 'required name=search-term',
     },
   };
