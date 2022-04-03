@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "fast-fuzzy": "1.11.1",
-    "simple-icons": "6.16.0"
+    "simple-icons": "6.17.0"
   },
   "devDependencies": {
     "@babel/core": "7.17.8",
