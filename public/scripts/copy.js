@@ -1,12 +1,12 @@
 const COPIED_TIMEOUT = 1000;
 
-function setCopied($el) {
+const setCopied = ($el) => {
   $el.classList.add('copied');
   setTimeout(() => $el.classList.remove('copied'), COPIED_TIMEOUT);
 }
 
-export default function initCopyButtons(document, navigator, fetch) {
-  function copyValue(value) {
+export default initCopyButtons = (document, navigator, fetch) => {
+  const copyValue = (value) => {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(value);
     } else {
@@ -16,13 +16,13 @@ export default function initCopyButtons(document, navigator, fetch) {
     }
   }
 
-  function onClickColorButton(event) {
+  const onClickColorButton = (event) => {
     event.preventDefault();
     copyValue(event.target.innerHTML);
     setCopied(event.target);
   }
 
-  async function onClickSvgButton(event) {
+  const onClickSvgButton = async (event) => {
     event.preventDefault();
 
     const $img = event.target.querySelector('img');

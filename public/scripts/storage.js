@@ -14,7 +14,7 @@ const mockStorage = {
   setItem() {},
 };
 
-export default function newStorage(localStorage) {
+export default newStorage = (localStorage) => {
   if (!localStorage) {
     return mockStorage;
   }

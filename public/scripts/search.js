@@ -4,7 +4,7 @@ import { Searcher } from 'fast-fuzzy';
 
 const QUERY_PARAMETER = 'q';
 
-function getQueryFromParameter(location, parameter) {
+const getQueryFromParameter = (location, parameter) => {
   const expr = new RegExp(`[\\?&]${parameter}=([^&#]*)`);
   const results = expr.exec(location.search);
   if (results !== null) {
@@ -14,7 +14,7 @@ function getQueryFromParameter(location, parameter) {
   return '';
 }
 
-function setSearchQueryInURL(history, path, query) {
+const setSearchQueryInURL = (history, path, query) => {
   if (query !== '') {
     history.replaceState(
       null,
@@ -35,7 +35,7 @@ const searcherKeySelector = (iconCard) => {
   );
 };
 
-export default function initSearch(history, document, ordering, domUtils) {
+export default initSearch = (history, document, ordering, domUtils) => {
   const $searchInput = document.getElementById('search-input');
   const $searchClear = document.getElementById('search-clear');
   const $orderColor = document.getElementById('order-color');
@@ -95,7 +95,7 @@ export default function initSearch(history, document, ordering, domUtils) {
     return nonIcons;
   }
 
-  function search(query) {
+  const search = (query) => {
     setSearchQueryInURL(history, document.location.pathname, query);
     if (!query) {
       domUtils.hideElement($searchClear);

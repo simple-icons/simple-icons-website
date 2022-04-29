@@ -10,17 +10,17 @@ document.body.classList.remove('no-js');
 const storage = newStorage(localStorage);
 const orderingControls = initOrdering(window, document, storage, domUtils);
 
-async function detachedInitColorScheme() {
+const detachedInitColorScheme = async () => {
   const { default: initColorScheme } = await import('./color-scheme.js');
   initColorScheme(document, storage);
 }
 
-async function detachedInitCopyButtons() {
+const detachedInitCopyButtons = async () => {
   const { default: initCopyButtons } = await import('./copy.js');
   initCopyButtons(document, navigator, fetch);
 }
 
-async function detachedInitSearch() {
+const detachedInitSearch = async () => {
   const { default: initSearch } = await import('./search.js');
 
   // detach searcher initialization to avoid blocking the page loading
@@ -29,12 +29,12 @@ async function detachedInitSearch() {
   }, 0);
 }
 
-async function detachedInitDownloadType() {
+const detachedInitDownloadType = async () => {
   const { default: initDownloadType } = await import('./download-type.js');
   initDownloadType(document, storage);
 }
 
-async function detachedInitModal() {
+const detachedInitModal = async () => {
   const { default: initModal } = await import('./modal.js');
   initModal(document, domUtils);
 }

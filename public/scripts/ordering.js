@@ -6,7 +6,7 @@ export const ORDER_RELEVANCE = 'order-relevance';
 
 const DEFAULT_ORDERING = ORDER_ALPHA;
 
-export default function initOrdering(window, document, storage, domUtils) {
+export default initOrdering = (window, document, storage, domUtils) => {
   let activeOrdering = DEFAULT_ORDERING;
   let preferredOrdering = DEFAULT_ORDERING;
 
@@ -29,11 +29,11 @@ export default function initOrdering(window, document, storage, domUtils) {
     selectOrdering(ORDER_COLOR);
   });
 
-  function currentOrderingIs(value) {
+  const currentOrderingIs = (value) => {
     return activeOrdering === value;
   }
 
-  function selectOrdering(selected, newItems) {
+  const selectOrdering = (selected, newItems) => {
     if (newItems === undefined && selected === activeOrdering) {
       // only skip ordering when is the same if not an ordering
       // with defined children set
@@ -59,7 +59,7 @@ export default function initOrdering(window, document, storage, domUtils) {
     activeOrdering = selected;
   }
 
-  function resetOrdering() {
+  const resetOrdering = () => {
     return selectOrdering(preferredOrdering);
   }
 

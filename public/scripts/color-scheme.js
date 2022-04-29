@@ -9,7 +9,7 @@ const DEFAULT_COLOR_SCHEME = COLOR_SCHEME_SYSTEM;
 const CLASS_DARK_MODE = 'dark';
 const CLASS_LIGHT_MODE = 'light';
 
-export default function initColorScheme(document, storage) {
+export default initColorScheme = (document, storage) => {
   let activeColorScheme = DEFAULT_COLOR_SCHEME;
 
   const $body = document.querySelector('body');

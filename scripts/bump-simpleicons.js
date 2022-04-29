@@ -5,27 +5,28 @@
  * new simple-icons dependency version is outputted.
  */
 
-const { execSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+import { execSync } from 'node:child_process';
+import { promises as fs } from 'node:fs';
+import path from 'node:path';
+import { getDirnameFromImportMeta } from '../si-utils.js';
+
+const __dirname = getDirnameFromImportMeta(import.meta.url);
 
 const PACKAGE_JSON_FILE = path.resolve(__dirname, '..', 'package.json');
 
-function getManifest() {
-  const packageFileRaw = fs.readFileSync(PACKAGE_JSON_FILE).toString();
-  const packageFile = JSON.parse(packageFileRaw);
-  return packageFile;
+const getManifest = async () => {
+  return JSON.parse(await fs.readFile(PACKAGE_JSON_FILE, 'utf8'));
 }
 
-function main() {
+const main = async () => {
   try {
-    const manifestBefore = getManifest();
+    const manifestBefore = await getManifest();
     const versionBefore = manifestBefore.dependencies['simple-icons'];
 
     execSync('npm uninstall simple-icons', { stdio: 'ignore' });
     execSync('npm install --save-exact simple-icons', { stdio: 'ignore' });
 
-    const manifestAfter = getManifest();
+    const manifestAfter = await getManifest();
     const versionAfter = manifestAfter.dependencies['simple-icons'];
 
     if (versionBefore === versionAfter) {

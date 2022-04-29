@@ -1,14 +1,17 @@
-const CopyPlugin = require('copy-webpack-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const getRelativeLuminance = require('get-relative-luminance').default;
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const path = require('path');
-const fs = require('fs');
-const os = require('os');
-const simpleIcons = require('simple-icons');
-const sortByColors = require('./scripts/color-sorting.js');
-const GET = require('./scripts/GET.js');
+import CopyPlugin from 'copy-webpack-plugin';
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import getRelativeLuminance from 'get-relative-luminance';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import path from 'node:path';
+import fs from 'node:fs';
+import os from 'node:os';
+import simpleIcons from 'simple-icons';
+import sortByColors from './scripts/color-sorting.js';
+import GET from './scripts/GET.js';
+import { getDirnameFromImportMeta } from './si-utils.js';
+
+const __dirname = getDirnameFromImportMeta(import.meta.url);
 
 const icons = Object.values(simpleIcons).sort((icon1, icon2) =>
   icon1.title.localeCompare(icon2.title),
@@ -125,7 +128,7 @@ async function generateStructuredData() {
   };
 }
 
-module.exports = async (env, argv) => {
+export default async (env, argv) => {
   return {
     entry: {
       app: path.resolve(ROOT_DIR, 'scripts/index.js'),
@@ -186,7 +189,7 @@ module.exports = async (env, argv) => {
         templateParameters: {
           extensions,
           icons: displayIcons.map((icon, iconIndex) => {
-            const luminance = getRelativeLuminance(`#${icon.hex}`);
+            const luminance = getRelativeLuminance.default(`#${icon.hex}`);
             return {
               guidelines: icon.guidelines,
               hex: icon.hex,

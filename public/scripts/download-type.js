@@ -9,7 +9,7 @@ const DEFAULT_DOWNLOAD_TYPE = SVG_DOWNLOAD_TYPE;
 const CLASS_DOWNLOAD_TYPE_SVG = 'download-svg';
 const CLASS_DOWNLOAD_TYPE_PDF = 'download-pdf';
 
-export default function initDownloadType(document, storage) {
+export default initDownloadType = (document, storage) => {
   let activeDownloadType = DEFAULT_DOWNLOAD_TYPE;
 
   const $body = document.querySelector('body');
@@ -42,7 +42,7 @@ export default function initDownloadType(document, storage) {
     });
   }
 
-  function selectDownloadType(selected) {
+  const selectDownloadType = (selected) => {
     if (selected === activeDownloadType) {
       return;
     }
