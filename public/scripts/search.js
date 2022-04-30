@@ -1,5 +1,5 @@
 import { ORDER_RELEVANCE } from './ordering.js';
-import { decodeURIComponent, debounce, normalizeSearchTerm } from './utils.js';
+import { debounce, normalizeSearchTerm } from './utils.js';
 import { Searcher } from 'fast-fuzzy';
 
 const QUERY_PARAMETER = 'q';
@@ -12,7 +12,7 @@ const getQueryFromParameter = (location, parameter) => {
   }
 
   return '';
-}
+};
 
 const setSearchQueryInURL = (history, path, query) => {
   if (query !== '') {
@@ -24,9 +24,9 @@ const setSearchQueryInURL = (history, path, query) => {
   } else {
     history.replaceState(null, '', path);
   }
-}
+};
 
-const searcherKeySelector = (iconCard) => {
+const titleFromIconCard = (iconCard) => {
   // extract title from icon card
   const previewButtonTitle =
     iconCard.children[0].children[0].getAttribute('title');
@@ -35,7 +35,7 @@ const searcherKeySelector = (iconCard) => {
   );
 };
 
-export default initSearch = (history, document, ordering, domUtils) => {
+export default (history, document, ordering, domUtils) => {
   const $searchInput = document.getElementById('search-input');
   const $searchClear = document.getElementById('search-clear');
   const $orderColor = document.getElementById('order-color');
@@ -50,9 +50,7 @@ export default initSearch = (history, document, ordering, domUtils) => {
   const $allIcons = [...$icons];
 
   // the searcher is initialized for all icons
-  const searcher = new Searcher($icons, {
-    keySelector: searcherKeySelector,
-  });
+  const searcher = new Searcher($icons, { keySelector: titleFromIconCard });
 
   $searchInput.disabled = false;
   $searchInput.focus();
@@ -68,13 +66,6 @@ export default initSearch = (history, document, ordering, domUtils) => {
     search('');
     $searchInput.focus();
   });
-
-  // Load search query if present
-  const query = getQueryFromParameter(document.location, QUERY_PARAMETER);
-  if (query) {
-    $searchInput.value = query;
-    search(query);
-  }
 
   $orderRelevance.addEventListener('click', () => {
     search($searchInput.value);
@@ -133,5 +124,12 @@ export default initSearch = (history, document, ordering, domUtils) => {
     } else {
       domUtils.showElement($gridItemIfEmpty);
     }
+  };
+
+  // Load search query if present
+  const query = getQueryFromParameter(document.location, QUERY_PARAMETER);
+  if (query) {
+    $searchInput.value = query;
+    search(query);
   }
-}
+};

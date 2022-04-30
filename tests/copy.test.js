@@ -1,16 +1,16 @@
-const fs = require('fs');
-const path = require('path');
+import { jest } from '@jest/globals';
 
-const {
-  document,
-  newElementMock,
-  newEventMock,
-  window,
-} = require('./mocks/dom.mock.js');
-const { navigator } = require('./mocks/navigator.mock.js');
-const { fetch, newFetchTextMock } = require('./mocks/fetch.mock.js');
+import fs from 'node:fs';
+import path from 'node:path';
+import { getDirnameFromImportMeta } from '../si-utils.js';
 
-const initCopyButtons = require('../public/scripts/copy.js').default;
+import { document, newElementMock, newEventMock } from './mocks/dom.mock.js';
+import navigator from './mocks/navigator.mock.js';
+import { fetch, newFetchTextMock } from './mocks/fetch.mock.js';
+
+import initCopyButtons from '../public/scripts/copy.js';
+
+const __dirname = getDirnameFromImportMeta(import.meta.url);
 
 describe('Copy', () => {
   beforeAll(() => {

@@ -16,7 +16,7 @@ const PACKAGE_JSON_FILE = path.resolve(__dirname, '..', 'package.json');
 
 const getManifest = async () => {
   return JSON.parse(await fs.readFile(PACKAGE_JSON_FILE, 'utf8'));
-}
+};
 
 const main = async () => {
   try {
@@ -38,6 +38,6 @@ const main = async () => {
     console.error('Failed to update simple-icons to latest version:', error);
     process.exit(1);
   }
-}
+};
 
 main();

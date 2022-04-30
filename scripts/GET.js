@@ -34,4 +34,4 @@ export default async function GET(hostname, path) {
 
     req.end();
   });
-};
+}

@@ -1,55 +1,42 @@
-async function isVisibleOnPage($el) {
-  const boundingBox = await $el.boundingBox();
-  if (boundingBox === null) {
-    return false;
-  }
-
-  if (boundingBox.width === 0 && boundingBox.height === 0) {
-    return false;
-  }
-
-  return true;
-}
-
-async function getAttribute($el, attributeName) {
+export const getAttribute = async ($el, attributeName) => {
   const result = await $el.evaluateHandle((el, attribute) => {
     return el.getAttribute(attribute);
   }, attributeName);
 
   return result._remoteObject.value;
-}
+};
 
-async function getTextContent($el, attributeName) {
+export const getTextContent = async ($el, attributeName) => {
   const result = await $el.evaluateHandle((el, attribute) => {
     return el.textContent;
   });
 
   return result._remoteObject.value;
-}
+};
 
-async function getClipboardValue(page) {
+export const getClipboardValue = async (page) => {
   const result = await page.evaluate(() => navigator.clipboard.readText());
   return result;
-}
+};
 
-async function getValue($el) {
+export const getValue = async ($el) => {
   return await $el.evaluate((el) => el.value);
-}
+};
 
-async function hasClass($el, className) {
+export const hasClass = async ($el, className) => {
   const result = await $el.evaluateHandle((el, value) => {
     return el.classList.contains(value);
   }, className);
 
   return result._remoteObject.value;
-}
+};
 
-async function isDisabled($el) {
+export const isDisabled = async ($el) => {
   const disabledAttribute = await getAttribute($el, 'disabled');
   return disabledAttribute !== null;
-}
+};
 
-async function isHidden($el) {
+export const isHidden = async ($el) => {
   const visibleOnPage = await isVisibleOnPage($el);
   if (visibleOnPage) {
     return false;
@@ -61,14 +48,27 @@ async function isHidden($el) {
   }
 
   return true;
-}
+};
 
-async function isInViewport($el) {
+export const isInViewport = async ($el) => {
   const result = await $el.isIntersectingViewport();
   return result;
-}
+};
 
-async function isVisible($el) {
+const isVisibleOnPage = async ($el) => {
+  const boundingBox = await $el.boundingBox();
+  if (boundingBox === null) {
+    return false;
+  }
+
+  if (boundingBox.width === 0 && boundingBox.height === 0) {
+    return false;
+  }
+
+  return true;
+};
+
+export const isVisible = async ($el) => {
   const visibleOnPage = await isVisibleOnPage($el);
   if (!visibleOnPage) {
     return false;
@@ -80,16 +80,4 @@ async function isVisible($el) {
   }
 
   return true;
-}
-
-module.exports = {
-  getAttribute,
-  getTextContent,
-  getClipboardValue,
-  getValue,
-  hasClass,
-  isDisabled,
-  isHidden,
-  isInViewport,
-  isVisible,
 };

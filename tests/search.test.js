@@ -1,15 +1,13 @@
-const { domUtils } = require('./mocks/dom-utils.mock.js');
-const {
-  document,
-  newElementMock,
-  newEventMock,
-} = require('./mocks/dom.mock.js');
-const { history } = require('./mocks/history.mock.js');
-const { ordering } = require('./mocks/ordering.mock.js');
-const { localStorage } = require('./mocks/local-storage.mock.js');
+import { jest } from '@jest/globals';
 
-const { ORDER_RELEVANCE } = require('../public/scripts/ordering.js');
-const initSearch = require('../public/scripts/search.js').default;
+import domUtils from './mocks/dom-utils.mock.js';
+import { document, newElementMock, newEventMock } from './mocks/dom.mock.js';
+import history from './mocks/history.mock.js';
+import ordering from './mocks/ordering.mock.js';
+import localStorage from './mocks/local-storage.mock.js';
+
+import { ORDER_RELEVANCE } from '../public/scripts/ordering.js';
+import initSearch from '../public/scripts/search.js';
 
 describe('Search', () => {
   const inputEventListeners = new Map();

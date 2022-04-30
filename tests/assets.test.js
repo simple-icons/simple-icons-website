@@ -1,8 +1,7 @@
-const fs = require('fs');
-const path = require('path');
-const pugLex = require('pug-lexer');
-const { optimize } = require('svgo');
-const svgoConfig = require('simple-icons/svgo.config.js');
+import fs from 'node:fs';
+import path from 'path';
+import pugLex from 'pug-lexer';
+import { optimize } from 'svgo';
 
 const extractContextsSvgPaths = (tokens) => {
   return tokens

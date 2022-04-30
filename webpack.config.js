@@ -9,7 +9,10 @@ import os from 'node:os';
 import simpleIcons from 'simple-icons';
 import sortByColors from './scripts/color-sorting.js';
 import GET from './scripts/GET.js';
-import { getDirnameFromImportMeta } from './si-utils.js';
+import {
+  getDirnameFromImportMeta,
+  getThirdPartyExtensions,
+} from './si-utils.js';
 
 const __dirname = getDirnameFromImportMeta(import.meta.url);
 
@@ -22,28 +25,6 @@ const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const OUT_DIR = path.resolve(__dirname, '_site');
 const ROOT_DIR = path.resolve(__dirname, 'public');
 
-function parseExtensions() {
-  const readmePath = path.resolve(
-    __dirname,
-    'node_modules/simple-icons/README.md',
-  );
-  const body = fs.readFileSync(readmePath, 'utf8');
-  return body
-    .split('## Third-Party Extensions\n\n')[1]
-    .split('\n\n')[0]
-    .split('\n')
-    .slice(2)
-    .map((line) => {
-      const [module, author] = line.split(' | ');
-      return {
-        nameModule: /\[(.*?)\]/.exec(module)[1],
-        urlModule: /\((.*?)\)/.exec(module)[1],
-        nameAuthor: /\[(.*?)\]/.exec(author)[1],
-        urlAuthor: /\((.*?)\)/.exec(author)[1],
-      };
-    });
-}
-
 function simplifyHexIfPossible(hex) {
   if (hex[0] === hex[1] && hex[2] === hex[3] && hex[4] == hex[5]) {
     return `${hex[0]}${hex[2]}${hex[4]}`;
@@ -52,7 +33,11 @@ function simplifyHexIfPossible(hex) {
   return hex;
 }
 
-let extensions = parseExtensions();
+const siReadmePath = path.resolve(
+  __dirname,
+  'node_modules/simple-icons/README.md',
+);
+
 let displayIcons = icons;
 if (process.env.TEST_ENV) {
   // Use fewer icons when building for a test run. This significantly speeds up
@@ -137,6 +122,10 @@ export default async (env, argv) => {
       path: OUT_DIR,
       filename: 'script.js',
     },
+    externals: {
+      // Bug in Webpack: https://github.com/webpack/webpack/issues/15574
+      'node:url': 'commonjs2 url',
+    },
     module: {
       rules: [
         {
@@ -187,7 +176,7 @@ export default async (env, argv) => {
         inject: true,
         template: path.resolve(ROOT_DIR, 'index.pug'),
         templateParameters: {
-          extensions,
+          extensions: await getThirdPartyExtensions(siReadmePath),
           icons: displayIcons.map((icon, iconIndex) => {
             const luminance = getRelativeLuminance.default(`#${icon.hex}`);
             return {

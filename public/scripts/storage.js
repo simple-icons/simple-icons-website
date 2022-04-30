@@ -14,7 +14,7 @@ const mockStorage = {
   setItem() {},
 };
 
-export default newStorage = (localStorage) => {
+export default (localStorage) => {
   if (!localStorage) {
     return mockStorage;
   }
@@ -31,4 +31,4 @@ export default newStorage = (localStorage) => {
       return localStorage.setItem(key, value);
     },
   };
-}
+};

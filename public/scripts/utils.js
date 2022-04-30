@@ -15,13 +15,10 @@ const NORMALIZE_SEARCH_TERM_CHARS_REGEX = RegExp(
 );
 const NORMALIZE_SEARCH_TERM_RANGE_REGEX = RegExp('[\u0300-\u036f]', 'g');
 
-// provided by browsers, exported for tests
-export const decodeURIComponent = decodeURIComponent;
-
 export const debounce = (func, wait, immediate) => {
   let timeout, args, context, timestamp, result;
 
-  const later = function () {
+  const later = () => {
     const last = +new Date() - timestamp;
     if (last < wait && last >= 0) {
       timeout = setTimeout(later, wait - last);
@@ -34,7 +31,7 @@ export const debounce = (func, wait, immediate) => {
     }
   };
 
-  return () => {
+  return function () {
     context = this;
     args = arguments;
     timestamp = +new Date();
@@ -47,7 +44,7 @@ export const debounce = (func, wait, immediate) => {
 
     return result;
   };
-}
+};
 
 export const normalizeSearchTerm = (value) =>
   value
@@ -58,4 +55,4 @@ export const normalizeSearchTerm = (value) =>
     .normalize('NFD')
     .replace(NORMALIZE_SEARCH_TERM_RANGE_REGEX, '');
 
-export const iconHrefToSlug = (href) => /icons\/(.+)\.svg$/.exec(href)[1]
+export const iconHrefToSlug = (href) => /icons\/(.+)\.svg$/.exec(href)[1];

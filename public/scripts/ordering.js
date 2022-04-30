@@ -6,7 +6,7 @@ export const ORDER_RELEVANCE = 'order-relevance';
 
 const DEFAULT_ORDERING = ORDER_ALPHA;
 
-export default initOrdering = (window, document, storage, domUtils) => {
+export default (window, document, storage, domUtils) => {
   let activeOrdering = DEFAULT_ORDERING;
   let preferredOrdering = DEFAULT_ORDERING;
 
@@ -17,21 +17,9 @@ export default initOrdering = (window, document, storage, domUtils) => {
   $orderAlpha.disabled = false;
   $orderColor.disabled = false;
 
-  if (storage.hasItem(STORAGE_KEY_ORDERING)) {
-    const storedOrdering = storage.getItem(STORAGE_KEY_ORDERING);
-    selectOrdering(storedOrdering);
-  }
-
-  $orderAlpha.addEventListener('click', () => {
-    selectOrdering(ORDER_ALPHA);
-  });
-  $orderColor.addEventListener('click', () => {
-    selectOrdering(ORDER_COLOR);
-  });
-
   const currentOrderingIs = (value) => {
     return activeOrdering === value;
-  }
+  };
 
   const selectOrdering = (selected, newItems) => {
     if (newItems === undefined && selected === activeOrdering) {
@@ -57,15 +45,27 @@ export default initOrdering = (window, document, storage, domUtils) => {
     }
 
     activeOrdering = selected;
-  }
+  };
 
   const resetOrdering = () => {
     return selectOrdering(preferredOrdering);
+  };
+
+  if (storage.hasItem(STORAGE_KEY_ORDERING)) {
+    const storedOrdering = storage.getItem(STORAGE_KEY_ORDERING);
+    selectOrdering(storedOrdering);
   }
+
+  $orderAlpha.addEventListener('click', () => {
+    selectOrdering(ORDER_ALPHA);
+  });
+  $orderColor.addEventListener('click', () => {
+    selectOrdering(ORDER_COLOR);
+  });
 
   return {
     currentOrderingIs,
     selectOrdering,
     resetOrdering,
   };
-}
+};

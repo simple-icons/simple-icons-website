@@ -1,6 +1,5 @@
-const { localStorage } = require('./mocks/local-storage.mock.js');
-
-const newStorage = require('../public/scripts/storage.js').default;
+import localStorage from './mocks/local-storage.mock.js';
+import newStorage from '../public/scripts/storage.js';
 
 describe('Storage', () => {
   beforeEach(() => localStorage.__resetAllMocks());

@@ -9,7 +9,7 @@ const DEFAULT_DOWNLOAD_TYPE = SVG_DOWNLOAD_TYPE;
 const CLASS_DOWNLOAD_TYPE_SVG = 'download-svg';
 const CLASS_DOWNLOAD_TYPE_PDF = 'download-pdf';
 
-export default initDownloadType = (document, storage) => {
+export default (document, storage) => {
   let activeDownloadType = DEFAULT_DOWNLOAD_TYPE;
 
   const $body = document.querySelector('body');
@@ -19,6 +19,23 @@ export default initDownloadType = (document, storage) => {
 
   $downloadPdf.disabled = false;
   $downloadSvg.disabled = false;
+
+  const selectDownloadType = (selected) => {
+    if (selected === activeDownloadType) {
+      return;
+    }
+
+    if (selected === SVG_DOWNLOAD_TYPE) {
+      $body.classList.add(CLASS_DOWNLOAD_TYPE_SVG);
+      $body.classList.remove(CLASS_DOWNLOAD_TYPE_PDF);
+    } else if (selected === PDF_DOWNLOAD_TYPE) {
+      $body.classList.add(CLASS_DOWNLOAD_TYPE_PDF);
+      $body.classList.remove(CLASS_DOWNLOAD_TYPE_SVG);
+    }
+
+    storage.setItem(STORAGE_KEY_DOWNLOAD_TYPE, selected);
+    activeDownloadType = selected;
+  };
 
   if (storage.hasItem(STORAGE_KEY_DOWNLOAD_TYPE)) {
     const storedDownloadType = storage.getItem(STORAGE_KEY_DOWNLOAD_TYPE);
@@ -41,21 +58,4 @@ export default initDownloadType = (document, storage) => {
       event.target.setAttribute('href', `./icons/${slug}.${type}`);
     });
   }
-
-  const selectDownloadType = (selected) => {
-    if (selected === activeDownloadType) {
-      return;
-    }
-
-    if (selected === SVG_DOWNLOAD_TYPE) {
-      $body.classList.add(CLASS_DOWNLOAD_TYPE_SVG);
-      $body.classList.remove(CLASS_DOWNLOAD_TYPE_PDF);
-    } else if (selected === PDF_DOWNLOAD_TYPE) {
-      $body.classList.add(CLASS_DOWNLOAD_TYPE_PDF);
-      $body.classList.remove(CLASS_DOWNLOAD_TYPE_SVG);
-    }
-
-    storage.setItem(STORAGE_KEY_DOWNLOAD_TYPE, selected);
-    activeDownloadType = selected;
-  }
-}
+};

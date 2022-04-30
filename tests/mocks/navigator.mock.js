@@ -1,4 +1,6 @@
-export const navigator = {
+import { jest } from '@jest/globals';
+
+export default {
   clipboard: {
     writeText: jest.fn().mockName('navigator.clipboard.writeText'),
   },

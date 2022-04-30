@@ -1,10 +1,12 @@
-const {
+import { jest } from '@jest/globals';
+
+import {
   hideElement,
   showElement,
   toggleVisibleElement,
   sortChildren,
   replaceChildren,
-} = require('../public/scripts/dom-utils.js');
+} from '../public/scripts/dom-utils.js';
 
 const $el = {
   classList: {

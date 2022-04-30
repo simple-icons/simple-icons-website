@@ -3,9 +3,9 @@ const COPIED_TIMEOUT = 1000;
 const setCopied = ($el) => {
   $el.classList.add('copied');
   setTimeout(() => $el.classList.remove('copied'), COPIED_TIMEOUT);
-}
+};
 
-export default initCopyButtons = (document, navigator, fetch) => {
+export default (document, navigator, fetch) => {
   const copyValue = (value) => {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(value);
@@ -14,13 +14,13 @@ export default initCopyButtons = (document, navigator, fetch) => {
       $copyInput.select();
       document.execCommand('copy');
     }
-  }
+  };
 
   const onClickColorButton = (event) => {
     event.preventDefault();
     copyValue(event.target.innerHTML);
     setCopied(event.target);
-  }
+  };
 
   const onClickSvgButton = async (event) => {
     event.preventDefault();
@@ -36,7 +36,7 @@ export default initCopyButtons = (document, navigator, fetch) => {
     } catch (err) {
       console.error(err);
     }
-  }
+  };
 
   const $copyInput = document.getElementById('copy-input');
   const $colorButtons = document.querySelectorAll('.copy-color');
@@ -51,4 +51,4 @@ export default initCopyButtons = (document, navigator, fetch) => {
     $svgButton.removeAttribute('disabled');
     $svgButton.addEventListener('click', onClickSvgButton);
   });
-}
+};

@@ -1,4 +1,6 @@
-export const domUtils = {
+import { jest } from '@jest/globals';
+
+export default {
   hideElement: jest.fn().mockName('domUtils.hideElement'),
   showElement: jest.fn().mockName('domUtils.showElement'),
   toggleClass: jest.fn().mockName('domUtils.toggleClass'),
