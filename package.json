@@ -24,7 +24,7 @@
     "serve:watch": "run-p build:watch serve",
     "setup:husky": "is-ci || husky install",
     "setup:pdfs": "npm install https://github.com/simple-icons/simple-icons-pdf/tarball/master --no-save",
-    "setup:si-utils": "sdown https://raw.githubusercontent.com/mondeja/simple-icons/reuse-utils/scripts/utils.js si-utils.js",
+    "setup:si-utils": "sdown https://raw.githubusercontent.com/simple-icons/simple-icons/develop/scripts/utils.js si-utils.js",
     "setup:si-svgo-config": "sdown https://raw.githubusercontent.com/simple-icons/simple-icons/develop/svgo.config.js node_modules/simple-icons/svgo.config.js",
     "test": "npm run test:unit",
     "test:all": "cross-env NODE_OPTIONS=--experimental-vm-modules TEST_ENV=all jest",
