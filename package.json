@@ -44,7 +44,6 @@
     "@prettier/plugin-pug": "1.20.0",
     "anywhere": "1.5.0",
     "autoprefixer": "10.4.4",
-    "babel-jest": "27.5.1",
     "copy-webpack-plugin": "10.2.4",
     "cross-env": "7.0.3",
     "css-loader": "6.7.1",
