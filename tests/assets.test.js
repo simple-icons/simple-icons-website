@@ -31,7 +31,7 @@ const extractContextsSvgPaths = (tokens) => {
 
 describe('Embedded assets optimization', () => {
   const indexFilePath = path.join('public', 'index.pug');
-  const indexFileContent = fs.readFileSync(indexFilePath).toString();
+  const indexFileContent = fs.readFileSync(indexFilePath, 'utf8');
   const contextsSvgPaths = extractContextsSvgPaths(pugLex(indexFileContent));
 
   it.each(contextsSvgPaths)(

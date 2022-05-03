@@ -58,9 +58,10 @@ const generateStructuredData = async () => {
       'simple-icons-members.json',
     );
     if (fs.existsSync(siMembersCacheFilePath)) {
-      const siMembersFileContent = fs.readFileSync(siMembersCacheFilePath, {
-        encoding: 'UTF8',
-      });
+      const siMembersFileContent = fs.readFileSync(
+        siMembersCacheFilePath,
+        'utf8',
+      );
       return JSON.parse(siMembersFileContent);
     } else {
       const siOrgMembers = await GET(

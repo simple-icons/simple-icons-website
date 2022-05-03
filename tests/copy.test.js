@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals';
 
-import fs from 'node:fs';
+import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { getDirnameFromImportMeta } from '../si-utils.js';
 
@@ -82,7 +82,7 @@ describe('Copy', () => {
       'icons',
       'simpleicons.svg',
     );
-    const rawSvg = fs.readFileSync(simpleIconsIconPath, 'utf-8');
+    const rawSvg = await fs.readFile(simpleIconsIconPath, 'utf8');
     const iconUrl = 'icons/simpleicons.svg';
 
     const eventListeners = new Map();
