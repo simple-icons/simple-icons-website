@@ -1,4 +1,6 @@
-export const ordering = {
+import { jest } from '@jest/globals';
+
+export default {
   currentOrderingIs: jest.fn().mockName('ordering.currentOrderingIs'),
   selectOrdering: jest.fn().mockName('ordering.selectOrdering'),
   resetOrdering: jest.fn().mockName('ordering.resetOrdering'),

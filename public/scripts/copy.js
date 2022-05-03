@@ -1,12 +1,12 @@
 const COPIED_TIMEOUT = 1000;
 
-function setCopied($el) {
+const setCopied = ($el) => {
   $el.classList.add('copied');
   setTimeout(() => $el.classList.remove('copied'), COPIED_TIMEOUT);
-}
+};
 
-export default function initCopyButtons(document, navigator, fetch) {
-  function copyValue(value) {
+export default (document, navigator, fetch) => {
+  const copyValue = (value) => {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(value);
     } else {
@@ -14,15 +14,15 @@ export default function initCopyButtons(document, navigator, fetch) {
       $copyInput.select();
       document.execCommand('copy');
     }
-  }
+  };
 
-  function onClickColorButton(event) {
+  const onClickColorButton = (event) => {
     event.preventDefault();
     copyValue(event.target.innerHTML);
     setCopied(event.target);
-  }
+  };
 
-  async function onClickSvgButton(event) {
+  const onClickSvgButton = async (event) => {
     event.preventDefault();
 
     const $img = event.target.querySelector('img');
@@ -36,7 +36,7 @@ export default function initCopyButtons(document, navigator, fetch) {
     } catch (err) {
       console.error(err);
     }
-  }
+  };
 
   const $copyInput = document.getElementById('copy-input');
   const $colorButtons = document.querySelectorAll('.copy-color');
@@ -51,4 +51,4 @@ export default function initCopyButtons(document, navigator, fetch) {
     $svgButton.removeAttribute('disabled');
     $svgButton.addEventListener('click', onClickSvgButton);
   });
-}
+};

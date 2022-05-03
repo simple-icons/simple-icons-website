@@ -1,12 +1,14 @@
-const sortByColors = require('../scripts/color-sorting.js');
+import { jest } from '@jest/globals';
 
-const fs = require('fs');
-const path = require('path');
-const { devices } = require('puppeteer');
-const simpleIcons = require('simple-icons');
-const { URL } = require('url');
+import sortByColors from '../scripts/color-sorting.js';
 
-const {
+import fs from 'node:fs';
+import path from 'node:path';
+import { URL } from 'node:url';
+import puppeteer from 'puppeteer';
+import simpleIcons from 'simple-icons';
+
+import {
   getClipboardValue,
   getValue,
   hasClass,
@@ -15,7 +17,7 @@ const {
   isInViewport,
   isVisible,
   getTextContent,
-} = require('./helpers.js');
+} from './helpers.js';
 
 jest.retryTimes(3);
 jest.setTimeout(3000);
@@ -47,7 +49,7 @@ beforeAll(() => {
 
 describe.each([
   ['desktop', DEFAULT_DEVICE],
-  ['mobile', devices['Nexus 7']],
+  ['mobile', puppeteer.devices['Nexus 7']],
 ])('General (%s)', (name, device) => {
   beforeEach(async () => {
     await page.emulate(device);
@@ -118,13 +120,6 @@ describe('External links', () => {
   it('is possible to click the link for Github repository', async () => {
     const footerRepositoryTitle = 'website repository';
     await expect(page).toClick(`a[title="${footerRepositoryTitle}"]`);
-  });
-
-  it('is possible to click extensions link', async () => {
-    const extensionPopupLinks = await page.$$('.extensions__table a');
-    extensionPopupLinks.forEach((link) =>
-      expect(page).toClick(link.getProperty('innerText')),
-    );
   });
 
   it('is possible to click extensions link', async () => {
@@ -250,8 +245,7 @@ describe('Search', () => {
     const $searchInput = await page.$('#search-input');
     await $searchInput.type(query, { delay: 100 });
 
-    const url = page.url();
-    expect(url).toMatch(`?q=${query}`);
+    expect(page.url()).toMatch(`?q=${query}`);
   });
 
   it('loads the search query from the URL', async () => {

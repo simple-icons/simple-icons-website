@@ -55,7 +55,7 @@ const rgbToHsl = (rgb) => {
   return { h, s, l };
 };
 
-module.exports = (colors) => {
+export default (colors) => {
   const GREY_RANGE = 10;
   const BLACK_CUTOFF = 15;
   const WHITE_CUTOFF = 90;

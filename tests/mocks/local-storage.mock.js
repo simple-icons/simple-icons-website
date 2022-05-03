@@ -1,19 +1,21 @@
+import { jest } from '@jest/globals';
+
 const STORAGE = new Map();
 
-function hasItemImplementation(key) {
+const hasItemImplementation = (key) => {
   return STORAGE.has(key);
-}
+};
 
-function getItemImplementation(key) {
+const getItemImplementation = (key) => {
   if (!STORAGE.has(key)) {
     // As per: https://html.spec.whatwg.org/multipage/webstorage.html#dom-storage-getitem
     return null;
   }
 
   return STORAGE.get(key);
-}
+};
 
-export const localStorage = {
+export default {
   hasItem: jest.fn().mockName('localStorage.hasItem'),
   getItem: jest.fn().mockName('localStorage.getItem'),
   setItem: jest.fn().mockName('localStorage.setItem'),
@@ -29,7 +31,7 @@ export const localStorage = {
   },
 
   // Utility to mock a stored value for a key
-  __setStoredValueFor: function (key, value) {
+  __setStoredValueFor: (key, value) => {
     STORAGE.set(key, value);
   },
 };

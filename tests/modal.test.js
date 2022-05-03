@@ -1,11 +1,7 @@
-const {
-  document,
-  newElementMock,
-  newEventMock,
-} = require('./mocks/dom.mock.js');
-const { domUtils } = require('./mocks/dom-utils.mock.js');
+import { document, newElementMock, newEventMock } from './mocks/dom.mock.js';
+import domUtils from './mocks/dom-utils.mock.js';
 
-const initModal = require('../public/scripts/modal.js').default;
+import initModal from '../public/scripts/modal.js';
 
 describe('Extensions modal', () => {
   let eventListeners = new Map();

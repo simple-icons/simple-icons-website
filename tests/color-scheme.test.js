@@ -1,12 +1,8 @@
-const {
-  document,
-  newElementMock,
-  newEventMock,
-} = require('./mocks/dom.mock.js');
-const { localStorage } = require('./mocks/local-storage.mock.js');
+import { document, newElementMock, newEventMock } from './mocks/dom.mock.js';
+import localStorage from './mocks/local-storage.mock.js';
 
-const initColorScheme = require('../public/scripts/color-scheme.js').default;
-const { STORAGE_KEY_COLOR_SCHEME } = require('../public/scripts/storage.js');
+import initColorScheme from '../public/scripts/color-scheme.js';
+import { STORAGE_KEY_COLOR_SCHEME } from '../public/scripts/storage.js';
 
 describe('Color scheme', () => {
   beforeEach(() => {

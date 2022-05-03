@@ -1,14 +1,20 @@
-const CopyPlugin = require('copy-webpack-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const getRelativeLuminance = require('get-relative-luminance').default;
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const path = require('path');
-const fs = require('fs');
-const os = require('os');
-const simpleIcons = require('simple-icons');
-const sortByColors = require('./scripts/color-sorting.js');
-const GET = require('./scripts/GET.js');
+import CopyPlugin from 'copy-webpack-plugin';
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import getRelativeLuminance from 'get-relative-luminance';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import path from 'node:path';
+import fs from 'node:fs';
+import os from 'node:os';
+import simpleIcons from 'simple-icons';
+import sortByColors from './scripts/color-sorting.js';
+import GET from './scripts/GET.js';
+import {
+  getDirnameFromImportMeta,
+  getThirdPartyExtensions,
+} from './si-utils.js';
+
+const __dirname = getDirnameFromImportMeta(import.meta.url);
 
 const icons = Object.values(simpleIcons).sort((icon1, icon2) =>
   icon1.title.localeCompare(icon2.title),
@@ -19,37 +25,19 @@ const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const OUT_DIR = path.resolve(__dirname, '_site');
 const ROOT_DIR = path.resolve(__dirname, 'public');
 
-function parseExtensions() {
-  const readmePath = path.resolve(
-    __dirname,
-    'node_modules/simple-icons/README.md',
-  );
-  const body = fs.readFileSync(readmePath, 'utf8');
-  return body
-    .split('## Third-Party Extensions\n\n')[1]
-    .split('\n\n')[0]
-    .split('\n')
-    .slice(2)
-    .map((line) => {
-      const [module, author] = line.split(' | ');
-      return {
-        nameModule: /\[(.*?)\]/.exec(module)[1],
-        urlModule: /\((.*?)\)/.exec(module)[1],
-        nameAuthor: /\[(.*?)\]/.exec(author)[1],
-        urlAuthor: /\((.*?)\)/.exec(author)[1],
-      };
-    });
-}
-
-function simplifyHexIfPossible(hex) {
+const simplifyHexIfPossible = (hex) => {
   if (hex[0] === hex[1] && hex[2] === hex[3] && hex[4] == hex[5]) {
     return `${hex[0]}${hex[2]}${hex[4]}`;
   }
 
   return hex;
-}
+};
 
-let extensions = parseExtensions();
+const siReadmePath = path.resolve(
+  __dirname,
+  'node_modules/simple-icons/README.md',
+);
+
 let displayIcons = icons;
 if (process.env.TEST_ENV) {
   // Use fewer icons when building for a test run. This significantly speeds up
@@ -63,16 +51,17 @@ const pageDescription = `${icons.length} Free SVG icons for popular brands.`,
   pageUrl = 'https://simpleicons.org',
   logoUrl = `${pageUrl}/icons/simpleicons.svg`;
 
-async function generateStructuredData() {
+const generateStructuredData = async () => {
   const getSimpleIconsMembers = async () => {
     const siMembersCacheFilePath = path.join(
       os.tmpdir(),
       'simple-icons-members.json',
     );
     if (fs.existsSync(siMembersCacheFilePath)) {
-      const siMembersFileContent = fs.readFileSync(siMembersCacheFilePath, {
-        encoding: 'UTF8',
-      });
+      const siMembersFileContent = fs.readFileSync(
+        siMembersCacheFilePath,
+        'utf8',
+      );
       return JSON.parse(siMembersFileContent);
     } else {
       const siOrgMembers = await GET(
@@ -123,9 +112,9 @@ async function generateStructuredData() {
       'query-input': 'required name=search-term',
     },
   };
-}
+};
 
-module.exports = async (env, argv) => {
+export default async (env, argv) => {
   return {
     entry: {
       app: path.resolve(ROOT_DIR, 'scripts/index.js'),
@@ -133,6 +122,11 @@ module.exports = async (env, argv) => {
     output: {
       path: OUT_DIR,
       filename: 'script.js',
+    },
+    infrastructureLogging: {
+      // Hide false warning raised by Webpack:
+      // https://github.com/webpack/webpack/issues/15574
+      level: 'error',
     },
     module: {
       rules: [
@@ -184,9 +178,9 @@ module.exports = async (env, argv) => {
         inject: true,
         template: path.resolve(ROOT_DIR, 'index.pug'),
         templateParameters: {
-          extensions,
+          extensions: await getThirdPartyExtensions(siReadmePath),
           icons: displayIcons.map((icon, iconIndex) => {
-            const luminance = getRelativeLuminance(`#${icon.hex}`);
+            const luminance = getRelativeLuminance.default(`#${icon.hex}`);
             return {
               guidelines: icon.guidelines,
               hex: icon.hex,

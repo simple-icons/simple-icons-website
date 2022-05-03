@@ -1,4 +1,4 @@
-const sortByColors = require('../scripts/color-sorting.js');
+import sortByColors from '../scripts/color-sorting.js';
 
 describe('scripts/color-sorting.js', () => {
   // issue: https://github.com/simple-icons/simple-icons-website/issues/66

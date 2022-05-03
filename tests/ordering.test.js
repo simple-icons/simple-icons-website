@@ -1,14 +1,14 @@
-const {
+import {
   document,
   newElementMock,
   newEventMock,
   window,
-} = require('./mocks/dom.mock.js');
-const { domUtils } = require('./mocks/dom-utils.mock.js');
-const { localStorage } = require('./mocks/local-storage.mock.js');
+} from './mocks/dom.mock.js';
+import domUtils from './mocks/dom-utils.mock.js';
+import localStorage from './mocks/local-storage.mock.js';
 
-const initOrdering = require('../public/scripts/ordering.js').default;
-const { STORAGE_KEY_ORDERING } = require('../public/scripts/storage.js');
+import initOrdering from '../public/scripts/ordering.js';
+import { STORAGE_KEY_ORDERING } from '../public/scripts/storage.js';
 
 describe('Ordering', () => {
   beforeEach(() => {

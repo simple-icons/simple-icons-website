@@ -3,9 +3,9 @@
  * Simple HTTPs GET request.
  */
 
-const https = require('https');
+import https from 'node:https';
 
-module.exports = async function GET(hostname, path) {
+export default async (hostname, path) => {
   return new Promise((resolve, reject) => {
     const options = {
       hostname,

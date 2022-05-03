@@ -1,25 +1,9 @@
-const {
-  decodeURIComponent,
+import { jest } from '@jest/globals';
+import {
   debounce,
   normalizeSearchTerm,
   iconHrefToSlug,
-} = require('../public/scripts/utils.js');
-
-describe('::decodeURIComponent', () => {
-  it('normal string', () => {
-    const input = 'foobar';
-    const result = decodeURIComponent(input);
-    expect(result).toEqual(input);
-  });
-
-  it.each([
-    ['%3Ffoo%3Dbar', '?foo=bar'],
-    ['Let%E2%80%99s%20Encrypt', 'Let’s Encrypt'],
-  ])('URI encoded component (%s)', (input, output) => {
-    const result = decodeURIComponent(input);
-    expect(result).toEqual(output);
-  });
-});
+} from '../public/scripts/utils.js';
 
 describe('::debounce', () => {
   beforeAll(() => {

@@ -1,4 +1,44 @@
+import { jest } from '@jest/globals';
+
 const PATHNAME = 'https://www.simpleicons.org';
+
+export const newEventMock = (opts) => {
+  opts = opts || {};
+  return {
+    preventDefault: jest.fn().mockName('event.preventDefault'),
+    stopPropagation: jest.fn().mockName('event.stopPropagation'),
+    key: opts.key || '',
+    composedPath: opts.composedPath ? opts.composedPath : () => '',
+    target: opts.target || newElementMock('event.target'),
+  };
+};
+
+export const newElementMock = (elName, opts) => {
+  opts = opts || {};
+  return {
+    addEventListener: jest.fn().mockName(`${elName}.addEventListener`),
+    blur: jest.fn().mockName(`${elName}.blur`),
+    classList: {
+      add: jest.fn().mockName(`${elName}.classList.add`),
+      remove: jest.fn().mockName(`${elName}.classList.remove`),
+    },
+    focus: jest.fn().mockName(`${elName}.focus`),
+    getAttribute: jest.fn().mockName(`${elName}.getAttribute`),
+    querySelector: jest.fn().mockName(`${elName}.querySelector`),
+    removeAttribute: jest.fn().mockName(`${elName}.removeAttribute`),
+    setAttribute: jest.fn().mockName(`${elName}.setAttribute`),
+    children: [],
+
+    // Values
+    innerHTML: opts.innerHTML || '',
+    parentNode: opts.parentNode
+      ? newElementMock(`${elName} parent`, { parentNode: false })
+      : null,
+
+    // Utility
+    __name: elName,
+  };
+};
 
 export const document = {
   getElementById: jest.fn().mockName('document.getElementById'),
@@ -39,41 +79,3 @@ export const window = {
     this.scrollTo.mockReset();
   },
 };
-
-export function newElementMock(elName, opts) {
-  opts = opts || {};
-  return {
-    addEventListener: jest.fn().mockName(`${elName}.addEventListener`),
-    blur: jest.fn().mockName(`${elName}.blur`),
-    classList: {
-      add: jest.fn().mockName(`${elName}.classList.add`),
-      remove: jest.fn().mockName(`${elName}.classList.remove`),
-    },
-    focus: jest.fn().mockName(`${elName}.focus`),
-    getAttribute: jest.fn().mockName(`${elName}.getAttribute`),
-    querySelector: jest.fn().mockName(`${elName}.querySelector`),
-    removeAttribute: jest.fn().mockName(`${elName}.removeAttribute`),
-    setAttribute: jest.fn().mockName(`${elName}.setAttribute`),
-    children: [],
-
-    // Values
-    innerHTML: opts.innerHTML || '',
-    parentNode: opts.parentNode
-      ? newElementMock(`${elName} parent`, { parentNode: false })
-      : null,
-
-    // Utility
-    __name: elName,
-  };
-}
-
-export function newEventMock(opts) {
-  opts = opts || {};
-  return {
-    preventDefault: jest.fn().mockName('event.preventDefault'),
-    stopPropagation: jest.fn().mockName('event.stopPropagation'),
-    key: opts.key || '',
-    composedPath: opts.composedPath ? opts.composedPath : () => '',
-    target: opts.target || newElementMock('event.target'),
-  };
-}

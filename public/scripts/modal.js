@@ -1,4 +1,4 @@
-export default async function initModal(document, domUtils) {
+export default async (document, domUtils) => {
   const $modalTrigger = document.querySelector('.popup-trigger');
   const $popupModal = document.querySelector('.popup_modal');
   const $popupBody = document.querySelector('.popup-body');
@@ -18,4 +18,4 @@ export default async function initModal(document, domUtils) {
       domUtils.hideElement($popupModal);
     }
   });
-}
+};
