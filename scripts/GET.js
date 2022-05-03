@@ -5,7 +5,7 @@
 
 import https from 'node:https';
 
-export default async function GET(hostname, path) {
+export default async (hostname, path) => {
   return new Promise((resolve, reject) => {
     const options = {
       hostname,
@@ -34,4 +34,4 @@ export default async function GET(hostname, path) {
 
     req.end();
   });
-}
+};

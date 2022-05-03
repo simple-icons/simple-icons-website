@@ -25,13 +25,13 @@ const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const OUT_DIR = path.resolve(__dirname, '_site');
 const ROOT_DIR = path.resolve(__dirname, 'public');
 
-function simplifyHexIfPossible(hex) {
+const simplifyHexIfPossible = (hex) => {
   if (hex[0] === hex[1] && hex[2] === hex[3] && hex[4] == hex[5]) {
     return `${hex[0]}${hex[2]}${hex[4]}`;
   }
 
   return hex;
-}
+};
 
 const siReadmePath = path.resolve(
   __dirname,
@@ -51,7 +51,7 @@ const pageDescription = `${icons.length} Free SVG icons for popular brands.`,
   pageUrl = 'https://simpleicons.org',
   logoUrl = `${pageUrl}/icons/simpleicons.svg`;
 
-async function generateStructuredData() {
+const generateStructuredData = async () => {
   const getSimpleIconsMembers = async () => {
     const siMembersCacheFilePath = path.join(
       os.tmpdir(),
@@ -111,7 +111,7 @@ async function generateStructuredData() {
       'query-input': 'required name=search-term',
     },
   };
-}
+};
 
 export default async (env, argv) => {
   return {

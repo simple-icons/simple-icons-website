@@ -21,22 +21,7 @@ export default (document, storage) => {
   $colorSchemeLight.disabled = false;
   $colorSchemeSystem.disabled = false;
 
-  if (storage.hasItem(STORAGE_KEY_COLOR_SCHEME)) {
-    const storedColorScheme = storage.getItem(STORAGE_KEY_COLOR_SCHEME);
-    selectColorScheme(storedColorScheme);
-  }
-
-  $colorSchemeDark.addEventListener('click', () => {
-    selectColorScheme(COLOR_SCHEME_DARK);
-  });
-  $colorSchemeLight.addEventListener('click', () => {
-    selectColorScheme(COLOR_SCHEME_LIGHT);
-  });
-  $colorSchemeSystem.addEventListener('click', () => {
-    selectColorScheme(COLOR_SCHEME_SYSTEM);
-  });
-
-  function selectColorScheme(selected) {
+  const selectColorScheme = (selected) => {
     if (selected === activeColorScheme) {
       return;
     }
@@ -53,5 +38,20 @@ export default (document, storage) => {
 
     storage.setItem(STORAGE_KEY_COLOR_SCHEME, selected);
     activeColorScheme = selected;
+  };
+
+  if (storage.hasItem(STORAGE_KEY_COLOR_SCHEME)) {
+    const storedColorScheme = storage.getItem(STORAGE_KEY_COLOR_SCHEME);
+    selectColorScheme(storedColorScheme);
   }
+
+  $colorSchemeDark.addEventListener('click', () => {
+    selectColorScheme(COLOR_SCHEME_DARK);
+  });
+  $colorSchemeLight.addEventListener('click', () => {
+    selectColorScheme(COLOR_SCHEME_LIGHT);
+  });
+  $colorSchemeSystem.addEventListener('click', () => {
+    selectColorScheme(COLOR_SCHEME_SYSTEM);
+  });
 };
