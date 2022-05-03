@@ -1,20 +1,3 @@
-const NORMALIZE_SEARCH_TERM_REPLACEMENTS = {
-  đ: 'd',
-  ħ: 'h',
-  ı: 'i',
-  ĸ: 'k',
-  ŀ: 'l',
-  ł: 'l',
-  ß: 'ss',
-  ŧ: 't',
-};
-
-const NORMALIZE_SEARCH_TERM_CHARS_REGEX = RegExp(
-  Object.keys(NORMALIZE_SEARCH_TERM_REPLACEMENTS).join('|'),
-  'g',
-);
-const NORMALIZE_SEARCH_TERM_RANGE_REGEX = RegExp('[\u0300-\u036f]', 'g');
-
 export const debounce = (func, wait, immediate) => {
   let timeout, args, context, timestamp, result;
 
