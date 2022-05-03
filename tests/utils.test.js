@@ -1,9 +1,5 @@
 import { jest } from '@jest/globals';
-import {
-  debounce,
-  normalizeSearchTerm,
-  iconHrefToSlug,
-} from '../public/scripts/utils.js';
+import { debounce, iconHrefToSlug } from '../public/scripts/utils.js';
 
 describe('::debounce', () => {
   beforeAll(() => {
@@ -45,31 +41,6 @@ describe('::debounce', () => {
 
   afterAll(() => {
     jest.useFakeTimers();
-  });
-});
-
-describe('::normalizeSearchTerm', () => {
-  it('normalized string', () => {
-    const input = 'foobar';
-    const result = normalizeSearchTerm(input);
-    expect(result).toEqual(input);
-  });
-
-  it.each([
-    ['àáâãä', 'aaaaa'],
-    ['çčć', 'ccc'],
-    ['èéêë', 'eeee'],
-    ['ìíîï', 'iiii'],
-    ['ñňń', 'nnn'],
-    ['òóôõö', 'ooooo'],
-    ['šś', 'ss'],
-    ['ùúûü', 'uuuu'],
-    ['ýÿ', 'yy'],
-    ['žź', 'zz'],
-    ['đħıĸŀłßŧ', 'dhikllsst'],
-  ])('accented latin characters (%s)', (input, output) => {
-    const result = normalizeSearchTerm(input);
-    expect(result).toEqual(output);
   });
 });
 
