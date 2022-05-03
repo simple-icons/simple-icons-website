@@ -1,5 +1,5 @@
 import { ORDER_RELEVANCE } from './ordering.js';
-import { debounce, normalizeSearchTerm } from './utils.js';
+import { debounce } from './utils.js';
 import { Searcher } from 'fast-fuzzy';
 
 const QUERY_PARAMETER = 'q';
@@ -30,9 +30,7 @@ const titleFromIconCard = (iconCard) => {
   // extract title from icon card
   const previewButtonTitle =
     iconCard.children[0].children[0].getAttribute('title');
-  return normalizeSearchTerm(
-    previewButtonTitle.slice(0, previewButtonTitle.length - 4),
-  );
+  return previewButtonTitle.slice(0, previewButtonTitle.length - 4);
 };
 
 export default (history, document, ordering, domUtils) => {

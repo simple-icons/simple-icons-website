@@ -46,13 +46,4 @@ export const debounce = (func, wait, immediate) => {
   };
 };
 
-export const normalizeSearchTerm = (value) =>
-  value
-    .replace(
-      NORMALIZE_SEARCH_TERM_CHARS_REGEX,
-      (char) => NORMALIZE_SEARCH_TERM_REPLACEMENTS[char],
-    )
-    .normalize('NFD')
-    .replace(NORMALIZE_SEARCH_TERM_RANGE_REGEX, '');
-
 export const iconHrefToSlug = (href) => /icons\/(.+)\.svg$/.exec(href)[1];
