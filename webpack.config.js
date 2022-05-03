@@ -122,9 +122,10 @@ export default async (env, argv) => {
       path: OUT_DIR,
       filename: 'script.js',
     },
-    externals: {
-      // Bug in Webpack: https://github.com/webpack/webpack/issues/15574
-      'node:url': 'commonjs2 url',
+    infrastructureLogging: {
+      // Hide false warning raised by Webpack:
+      // https://github.com/webpack/webpack/issues/15574
+      level: 'error',
     },
     module: {
       rules: [
