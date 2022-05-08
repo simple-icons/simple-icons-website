@@ -135,20 +135,28 @@ describe('Search', () => {
     await page.goto(url.href);
   });
 
-  it('full match on search displays the matching icon first', async () => {
-    const $searchInput = await page.$('#search-input');
-    await $searchInput.type('adobe');
+  it.each([
+    ['by title', 'adobe', 'Adobe'],
+    ['aka alias', 'All Elite Wrestling', 'AEW'],
+    ['dup alias', 'GoToWebinar', 'GoToMeeting'],
+    ['loc alias', 'КиноПоиск', 'KinoPoisk'],
+  ])(
+    'full match searching %s displays matching icon first',
+    async (aliasesProp, typedTitle, expectedTitle) => {
+      const $searchInput = await page.$('#search-input');
+      await $searchInput.type(typedTitle);
 
-    const $gridItem = await page.$('.grid-item');
-    let content = await (
-      await $gridItem.getProperty('textContent')
-    ).jsonValue();
+      const $gridItem = await page.$('.grid-item');
+      let content = await (
+        await $gridItem.getProperty('textContent')
+      ).jsonValue();
 
-    // content should be 'Adobe#FF0000'
-    const [title, hex] = content.split('#');
-    expect(title).toBe('Adobe');
-    expect([3, 6, 8].includes(hex.length)).toBeTruthy();
-  });
+      // content should be 'Foo#FF0000'
+      const [title, hex] = content.split('#');
+      expect(title).toBe(expectedTitle);
+      expect([3, 6, 8].includes(hex.length)).toBeTruthy();
+    },
+  );
 
   it('does not show the "order by relevance" button on load', async () => {
     const $orderRelevance = await page.$('#order-relevance');

@@ -26,11 +26,22 @@ const setSearchQueryInURL = (history, path, query) => {
   }
 };
 
-const titleFromIconCard = (iconCard) => {
+const titlesFromIconCard = (iconCard) => {
   // extract title from icon card
   const previewButtonTitle =
     iconCard.children[0].children[0].getAttribute('title');
-  return previewButtonTitle.slice(0, previewButtonTitle.length - 4);
+
+  const variants = [
+    previewButtonTitle.slice(0, previewButtonTitle.length - 4), // title
+  ];
+
+  // add aliases
+  const aliases = iconCard.getAttribute('aliases');
+  if (aliases !== null) {
+    Array.prototype.push.apply(variants, JSON.parse(aliases));
+  }
+
+  return variants;
 };
 
 export default (history, document, ordering, domUtils) => {
@@ -48,7 +59,7 @@ export default (history, document, ordering, domUtils) => {
   const $allIcons = [...$icons];
 
   // the searcher is initialized for all icons
-  const searcher = new Searcher($icons, { keySelector: titleFromIconCard });
+  const searcher = new Searcher($icons, { keySelector: titlesFromIconCard });
 
   $searchInput.disabled = false;
   $searchInput.focus();

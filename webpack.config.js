@@ -7,23 +7,54 @@ import path from 'node:path';
 import fs from 'node:fs';
 import os from 'node:os';
 import simpleIcons from 'simple-icons';
-import sortByColors from './scripts/color-sorting.js';
+import alphaSort from './scripts/alpha-sorting.js';
+import colorSort from './scripts/color-sorting.js';
 import GET from './scripts/GET.js';
 import {
   getDirnameFromImportMeta,
   getThirdPartyExtensions,
+  getIconsData,
+  getIconSlug,
 } from './si-utils.js';
 
 const __dirname = getDirnameFromImportMeta(import.meta.url);
 
-const icons = Object.values(simpleIcons).sort((icon1, icon2) =>
-  icon1.title.localeCompare(icon2.title),
-);
-const sortedHexes = sortByColors(icons.map((icon) => icon.hex));
+const siRootDir = path.resolve(__dirname, 'node_modules', 'simple-icons');
+const siReadmePath = path.join(siRootDir, 'README.md');
+
+const icons = alphaSort(simpleIcons);
+const sortedHexes = colorSort(icons.map((icon) => icon.hex));
 
 const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const OUT_DIR = path.resolve(__dirname, '_site');
 const ROOT_DIR = path.resolve(__dirname, 'public');
+
+const getIconsDataBySlugs = async () => {
+  const dataBySlugs = {};
+  (await getIconsData(siRootDir)).forEach((iconData) => {
+    dataBySlugs[getIconSlug(iconData)] = iconData;
+  });
+  return dataBySlugs;
+};
+
+const getIconAliases = (iconData) => {
+  const aliases = [];
+  if (iconData.aliases) {
+    if (iconData.aliases.aka) {
+      Array.prototype.push.apply(aliases, iconData.aliases.aka);
+    }
+    if (iconData.aliases.dup) {
+      Array.prototype.push.apply(
+        aliases,
+        iconData.aliases.dup.map((dup) => dup.title),
+      );
+    }
+    if (iconData.aliases.loc) {
+      Array.prototype.push.apply(aliases, Object.values(iconData.aliases.loc));
+    }
+  }
+  return aliases;
+};
 
 const simplifyHexIfPossible = (hex) => {
   if (hex[0] === hex[1] && hex[2] === hex[3] && hex[4] == hex[5]) {
@@ -33,17 +64,30 @@ const simplifyHexIfPossible = (hex) => {
   return hex;
 };
 
-const siReadmePath = path.resolve(
-  __dirname,
-  'node_modules/simple-icons/README.md',
-);
-
 let displayIcons = icons;
 if (process.env.TEST_ENV) {
   // Use fewer icons when building for a test run. This significantly speeds up
   // page load time and therefor (end-to-end) tests, reducing the chance of
   // failed tests due to timeouts.
   displayIcons = icons.slice(0, 255);
+
+  // Ensure that some icons needed by the tests are added
+  const ensureIconDisplayed = (iconSlug) => {
+    let iconFound = displayIcons.find((icon) => icon.slug === iconSlug);
+
+    if (!iconFound) {
+      const iconToDisplay = icons.find((icon) => icon.slug === iconSlug);
+      if (!iconToDisplay) {
+        console.error(`Slug "${iconSlug}" not found in icons`);
+        process.exit(1);
+      }
+      displayIcons.push(iconToDisplay);
+    }
+  };
+
+  ['adobe', 'aew', 'gotomeeting', 'kinopoisk'].forEach((slug) =>
+    ensureIconDisplayed(slug),
+  );
 }
 
 const pageDescription = `${icons.length} Free SVG icons for popular brands.`,
@@ -115,6 +159,8 @@ const generateStructuredData = async () => {
 };
 
 export default async (env, argv) => {
+  const iconsDataBySlugs = await getIconsDataBySlugs();
+
   return {
     entry: {
       app: path.resolve(ROOT_DIR, 'scripts/index.js'),
@@ -181,6 +227,8 @@ export default async (env, argv) => {
           extensions: await getThirdPartyExtensions(siReadmePath),
           icons: displayIcons.map((icon, iconIndex) => {
             const luminance = getRelativeLuminance.default(`#${icon.hex}`);
+            const aliases = getIconAliases(iconsDataBySlugs[icon.slug]);
+
             return {
               guidelines: icon.guidelines,
               hex: icon.hex,
@@ -194,6 +242,7 @@ export default async (env, argv) => {
               shortHex: simplifyHexIfPossible(icon.hex),
               slug: icon.slug,
               title: icon.title,
+              aliases: aliases.length ? aliases : false,
             };
           }),
           iconCount: icons.length,
