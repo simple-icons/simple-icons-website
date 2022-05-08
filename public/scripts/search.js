@@ -31,14 +31,14 @@ const titleFromIconCard = (iconCard) => {
   const previewButtonTitle =
     iconCard.children[0].children[0].getAttribute('title');
 
-  const aliases = [
+  const variants = [
     previewButtonTitle.slice(0, previewButtonTitle.length - 4), // title
   ];
-  const aliasesAttr = iconCard.getAttribute('aliases');
-  if (aliasesAttr !== null) {
-    Array.prototype.push.apply(aliases, JSON.parse(aliasesAttr));
+  const aliases = iconCard.getAttribute('aliases');
+  if (aliases !== null) {
+    Array.prototype.push.apply(variants, JSON.parse(aliases));
   }
-  return aliases;
+  return variants;
 };
 
 export default (history, document, ordering, domUtils) => {
