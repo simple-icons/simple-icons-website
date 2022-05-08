@@ -150,7 +150,7 @@ describe('Search', () => {
     expect([3, 6, 8].includes(hex.length)).toBeTruthy();
   });
 
-  it('full match searching aka alias displays matching icon first', async () => {
+  it('full match searching `aka` alias displays matching icon first', async () => {
     const $searchInput = await page.$('#search-input');
     await $searchInput.type('All Elite Wrestling');
 
@@ -163,7 +163,7 @@ describe('Search', () => {
     expect(title).toBe('AEW');
   });
 
-  it('full match searching dup alias displays matching icon first', async () => {
+  it('full match searching `dup` alias displays matching icon first', async () => {
     const $searchInput = await page.$('#search-input');
     await $searchInput.type('GoToWebinar');
 
@@ -176,7 +176,7 @@ describe('Search', () => {
     expect(title).toBe('GoToMeeting');
   });
 
-  it('full match searching loc alias displays matching icon first', async () => {
+  it('full match searching `loc` alias displays matching icon first', async () => {
     const $searchInput = await page.$('#search-input');
     await $searchInput.type('КиноПоиск');
 
