@@ -150,44 +150,25 @@ describe('Search', () => {
     expect([3, 6, 8].includes(hex.length)).toBeTruthy();
   });
 
-  it('full match searching `aka` alias displays matching icon first', async () => {
-    const $searchInput = await page.$('#search-input');
-    await $searchInput.type('All Elite Wrestling');
+  it.each([
+    ['aka', 'All Elite Wrestling', 'AEW'],
+    ['dup', 'GoToWebinar', 'GoToMeeting'],
+    ['loc', 'КиноПоиск', 'KinoPoisk'],
+  ])(
+    'full match searching %p alias displays matching icon first',
+    async (aliasesProp, typedTitle, expectedTitle) => {
+      const $searchInput = await page.$('#search-input');
+      await $searchInput.type(typedTitle);
 
-    const $gridItem = await page.$('.grid-item');
-    let content = await (
-      await $gridItem.getProperty('textContent')
-    ).jsonValue();
+      const $gridItem = await page.$('.grid-item');
+      let content = await (
+        await $gridItem.getProperty('textContent')
+      ).jsonValue();
 
-    const [title, hex] = content.split('#');
-    expect(title).toBe('AEW');
-  });
-
-  it('full match searching `dup` alias displays matching icon first', async () => {
-    const $searchInput = await page.$('#search-input');
-    await $searchInput.type('GoToWebinar');
-
-    const $gridItem = await page.$('.grid-item');
-    let content = await (
-      await $gridItem.getProperty('textContent')
-    ).jsonValue();
-
-    const [title, hex] = content.split('#');
-    expect(title).toBe('GoToMeeting');
-  });
-
-  it('full match searching `loc` alias displays matching icon first', async () => {
-    const $searchInput = await page.$('#search-input');
-    await $searchInput.type('КиноПоиск');
-
-    const $gridItem = await page.$('.grid-item');
-    let content = await (
-      await $gridItem.getProperty('textContent')
-    ).jsonValue();
-
-    const [title, hex] = content.split('#');
-    expect(title).toBe('KinoPoisk');
-  });
+      const [title] = content.split('#');
+      expect(title).toBe(expectedTitle);
+    },
+  );
 
   it('does not show the "order by relevance" button on load', async () => {
     const $orderRelevance = await page.$('#order-relevance');
