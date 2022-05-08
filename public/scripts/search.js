@@ -34,10 +34,13 @@ const titleFromIconCard = (iconCard) => {
   const variants = [
     previewButtonTitle.slice(0, previewButtonTitle.length - 4), // title
   ];
+
+  // add aliases
   const aliases = iconCard.getAttribute('aliases');
   if (aliases !== null) {
     Array.prototype.push.apply(variants, JSON.parse(aliases));
   }
+
   return variants;
 };
 
