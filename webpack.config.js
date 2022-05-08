@@ -7,8 +7,8 @@ import path from 'node:path';
 import fs from 'node:fs';
 import os from 'node:os';
 import simpleIcons from 'simple-icons';
-import sortByAlpha from './scripts/alpha-sorting.js';
-import sortByColors from './scripts/color-sorting.js';
+import alphaSort from './scripts/alpha-sorting.js';
+import colorSort from './scripts/color-sorting.js';
 import GET from './scripts/GET.js';
 import {
   getDirnameFromImportMeta,
@@ -22,8 +22,8 @@ const __dirname = getDirnameFromImportMeta(import.meta.url);
 const siRoot = path.resolve(__dirname, 'node_modules', 'simple-icons');
 const siReadmePath = path.join(siRoot, 'README.md');
 
-const icons = sortByAlpha(simpleIcons);
-const sortedHexes = sortByColors(icons.map((icon) => icon.hex));
+const icons = alphaSort(simpleIcons);
+const sortedHexes = colorSort(icons.map((icon) => icon.hex));
 
 const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const OUT_DIR = path.resolve(__dirname, '_site');
