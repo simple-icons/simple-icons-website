@@ -26,7 +26,7 @@ const setSearchQueryInURL = (history, path, query) => {
   }
 };
 
-const titleFromIconCard = (iconCard) => {
+const titlesFromIconCard = (iconCard) => {
   // extract title from icon card
   const previewButtonTitle =
     iconCard.children[0].children[0].getAttribute('title');
@@ -59,7 +59,7 @@ export default (history, document, ordering, domUtils) => {
   const $allIcons = [...$icons];
 
   // the searcher is initialized for all icons
-  const searcher = new Searcher($icons, { keySelector: titleFromIconCard });
+  const searcher = new Searcher($icons, { keySelector: titlesFromIconCard });
 
   $searchInput.disabled = false;
   $searchInput.focus();
