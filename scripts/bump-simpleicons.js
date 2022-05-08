@@ -8,9 +8,9 @@
 import { execSync } from 'node:child_process';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
-import { getDirnameFromImportMeta } from '../si-utils.js';
+import { fileURLToPath } from 'node:url';
 
-const __dirname = getDirnameFromImportMeta(import.meta.url);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const PACKAGE_JSON_FILE = path.resolve(__dirname, '..', 'package.json');
 
