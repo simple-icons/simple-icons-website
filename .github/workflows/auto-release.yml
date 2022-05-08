@@ -24,10 +24,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-      - name: Download utils file
-        run: |
-          npm i sdown -g
-          npm run setup:si-utils
       - name: Update simple-icons
         id: update
         run: |
