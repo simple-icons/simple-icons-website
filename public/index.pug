@@ -320,7 +320,8 @@ html(lang='en-US')
         each icon in icons
           li.grid-item(
             order-color=icon.indexByColor,
-            order-alpha=icon.indexByAlpha
+            order-alpha=icon.indexByAlpha,
+            aliases=icon.aliases
           )
             .grid-item__row.mv-2.fg-2
               button.grid-item__preview.copy-button.copy-svg(

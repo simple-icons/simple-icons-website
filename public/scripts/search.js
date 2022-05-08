@@ -30,7 +30,15 @@ const titleFromIconCard = (iconCard) => {
   // extract title from icon card
   const previewButtonTitle =
     iconCard.children[0].children[0].getAttribute('title');
-  return previewButtonTitle.slice(0, previewButtonTitle.length - 4);
+
+  const aliases = [
+    previewButtonTitle.slice(0, previewButtonTitle.length - 4), // title
+  ];
+  const aliasesAttr = iconCard.getAttribute('aliases');
+  if (aliasesAttr !== null) {
+    Array.prototype.push.apply(aliases, JSON.parse(aliasesAttr));
+  }
+  return aliases;
 };
 
 export default (history, document, ordering, domUtils) => {

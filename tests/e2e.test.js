@@ -135,7 +135,7 @@ describe('Search', () => {
     await page.goto(url.href);
   });
 
-  it('full match on search displays the matching icon first', async () => {
+  it('full match search by title displays matching icon first', async () => {
     const $searchInput = await page.$('#search-input');
     await $searchInput.type('adobe');
 
@@ -148,6 +148,45 @@ describe('Search', () => {
     const [title, hex] = content.split('#');
     expect(title).toBe('Adobe');
     expect([3, 6, 8].includes(hex.length)).toBeTruthy();
+  });
+
+  it('full match searching aka alias displays matching icon first', async () => {
+    const $searchInput = await page.$('#search-input');
+    await $searchInput.type('All Elite Wrestling');
+
+    const $gridItem = await page.$('.grid-item');
+    let content = await (
+      await $gridItem.getProperty('textContent')
+    ).jsonValue();
+
+    const [title, hex] = content.split('#');
+    expect(title).toBe('AEW');
+  });
+
+  it('full match searching dup alias displays matching icon first', async () => {
+    const $searchInput = await page.$('#search-input');
+    await $searchInput.type('GoToWebinar');
+
+    const $gridItem = await page.$('.grid-item');
+    let content = await (
+      await $gridItem.getProperty('textContent')
+    ).jsonValue();
+
+    const [title, hex] = content.split('#');
+    expect(title).toBe('GoToMeeting');
+  });
+
+  it('full match searching loc alias displays matching icon first', async () => {
+    const $searchInput = await page.$('#search-input');
+    await $searchInput.type('КиноПоиск');
+
+    const $gridItem = await page.$('.grid-item');
+    let content = await (
+      await $gridItem.getProperty('textContent')
+    ).jsonValue();
+
+    const [title, hex] = content.split('#');
+    expect(title).toBe('KinoPoisk');
   });
 
   it('does not show the "order by relevance" button on load', async () => {

@@ -2,6 +2,7 @@
  * @fileoverview
  * Color sorting algorithm.
  */
+
 const isGray = (rgb, range) => {
   let { r, g, b } = { ...rgb };
   return (
