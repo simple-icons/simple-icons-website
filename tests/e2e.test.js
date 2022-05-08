@@ -135,27 +135,13 @@ describe('Search', () => {
     await page.goto(url.href);
   });
 
-  it('full match search by title displays matching icon first', async () => {
-    const $searchInput = await page.$('#search-input');
-    await $searchInput.type('adobe');
-
-    const $gridItem = await page.$('.grid-item');
-    let content = await (
-      await $gridItem.getProperty('textContent')
-    ).jsonValue();
-
-    // content should be 'Adobe#FF0000'
-    const [title, hex] = content.split('#');
-    expect(title).toBe('Adobe');
-    expect([3, 6, 8].includes(hex.length)).toBeTruthy();
-  });
-
   it.each([
-    ['aka', 'All Elite Wrestling', 'AEW'],
-    ['dup', 'GoToWebinar', 'GoToMeeting'],
-    ['loc', 'КиноПоиск', 'KinoPoisk'],
+    ['by title', 'adobe', 'Adobe'],
+    ['aka alias', 'All Elite Wrestling', 'AEW'],
+    ['dup alias', 'GoToWebinar', 'GoToMeeting'],
+    ['loc alias', 'КиноПоиск', 'KinoPoisk'],
   ])(
-    'full match searching %p alias displays matching icon first',
+    'full match searching %s displays matching icon first',
     async (aliasesProp, typedTitle, expectedTitle) => {
       const $searchInput = await page.$('#search-input');
       await $searchInput.type(typedTitle);
@@ -165,8 +151,10 @@ describe('Search', () => {
         await $gridItem.getProperty('textContent')
       ).jsonValue();
 
-      const [title] = content.split('#');
+      // content should be 'Foo#FF0000'
+      const [title, hex] = content.split('#');
       expect(title).toBe(expectedTitle);
+      expect([3, 6, 8].includes(hex.length)).toBeTruthy();
     },
   );
 
