@@ -6,7 +6,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import path from 'node:path';
 import fs from 'node:fs';
 import os from 'node:os';
-import simpleIcons from 'simple-icons';
+import * as simpleIcons from 'simple-icons/icons';
 import alphaSort from './scripts/alpha-sorting.js';
 import colorSort from './scripts/color-sorting.js';
 import GET from './scripts/GET.js';
@@ -21,7 +21,6 @@ const __dirname = getDirnameFromImportMeta(import.meta.url);
 
 const siRootDir = path.resolve(__dirname, 'node_modules', 'simple-icons');
 const siReadmePath = path.join(siRootDir, 'README.md');
-
 const icons = alphaSort(simpleIcons);
 const sortedHexes = colorSort(icons.map((icon) => icon.hex));
 

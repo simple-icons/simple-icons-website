@@ -6,7 +6,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { URL } from 'node:url';
 import puppeteer from 'puppeteer';
-import simpleIcons from 'simple-icons';
+import * as simpleIcons from 'simple-icons/icons';
 
 import {
   getClipboardValue,
