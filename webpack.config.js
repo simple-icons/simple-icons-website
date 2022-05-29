@@ -21,6 +21,7 @@ const __dirname = getDirnameFromImportMeta(import.meta.url);
 
 const siRootDir = path.resolve(__dirname, 'node_modules', 'simple-icons');
 const siReadmePath = path.join(siRootDir, 'README.md');
+
 const icons = alphaSort(simpleIcons);
 const sortedHexes = colorSort(icons.map((icon) => icon.hex));
 
