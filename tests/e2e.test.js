@@ -1,12 +1,13 @@
 import { jest } from '@jest/globals';
 
 import sortByColors from '../scripts/color-sorting.js';
+import { ARTIFACTS_DIR } from './constants.js';
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { URL } from 'node:url';
 import puppeteer from 'puppeteer';
-import simpleIcons from 'simple-icons';
+import * as simpleIcons from 'simple-icons/icons';
 
 import {
   getClipboardValue,
@@ -147,12 +148,12 @@ describe('Search', () => {
       await $searchInput.type(typedTitle);
 
       const $gridItem = await page.$('.grid-item');
-      let content = await (
+      let gridItemText = await (
         await $gridItem.getProperty('textContent')
       ).jsonValue();
 
       // content should be 'Foo#FF0000'
-      const [title, hex] = content.split('#');
+      const [title, hex] = gridItemText.split('#');
       expect(title).toBe(expectedTitle);
       expect([3, 6, 8].includes(hex.length)).toBeTruthy();
     },
@@ -296,10 +297,10 @@ describe('Search', () => {
 describe('Ordering', () => {
   // only first 30 icons, it's enough to test ordering
   const nIcons = 30;
-  const icons = Object.values(simpleIcons).slice(0, nIcons);
-  const titles = icons
+  const titles = Object.values(simpleIcons)
     .map((icon) => icon.title)
-    .sort((titleA, titleB) => titleA.localeCompare(titleB));
+    .sort((titleA, titleB) => titleA.localeCompare(titleB))
+    .slice(0, nIcons);
 
   beforeEach(async () => {
     await page.goto(url.href);
