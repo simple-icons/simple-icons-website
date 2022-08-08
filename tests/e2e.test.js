@@ -427,16 +427,16 @@ describe('Preferred color scheme', () => {
 
 describe('Grid item', () => {
   beforeEach(async () => {
-    const context = browser.defaultBrowserContext();
-    await context._connection.send('Browser.grantPermissions', {
-      origin: url.origin,
-      permissions: ['clipboardReadWrite', 'clipboardSanitizedWrite'],
-    });
+    const context = await browser.defaultBrowserContext();
+    await context.overridePermissions(url.origin, [
+      'clipboard-read',
+      'clipboard-write',
+    ]);
   });
 
   beforeEach(async () => {
     await page.goto(url.href);
-    await page._client.send('Page.setDownloadBehavior', {
+    await page.emitter.emit('Page.setDownloadBehavior', {
       behavior: 'allow',
       downloadPath: ARTIFACTS_DIR,
     });
