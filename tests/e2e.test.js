@@ -427,11 +427,11 @@ describe('Preferred color scheme', () => {
 
 describe('Grid item', () => {
   beforeEach(async () => {
-    const context = await browser.defaultBrowserContext();
-    await context.overridePermissions(url.origin, [
-      'clipboard-read',
-      'clipboard-write',
-    ]);
+    const context = browser.defaultBrowserContext();
+    await context._connection.send('Browser.grantPermissions', {
+      origin: url.origin,
+      permissions: ['clipboardReadWrite', 'clipboardSanitizedWrite'],
+    });
   });
 
   beforeEach(async () => {
