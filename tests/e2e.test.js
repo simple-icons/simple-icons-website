@@ -436,7 +436,7 @@ describe('Grid item', () => {
 
   beforeEach(async () => {
     await page.goto(url.href);
-    await page._client.send('Page.setDownloadBehavior', {
+    await page.emitter.emit('Page.setDownloadBehavior', {
       behavior: 'allow',
       downloadPath: ARTIFACTS_DIR,
     });

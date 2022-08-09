@@ -15,7 +15,9 @@ export const getTextContent = async ($el, attributeName) => {
 };
 
 export const getClipboardValue = async (page) => {
-  const result = await page.evaluate(() => navigator.clipboard.readText());
+  const result = await page.evaluate(
+    async () => await navigator.clipboard.readText(),
+  );
   return result;
 };
 
