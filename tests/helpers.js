@@ -3,7 +3,7 @@ export const getAttribute = async ($el, attributeName) => {
     return el.getAttribute(attribute);
   }, attributeName);
 
-  return result._remoteObject.value;
+  return result.remoteObject().value;
 };
 
 export const getTextContent = async ($el, attributeName) => {
@@ -11,7 +11,7 @@ export const getTextContent = async ($el, attributeName) => {
     return el.textContent;
   });
 
-  return result._remoteObject.value;
+  return result.remoteObject().value;
 };
 
 export const getClipboardValue = async (page) => {
@@ -30,7 +30,7 @@ export const hasClass = async ($el, className) => {
     return el.classList.contains(value);
   }, className);
 
-  return result._remoteObject.value;
+  return result.remoteObject().value;
 };
 
 export const isDisabled = async ($el) => {

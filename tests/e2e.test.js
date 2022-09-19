@@ -330,8 +330,11 @@ describe('Ordering', () => {
     const $gridItems = await page.$$('.grid-item');
     for (let i = 0; i < nIcons; i++) {
       const $gridItem = $gridItems[i];
-      const title = titles[i];
-      await expect($gridItem).toMatch(title);
+      const expectedTitle = titles[i];
+      const title = await (
+        await $gridItem.getProperty('textContent')
+      ).jsonValue();
+      await expect(title).toMatch(expectedTitle);
     }
   });
 
@@ -427,8 +430,8 @@ describe('Preferred color scheme', () => {
 
 describe('Grid item', () => {
   beforeEach(async () => {
-    const context = browser.defaultBrowserContext();
-    await context._connection.send('Browser.grantPermissions', {
+    const client = await page.target().createCDPSession();
+    await client.send('Browser.grantPermissions', {
       origin: url.origin,
       permissions: ['clipboardReadWrite', 'clipboardSanitizedWrite'],
     });
