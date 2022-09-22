@@ -6,6 +6,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import path from 'node:path';
 import fs from 'node:fs';
 import os from 'node:os';
+import util from 'node:util';
 import * as simpleIcons from 'simple-icons/icons';
 import alphaSort from './scripts/alpha-sorting.js';
 import colorSort from './scripts/color-sorting.js';
@@ -217,6 +218,16 @@ export default async (env, argv) => {
           {
             from: path.resolve(__dirname, 'LICENSE.md'),
             to: path.resolve(OUT_DIR, 'license.txt'),
+          },
+          {
+            from: path.resolve(ROOT_DIR, 'sitemap.template.xml'),
+            to: path.resolve(OUT_DIR, 'sitemap.xml'),
+            transform: (content) => {
+              return util.format(
+                content.toString('ascii'),
+                new Date().toISOString().split('T')[0],
+              );
+            },
           },
         ],
       }),

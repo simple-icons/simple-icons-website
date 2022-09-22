@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "@prettier/plugin-pug": "2.2.0",
+    "@prettier/plugin-xml": "2.2.0",
     "anywhere": "1.6.0",
     "autoprefixer": "10.4.9",
     "copy-webpack-plugin": "11.0.0",
