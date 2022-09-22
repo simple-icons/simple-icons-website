@@ -220,9 +220,11 @@ export default async (env, argv) => {
             to: path.resolve(OUT_DIR, 'license.txt'),
           },
           {
+            // Add sitemap.xml
             from: path.resolve(ROOT_DIR, 'sitemap.template.xml'),
             to: path.resolve(OUT_DIR, 'sitemap.xml'),
             transform: (content) => {
+              // inject last modification date in W3C datetime format
               return util.format(
                 content.toString('ascii'),
                 new Date().toISOString().split('T')[0],
