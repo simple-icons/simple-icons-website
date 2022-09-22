@@ -227,7 +227,7 @@ export default async (env, argv) => {
               // inject last modification date in W3C datetime format
               return util.format(
                 content.toString('ascii'),
-                new Date().toISOString().split('T')[0],
+                new Date().toISOString(),
               );
             },
           },
