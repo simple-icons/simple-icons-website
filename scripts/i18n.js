@@ -124,6 +124,9 @@ export const updateTranslations = async () => {
       po.items.sort((a, b) => a.obsolete - b.obsolete);
       po.headers['PO-Revision-Date'] = currentIso;
     }
+
+    po.headers['Project-Id-Version'] = 'simple-icons-website';
+
     await fs.writeFile(poPath, po.toString());
   }
 };
