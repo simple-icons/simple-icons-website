@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/simple-icons/simple-icons-website/issues\n"
 "Language: es\n"
 "POT-Creation-Date: 2022-09-25T01:25:24.834Z\n"
-"PO-Revision-Date: 2022-09-25T03:23:14.896Z\n"
+"PO-Revision-Date: 2022-09-25T03:40:56.478Z\n"
 "MIME-Version: 1.0\n"
 
 msgid "Extension"
@@ -49,7 +49,7 @@ msgid "System color scheme"
 msgstr "Tema de color del sistema"
 
 msgid "Download"
-msgstr "Descargar"
+msgstr "Descarga"
 
 msgid "download SVG"
 msgstr "descargar SVG"
@@ -94,7 +94,7 @@ msgid "Order"
 msgstr "Orden"
 
 msgid "Mode"
-msgstr "Modo"
+msgstr "Tema"
 
 msgid "Brand Guidelines"
 msgstr "Directrices de marca"
