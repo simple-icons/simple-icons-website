@@ -11,18 +11,22 @@ import { fileURLToPath } from 'node:url';
 import pugLex from 'pug-lexer';
 import PO from 'pofile';
 
-export const LANGUAGES = ['es', 'fr'];
-export const LANGUAGE_NAMES = {
-  en: 'English',
-  es: 'Español',
-  fr: 'Français',
-};
-
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const ROOT_DIR = path.resolve(__dirname, '..');
 const LOCALES_DIR = path.join(ROOT_DIR, 'locales');
 const INDEX_PATH = path.join(ROOT_DIR, 'public', 'index.pug');
+const LANGUAGES_PATH = path.join(LOCALES_DIR, 'languages.json');
+
+export const getLanguages = async () => {
+  return JSON.parse(await fs.readFile(LANGUAGES_PATH));
+};
+
+export const getNonDefaultLanguages = async () => {
+  const languages = await getLanguages();
+  delete languages.en;
+  return languages;
+};
 
 export const loadTranslations = async () => {
   const locales = {};
@@ -81,8 +85,9 @@ export const updateTranslations = async () => {
   const index = await fs.readFile(INDEX_PATH, 'utf8');
   const msgids = extractTranslatableStringsFromIndex(pugLex(index));
   const currentIso = new Date().toISOString();
+  const nonDefaultLanguages = await getNonDefaultLanguages();
 
-  for (const lang of LANGUAGES) {
+  for (const lang in nonDefaultLanguages) {
     let po;
     const poPath = path.join(ROOT_DIR, 'locales', `${lang}.po`);
 

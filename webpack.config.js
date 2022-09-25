@@ -13,8 +13,7 @@ import alphaSort from './scripts/alpha-sorting.js';
 import colorSort from './scripts/color-sorting.js';
 import GET from './scripts/GET.js';
 import {
-  LANGUAGES,
-  LANGUAGE_NAMES,
+  getLanguages,
   loadTranslations,
   updateTranslations,
 } from './scripts/i18n.js';
@@ -188,7 +187,9 @@ export default async (env, argv) => {
     _translationsUpdated = true;
   }
 
-  const languages = ['en', ...LANGUAGES];
+  const languageNames = await getLanguages();
+  const languages = Object.keys(languageNames);
+  const nonDefaultLanguages = languages.filter((language) => language !== 'en');
 
   const extensions = await getThirdPartyExtensions(siReadmePath);
   const structuredData = await generateStructuredData();
@@ -281,7 +282,9 @@ export default async (env, argv) => {
               return util.format(
                 content.toString('ascii'),
                 currentIsoDateString,
-                LANGUAGES.map((lang) => sitemapUrlForLanguage(lang)).join(''),
+                nonDefaultLanguages
+                  .map((lang) => sitemapUrlForLanguage(lang))
+                  .join(''),
               );
             },
           },
@@ -305,7 +308,7 @@ export default async (env, argv) => {
               t_: i18n(lang),
               languageOfTheBuild: lang,
               languages,
-              languageNames: LANGUAGE_NAMES,
+              languageNames,
             },
             minify:
               argv.mode === 'development'
