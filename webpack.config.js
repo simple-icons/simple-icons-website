@@ -14,6 +14,7 @@ import colorSort from './scripts/color-sorting.js';
 import GET from './scripts/GET.js';
 import {
   LANGUAGES,
+  LANGUAGE_NAMES,
   loadTranslations,
   updateTranslations,
 } from './scripts/i18n.js';
@@ -298,6 +299,9 @@ export default async (env, argv) => {
               structuredData,
               t_: i18n(lang),
               relativeUrlPrefix: lang === 'en' ? '' : `../`,
+              languageOfTheBuild: lang,
+              languages,
+              languageNames: LANGUAGE_NAMES,
             },
             minify:
               argv.mode === 'development'

@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/simple-icons/simple-icons-website/issues\n"
 "Language: es\n"
 "POT-Creation-Date: 2022-09-25T01:25:24.834Z\n"
-"PO-Revision-Date: 2022-09-25T02:41:22.385Z\n"
+"PO-Revision-Date: 2022-09-25T03:23:14.896Z\n"
 "MIME-Version: 1.0\n"
 
 msgid "Extension"
@@ -116,3 +116,6 @@ msgstr "Amablemente apoyada por sus donaciones en <a href=\"https://opencollecti
 
 msgid "$nIcons Free SVG icons for popular brands"
 msgstr "$nIcons iconos SVG gratis de marcas populares"
+
+msgid "Language"
+msgstr "Idioma"

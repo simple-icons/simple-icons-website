@@ -13,6 +13,11 @@ import pugLex from 'pug-lexer';
 import PO from 'pofile';
 
 export const LANGUAGES = ['es', 'fr'];
+export const LANGUAGE_NAMES = {
+  en: 'English',
+  es: 'Español',
+  fr: 'Français',
+};
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
