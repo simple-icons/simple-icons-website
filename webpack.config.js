@@ -75,10 +75,12 @@ const simplifyHexIfPossible = (hex) => {
 };
 
 const sitemapUrlForLanguage = (language) => {
+  const url = `https://simpleicons.org/${language}/`;
   return (
-    `\n  <url>\n    <loc>https://simpleicons.org/${language}/</loc>\n` +
+    `\n  <url>\n    <loc>${url}</loc>\n` +
     `    <lastmod>${currentIsoDateString}</lastmod>\n` +
-    `    <changefreq>weekly</changefreq>\n  </url>`
+    `    <changefreq>weekly</changefreq>\n` +
+    `    <xhtml:link rel="alternate" hreflang="${language}" href="${url}"/>\n  </url>`
   );
 };
 
