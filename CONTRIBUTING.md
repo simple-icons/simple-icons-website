@@ -42,6 +42,7 @@ The repository defines the following commands that can be used for development p
 | `npm run test:all` | Run all unit & end-to-end test suites. |
 | `npm run test:e2e` | Run all end-to-end test suites. |
 | `npm run test:unit` | Run all unit test suites. |
+| `npm run locale` | Update translations files located at `locales/`. |
 
 ### Using Docker
 

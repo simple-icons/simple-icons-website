@@ -8,9 +8,15 @@ import fs from 'node:fs';
 import os from 'node:os';
 import util from 'node:util';
 import * as simpleIcons from 'simple-icons/icons';
+import { siTwitter as twitterIcon } from 'simple-icons/icons';
 import alphaSort from './scripts/alpha-sorting.js';
 import colorSort from './scripts/color-sorting.js';
 import GET from './scripts/GET.js';
+import {
+  LANGUAGES,
+  loadTranslations,
+  updateTranslations,
+} from './scripts/i18n.js';
 import {
   getDirnameFromImportMeta,
   getThirdPartyExtensions,
@@ -29,6 +35,8 @@ const sortedHexes = colorSort(icons.map((icon) => icon.hex));
 const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const OUT_DIR = path.resolve(__dirname, '_site');
 const ROOT_DIR = path.resolve(__dirname, 'public');
+
+const indexPath = path.resolve(ROOT_DIR, 'index.pug');
 
 const getIconsDataBySlugs = async () => {
   const dataBySlugs = {};
@@ -91,10 +99,14 @@ if (process.env.TEST_ENV) {
   );
 }
 
-const pageDescription = `${icons.length} Free SVG icons for popular brands.`,
-  pageTitle = 'Simple Icons',
-  pageUrl = 'https://simpleicons.org',
-  logoUrl = `${pageUrl}/icons/simpleicons.svg`;
+updateTranslations();
+const i18n = loadTranslations();
+const t_ = i18n('en');
+
+const pageDescription = `${icons.length} Free SVG icons for popular brands`;
+const pageTitle = 'Simple Icons';
+const pageUrl = 'https://simpleicons.org';
+const logoUrl = `${pageUrl}/icons/simpleicons.svg`;
 
 const generateStructuredData = async () => {
   const getSimpleIconsMembers = async () => {
@@ -160,7 +172,32 @@ const generateStructuredData = async () => {
 };
 
 export default async (env, argv) => {
+  const languages = ['en', ...LANGUAGES];
+
+  const extensions = await getThirdPartyExtensions(siReadmePath);
+  const structuredData = await generateStructuredData();
+
   const iconsDataBySlugs = await getIconsDataBySlugs();
+  const icons = displayIcons.map((icon, iconIndex) => {
+    const luminance = getRelativeLuminance.default(`#${icon.hex}`);
+    const aliases = getIconAliases(iconsDataBySlugs[icon.slug]);
+
+    return {
+      guidelines: icon.guidelines,
+      hex: icon.hex,
+      indexByAlpha: iconIndex,
+      indexByColor: sortedHexes.indexOf(icon.hex),
+      license: icon.license,
+      light: luminance < 0.4,
+      superLight: luminance > 0.95,
+      superDark: luminance < 0.02,
+      path: icon.path,
+      shortHex: simplifyHexIfPossible(icon.hex),
+      slug: icon.slug,
+      title: icon.title,
+      aliases: aliases.length ? aliases : false,
+    };
+  });
 
   return {
     entry: {
@@ -233,51 +270,38 @@ export default async (env, argv) => {
           },
         ],
       }),
-      new HtmlWebpackPlugin({
-        inject: true,
-        template: path.resolve(ROOT_DIR, 'index.pug'),
-        templateParameters: {
-          extensions: await getThirdPartyExtensions(siReadmePath),
-          icons: displayIcons.map((icon, iconIndex) => {
-            const luminance = getRelativeLuminance.default(`#${icon.hex}`);
-            const aliases = getIconAliases(iconsDataBySlugs[icon.slug]);
-
-            return {
-              guidelines: icon.guidelines,
-              hex: icon.hex,
-              indexByAlpha: iconIndex,
-              indexByColor: sortedHexes.indexOf(icon.hex),
-              license: icon.license,
-              light: luminance < 0.4,
-              superLight: luminance > 0.95,
-              superDark: luminance < 0.02,
-              path: icon.path,
-              shortHex: simplifyHexIfPossible(icon.hex),
-              slug: icon.slug,
-              title: icon.title,
-              aliases: aliases.length ? aliases : false,
-            };
+      ...languages.map(
+        (lang) =>
+          new HtmlWebpackPlugin({
+            filename:
+              lang === 'en' ? 'index.html' : path.join(lang, 'index.html'),
+            inject: true,
+            template: indexPath,
+            templateParameters: {
+              extensions,
+              icons,
+              iconCount: icons.length,
+              twitterIcon,
+              pageTitle,
+              pageUrl,
+              structuredData,
+              t_: i18n(lang),
+              urlPrefix: lang === 'en' ? '' : `../`,
+            },
+            minify:
+              argv.mode === 'development'
+                ? {}
+                : {
+                    collapseWhitespace: true,
+                    collapseBooleanAttributes: true,
+                    decodeEntities: true,
+                    removeAttributeQuotes: true,
+                    removeComments: true,
+                    removeOptionalTags: true,
+                    removeRedundantAttributes: true,
+                  },
           }),
-          iconCount: icons.length,
-          twitterIcon: icons.find((icon) => icon.title === 'Twitter'),
-          pageTitle,
-          pageDescription,
-          pageUrl,
-          structuredData: await generateStructuredData(),
-        },
-        minify:
-          argv.mode === 'development'
-            ? {}
-            : {
-                collapseWhitespace: true,
-                collapseBooleanAttributes: true,
-                decodeEntities: true,
-                removeAttributeQuotes: true,
-                removeComments: true,
-                removeOptionalTags: true,
-                removeRedundantAttributes: true,
-              },
-      }),
+      ),
       new MiniCssExtractPlugin(),
     ],
     optimization: {
