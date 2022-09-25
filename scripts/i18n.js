@@ -90,7 +90,14 @@ export const updateTranslations = async () => {
   for (const lang of LANGUAGES) {
     let po;
     const poPath = path.join(ROOT_DIR, 'locales', `${lang}.po`);
-    if (!fsSync.existsSync(poPath)) {
+
+    let poFileExists = true;
+    try {
+      await fs.readFile(poPath, 'utf8');
+    } catch (err) {
+      poFileExists = false;
+    }
+    if (!poFileExists) {
       po = new PO();
       for (const msgid of msgids) {
         const item = new PO.Item();
@@ -131,7 +138,9 @@ export const updateTranslations = async () => {
         }
       }
 
+      // put obsolete messages at the end
       po.items.sort((a, b) => a.obsolete - b.obsolete);
+
       po.headers['PO-Revision-Date'] = currentIso;
     }
 

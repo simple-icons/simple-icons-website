@@ -125,13 +125,10 @@ const generateStructuredData = async () => {
       os.tmpdir(),
       'simple-icons-members.json',
     );
-    if (fs.existsSync(siMembersCacheFilePath)) {
-      const siMembersFileContent = fs.readFileSync(
-        siMembersCacheFilePath,
-        'utf8',
-      );
-      return JSON.parse(siMembersFileContent);
-    } else {
+    let siMembersFileContent;
+    try {
+      siMembersFileContent = fs.readFileSync(siMembersCacheFilePath, 'utf8');
+    } catch (error) {
       const siOrgMembers = await GET(
         'api.github.com',
         '/orgs/simple-icons/members',
@@ -163,6 +160,8 @@ const generateStructuredData = async () => {
 
       return structuredDataMembers;
     }
+
+    return JSON.parse(siMembersFileContent);
   };
 
   return {
