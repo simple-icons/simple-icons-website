@@ -110,7 +110,6 @@ if (process.env.TEST_ENV) {
 
 updateTranslations();
 const i18n = loadTranslations();
-const t_ = i18n('en');
 
 const pageDescription = `${icons.length} Free SVG icons for popular brands`;
 const pageTitle = 'Simple Icons';
@@ -296,7 +295,7 @@ export default async (env, argv) => {
               pageUrl,
               structuredData,
               t_: i18n(lang),
-              urlPrefix: lang === 'en' ? '' : `../`,
+              relativeUrlPrefix: lang === 'en' ? '' : `../`,
             },
             minify:
               argv.mode === 'development'
