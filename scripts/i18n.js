@@ -41,21 +41,17 @@ export const loadTranslations = async () => {
       translations[item.msgid] = item.msgstr[0];
     }
     locales[locale] = translations;
-
-    if (locales.en === undefined) {
-      const defaultTranslations = {};
-      for (let item of po.items) {
-        defaultTranslations[item.msgid] = item.msgid;
-      }
-      locales.en = defaultTranslations;
-    }
   }
+
+  const defaultTranslations = {};
+  for (let msgid in locales[Object.keys(locales)[0]]) {
+    defaultTranslations[msgid] = msgid;
+  }
+  locales.en = defaultTranslations;
 
   const i18n = (locale) => {
     const translations = locales[locale];
-    const func = (msgid) => translations[msgid] || msgid;
-    func.translations = translations;
-    return func;
+    return (msgid) => translations[msgid] || msgid;
   };
 
   return i18n;
@@ -116,6 +112,7 @@ export const updateTranslations = async () => {
         'POT-Creation-Date': currentIso,
         'PO-Revision-Date': currentIso,
         'MIME-Version': '1.0',
+        'Project-Id-Version': 'simple-icons-website',
       };
     } else {
       const poContent = await fs.readFile(poPath, 'utf8');
@@ -142,8 +139,6 @@ export const updateTranslations = async () => {
 
       po.headers['PO-Revision-Date'] = currentIso;
     }
-
-    po.headers['Project-Id-Version'] = 'simple-icons-website';
 
     await fs.writeFile(poPath, po.toString());
   }
