@@ -86,13 +86,14 @@ export const updateTranslations = async () => {
     let po;
     const poPath = path.join(ROOT_DIR, 'locales', `${lang}.po`);
 
-    let poFileExists = true;
+    let _poFileExists = true,
+      _contentChanged = false;
     try {
       await fs.readFile(poPath, 'utf8');
     } catch (err) {
-      poFileExists = false;
+      _poFileExists = false;
     }
-    if (!poFileExists) {
+    if (!_poFileExists) {
       po = new PO();
       for (const msgid of msgids) {
         const item = new PO.Item();
@@ -110,33 +111,44 @@ export const updateTranslations = async () => {
           'https://github.com/simple-icons/simple-icons-website/issues',
         Language: lang,
         'POT-Creation-Date': currentIso,
-        'PO-Revision-Date': currentIso,
         'MIME-Version': '1.0',
         'Project-Id-Version': 'simple-icons-website',
       };
+      _contentChanged = true;
     } else {
       const poContent = await fs.readFile(poPath, 'utf8');
       po = PO.parse(poContent);
+
       for (const msgid of msgids) {
         const existentItem = po.items.find((item) => item.msgid === msgid);
         if (!existentItem) {
           const item = new PO.Item();
           item.msgid = msgid;
           po.items.push(item);
+          _contentChanged = true;
         } else if (existentItem.obsolete) {
           existentItem.obsolete = false;
+          _contentChanged = true;
         }
       }
 
       for (const item of po.items) {
         if (!msgids.includes(item.msgid)) {
           item.obsolete = true;
+          _contentChanged = true;
         }
       }
 
+      const previousPoItems = po.items.map((item) => item.obsolete);
       // put obsolete messages at the end
       po.items.sort((a, b) => a.obsolete - b.obsolete);
+      const poItems = po.items.map((item) => item.obsolete);
+      _contentChanged = !previousPoItems.every(
+        (item, index) => item === poItems[index],
+      );
+    }
 
+    if (_contentChanged) {
       po.headers['PO-Revision-Date'] = currentIso;
     }
 
