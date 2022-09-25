@@ -27,25 +27,28 @@ const INDEX_PATH = path.join(ROOT_DIR, 'public', 'index.pug');
 
 export const loadTranslations = () => {
   const locales = {};
+
   const pofiles = fsSync.readdirSync(LOCALES_DIR);
   for (let fname of pofiles) {
-    if (fname.endsWith('.po')) {
-      const locale = fname.slice(0, -3);
-      const pofile = path.join(LOCALES_DIR, fname);
-      const po = PO.parse(fsSync.readFileSync(pofile, 'utf8'));
-      const translations = {};
-      for (let item of po.items) {
-        translations[item.msgid] = item.msgstr[0];
-      }
-      locales[locale] = translations;
+    if (!fname.endsWith('.po')) {
+      continue;
+    }
 
-      if (locales.en === undefined) {
-        const defaultTranslations = {};
-        for (let item of po.items) {
-          defaultTranslations[item.msgid] = item.msgid;
-        }
-        locales.en = defaultTranslations;
+    const locale = fname.slice(0, -3);
+    const pofile = path.join(LOCALES_DIR, fname);
+    const po = PO.parse(fsSync.readFileSync(pofile, 'utf8'));
+    const translations = {};
+    for (let item of po.items) {
+      translations[item.msgid] = item.msgstr[0];
+    }
+    locales[locale] = translations;
+
+    if (locales.en === undefined) {
+      const defaultTranslations = {};
+      for (let item of po.items) {
+        defaultTranslations[item.msgid] = item.msgid;
       }
+      locales.en = defaultTranslations;
     }
   }
 
@@ -66,11 +69,13 @@ const extractTranslatableStringsFromIndex = (tokens) => {
   let i = 0;
   while (i < tokens.length) {
     const token = tokens[i];
-    if (searchTokens.includes(token.type)) {
-      if (typeof token.val === 'string' && token.val.includes('t_(')) {
-        let msgid = token.val.match(/(?!t_\(')([^']+)('\))/);
-        msgids.push(msgid[1]);
-      }
+    if (
+      searchTokens.includes(token.type) &&
+      typeof token.val === 'string' &&
+      token.val.includes('t_(')
+    ) {
+      let msgid = token.val.match(/(?!t_\(')([^']+)('\))/);
+      msgids.push(msgid[1]);
     }
     i++;
   }
