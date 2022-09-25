@@ -298,7 +298,6 @@ export default async (env, argv) => {
               pageUrl,
               structuredData,
               t_: i18n(lang),
-              relativeUrlPrefix: lang === 'en' ? '' : `../`,
               languageOfTheBuild: lang,
               languages,
               languageNames: LANGUAGE_NAMES,

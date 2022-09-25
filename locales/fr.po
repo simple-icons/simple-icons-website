@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/simple-icons/simple-icons-website/issues\n"
 "Language: fr\n"
 "POT-Creation-Date: 2022-09-25T01:25:24.834Z\n"
-"PO-Revision-Date: 2022-09-25T03:40:56.478Z\n"
+"PO-Revision-Date: 2022-09-25T03:47:11.770Z\n"
 "MIME-Version: 1.0\n"
 
 msgid "Extension"

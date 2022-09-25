@@ -357,7 +357,7 @@ html(lang=lang)
                 disabled
               )
                 img.icon-preview(
-                  src=`${relativeUrlPrefix}icons/${icon.slug}.svg`,
+                  src=`${languageOfTheBuild === 'en' ? '' : `../`}icons/${icon.slug}.svg`,
                   loading='lazy',
                   alt=`${ t_('$iconTitle icon').replace('$iconTitle', icon.title) }`
                 )
