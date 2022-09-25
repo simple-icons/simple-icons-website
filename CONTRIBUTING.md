@@ -80,6 +80,12 @@ $ docker run -it --entrypoint "/bin/ash" --name simple-icons-website-dev simple-
 $ docker rm simple-icons-website-dev
 ```
 
+### How to add new locales
+
+1. Add the languages to the file *locales/languages.json*.
+2. Run `npm run locale` to generate the new locale files. These will be `.po` extension files located in the *locales/* folder.
+3. Translate the strings in the new locale files and will be automatically included in the next bundle.
+
 [github flow]: https://guides.github.com/introduction/flow/
 [new icon request]: https://github.com/simple-icons/simple-icons/issues/new?labels=new+icon&template=icon_request.yml&title=Request%3A+
 [NodeJS]: https://nodejs.org/en/download/
