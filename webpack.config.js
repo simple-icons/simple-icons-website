@@ -4,7 +4,7 @@ import getRelativeLuminance from 'get-relative-luminance';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import path from 'node:path';
-import fs from 'node:fs';
+import fs from 'node:fs/promises';
 import os from 'node:os';
 import util from 'node:util';
 import * as simpleIcons from 'simple-icons/icons';
@@ -124,7 +124,7 @@ const generateStructuredData = async () => {
     );
     let siMembersFileContent;
     try {
-      siMembersFileContent = fs.readFileSync(siMembersCacheFilePath, 'utf8');
+      siMembersFileContent = await fs.readFile(siMembersCacheFilePath, 'utf8');
     } catch (error) {
       const siOrgMembers = await GET(
         'api.github.com',
@@ -150,7 +150,7 @@ const generateStructuredData = async () => {
         };
       });
 
-      fs.writeFileSync(
+      await fs.writeFile(
         siMembersCacheFilePath,
         JSON.stringify(structuredDataMembers),
       );
