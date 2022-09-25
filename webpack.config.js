@@ -37,6 +37,7 @@ const OUT_DIR = path.resolve(__dirname, '_site');
 const ROOT_DIR = path.resolve(__dirname, 'public');
 
 const indexPath = path.resolve(ROOT_DIR, 'index.pug');
+const currentIsoDateString = new Date().toISOString();
 
 const getIconsDataBySlugs = async () => {
   const dataBySlugs = {};
@@ -71,6 +72,14 @@ const simplifyHexIfPossible = (hex) => {
   }
 
   return hex;
+};
+
+const sitemapUrlForLanguage = (language) => {
+  return (
+    `\n  <url>\n    <loc>https://simpleicons.org/${language}/</loc>\n` +
+    `    <lastmod>${currentIsoDateString}</lastmod>\n` +
+    `    <changefreq>weekly</changefreq>\n  </url>`
+  );
 };
 
 let displayIcons = icons;
@@ -264,7 +273,8 @@ export default async (env, argv) => {
               // inject last modification date in W3C datetime format
               return util.format(
                 content.toString('ascii'),
-                new Date().toISOString(),
+                currentIsoDateString,
+                LANGUAGES.map((lang) => sitemapUrlForLanguage(lang)).join(''),
               );
             },
           },
