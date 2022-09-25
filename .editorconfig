@@ -8,7 +8,7 @@ insert_final_newline=true
 indent_size=unset
 indent_style=space
 
-[*.{json,yml}]
+[*.{json,json5,yml,js,xml}]
 indent_size=2
 indent_style=space
 

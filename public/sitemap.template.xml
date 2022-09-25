@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-   <url>
-      <loc>https://simpleicons.org/</loc>
-      <lastmod>%s</lastmod>
-      <changefreq>weekly</changefreq>
-   </url>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+>
+  <url>
+    <loc>https://simpleicons.org/</loc>
+    <lastmod>%s</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>%s
 </urlset>

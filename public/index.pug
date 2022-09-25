@@ -1,5 +1,7 @@
+- var pageDescription = `${t_('$nIcons Free SVG icons for popular brands').replace('$nIcons', icons.length)}`;
+
 doctype html
-html(lang='en-US')
+html(lang=lang)
   head
     meta(charset='UTF-8')
     meta(
@@ -46,8 +48,8 @@ html(lang='en-US')
       .popup-body 
         table.extensions__table
           tr
-            td Extension
-            td Author
+            td #{ t_('Extension') }
+            td #{ t_('Author') }
           each ext in extensions
             tr
               td 
@@ -66,7 +68,7 @@ html(lang='en-US')
       ul.header__list
         li.header__list-item
           a.header__list-icon(
-            title='Main Repository',
+            title=`${ t_('Main Repository') }`,
             href='https://github.com/simple-icons/simple-icons'
           )
             svg(
@@ -144,7 +146,7 @@ html(lang='en-US')
               )
         li.header__list-item
           a.header__list-icon(
-            title='Legal Disclaimer',
+            title=`${ t_('Legal Disclaimer') }`,
             href='https://github.com/simple-icons/simple-icons/blob/master/DISCLAIMER.md'
           )
             svg(
@@ -157,7 +159,7 @@ html(lang='en-US')
               )
         li.header__list-item
           button.header__list-icon.popup-trigger(
-            title='Third-Party Extensions'
+            title=`${ t_('Third-Party Extensions') }`
           )
             svg(
               role='img',
@@ -167,27 +169,51 @@ html(lang='en-US')
               path(
                 d='M16.513 23.996a.9.9 0 0 0 .885-.907v-4.972c.303-2.68 1.42-1.884 2.734-1.055 3.178 2.003 5.29-3.266 2.72-4.891-2.015-1.276-2.888.917-4.364.69-.57-.088-.967-.72-1.092-1.68V7.59c0-.5-.398-.907-.885-.907h-4.064c-3.355-.436-.377-2.339-.377-4.11C12.072 1.152 10.816 0 9.267 0 7.721 0 6.301 1.152 6.301 2.573c0 1.67 3.082 3.674-.32 4.11H.884A.898.898 0 0 0 0 7.59v3.583c.26 1.528 1.268 1.882 2.559.874.435-.341 1.17-.738 1.7-.738 1.385 0 2.51 1.285 2.51 2.871s-1.123 3.221-2.51 3.221c-.493 0-.954-.164-1.345-.45 0 .121-2.422-2.232-2.914.648v5.494c0 .5.398.907.885.907 2.728 0 5.453 0 8.18-.002.107-.525-.243-1.125-.571-1.646-2.582-4.1 7.463-4.508 4.88.128-.126.228-.253.45-.35.666-.124.27-.206.599-.188.852z'
               )
+        li.header__list-item
+          button.header__list-icon.language-switcher(
+            title=`${ t_('Language') }`
+          )
+            svg(
+              role='img',
+              viewBox='0 0 23 23',
+              xmlns='http://www.w3.org/2000/svg'
+            )
+              path(
+                d='m12.87 15.07-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7 1.62-4.33L19.12 17h-3.24z'
+              )
+            .language-switcher__container
+              ul.language-switcher__list
+                each language in languages
+                  if language != languageOfTheBuild
+                    li.language-switcher__list-item(
+                      title=`${ languageNames[language] }`
+                    )
+                      .language-switcher__list-item-name
+                        a(
+                          href=`${language === 'en' ? `../` : (languageOfTheBuild === 'en' ? `${language}/` : `../${language}/`) }`
+                        ) #{ languageNames[language] }
       h1.header__title Simple Icons
-      p.header__description #{ iconCount } Free #[abbr(title='Scalable Vector Graphic') SVG] icons for popular brands
+      p.header__description !{ t_('$nIcons Free <abbr title="Scalable Vector Graphic">SVG</abbr> icons for popular brands').replace('$nIcons', `${iconCount}`) }
+
     .sticky-header-shadow(aria-hidden='true')
 
     main.main
       .control
-        noscript Controls are only available when JavaScript is enabled.
+        noscript #{ t_('Controls are only available when JavaScript is enabled.') }
         .control-field.search
-          label.control-field__title(for='search-input') Search
+          label.control-field__title(for='search-input') #{ t_('Search') }
           .search__wrapper
             #search-clear.hidden(aria-hidden='true') &times;
             input#search-input.control__input(
               type='search',
-              placeholder='Search by brand...',
+              placeholder=`${ t_('Search by brand...') }`,
               disabled
             )
         .control-field
-          label.control-field__title Order
+          label.control-field__title #{ t_('Order') }
           .control-field__row
             button#order-alpha.control__button.first__button(
-              title='Sort alphabetically',
+              title=`${ t_('Sort alphabetically') }`,
               type='button',
               disabled
             )
@@ -215,7 +241,7 @@ html(lang='en-US')
                   d='M9.219 18.857H6.648V.429A.414.414 0 0 0 6.219 0H3.648a.418.418 0 0 0-.308.121.418.418 0 0 0-.121.308v18.428H.648a.4.4 0 0 0-.402.268c-.071.17-.04.326.094.469l4.286 4.287c.098.08.2.119.308.119a.447.447 0 0 0 .308-.119l4.272-4.273a.506.506 0 0 0 .134-.32.417.417 0 0 0-.429-.431zm3-15.428h3.429A.412.412 0 0 0 16.076 3V.429A.416.416 0 0 0 15.648 0h-3.429a.414.414 0 0 0-.429.429V3a.414.414 0 0 0 .429.429zm0 6.857h6a.42.42 0 0 0 .309-.12.42.42 0 0 0 .121-.308V7.286a.418.418 0 0 0-.121-.308.417.417 0 0 0-.309-.121h-6a.414.414 0 0 0-.308.121.417.417 0 0 0-.12.308v2.572c0 .125.04.228.12.308a.42.42 0 0 0 .308.12zm0 6.857h8.572c.125 0 .229-.039.309-.119s.119-.184.119-.309v-2.572c0-.125-.039-.227-.119-.307s-.184-.121-.309-.121h-8.572a.418.418 0 0 0-.308.121.415.415 0 0 0-.12.307v2.572c0 .125.04.229.12.309.081.08.183.119.308.119zm11.451 3.55a.408.408 0 0 0-.307-.121H12.219a.416.416 0 0 0-.429.428v2.572c0 .125.04.227.121.309a.42.42 0 0 0 .308.119h11.144a.414.414 0 0 0 .307-.119.424.424 0 0 0 .121-.309V21a.416.416 0 0 0-.121-.307z'
                 )
             button#order-relevance.control__button.hidden(
-              title='Sort by relevance',
+              title=`${ t_('Sort by relevance') }`,
               aria-hidden='true',
               type='button',
               disabled
@@ -230,10 +256,10 @@ html(lang='en-US')
                   d='M9.219 18.857H6.648V.429A.414.414 0 0 0 6.25 0H3.648a.416.416 0 0 0-.429.429v18.428H.648a.397.397 0 0 0-.402.268c-.071.17-.04.326.094.469l4.286 4.287c.098.08.2.119.308.119a.446.446 0 0 0 .308-.119l4.272-4.273a.5.5 0 0 0 .134-.318.418.418 0 0 0-.402-.432l-.027-.001zM22.971 4.984a.817.817 0 0 0 .207-.843.822.822 0 0 0-.666-.561l-2.777-.403a.366.366 0 0 1-.274-.199L18.22.459A.818.818 0 0 0 17.479 0a.816.816 0 0 0-.737.458l-1.243 2.519a.362.362 0 0 1-.273.199l-2.781.404a.816.816 0 0 0-.665.56.815.815 0 0 0 .207.843l2.012 1.96a.364.364 0 0 1 .104.322l-.475 2.769a.802.802 0 0 0 .18.667.832.832 0 0 0 1.016.201l2.486-1.307a.369.369 0 0 1 .339 0l2.485 1.307a.815.815 0 0 0 1.017-.2.811.811 0 0 0 .18-.667l-.475-2.768a.366.366 0 0 1 .104-.322l2.011-1.961zm-.005 13a.825.825 0 0 0-.457-1.405l-2.777-.404a.366.366 0 0 1-.274-.199l-1.241-2.518a.82.82 0 0 0-1.476 0l-1.242 2.518a.362.362 0 0 1-.275.199l-2.775.404a.816.816 0 0 0-.666.561.819.819 0 0 0 .207.844l2.011 1.961a.36.36 0 0 1 .104.322l-.475 2.769a.813.813 0 0 0 .328.806.82.82 0 0 0 .865.063l2.484-1.307a.367.367 0 0 1 .341 0l2.485 1.307a.822.822 0 0 0 1.193-.869l-.478-2.769a.371.371 0 0 1 .104-.322l2.014-1.961zm-2.092 5.131a.355.355 0 0 1-.145.354.356.356 0 0 1-.385.029l-2.487-1.309a.817.817 0 0 0-.767.002l-2.485 1.307a.353.353 0 0 1-.382-.029.354.354 0 0 1-.146-.354l.479-2.77a.83.83 0 0 0-.236-.729l-2.014-1.96a.35.35 0 0 1-.092-.371.36.36 0 0 1 .295-.249l2.778-.403a.815.815 0 0 0 .618-.448l1.242-2.521a.357.357 0 0 1 .326-.202c.144 0 .265.075.328.202l1.242 2.521c.117.241.35.41.617.448l2.78.403c.14.021.249.113.292.249a.35.35 0 0 1-.092.371l-2.01 1.96a.827.827 0 0 0-.235.729l.479 2.77z'
                 )
         .control-field
-          label.control-field__title Mode
+          label.control-field__title #{ t_('Mode') }
           .control-field__row
             button#color-scheme-light.control__button.first__button(
-              title='Light color scheme',
+              title=`${ t_('Light color scheme') }`,
               type='button',
               disabled
             )
@@ -247,7 +273,7 @@ html(lang='en-US')
                   d='M12 18c-3.309 0-6-2.691-6-6s2.691-6 6-6 6 2.691 6 6-2.691 6-6 6zm0-10c-2.206 0-4 1.794-4 4s1.794 4 4 4 4-1.794 4-4-1.794-4-4-4zm0-4a1 1 0 0 1-1-1V1a1 1 0 0 1 2 0v2a1 1 0 0 1-1 1zm0 20a1 1 0 0 1-1-1v-2a1 1 0 1 1 2 0v2a1 1 0 0 1-1 1zM5.64 6.64a.997.997 0 0 1-.707-.293l-1.42-1.42a.999.999 0 1 1 1.414-1.414l1.42 1.42A.999.999 0 0 1 5.64 6.64zm14.139 14.139a.997.997 0 0 1-.707-.293l-1.42-1.42a.999.999 0 1 1 1.414-1.414l1.42 1.42a.999.999 0 0 1-.707 1.707zM3 13H1a1 1 0 1 1 0-2h2a1 1 0 0 1 0 2zm20 0h-2a1 1 0 1 1 0-2h2a1 1 0 1 1 0 2zM4.22 20.779a.999.999 0 0 1-.707-1.707l1.42-1.42a.999.999 0 1 1 1.414 1.414l-1.42 1.42a.993.993 0 0 1-.707.293zM18.359 6.64a.999.999 0 0 1-.707-1.707l1.42-1.42a.999.999 0 1 1 1.414 1.414l-1.42 1.42a.997.997 0 0 1-.707.293z'
                 )
             button#color-scheme-dark.control__button(
-              title='Dark color scheme',
+              title=`${ t_('Dark color scheme') }`,
               type='button',
               disabled
             )
@@ -261,7 +287,7 @@ html(lang='en-US')
                   d='M12.048 21.963c-.308 0-.618-.015-.93-.043-2.66-.246-5.064-1.513-6.771-3.567s-2.512-4.651-2.266-7.311a10.004 10.004 0 0 1 9.038-9.038 1 1 0 0 1 .896 1.589 6.008 6.008 0 0 0 1.258 8.392c2.078 1.536 5.055 1.536 7.133 0a1 1 0 0 1 1.591.896 9.951 9.951 0 0 1-9.949 9.082zM9.315 4.438a8.006 8.006 0 0 0-5.244 6.787 7.954 7.954 0 0 0 1.813 5.849 7.95 7.95 0 0 0 5.417 2.854 7.95 7.95 0 0 0 8.266-5.243 8.01 8.01 0 0 1-2.729.476 7.946 7.946 0 0 1-4.755-1.565C9.174 11.443 8.145 7.68 9.315 4.438z'
                 )
             button#color-scheme-system.control__button.last__button(
-              title='System color scheme',
+              title=`${ t_('System color scheme') }`,
               type='button',
               disabled
             )
@@ -275,10 +301,10 @@ html(lang='en-US')
                   d='M12 4a1 1 0 0 1-1-1V1a1 1 0 0 1 2 0v2a1 1 0 0 1-1 1zM4.933 6.348a.997.997 0 0 0 1.414 0 .999.999 0 0 0 0-1.414l-1.42-1.42a.999.999 0 1 0-1.414 1.414l1.42 1.42zM1 13h2a1 1 0 1 0 0-2H1a1 1 0 0 0 0 2zm19.486-8.072 3.221-3.221A.999.999 0 1 0 22.293.293l-3.221 3.221-1.42 1.42-2.19 2.19A5.955 5.955 0 0 0 12 6c-3.309 0-6 2.691-6 6 0 1.258.406 2.453 1.124 3.462l-2.105 2.105c-.026.021-.058.03-.083.055s-.033.056-.055.082l-1.368 1.368-.001.002-3.219 3.219a.999.999 0 1 0 1.414 1.414l3.987-3.987a10.03 10.03 0 0 0 6.332 2.262c5.103-.001 9.473-3.902 9.951-9.081a1 1 0 0 0-1.591-.896 5.96 5.96 0 0 1-7.037.06l5.717-5.716 1.42-1.421zm-.945 9.78c-1.21 3.337-4.564 5.587-8.257 5.238a8.019 8.019 0 0 1-4.165-1.651l4.802-4.802c.05.038.093.082.144.12a7.955 7.955 0 0 0 7.476 1.095zm-10.979-.684A3.968 3.968 0 0 1 8 12c0-2.206 1.794-4 4-4a3.98 3.98 0 0 1 2.025.561l-5.463 5.463z'
                 )
         .control-field
-          label.control-field__title Download
+          label.control-field__title #{ t_('Download') }
           .control-field__row
             button#download-svg.control__button.first__button(
-              title='download SVG',
+              title=`${ t_('download SVG') }`,
               type='button',
               disabled
             )
@@ -292,7 +318,7 @@ html(lang='en-US')
                   d='M4.495 7.746c.487.04 1.387.308 1.387.403 0 .107-.382 1.374-.425 1.424-.025.023-.222-.022-.45-.095-.487-.163-1.38-.28-1.756-.23-.703.084-1.097.415-1.048.863.05.432.314.606 1.645 1.105 1.763.65 2.404 1.317 2.416 2.494.006 1.228-.813 2.12-2.28 2.478-.58.14-1.892.168-2.6.05-.463-.072-1.276-.313-1.381-.397-.037-.04.296-1.475.363-1.553.007-.011.191.05.407.129.814.302 1.861.426 2.52.297.401-.079.771-.381.833-.684.123-.583-.272-.908-1.72-1.413-1.134-.398-1.904-.992-2.194-1.693C.01 10.437.052 9.73.311 9.22c.438-.835 1.405-1.379 2.7-1.508.412-.04.776-.033 1.484.034Zm18.007.084c.58.078 1.19.263 1.19.359 0 .05-.086.386-.197.762-.179.617-.21.673-.32.645-.075-.017-.352-.079-.623-.146-.604-.146-1.794-.174-2.311-.062-1.627.365-2.44 1.688-2.058 3.353.123.56.332.919.739 1.289.635.577 1.67.846 2.662.695l.444-.073V12.87h-1.417v-1.458H24v4.417l-.197.062c-1.701.488-3.747.527-5.097.101a3.912 3.912 0 0 1-1.577-.908c-.93-.841-1.368-2.108-1.196-3.487.259-2.136 1.867-3.543 4.376-3.823.499-.062 1.596-.034 2.193.056zm-13.206.258c.265.75 1.467 4.692 1.645 5.41.111.46.222.829.24.829.02 0 .1-.269.18-.605.147-.606.893-3.016 1.503-4.86l.333-1.01 1.115-.017 1.116-.01-1.535 4.148a344.932 344.932 0 0 1-1.571 4.21c-.025.028-.56.05-1.233.05H9.894l-.277-.774c-.148-.42-.808-2.281-1.455-4.131-.653-1.85-1.202-3.397-1.214-3.436-.025-.05.222-.068 1.11-.068h1.14z'
                 )
             button#download-pdf.control__button.last__button(
-              title='download PDF',
+              title=`${ t_('download PDF') }`,
               type='button',
               disabled
             )
@@ -311,7 +337,7 @@ html(lang='en-US')
           order-color=-1,
           order-alpha=-1
         )
-          p Icon missing? #[a(href='https://github.com/simple-icons/simple-icons/issues/new?labels=new+icon&template=icon_request.yml&title=Request%3A+') Submit a request]
+          p #{ t_('Icon missing?') } #[a(href='https://github.com/simple-icons/simple-icons/issues/new?labels=new+icon&template=icon_request.yml&title=Request%3A+') #{ t_('Submit a request') }]
 
         //- This script adds an extra element after itself.
         script#_carbonads_js(
@@ -327,25 +353,25 @@ html(lang='en-US')
           )
             .grid-item__row.mv-2.fg-2
               button.grid-item__preview.copy-button.copy-svg(
-                title=`${icon.title} SVG`,
+                title=`${ t_('$iconTitle SVG').replace('$iconTitle', icon.title) }`,
                 disabled
               )
                 img.icon-preview(
-                  src=`icons/${icon.slug}.svg`,
+                  src=`${languageOfTheBuild === 'en' ? '' : `../`}icons/${icon.slug}.svg`,
                   loading='lazy',
-                  alt=`${icon.title} icon`
+                  alt=`${ t_('$iconTitle icon').replace('$iconTitle', icon.title) }`
                 )
             .grid-item__row
               if icon.guidelines
                 a.grid-item__link.link-button(
-                  title=`${icon.title} guidelines`,
+                  title=`${ t_('$iconTitle guidelines').replace('$iconTitle', icon.title) }`,
                   href=icon.guidelines,
                   rel='noopener',
                   target='_blank'
-                ) Brand Guidelines
+                ) #{ t_('Brand Guidelines') }
               if icon.license
                 a.grid-item__link.link-button.icon-legal(
-                  title=`${icon.title} icon license`,
+                  title=`${ t_('$iconTitle icon license').replace('$iconTitle', icon.title) }`,
                   href=icon.license.url,
                   rel='noopener',
                   target='_blank'
@@ -355,7 +381,7 @@ html(lang='en-US')
               button(
                 class=`grid-item__color copy-button copy-color ${icon.light ? "contrast-light" : "contrast-dark"} ${icon.superLight ? "border-light" : ""}  ${icon.superDark ? "border-dark" : ""}`,
                 style=`background-color: #${icon.shortHex}`,
-                title=`${icon.title} color`,
+                title=`${ t_('$iconTitle color').replace('$iconTitle', icon.title) }`,
                 disabled
               ) ##{ icon.hex }
               a.grid-item__button(
@@ -367,13 +393,15 @@ html(lang='en-US')
                   use(href='#cp')
     footer.footer
       .footer-description
+        //- prettier-ignore
         p.
-          A #[a(href='https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md') CC0] project maintained
-          by the #[a(href='https://github.com/simple-icons/simple-icons/graphs/contributors') Simple Icons Contributors].
+          !{ t_('A <a href="https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md">CCO</a> project maintained by the <a href="https://github.com/simple-icons/simple-icons/graphs/contributors">Simple Icons contributors</a>.') }
+        //- prettier-ignore
         p.
-          Use #[a(href='https://github.com/simple-icons/simple-icons') GitHub] for requests, corrections and contributions.
+          !{ t_('Use $repoLink for requests, corrections and contributions.').replace('$repoLink', '<a href="https://github.com/simple-icons/simple-icons">GitHub</a>') }
+        //- prettier-ignore
         p.
-          Kindly supported by your donations at #[a(href='https://opencollective.com/simple-icons') Open Collective].
+          !{ t_('Kindly supported by your donations at <a href="https://opencollective.com/simple-icons">Open Collective</a>.') }
       a.footer-share(
         rel='noopener',
         role='button',
@@ -385,10 +413,10 @@ html(lang='en-US')
           viewBox='0 0 24 24',
           xmlns='http://www.w3.org/2000/svg'
         )
-          title Twitter logo
+          title #{ t_('Twitter logo') }
           path(d=twitterIcon.path)
-        span Share this on Twitter!
+        span #{ t_('Share this on Twitter!') }
       .footer-repo
         p.
-          #[a(title='website repository', href='https://github.com/simple-icons/simple-icons-website') Made with &#10084; on GitHub]
+          #[a(title=`${ t_('website repository') }`, href='https://github.com/simple-icons/simple-icons-website') #{ t_('Made with ❤️ on GitHub') }]
     input#copy-input.hidden(aria-hidden='true', tabindex='-1')

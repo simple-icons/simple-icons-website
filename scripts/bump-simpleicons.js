@@ -6,7 +6,7 @@
  */
 
 import { execSync } from 'node:child_process';
-import { promises as fs } from 'node:fs';
+import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 

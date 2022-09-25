@@ -42,6 +42,7 @@ The repository defines the following commands that can be used for development p
 | `npm run test:all` | Run all unit & end-to-end test suites. |
 | `npm run test:e2e` | Run all end-to-end test suites. |
 | `npm run test:unit` | Run all unit test suites. |
+| `npm run locale` | Update translations files located at `locales/`. |
 
 ### Using Docker
 
@@ -78,6 +79,12 @@ $ docker run -it --entrypoint "/bin/ash" --name simple-icons-website-dev simple-
 # Remove the container when you don't need it anymore
 $ docker rm simple-icons-website-dev
 ```
+
+### How to add new locales
+
+1. Add the languages to the file *locales/languages.json*.
+2. Run `npm run locale` to generate the new locale files. These will be `.po` extension files located in the *locales/* folder.
+3. Translate the strings in the new locale files and will be automatically included in the next bundle.
 
 [github flow]: https://guides.github.com/introduction/flow/
 [new icon request]: https://github.com/simple-icons/simple-icons/issues/new?labels=new+icon&template=icon_request.yml&title=Request%3A+

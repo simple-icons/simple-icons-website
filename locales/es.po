@@ -1,0 +1,121 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: simple-icons-website\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language-Team: es <https://github.com/simple-icons>\n"
+"Last-Translator: @mondeja <https://github.com/mondeja>\n"
+"Report-Msgid-Bugs-To: https://github.com/simple-icons/simple-icons-website/issues\n"
+"Language: es\n"
+"POT-Creation-Date: 2022-09-25T01:25:24.834Z\n"
+"PO-Revision-Date: 2022-09-25T17:11:50.164Z\n"
+"MIME-Version: 1.0\n"
+
+msgid "Extension"
+msgstr "Extensión"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Main Repository"
+msgstr "Repositorio principal"
+
+msgid "Legal Disclaimer"
+msgstr "Nota legal"
+
+msgid "Third-Party Extensions"
+msgstr "Extensiones de terceros"
+
+msgid "Controls are only available when JavaScript is enabled."
+msgstr "Los controles solo están disponibles cuando JavaScript está habilitado."
+
+msgid "Search by brand..."
+msgstr "Buscar por marca..."
+
+msgid "Sort alphabetically"
+msgstr "Ordenar alfabéticamente"
+
+msgid "Sort by relevance"
+msgstr "Ordenar por relevancia"
+
+msgid "Light color scheme"
+msgstr "Tema claro"
+
+msgid "Dark color scheme"
+msgstr "Tema oscuro"
+
+msgid "System color scheme"
+msgstr "Tema de color del sistema"
+
+msgid "Download"
+msgstr "Descarga"
+
+msgid "download SVG"
+msgstr "descargar SVG"
+
+msgid "download PDF"
+msgstr "descargar PDF"
+
+msgid "Icon missing?"
+msgstr "¿Falta un icono?"
+
+msgid "Submit a request"
+msgstr "Envía una petición"
+
+msgid "$iconTitle SVG"
+msgstr "SVG de $iconTitle"
+
+msgid "$iconTitle icon"
+msgstr "Icono de $iconTitle"
+
+msgid "$iconTitle guidelines"
+msgstr "Directrices de $iconTitle"
+
+msgid "$iconTitle icon license"
+msgstr "Licencia del icono de $iconTitle"
+
+msgid "Twitter logo"
+msgstr "Logo de Twitter"
+
+msgid "Made with ❤️ on GitHub"
+msgstr "Hecho con ❤️ en GitHub"
+
+msgid "Share this on Twitter!"
+msgstr "¡Comparte esto en Twitter!"
+
+msgid "Use $repoLink for requests, corrections and contributions."
+msgstr "Usa $repoLink para solicitudes, correcciones y contribuciones."
+
+msgid "Search"
+msgstr "Buscar"
+
+msgid "Order"
+msgstr "Orden"
+
+msgid "Mode"
+msgstr "Tema"
+
+msgid "Brand Guidelines"
+msgstr "Directrices de marca"
+
+msgid "$iconTitle color"
+msgstr "Color de $iconTitle"
+
+msgid "website repository"
+msgstr "repositorio del sitio web"
+
+msgid "$nIcons Free <abbr title=\"Scalable Vector Graphic\">SVG</abbr> icons for popular brands"
+msgstr "$nIcons iconos <abbr title=\"Scalable Vector Graphic\">SVG</abbr> gratis de marcas populares"
+
+msgid "A <a href=\"https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md\">CCO</a> project maintained by the <a href=\"https://github.com/simple-icons/simple-icons/graphs/contributors\">Simple Icons contributors</a>."
+msgstr "Un proyecto <a href=\"https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md\">CCO</a> mantenido por los <a href=\"https://github.com/simple-icons/simple-icons/graphs/contributors\">contribuidores de Simple Icons</a>."
+
+msgid "Kindly supported by your donations at <a href=\"https://opencollective.com/simple-icons\">Open Collective</a>."
+msgstr "Amablemente apoyada por sus donaciones en <a href=\"https://opencollective.com/simple-icons\">Open Collective</a>."
+
+msgid "$nIcons Free SVG icons for popular brands"
+msgstr "$nIcons iconos SVG gratis de marcas populares"
+
+msgid "Language"
+msgstr "Idioma"

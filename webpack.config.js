@@ -4,13 +4,19 @@ import getRelativeLuminance from 'get-relative-luminance';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import path from 'node:path';
-import fs from 'node:fs';
+import fs from 'node:fs/promises';
 import os from 'node:os';
 import util from 'node:util';
 import * as simpleIcons from 'simple-icons/icons';
+import { siTwitter as twitterIcon } from 'simple-icons/icons';
 import alphaSort from './scripts/alpha-sorting.js';
 import colorSort from './scripts/color-sorting.js';
 import GET from './scripts/GET.js';
+import {
+  getLanguages,
+  loadTranslations,
+  updateTranslations,
+} from './scripts/i18n.js';
 import {
   getDirnameFromImportMeta,
   getThirdPartyExtensions,
@@ -29,6 +35,9 @@ const sortedHexes = colorSort(icons.map((icon) => icon.hex));
 const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const OUT_DIR = path.resolve(__dirname, '_site');
 const ROOT_DIR = path.resolve(__dirname, 'public');
+
+const indexPath = path.resolve(ROOT_DIR, 'index.pug');
+const currentIsoDateString = new Date().toISOString();
 
 const getIconsDataBySlugs = async () => {
   const dataBySlugs = {};
@@ -65,6 +74,16 @@ const simplifyHexIfPossible = (hex) => {
   return hex;
 };
 
+const sitemapUrlForLanguage = (language) => {
+  const url = `https://simpleicons.org/${language}/`;
+  return (
+    `\n  <url>\n    <loc>${url}</loc>\n` +
+    `    <lastmod>${currentIsoDateString}</lastmod>\n` +
+    `    <changefreq>weekly</changefreq>\n` +
+    `    <xhtml:link rel="alternate" hreflang="${language}" href="${url}"/>\n  </url>`
+  );
+};
+
 let displayIcons = icons;
 if (process.env.TEST_ENV) {
   // Use fewer icons when building for a test run. This significantly speeds up
@@ -91,10 +110,10 @@ if (process.env.TEST_ENV) {
   );
 }
 
-const pageDescription = `${icons.length} Free SVG icons for popular brands.`,
-  pageTitle = 'Simple Icons',
-  pageUrl = 'https://simpleicons.org',
-  logoUrl = `${pageUrl}/icons/simpleicons.svg`;
+const pageDescription = `${icons.length} Free SVG icons for popular brands`;
+const pageTitle = 'Simple Icons';
+const pageUrl = 'https://simpleicons.org';
+const logoUrl = `${pageUrl}/icons/simpleicons.svg`;
 
 const generateStructuredData = async () => {
   const getSimpleIconsMembers = async () => {
@@ -102,13 +121,10 @@ const generateStructuredData = async () => {
       os.tmpdir(),
       'simple-icons-members.json',
     );
-    if (fs.existsSync(siMembersCacheFilePath)) {
-      const siMembersFileContent = fs.readFileSync(
-        siMembersCacheFilePath,
-        'utf8',
-      );
-      return JSON.parse(siMembersFileContent);
-    } else {
+    let siMembersFileContent;
+    try {
+      siMembersFileContent = await fs.readFile(siMembersCacheFilePath, 'utf8');
+    } catch (error) {
       const siOrgMembers = await GET(
         'api.github.com',
         '/orgs/simple-icons/members',
@@ -133,13 +149,15 @@ const generateStructuredData = async () => {
         };
       });
 
-      fs.writeFileSync(
+      await fs.writeFile(
         siMembersCacheFilePath,
         JSON.stringify(structuredDataMembers),
       );
 
       return structuredDataMembers;
     }
+
+    return JSON.parse(siMembersFileContent);
   };
 
   return {
@@ -159,8 +177,44 @@ const generateStructuredData = async () => {
   };
 };
 
+let _translationsUpdated = false;
+let i18n;
+
 export default async (env, argv) => {
+  if (!_translationsUpdated) {
+    await updateTranslations();
+    i18n = await loadTranslations();
+    _translationsUpdated = true;
+  }
+
+  const languageNames = await getLanguages();
+  const languages = Object.keys(languageNames);
+  const nonDefaultLanguages = languages.filter((language) => language !== 'en');
+
+  const extensions = await getThirdPartyExtensions(siReadmePath);
+  const structuredData = await generateStructuredData();
+
   const iconsDataBySlugs = await getIconsDataBySlugs();
+  const icons = displayIcons.map((icon, iconIndex) => {
+    const luminance = getRelativeLuminance.default(`#${icon.hex}`);
+    const aliases = getIconAliases(iconsDataBySlugs[icon.slug]);
+
+    return {
+      guidelines: icon.guidelines,
+      hex: icon.hex,
+      indexByAlpha: iconIndex,
+      indexByColor: sortedHexes.indexOf(icon.hex),
+      license: icon.license,
+      light: luminance < 0.4,
+      superLight: luminance > 0.95,
+      superDark: luminance < 0.02,
+      path: icon.path,
+      shortHex: simplifyHexIfPossible(icon.hex),
+      slug: icon.slug,
+      title: icon.title,
+      aliases: aliases.length ? aliases : false,
+    };
+  });
 
   return {
     entry: {
@@ -227,57 +281,49 @@ export default async (env, argv) => {
               // inject last modification date in W3C datetime format
               return util.format(
                 content.toString('ascii'),
-                new Date().toISOString(),
+                currentIsoDateString,
+                nonDefaultLanguages
+                  .map((lang) => sitemapUrlForLanguage(lang))
+                  .join(''),
               );
             },
           },
         ],
       }),
-      new HtmlWebpackPlugin({
-        inject: true,
-        template: path.resolve(ROOT_DIR, 'index.pug'),
-        templateParameters: {
-          extensions: await getThirdPartyExtensions(siReadmePath),
-          icons: displayIcons.map((icon, iconIndex) => {
-            const luminance = getRelativeLuminance.default(`#${icon.hex}`);
-            const aliases = getIconAliases(iconsDataBySlugs[icon.slug]);
-
-            return {
-              guidelines: icon.guidelines,
-              hex: icon.hex,
-              indexByAlpha: iconIndex,
-              indexByColor: sortedHexes.indexOf(icon.hex),
-              license: icon.license,
-              light: luminance < 0.4,
-              superLight: luminance > 0.95,
-              superDark: luminance < 0.02,
-              path: icon.path,
-              shortHex: simplifyHexIfPossible(icon.hex),
-              slug: icon.slug,
-              title: icon.title,
-              aliases: aliases.length ? aliases : false,
-            };
+      ...languages.map(
+        (lang) =>
+          new HtmlWebpackPlugin({
+            filename:
+              lang === 'en' ? 'index.html' : path.join(lang, 'index.html'),
+            inject: true,
+            template: indexPath,
+            templateParameters: {
+              extensions,
+              icons,
+              iconCount: icons.length,
+              twitterIcon,
+              pageTitle,
+              pageUrl,
+              structuredData,
+              t_: i18n(lang),
+              languageOfTheBuild: lang,
+              languages,
+              languageNames,
+            },
+            minify:
+              argv.mode === 'development'
+                ? {}
+                : {
+                    collapseWhitespace: true,
+                    collapseBooleanAttributes: true,
+                    decodeEntities: true,
+                    removeAttributeQuotes: true,
+                    removeComments: true,
+                    removeOptionalTags: true,
+                    removeRedundantAttributes: true,
+                  },
           }),
-          iconCount: icons.length,
-          twitterIcon: icons.find((icon) => icon.title === 'Twitter'),
-          pageTitle,
-          pageDescription,
-          pageUrl,
-          structuredData: await generateStructuredData(),
-        },
-        minify:
-          argv.mode === 'development'
-            ? {}
-            : {
-                collapseWhitespace: true,
-                collapseBooleanAttributes: true,
-                decodeEntities: true,
-                removeAttributeQuotes: true,
-                removeComments: true,
-                removeOptionalTags: true,
-                removeRedundantAttributes: true,
-              },
-      }),
+      ),
       new MiniCssExtractPlugin(),
     ],
     optimization: {
