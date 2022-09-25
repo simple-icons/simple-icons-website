@@ -111,9 +111,6 @@ if (process.env.TEST_ENV) {
   );
 }
 
-updateTranslations();
-const i18n = loadTranslations();
-
 const pageDescription = `${icons.length} Free SVG icons for popular brands`;
 const pageTitle = 'Simple Icons';
 const pageUrl = 'https://simpleicons.org';
@@ -181,7 +178,16 @@ const generateStructuredData = async () => {
   };
 };
 
+let _translationsUpdated = false;
+let i18n;
+
 export default async (env, argv) => {
+  if (!_translationsUpdated) {
+    await updateTranslations();
+    i18n = await loadTranslations();
+    _translationsUpdated = true;
+  }
+
   const languages = ['en', ...LANGUAGES];
 
   const extensions = await getThirdPartyExtensions(siReadmePath);

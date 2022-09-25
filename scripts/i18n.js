@@ -6,7 +6,6 @@
  */
 
 import fs from 'node:fs/promises';
-import fsSync from 'node:fs';
 import path from 'path';
 import { fileURLToPath } from 'node:url';
 import pugLex from 'pug-lexer';
@@ -25,10 +24,10 @@ const ROOT_DIR = path.resolve(__dirname, '..');
 const LOCALES_DIR = path.join(ROOT_DIR, 'locales');
 const INDEX_PATH = path.join(ROOT_DIR, 'public', 'index.pug');
 
-export const loadTranslations = () => {
+export const loadTranslations = async () => {
   const locales = {};
 
-  const pofiles = fsSync.readdirSync(LOCALES_DIR);
+  const pofiles = await fs.readdir(LOCALES_DIR);
   for (let fname of pofiles) {
     if (!fname.endsWith('.po')) {
       continue;
@@ -36,7 +35,7 @@ export const loadTranslations = () => {
 
     const locale = fname.slice(0, -3);
     const pofile = path.join(LOCALES_DIR, fname);
-    const po = PO.parse(fsSync.readFileSync(pofile, 'utf8'));
+    const po = PO.parse(await fs.readFile(pofile, 'utf8'));
     const translations = {};
     for (let item of po.items) {
       translations[item.msgid] = item.msgstr[0];
