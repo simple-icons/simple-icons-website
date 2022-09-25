@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "fast-fuzzy": "1.11.2",
-    "simple-icons": "7.12.0"
+    "simple-icons": "7.13.0"
   },
   "devDependencies": {
     "@prettier/plugin-pug": "2.2.0",
