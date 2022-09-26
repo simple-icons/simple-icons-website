@@ -91,7 +91,7 @@ msgid "$iconTitle guidelines"
 msgstr "$iconTitle linee guida"
 
 msgid "Brand Guidelines"
-msgstr "Linee guida del marchio"
+msgstr "Linee guida"
 
 msgid "$iconTitle icon license"
 msgstr "$iconTitle licenza dell'icona"
@@ -119,3 +119,6 @@ msgstr "deposito del sito web"
 
 msgid "Made with ❤️ on GitHub"
 msgstr "Fatto con ❤️ su GitHub"
+
+msgid "Sort by color"
+msgstr "Ordina per colore"
