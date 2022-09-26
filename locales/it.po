@@ -1,0 +1,121 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language-Team: it <https://github.com/simple-icons>\n"
+"Last-Translator: @mondeja <https://github.com/mondeja>\n"
+"Report-Msgid-Bugs-To: https://github.com/simple-icons/simple-icons-website/issues\n"
+"Language: it\n"
+"POT-Creation-Date: 2022-09-26T15:39:06.158Z\n"
+"MIME-Version: 1.0\n"
+"Project-Id-Version: simple-icons-website\n"
+"PO-Revision-Date: 2022-09-26T15:39:06.158Z\n"
+
+msgid "$nIcons Free SVG icons for popular brands"
+msgstr "$nIcons icone SVG gratuite per marchi famosi"
+
+msgid "Extension"
+msgstr "Estensione"
+
+msgid "Author"
+msgstr "Autore"
+
+msgid "Main Repository"
+msgstr "Deposito principale"
+
+msgid "Legal Disclaimer"
+msgstr "Avvertenza legale"
+
+msgid "Third-Party Extensions"
+msgstr "Estensioni di terze parti"
+
+msgid "Language"
+msgstr "Idioma"
+
+msgid "$nIcons Free <abbr title=\"Scalable Vector Graphic\">SVG</abbr> icons for popular brands"
+msgstr "$nIcons icone <abbr title=\"Scalable Vector Graphic\">SVG</abbr> gratuite per marchi famosi"
+
+msgid "Controls are only available when JavaScript is enabled."
+msgstr "I controlli sono disponibili solo quando JavaScript è abilitato."
+
+msgid "Search"
+msgstr "Ricerca"
+
+msgid "Search by brand..."
+msgstr "Ricerca per marchio..."
+
+msgid "Order"
+msgstr "Ordine"
+
+msgid "Sort alphabetically"
+msgstr "Ordina in ordine alfabetico"
+
+msgid "Sort by relevance"
+msgstr "Ordina per rilevanza"
+
+msgid "Mode"
+msgstr "Tema"
+
+msgid "Light color scheme"
+msgstr "Tema leggero"
+
+msgid "Dark color scheme"
+msgstr "Tema scuro"
+
+msgid "System color scheme"
+msgstr "Tema di sistema"
+
+msgid "Download"
+msgstr "Scarica"
+
+msgid "download SVG"
+msgstr "scarica SVG"
+
+msgid "download PDF"
+msgstr "scarica PDF"
+
+msgid "Icon missing?"
+msgstr "Manca un'icona?"
+
+msgid "Submit a request"
+msgstr "Invia una richiesta"
+
+msgid "$iconTitle SVG"
+msgstr "$iconTitle SVG"
+
+msgid "$iconTitle icon"
+msgstr "$iconTitle icona"
+
+msgid "$iconTitle guidelines"
+msgstr "$iconTitle linee guida"
+
+msgid "Brand Guidelines"
+msgstr "Linee guida del marchio"
+
+msgid "$iconTitle icon license"
+msgstr "$iconTitle licenza dell'icona"
+
+msgid "$iconTitle color"
+msgstr "$iconTitle colore"
+
+msgid "A <a href=\"https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md\">CCO</a> project maintained by the <a href=\"https://github.com/simple-icons/simple-icons/graphs/contributors\">Simple Icons contributors</a>."
+msgstr "Un progetto <a href=\"https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md\">CCO</a> gestito dai <a href=\"https://github.com/simple-icons/simple-icons/graphs/contributors\">Simple Icons collaboratori</a>."
+
+msgid "Use $repoLink for requests, corrections and contributions."
+msgstr "Usa $repoLink per richieste, correzioni e contributi."
+
+msgid "Kindly supported by your donations at <a href=\"https://opencollective.com/simple-icons\">Open Collective</a>."
+msgstr "Gentilmente supportato dalle tue donazioni a <a href=\"https://opencollective.com/simple-icons\">Open Collective</a>."
+
+msgid "Twitter logo"
+msgstr "Logo di Twitter"
+
+msgid "Share this on Twitter!"
+msgstr "Condividi su Twitter!"
+
+msgid "website repository"
+msgstr "deposito del sito web"
+
+msgid "Made with ❤️ on GitHub"
+msgstr "Fatto con ❤️ su GitHub"
