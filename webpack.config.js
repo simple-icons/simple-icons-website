@@ -236,7 +236,6 @@ export default async (env, argv) => {
         iconsDataBySlugs[icon.slug],
         languages,
       ),
-      aliases: icon.aliases,
     };
   });
 
