@@ -7,36 +7,5 @@
     "ecmaVersion": 2020,
     "sourceType": "module"
   },
-  "plugins": ["prettier"],
-  "extends": ["eslint:recommended", "prettier", "plugin:prettier/recommended"],
-  "rules": {
-    "no-console": ["error", { "allow": ["error", "info"] }],
-    "no-unused-vars": ["error", { "varsIgnorePattern": "^_$" }],
-    "no-duplicate-imports": "error",
-    "no-constructor-return": "error",
-    "no-template-curly-in-string": "error",
-    "no-unreachable-loop": "error",
-    "no-use-before-define": "error",
-    "default-case-last": "error",
-    "eqeqeq": "error",
-    "dot-notation": "error",
-    "max-lines": ["error", { "max": 1000 }],
-    "no-alert": "error",
-    "no-eval": "error",
-    "no-extend-native": "error",
-    "no-floating-decimal": "error",
-    "no-inline-comments": "error",
-    "no-lonely-if": "error",
-    "no-shadow": "error",
-    "no-useless-call": "error",
-    "no-useless-concat": "error",
-    "no-var": "error",
-    "one-var": ["error", "never"],
-    "prefer-arrow-callback": "error",
-    "prefer-const": "error",
-    "prefer-object-has-own": "error",
-    "require-await": "error",
-    "spaced-comment": "error",
-    "yoda": "error"
-  }
+  "extends": "simple-icons"
 }
