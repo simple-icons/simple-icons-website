@@ -894,6 +894,22 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   }
 }
 
+/* Deprecated notice */
+.deprecated {
+  font-size: 10px;
+  font-family: var(--font-family-stylized);
+  text-align: center;
+  opacity: 0.95;
+  text-overflow: ellipsis;
+}
+
+.deprecated a {
+  color: 1px solid rgba(255, 255, 255, 0.7);
+}
+.deprecated a:hover {
+  color: var(--color-text-light);
+}
+
 /* .link-button */
 
 .link-button::before {

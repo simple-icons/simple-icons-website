@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/simple-icons/simple-icons-website/issues\n"
 "Language: es\n"
 "POT-Creation-Date: 2022-09-25T01:25:24.834Z\n"
-"PO-Revision-Date: 2022-09-25T17:11:50.164Z\n"
+"PO-Revision-Date: 2022-09-26T22:59:03.636Z\n"
 "MIME-Version: 1.0\n"
 
 msgid "Extension"
@@ -122,3 +122,6 @@ msgstr "Idioma"
 
 msgid "Sort by color"
 msgstr "Ordenar por color"
+
+msgid "DEPRECATED (removal at $version)"
+msgstr "OBSOLETO (se elimina en $version)"

@@ -10,7 +10,7 @@ msgstr ""
 "POT-Creation-Date: 2022-09-26T15:39:06.158Z\n"
 "MIME-Version: 1.0\n"
 "Project-Id-Version: simple-icons-website\n"
-"PO-Revision-Date: 2022-09-26T15:39:06.158Z\n"
+"PO-Revision-Date: 2022-09-26T22:59:03.636Z\n"
 
 msgid "$nIcons Free SVG icons for popular brands"
 msgstr "$nIcons icone SVG gratuite per marchi famosi"
@@ -122,3 +122,6 @@ msgstr "Fatto con ❤️ su GitHub"
 
 msgid "Sort by color"
 msgstr "Ordina per colore"
+
+msgid "DEPRECATED (removal at $version)"
+msgstr "DEPRECATO (rimozione alla $version)"
