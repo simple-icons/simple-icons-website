@@ -2,6 +2,7 @@ name: Publish Website
 on:
   push:
     branches: [master]
+  pull_request:
 
 permissions:
   contents: write
@@ -45,3 +46,4 @@ jobs:
           single-commit: true
           git-config-name: github-actions[bot]
           git-config-email: github-actions[bot]@users.noreply.github.com
+          dry-run: ${{ github.event_name }} != 'push'
