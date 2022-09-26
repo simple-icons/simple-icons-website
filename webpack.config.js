@@ -67,6 +67,22 @@ const getIconPlainAliases = (iconData) => {
   return aliases;
 };
 
+const getIconLocalizedTitles = (iconData, languages) => {
+  const localizedTitles = {};
+  if (iconData.aliases && iconData.aliases.loc) {
+    for (const locale of Object.keys(iconData.aliases.loc)) {
+      const normalizedLocale = locale.substring(0, DEFAULT_LANGUAGE.length);
+      if (
+        languages.includes(normalizedLocale) &&
+        !localizedTitles[normalizedLocale]
+      ) {
+        localizedTitles[normalizedLocale] = iconData.aliases.loc[locale];
+      }
+    }
+  }
+  return localizedTitles;
+};
+
 const simplifyHexIfPossible = (hex) => {
   if (hex[0] === hex[1] && hex[2] === hex[3] && hex[4] === hex[5]) {
     return `${hex[0]}${hex[2]}${hex[4]}`;
@@ -216,6 +232,10 @@ export default async (env, argv) => {
       slug: icon.slug,
       title: icon.title,
       plainAliases: plainAliases.length ? plainAliases : false,
+      localizedTitles: getIconLocalizedTitles(
+        iconsDataBySlugs[icon.slug],
+        languages,
+      ),
       aliases: icon.aliases,
     };
   });
@@ -298,15 +318,11 @@ export default async (env, argv) => {
         // Add localized title for the icons in the property `localizedTitle`
         const currentLangIcons =
           lang === DEFAULT_LANGUAGE
-            ? icons
-            : icons.map((icon) => {
-                if (icon.aliases && icon.aliases.loc) {
-                  for (const locale of Object.keys(icon.aliases.loc)) {
-                    if (locale.substring(0, lang.legth) === lang) {
-                      icon.localizedTitle = icon.aliases.loc[locale];
-                      break;
-                    }
-                  }
+            ? [...icons]
+            : [...icons].map((icon_) => {
+                const icon = { ...icon_ };
+                if (icon.localizedTitles[lang]) {
+                  icon.localizedTitle = icon.localizedTitles[lang];
                 }
                 return icon;
               });
