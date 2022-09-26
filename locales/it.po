@@ -112,7 +112,7 @@ msgid "Twitter logo"
 msgstr "Logo di Twitter"
 
 msgid "Share this on Twitter!"
-msgstr "Condividi su Twitter!"
+msgstr "Condividi questo su Twitter!"
 
 msgid "website repository"
 msgstr "deposito del sito web"
