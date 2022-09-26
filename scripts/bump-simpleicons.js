@@ -33,7 +33,7 @@ const main = async () => {
       throw new Error('Simple icons does not need to be updated');
     }
 
-    console.log(versionAfter);
+    console.info(versionAfter);
   } catch (error) {
     console.error('Failed to update simple-icons to latest version:', error);
     process.exit(1);

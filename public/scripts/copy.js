@@ -6,6 +6,10 @@ const setCopied = ($el) => {
 };
 
 export default (document, navigator, fetch) => {
+  const $copyInput = document.getElementById('copy-input');
+  const $colorButtons = document.querySelectorAll('.copy-color');
+  const $svgButtons = document.querySelectorAll('.copy-svg');
+
   const copyValue = (value) => {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(value);
@@ -37,10 +41,6 @@ export default (document, navigator, fetch) => {
       console.error(err);
     }
   };
-
-  const $copyInput = document.getElementById('copy-input');
-  const $colorButtons = document.querySelectorAll('.copy-color');
-  const $svgButtons = document.querySelectorAll('.copy-svg');
 
   $colorButtons.forEach(($colorButton) => {
     $colorButton.removeAttribute('disabled');

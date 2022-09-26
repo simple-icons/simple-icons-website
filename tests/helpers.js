@@ -6,8 +6,8 @@ export const getAttribute = async ($el, attributeName) => {
   return result.remoteObject().value;
 };
 
-export const getTextContent = async ($el, attributeName) => {
-  const result = await $el.evaluateHandle((el, attribute) => {
+export const getTextContent = async ($el) => {
+  const result = await $el.evaluateHandle((el) => {
     return el.textContent;
   });
 
@@ -38,25 +38,6 @@ export const isDisabled = async ($el) => {
   return disabledAttribute !== null;
 };
 
-export const isHidden = async ($el) => {
-  const visibleOnPage = await isVisibleOnPage($el);
-  if (visibleOnPage) {
-    return false;
-  }
-
-  const ariaHidden = await getAttribute($el, 'aria-hidden');
-  if (ariaHidden === null) {
-    return false;
-  }
-
-  return true;
-};
-
-export const isInViewport = async ($el) => {
-  const result = await $el.isIntersectingViewport();
-  return result;
-};
-
 const isVisibleOnPage = async ($el) => {
   const boundingBox = await $el.boundingBox();
   if (boundingBox === null) {
@@ -82,4 +63,23 @@ export const isVisible = async ($el) => {
   }
 
   return true;
+};
+
+export const isHidden = async ($el) => {
+  const visibleOnPage = await isVisibleOnPage($el);
+  if (visibleOnPage) {
+    return false;
+  }
+
+  const ariaHidden = await getAttribute($el, 'aria-hidden');
+  if (ariaHidden === null) {
+    return false;
+  }
+
+  return true;
+};
+
+export const isInViewport = async ($el) => {
+  const result = await $el.isIntersectingViewport();
+  return result;
 };

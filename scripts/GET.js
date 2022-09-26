@@ -5,7 +5,7 @@
 
 import https from 'node:https';
 
-export default async (hostname, path) => {
+export default (hostname, path) => {
   return new Promise((resolve, reject) => {
     const options = {
       hostname,

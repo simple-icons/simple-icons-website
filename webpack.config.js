@@ -29,8 +29,8 @@ const __dirname = getDirnameFromImportMeta(import.meta.url);
 const siRootDir = path.resolve(__dirname, 'node_modules', 'simple-icons');
 const siReadmePath = path.join(siRootDir, 'README.md');
 
-const icons = alphaSort(simpleIcons);
-const sortedHexes = colorSort(icons.map((icon) => icon.hex));
+const allIcons = alphaSort(simpleIcons);
+const sortedHexes = colorSort(allIcons.map((icon) => icon.hex));
 
 const NODE_MODULES = path.resolve(__dirname, 'node_modules');
 const OUT_DIR = path.resolve(__dirname, '_site');
@@ -67,7 +67,7 @@ const getIconAliases = (iconData) => {
 };
 
 const simplifyHexIfPossible = (hex) => {
-  if (hex[0] === hex[1] && hex[2] === hex[3] && hex[4] == hex[5]) {
+  if (hex[0] === hex[1] && hex[2] === hex[3] && hex[4] === hex[5]) {
     return `${hex[0]}${hex[2]}${hex[4]}`;
   }
 
@@ -84,19 +84,19 @@ const sitemapUrlForLanguage = (language) => {
   );
 };
 
-let displayIcons = icons;
+let displayIcons = allIcons;
 if (process.env.TEST_ENV) {
   // Use fewer icons when building for a test run. This significantly speeds up
   // page load time and therefor (end-to-end) tests, reducing the chance of
   // failed tests due to timeouts.
-  displayIcons = icons.slice(0, 255);
+  displayIcons = allIcons.slice(0, 255);
 
   // Ensure that some icons needed by the tests are added
   const ensureIconDisplayed = (iconSlug) => {
-    let iconFound = displayIcons.find((icon) => icon.slug === iconSlug);
+    const iconFound = displayIcons.find((icon) => icon.slug === iconSlug);
 
     if (!iconFound) {
-      const iconToDisplay = icons.find((icon) => icon.slug === iconSlug);
+      const iconToDisplay = allIcons.find((icon) => icon.slug === iconSlug);
       if (!iconToDisplay) {
         console.error(`Slug "${iconSlug}" not found in icons`);
         process.exit(1);
@@ -110,7 +110,7 @@ if (process.env.TEST_ENV) {
   );
 }
 
-const pageDescription = `${icons.length} Free SVG icons for popular brands`;
+const pageDescription = `${allIcons.length} Free SVG icons for popular brands`;
 const pageTitle = 'Simple Icons';
 const pageUrl = 'https://simpleicons.org';
 const logoUrl = `${pageUrl}/icons/simpleicons.svg`;
@@ -258,12 +258,12 @@ export default async (env, argv) => {
           {
             from: path.resolve(NODE_MODULES, 'simple-icons/icons'),
             to: path.resolve(OUT_DIR, 'icons'),
-            filter: (path) => path.endsWith('.svg'),
+            filter: (filepath) => filepath.endsWith('.svg'),
           },
           {
             from: path.resolve(NODE_MODULES, 'simple-icons-pdf/icons'),
             to: path.resolve(OUT_DIR, 'icons'),
-            filter: (path) => path.endsWith('.pdf'),
+            filter: (filepath) => filepath.endsWith('.pdf'),
           },
           {
             from: path.resolve(ROOT_DIR, 'images'),
@@ -331,7 +331,8 @@ export default async (env, argv) => {
         argv.mode === 'development'
           ? []
           : [
-              '...', // <- Load all default minimizers
+              // Load all default minimizers with '...'
+              '...',
               new CssMinimizerPlugin(),
             ],
     },

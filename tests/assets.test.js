@@ -12,8 +12,8 @@ const extractContextsSvgPaths = (tokens) => {
           token.name === 'title')
       );
     })
-    .map((token, i, tokens) => {
-      const prevToken = i === 0 ? { type: null, name: null } : tokens[i - 1];
+    .map((token, i, tokens_) => {
+      const prevToken = i === 0 ? { type: null, name: null } : tokens_[i - 1];
       if (
         token.type === 'attribute' &&
         token.name === 'd' &&
@@ -21,8 +21,9 @@ const extractContextsSvgPaths = (tokens) => {
         prevToken.name === 'title'
       ) {
         return [
-          prevToken.val.substring(1, prevToken.val.length - 1), // title
-          token.val.substring(1, token.val.length - 1), // path
+          // title, path
+          prevToken.val.substring(1, prevToken.val.length - 1),
+          token.val.substring(1, token.val.length - 1),
         ];
       }
     })
@@ -36,8 +37,8 @@ describe('Embedded assets optimization', () => {
 
   it.each(contextsSvgPaths)(
     '%p icon path is optimized with SVGO',
-    (title, path) => {
-      const svg = `<svg><path d="${path}"/></svg>`;
+    (title, d) => {
+      const svg = `<svg><path d="${d}"/></svg>`;
       expect(svg).toEqual(optimize(svg).data);
     },
   );

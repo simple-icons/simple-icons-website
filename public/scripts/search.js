@@ -32,7 +32,8 @@ const titlesFromIconCard = (iconCard) => {
     iconCard.children[0].children[0].getAttribute('title');
 
   const variants = [
-    previewButtonTitle.slice(0, previewButtonTitle.length - 4), // title
+    // title
+    previewButtonTitle.slice(0, previewButtonTitle.length - 4),
   ];
 
   // add aliases
@@ -61,29 +62,9 @@ export default (history, document, ordering, domUtils) => {
   // the searcher is initialized for all icons
   const searcher = new Searcher($icons, { keySelector: titlesFromIconCard });
 
-  $searchInput.disabled = false;
-  $searchInput.focus();
-  $searchInput.addEventListener(
-    'input',
-    debounce(() => {
-      search($searchInput.value);
-    }),
-  );
-
-  $searchClear.addEventListener('click', (event) => {
-    $searchInput.value = '';
-    search('');
-    $searchInput.focus();
-  });
-
-  $orderRelevance.addEventListener('click', () => {
-    search($searchInput.value);
-  });
-  $orderRelevance.disabled = false;
-
   function getNonIcons() {
     const nonIcons = [];
-    for (let node of document.querySelector('ul.grid').children) {
+    for (const node of document.querySelector('ul.grid').children) {
       // grid-item-if-empty and other like carbon ads
       if (!node.classList.contains('grid-item')) {
         nonIcons.push(node);
@@ -134,6 +115,26 @@ export default (history, document, ordering, domUtils) => {
       domUtils.showElement($gridItemIfEmpty);
     }
   };
+
+  $searchInput.disabled = false;
+  $searchInput.focus();
+  $searchInput.addEventListener(
+    'input',
+    debounce(() => {
+      search($searchInput.value);
+    }),
+  );
+
+  $searchClear.addEventListener('click', () => {
+    $searchInput.value = '';
+    search('');
+    $searchInput.focus();
+  });
+
+  $orderRelevance.addEventListener('click', () => {
+    search($searchInput.value);
+  });
+  $orderRelevance.disabled = false;
 
   // Load search query if present
   const query = getQueryFromParameter(document.location, QUERY_PARAMETER);

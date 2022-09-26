@@ -73,17 +73,8 @@ describe('Search', () => {
   it('gets the #order-relevance button', () => {
     const eventListeners = new Map();
 
-    const $orderRelevance = newElementMock('#order-relevance');
     $orderRelevance.addEventListener.mockImplementation((name, fn) => {
       eventListeners.set(name, fn);
-    });
-
-    document.getElementById.mockImplementation((query) => {
-      if (query === 'order-relevance') {
-        return $orderRelevance;
-      }
-
-      return newElementMock(query);
     });
 
     initSearch(history, document, ordering, domUtils);

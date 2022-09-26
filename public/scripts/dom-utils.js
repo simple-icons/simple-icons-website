@@ -19,14 +19,6 @@ export const toggleVisibleElement = ($el) => {
   }
 };
 
-export const sortChildren = ($el, attribute, nFirstChildren) => {
-  const sorted = [...$el.children].sort(
-    (a, b) =>
-      parseInt(a.getAttribute(attribute)) - parseInt(b.getAttribute(attribute)),
-  );
-  replaceChildren($el, sorted, nFirstChildren);
-};
-
 export const replaceChildren = ($el, newChildren, nFirstChildren) => {
   nFirstChildren =
     Math.min(nFirstChildren, newChildren.length) || newChildren.length;
@@ -36,6 +28,14 @@ export const replaceChildren = ($el, newChildren, nFirstChildren) => {
   setTimeout(() => {
     newChildren.slice(nFirstChildren).forEach((node) => $el.appendChild(node));
   }, 0);
+};
+
+export const sortChildren = ($el, attribute, nFirstChildren) => {
+  const sorted = [...$el.children].sort(
+    (a, b) =>
+      parseInt(a.getAttribute(attribute)) - parseInt(b.getAttribute(attribute)),
+  );
+  replaceChildren($el, sorted, nFirstChildren);
 };
 
 export const addClass = ($el, clazz) => {

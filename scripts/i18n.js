@@ -32,7 +32,7 @@ export const loadTranslations = async () => {
   const locales = {};
 
   const pofiles = await fs.readdir(LOCALES_DIR);
-  for (let fname of pofiles) {
+  for (const fname of pofiles) {
     if (!fname.endsWith('.po')) {
       continue;
     }
@@ -41,14 +41,14 @@ export const loadTranslations = async () => {
     const pofile = path.join(LOCALES_DIR, fname);
     const po = PO.parse(await fs.readFile(pofile, 'utf8'));
     const translations = {};
-    for (let item of po.items) {
+    for (const item of po.items) {
       translations[item.msgid] = item.msgstr[0];
     }
     locales[locale] = translations;
   }
 
   const defaultTranslations = {};
-  for (let msgid in locales[Object.keys(locales)[0]]) {
+  for (const msgid in locales[Object.keys(locales)[0]]) {
     defaultTranslations[msgid] = msgid;
   }
   locales.en = defaultTranslations;
@@ -73,7 +73,7 @@ const extractTranslatableStringsFromIndex = (tokens) => {
       typeof token.val === 'string' &&
       token.val.includes('t_(')
     ) {
-      let msgid = token.val.match(/(?!t_\(')([^']+)('\))/);
+      const msgid = token.val.match(/(?!t_\(')([^']+)('\))/);
       msgids.push(msgid[1]);
     }
     i++;
@@ -91,8 +91,8 @@ export const updateTranslations = async () => {
     let po;
     const poPath = path.join(ROOT_DIR, 'locales', `${lang}.po`);
 
-    let _poFileExists = true,
-      _contentChanged = false;
+    let _poFileExists = true;
+    let _contentChanged = false;
     try {
       await fs.readFile(poPath, 'utf8');
     } catch (err) {
@@ -149,7 +149,7 @@ export const updateTranslations = async () => {
       po.items.sort((a, b) => a.obsolete - b.obsolete);
       const poItems = po.items.map((item) => item.obsolete);
       _contentChanged = !previousPoItems.every(
-        (item, index) => item === poItems[index],
+        (item, i) => item === poItems[i],
       );
     }
 

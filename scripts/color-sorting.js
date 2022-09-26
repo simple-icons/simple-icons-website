@@ -4,7 +4,7 @@
  */
 
 const isGray = (rgb, range) => {
-  let { r, g, b } = { ...rgb };
+  const { r, g, b } = { ...rgb };
   return (
     r >= g - range &&
     r <= g + range &&
@@ -23,20 +23,20 @@ const rgbToHsl = (rgb) => {
   b /= 255;
 
   // Find greatest and smallest channel values
-  let cmin = Math.min(r, g, b),
-    cmax = Math.max(r, g, b),
-    delta = cmax - cmin,
-    h = 0,
-    s = 0,
-    l = 0;
+  const cmin = Math.min(r, g, b);
+  const cmax = Math.max(r, g, b);
+  const delta = cmax - cmin;
+  let h = 0;
+  let s = 0;
+  let l = 0;
 
   // Calculate hue
   // No difference
-  if (delta == 0) h = 0;
+  if (delta === 0) h = 0;
   // Red is max
-  else if (cmax == r) h = ((g - b) / delta) % 6;
+  else if (cmax === r) h = ((g - b) / delta) % 6;
   // Green is max
-  else if (cmax == g) h = (b - r) / delta + 2;
+  else if (cmax === g) h = (b - r) / delta + 2;
   // Blue is max
   else h = (r - g) / delta + 4;
 
@@ -48,7 +48,7 @@ const rgbToHsl = (rgb) => {
   l = (cmax + cmin) / 2;
 
   // Calculate saturation
-  s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+  s = delta === 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
 
   // Multiply l and s by 100 to get the value in percent, rather than [0,1]
   s = +(s * 100);
@@ -60,16 +60,17 @@ export default (colors) => {
   const GREY_RANGE = 10;
   const BLACK_CUTOFF = 15;
   const WHITE_CUTOFF = 90;
-  let colored = [];
-  let bgw = [];
+  const colored = [];
+  const bgw = [];
+
   colors.map((c) => {
-    let rgb = {
+    const rgb = {
       r: parseInt(`0x${c.substring(0, 2)}`),
       g: parseInt(`0x${c.substring(2, 4)}`),
       b: parseInt(`0x${c.substring(4, 6)}`),
     };
-    let color = rgbToHsl(rgb);
-    let mappedColor = {
+    const color = rgbToHsl(rgb);
+    const mappedColor = {
       color,
       hex: c,
       bgwFlag:
@@ -84,10 +85,10 @@ export default (colors) => {
 
   return [
     ...colored.sort((c1, c2) => {
-      let hue = c1.color.h - c2.color.h;
+      const hue = c1.color.h - c2.color.h;
       if (!hue) {
         // If hue is the same, sort by saturation
-        let saturation = c1.color.s - c2.color.s;
+        const saturation = c1.color.s - c2.color.s;
 
         // If saturation is the same, sort by lightness
         return !saturation ? c1.color.s - c2.color.s : saturation;
