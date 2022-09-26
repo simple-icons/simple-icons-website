@@ -190,7 +190,7 @@ html(lang=lang)
                     )
                       .language-switcher__list-item-name
                         a(
-                          href=`${language === 'en' ? `../` : (languageOfTheBuild === 'en' ? `${language}/` : `../${language}/`) }`
+                          href=`${language === DEFAULT_LANGUAGE ? `../` : (languageOfTheBuild === DEFAULT_LANGUAGE ? `${language}/` : `../${language}/`) }`
                         ) #{ languageNames[language] }
       h1.header__title Simple Icons
       p.header__description !{ t_('$nIcons Free <abbr title="Scalable Vector Graphic">SVG</abbr> icons for popular brands').replace('$nIcons', `${iconCount}`) }
@@ -349,39 +349,39 @@ html(lang=lang)
           li.grid-item(
             order-color=icon.indexByColor,
             order-alpha=icon.indexByAlpha,
-            aliases=icon.aliases
+            aliases=icon.plainAliases
           )
             .grid-item__row.mv-2.fg-2
               button.grid-item__preview.copy-button.copy-svg(
-                title=`${ t_('$iconTitle SVG').replace('$iconTitle', icon.title) }`,
+                title=`${ t_('$iconTitle SVG').replace('$iconTitle', icon.localizedTitle || icon.title) }`,
                 disabled
               )
                 img.icon-preview(
                   src=`/icons/${icon.slug}.svg`,
                   loading='lazy',
-                  alt=`${ t_('$iconTitle icon').replace('$iconTitle', icon.title) }`
+                  alt=`${ t_('$iconTitle icon').replace('$iconTitle', icon.localizedTitle || icon.title) }`
                 )
             .grid-item__row
               if icon.guidelines
                 a.grid-item__link.link-button(
-                  title=`${ t_('$iconTitle guidelines').replace('$iconTitle', icon.title) }`,
+                  title=`${ t_('$iconTitle guidelines').replace('$iconTitle', icon.localizedTitle || icon.title) }`,
                   href=icon.guidelines,
                   rel='noopener',
                   target='_blank'
                 ) #{ t_('Brand Guidelines') }
               if icon.license
                 a.grid-item__link.link-button.icon-legal(
-                  title=`${ t_('$iconTitle icon license').replace('$iconTitle', icon.title) }`,
+                  title=`${ t_('$iconTitle icon license').replace('$iconTitle', icon.localizedTitle || icon.title) }`,
                   href=icon.license.url,
                   rel='noopener',
                   target='_blank'
                 ) #{ icon.license.type }
-              h2.grid-item__title #{ icon.title }
+              h2.grid-item__title #{ icon.localizedTitle || icon.title }
             .grid-item__footer
               button(
                 class=`grid-item__color copy-button copy-color ${icon.light ? "contrast-light" : "contrast-dark"} ${icon.superLight ? "border-light" : ""}  ${icon.superDark ? "border-dark" : ""}`,
                 style=`background-color: #${icon.shortHex}`,
-                title=`${ t_('$iconTitle color').replace('$iconTitle', icon.title) }`,
+                title=`${ t_('$iconTitle color').replace('$iconTitle', icon.localizedTitle || icon.title) }`,
                 disabled
               ) ##{ icon.hex }
               a.grid-item__button(

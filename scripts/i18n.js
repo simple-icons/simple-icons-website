@@ -13,6 +13,8 @@ import PO from 'pofile';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+export const DEFAULT_LANGUAGE = 'en';
+
 const ROOT_DIR = path.resolve(__dirname, '..');
 const LOCALES_DIR = path.join(ROOT_DIR, 'locales');
 const INDEX_PATH = path.join(ROOT_DIR, 'public', 'index.pug');
