@@ -119,3 +119,6 @@ msgstr "$nIcons iconos SVG gratis de marcas populares"
 
 msgid "Language"
 msgstr "Idioma"
+
+msgid "Sort by color"
+msgstr "Ordenar por color"

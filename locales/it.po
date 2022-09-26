@@ -119,3 +119,6 @@ msgstr "deposito del sito web"
 
 msgid "Made with ❤️ on GitHub"
 msgstr "Fatto con ❤️ su GitHub"
+
+msgid "Sort by color"
+msgstr "Ordina per colore"
