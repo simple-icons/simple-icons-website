@@ -148,7 +148,7 @@ describe('Search', () => {
       await $searchInput.type(typedTitle);
 
       const $gridItem = await page.$('.grid-item');
-      let gridItemText = await (
+      const gridItemText = await (
         await $gridItem.getProperty('textContent')
       ).jsonValue();
 
@@ -519,7 +519,7 @@ describe('JavaScript disabled', () => {
     expect(await isDisabled($previewButton)).toBeTruthy();
   });
 
-  afterAll(async () => {
+  afterAll(() => {
     page.setJavaScriptEnabled(true);
   });
 });

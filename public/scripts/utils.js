@@ -1,5 +1,5 @@
 export const debounce = (func, wait, immediate) => {
-  let timeout, args, context, timestamp, result;
+  let timeout, args, context, timestamp, result; // eslint-disable-line one-var
 
   const later = () => {
     const last = +new Date() - timestamp;

@@ -2,17 +2,6 @@ import { jest } from '@jest/globals';
 
 const PATHNAME = 'https://www.simpleicons.org';
 
-export const newEventMock = (opts) => {
-  opts = opts || {};
-  return {
-    preventDefault: jest.fn().mockName('event.preventDefault'),
-    stopPropagation: jest.fn().mockName('event.stopPropagation'),
-    key: opts.key || '',
-    composedPath: opts.composedPath ? opts.composedPath : () => '',
-    target: opts.target || newElementMock('event.target'),
-  };
-};
-
 export const newElementMock = (elName, opts) => {
   opts = opts || {};
   return {
@@ -37,6 +26,17 @@ export const newElementMock = (elName, opts) => {
 
     // Utility
     __name: elName,
+  };
+};
+
+export const newEventMock = (opts) => {
+  opts = opts || {};
+  return {
+    preventDefault: jest.fn().mockName('event.preventDefault'),
+    stopPropagation: jest.fn().mockName('event.stopPropagation'),
+    key: opts.key || '',
+    composedPath: opts.composedPath ? opts.composedPath : () => '',
+    target: opts.target || newElementMock('event.target'),
   };
 };
 

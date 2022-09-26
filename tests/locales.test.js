@@ -1,11 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { getNonDefaultLanguages } from '../scripts/i18n.js';
 import PO from 'pofile';
 
-const TARGET_LANGUAGES = Object.keys(await getNonDefaultLanguages());
-
 describe('Translations must be updated', () => {
+  const TARGET_LANGUAGES = fs
+    .readdirSync('locales')
+    .filter((fname) => fname.endsWith('.po'))
+    .map((fname) => fname.slice(0, -3));
+
   it.each(TARGET_LANGUAGES)(
     'Locale %s must have all messages translated',
     (lang) => {
@@ -14,7 +16,7 @@ describe('Translations must be updated', () => {
       const po = PO.parse(poFileContent);
       const poData = po.items.map((item) => [item.msgstr[0], item.obsolete]);
 
-      for (let [msgstr, obsolete] of poData) {
+      for (const [msgstr, obsolete] of poData) {
         expect(msgstr).not.toBe('');
         expect(obsolete).toBeFalsy();
       }
