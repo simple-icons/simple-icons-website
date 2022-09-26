@@ -74,12 +74,12 @@ const getIconLocalizedTitles = (iconData, languages) => {
       if (languages.includes(locale)) {
         localizedTitles[locale] = iconData.aliases.loc;
       }
-      const normalizedLocale = locale.substring(0, DEFAULT_LANGUAGE.length);
+      const universalLocale = locale.substring(0, DEFAULT_LANGUAGE.length);
       if (
-        languages.includes(normalizedLocale) &&
-        !localizedTitles[normalizedLocale]
+        languages.includes(universalLocale) &&
+        !localizedTitles[universalLocale]
       ) {
-        localizedTitles[normalizedLocale] = iconData.aliases.loc[locale];
+        localizedTitles[universalLocale] = iconData.aliases.loc[locale];
       }
     }
   }
