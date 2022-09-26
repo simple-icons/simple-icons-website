@@ -91,7 +91,7 @@ msgid "$iconTitle guidelines"
 msgstr "$iconTitle linee guida"
 
 msgid "Brand Guidelines"
-msgstr "Linee guida del marchio"
+msgstr "Linee guida"
 
 msgid "$iconTitle icon license"
 msgstr "$iconTitle licenza dell'icona"
