@@ -1,6 +1,9 @@
 name: Automated Releases
 on: workflow_dispatch
 
+permissions:
+  contents: write
+
 # This Workflow is triggered through the GitHub API:
 #   curl -X Post \
 #        -H "Authorization: Bearer <token>" \
