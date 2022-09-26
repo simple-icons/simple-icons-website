@@ -357,7 +357,7 @@ html(lang=lang)
                 disabled
               )
                 img.icon-preview(
-                  src=`${languageOfTheBuild === 'en' ? '' : `../`}icons/${icon.slug}.svg`,
+                  src=`/icons/${icon.slug}.svg`,
                   loading='lazy',
                   alt=`${ t_('$iconTitle icon').replace('$iconTitle', icon.title) }`
                 )
@@ -385,7 +385,7 @@ html(lang=lang)
                 disabled
               ) ##{ icon.hex }
               a.grid-item__button(
-                href=`./icons/${icon.slug}.svg`,
+                href=`/icons/${icon.slug}.svg`,
                 role='button',
                 download
               )
