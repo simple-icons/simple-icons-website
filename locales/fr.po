@@ -94,7 +94,7 @@ msgid "$iconTitle color"
 msgstr "Couleur $iconTitle"
 
 msgid "A <a href=\"https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md\">CCO</a> project maintained by the <a href=\"https://github.com/simple-icons/simple-icons/graphs/contributors\">Simple Icons contributors</a>."
-msgstr "Un projet <a href=\"https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md\">CCO</a> project maintained by the <a href=\"https://github.com/simple-icons/simple-icons/graphs/contributors\">Simple Icons contributors</a>."
+msgstr "Un projet <a href=\"https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md\">CCO</a> maintenu par les <a href=\"https://github.com/simple-icons/simple-icons/graphs/contributors\">contributeurs de Simple Icons</a>."
 
 msgid "Use $repoLink for requests, corrections and contributions."
 msgstr "Utilisez $repoLink pour les demandes, les corrections et les contributions."
