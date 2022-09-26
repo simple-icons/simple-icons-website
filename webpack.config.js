@@ -13,6 +13,7 @@ import alphaSort from './scripts/alpha-sorting.js';
 import colorSort from './scripts/color-sorting.js';
 import GET from './scripts/GET.js';
 import {
+  DEFAULT_LANGUAGE,
   getLanguages,
   loadTranslations,
   updateTranslations,
@@ -47,7 +48,7 @@ const getIconsDataBySlugs = async () => {
   return dataBySlugs;
 };
 
-const getIconAliases = (iconData) => {
+const getIconPlainAliases = (iconData) => {
   const aliases = [];
   if (iconData.aliases) {
     if (iconData.aliases.aka) {
@@ -189,7 +190,9 @@ export default async (env, argv) => {
 
   const languageNames = await getLanguages();
   const languages = Object.keys(languageNames);
-  const nonDefaultLanguages = languages.filter((language) => language !== 'en');
+  const nonDefaultLanguages = languages.filter(
+    (language) => language !== DEFAULT_LANGUAGE,
+  );
 
   const extensions = await getThirdPartyExtensions(siReadmePath);
   const structuredData = await generateStructuredData();
@@ -197,7 +200,7 @@ export default async (env, argv) => {
   const iconsDataBySlugs = await getIconsDataBySlugs();
   const icons = displayIcons.map((icon, iconIndex) => {
     const luminance = getRelativeLuminance.default(`#${icon.hex}`);
-    const aliases = getIconAliases(iconsDataBySlugs[icon.slug]);
+    const plainAliases = getIconPlainAliases(iconsDataBySlugs[icon.slug]);
 
     return {
       guidelines: icon.guidelines,
@@ -212,7 +215,8 @@ export default async (env, argv) => {
       shortHex: simplifyHexIfPossible(icon.hex),
       slug: icon.slug,
       title: icon.title,
-      aliases: aliases.length ? aliases : false,
+      plainAliases: plainAliases.length ? plainAliases : false,
+      aliases: icon.aliases,
     };
   });
 
@@ -290,40 +294,58 @@ export default async (env, argv) => {
           },
         ],
       }),
-      ...languages.map(
-        (lang) =>
-          new HtmlWebpackPlugin({
-            filename:
-              lang === 'en' ? 'index.html' : path.join(lang, 'index.html'),
-            inject: true,
-            template: indexPath,
-            templateParameters: {
-              extensions,
-              icons,
-              iconCount: icons.length,
-              twitterIcon,
-              pageTitle,
-              pageUrl,
-              structuredData,
-              t_: i18n(lang),
-              languageOfTheBuild: lang,
-              languages,
-              languageNames,
-            },
-            minify:
-              argv.mode === 'development'
-                ? {}
-                : {
-                    collapseWhitespace: true,
-                    collapseBooleanAttributes: true,
-                    decodeEntities: true,
-                    removeAttributeQuotes: true,
-                    removeComments: true,
-                    removeOptionalTags: true,
-                    removeRedundantAttributes: true,
-                  },
-          }),
-      ),
+      ...languages.map((lang) => {
+        // Add localized title for the icons in the property `localizedTitle`
+        const currentLangIcons =
+          lang === DEFAULT_LANGUAGE
+            ? icons
+            : icons.map((icon) => {
+                if (icon.aliases && icon.aliases.loc) {
+                  for (const locale of Object.keys(icon.aliases.loc)) {
+                    if (locale.substring(0, lang.legth) === lang) {
+                      icon.localizedTitle = icon.aliases.loc[locale];
+                      break;
+                    }
+                  }
+                }
+                return icon;
+              });
+
+        return new HtmlWebpackPlugin({
+          filename:
+            lang === DEFAULT_LANGUAGE
+              ? 'index.html'
+              : path.join(lang, 'index.html'),
+          inject: true,
+          template: indexPath,
+          templateParameters: {
+            extensions,
+            icons: currentLangIcons,
+            iconCount: currentLangIcons.length,
+            twitterIcon,
+            pageTitle,
+            pageUrl,
+            structuredData,
+            DEFAULT_LANGUAGE,
+            t_: i18n(lang),
+            languageOfTheBuild: lang,
+            languages,
+            languageNames,
+          },
+          minify:
+            argv.mode === 'development'
+              ? {}
+              : {
+                  collapseWhitespace: true,
+                  collapseBooleanAttributes: true,
+                  decodeEntities: true,
+                  removeAttributeQuotes: true,
+                  removeComments: true,
+                  removeOptionalTags: true,
+                  removeRedundantAttributes: true,
+                },
+        });
+      }),
       new MiniCssExtractPlugin(),
     ],
     optimization: {
