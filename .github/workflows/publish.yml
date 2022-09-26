@@ -4,8 +4,7 @@ on:
     branches: [master]
 
 permissions:
-  contents: read
-  pages: write
+  contents: write
 
 jobs:
   publish-website:
