@@ -35,9 +35,9 @@ export const getLanguages = async () => {
 };
 
 export const getNonDefaultLanguages = async () => {
-  const languages = await getLanguages();
-  delete languages.en;
-  return languages;
+  return await (
+    await getLanguages()
+  ).filter(([code]) => code !== DEFAULT_LANGUAGE);
 };
 
 export const loadTranslations = async () => {
@@ -99,7 +99,7 @@ export const updateTranslations = async () => {
   const currentIso = new Date().toISOString();
   const nonDefaultLanguages = await getNonDefaultLanguages();
 
-  for (const lang in nonDefaultLanguages) {
+  for (const [lang] of nonDefaultLanguages) {
     let po;
     const poPath = path.join(ROOT_DIR, 'locales', `${lang}.po`);
 
