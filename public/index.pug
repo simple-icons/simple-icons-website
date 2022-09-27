@@ -361,6 +361,13 @@ html(lang=lang)
                   loading='lazy',
                   alt=`${ t_('$iconTitle icon').replace('$iconTitle', icon.localizedTitle || icon.title) }`
                 )
+            if icon.deprecatedAt
+              span.deprecated
+                span.deprecated__text #{ t_('Deprecated') }
+                a.deprecated__message(
+                  target='_blank',
+                  href=`https://github.com/simple-icons/simple-icons/milestone/${icon.deprecatedAt.milestoneNumber}`
+                ) #{ t_('Removal at $version').replace('$version', `v${icon.deprecatedAt.version}`) }
             .grid-item__row
               if icon.guidelines
                 a.grid-item__link.link-button(

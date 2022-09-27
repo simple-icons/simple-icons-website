@@ -11,7 +11,7 @@ import * as simpleIcons from 'simple-icons/icons';
 import { siTwitter as twitterIcon } from 'simple-icons/icons';
 import alphaSort from './scripts/alpha-sorting.js';
 import colorSort from './scripts/color-sorting.js';
-import GET from './scripts/GET.js';
+import { githubAPI } from './scripts/https.js';
 import {
   DEFAULT_LANGUAGE,
   getLanguages,
@@ -104,6 +104,77 @@ const sitemapUrlForLanguage = (language) => {
   );
 };
 
+/**
+ * Get all the icons that will be removed in the next major versions
+ * ordered by version.
+ */
+const getDeprecatedIcons = async () => {
+  const deprecatedIcons = {};
+  const siMilestonesCachePath = path.join(
+    os.tmpdir(),
+    'simple-icons-milestones.json',
+  );
+  let siMilestones;
+  try {
+    siMilestones = JSON.parse(await fs.readFile(siMilestonesCachePath, 'utf8'));
+  } catch (error) {
+    siMilestones = await githubAPI.GET(
+      '/repos/simple-icons/simple-icons/milestones',
+    );
+    await fs.writeFile(siMilestonesCachePath, JSON.stringify(siMilestones));
+  }
+  for (const milestone of siMilestones) {
+    const version = milestone.title.replace(/[a-zA-Z]/, '');
+
+    let issues;
+    try {
+      issues = JSON.parse(
+        path.join(os.tmpdir(), `simple-icons-milestone-issues-${version}.json`),
+      );
+    } catch (error) {
+      issues = await githubAPI.GET(
+        `/repos/simple-icons/simple-icons/issues?milestone=${milestone.number}`,
+      );
+      await fs.writeFile(
+        path.join(os.tmpdir(), `simple-icons-milestone-issues-${version}.json`),
+        JSON.stringify(issues),
+      );
+    }
+    for (const issue of issues) {
+      if (issue.pull_request) {
+        let changedFiles;
+        try {
+          changedFiles = JSON.parse(
+            path.join(
+              os.tmpdir(),
+              `simple-icons-pr-changed-files-${issue.number}.json`,
+            ),
+          );
+        } catch (error) {
+          changedFiles = await githubAPI.GET(`${issue.pull_request.url}/files`);
+          await fs.writeFile(
+            path.join(
+              os.tmpdir(),
+              `simple-icons-pr-changed-files-${issue.number}.json`,
+            ),
+            JSON.stringify(changedFiles),
+          );
+        }
+        for (const file of changedFiles) {
+          if (file.status === 'removed' && file.filename.startsWith('icons/')) {
+            const slug = file.filename.substring(6, file.filename.length - 4);
+            deprecatedIcons[slug] = {
+              version,
+              milestoneNumber: milestone.number,
+            };
+          }
+        }
+      }
+    }
+  }
+  return deprecatedIcons;
+};
+
 let displayIcons = allIcons;
 if (process.env.TEST_ENV) {
   // Use fewer icons when building for a test run. This significantly speeds up
@@ -137,25 +208,19 @@ const logoUrl = `${pageUrl}/icons/simpleicons.svg`;
 
 const generateStructuredData = async () => {
   const getSimpleIconsMembers = async () => {
-    const siMembersCacheFilePath = path.join(
+    const siMembersCachePath = path.join(
       os.tmpdir(),
       'simple-icons-members.json',
     );
     let siMembersFileContent;
     try {
-      siMembersFileContent = await fs.readFile(siMembersCacheFilePath, 'utf8');
+      siMembersFileContent = await fs.readFile(siMembersCachePath, 'utf8');
     } catch (error) {
-      const siOrgMembers = await GET(
-        'api.github.com',
-        '/orgs/simple-icons/members',
-      );
+      const siOrgMembers = await githubAPI.GET('/orgs/simple-icons/members');
 
       const users = await Promise.all(
         siOrgMembers.map(async (member) =>
-          Object.assign(
-            member,
-            await GET('api.github.com', `/users/${member.login}`),
-          ),
+          Object.assign(member, await githubAPI.GET(`/users/${member.login}`)),
         ),
       );
 
@@ -170,7 +235,7 @@ const generateStructuredData = async () => {
       });
 
       await fs.writeFile(
-        siMembersCacheFilePath,
+        siMembersCachePath,
         JSON.stringify(structuredDataMembers),
       );
 
@@ -207,6 +272,8 @@ export default async (env, argv) => {
     _translationsUpdated = true;
   }
 
+  const deprecatedIcons = await getDeprecatedIcons();
+
   const languageNames = await getLanguages();
   const languages = Object.keys(languageNames);
   const nonDefaultLanguages = languages.filter(
@@ -239,6 +306,10 @@ export default async (env, argv) => {
         iconsDataBySlugs[icon.slug],
         languages,
       ),
+      deprecatedAt:
+        deprecatedIcons[icon.slug] === undefined
+          ? false
+          : deprecatedIcons[icon.slug],
     };
   });
 
