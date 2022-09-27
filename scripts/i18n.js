@@ -20,8 +20,18 @@ const LOCALES_DIR = path.join(ROOT_DIR, 'locales');
 const INDEX_PATH = path.join(ROOT_DIR, 'public', 'index.pug');
 const LANGUAGES_PATH = path.join(LOCALES_DIR, 'languages.json');
 
-export const getLanguages = async () => {
+export const getLanguagesFile = async () => {
   return JSON.parse(await fs.readFile(LANGUAGES_PATH));
+};
+
+export const getLanguages = async () => {
+  const result = [];
+  const languagesObject = await getLanguagesFile();
+  for (const language of Object.keys(languagesObject)) {
+    result.push([language, languagesObject[language]]);
+  }
+  result.sort((a, b) => a[1].localeCompare(b[1]));
+  return result;
 };
 
 export const getNonDefaultLanguages = async () => {
