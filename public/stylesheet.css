@@ -1070,6 +1070,10 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   cursor: default;
 }
 
+body:not(.dark):not(.light) .detail_modal #icon-preview {
+  filter: invert(1);
+}
+
 .detail_modal #icon-title {
   font-size: 26px;
   font-family: var(--font-family-text);
@@ -1092,7 +1096,6 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 
 .detail_modal #icon-guidelines,
 .detail_modal #icon-license {
-  font-style: italic;
   font-size: 16px;
   padding: 6px 0;
 }
@@ -1100,6 +1103,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 .detail_modal #icon-guidelines.italic-text,
 .detail_modal #icon-license.italic-text {
   cursor: default;
+  opacity: 0.75;
 }
 
 .detail_modal #icon-deprecated {
@@ -1110,6 +1114,8 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 .detail_modal #icon-deprecated span {
   font-size: 14px;
   white-space: nowrap;
+  font-weight: 600;
+  font-style: var(--font-family-text);
 }
 
 .detail_modal #icon-deprecated span::before {
@@ -1126,7 +1132,6 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 
 .detail-footer {
   width: auto;
-  margin: 0 auto;
   display: flex;
   justify-content: space-around;
   position: absolute;
@@ -1135,6 +1140,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 }
 
 .detail-footer a {
+  font-size: 16px;
   color: var(--color-button-text);
   padding: 3px 7px;
   border-radius: 3px;
@@ -1143,6 +1149,17 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 .detail-footer a:hover {
   color: var(--color-button-text-hover);
   background: var(--color-button-hover);
+}
+
+@media (max-width: 560px) {
+  .detail-footer {
+    bottom: 8px;
+    left: 5px;
+  }
+
+  .detail-footer a {
+    font-size: 15px;
+  }
 }
 
 .italic-text {
