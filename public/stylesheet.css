@@ -362,6 +362,7 @@ a {
   background-color: var(--color-background);
   flex-grow: 2;
   padding: 0 var(--side-offset) 2rem;
+  z-index: 9;
 }
 
 /* Control */
@@ -953,11 +954,11 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   position: relative;
   color: var(--color-text-default);
   top: -58px;
-  left: -23px;
+  left: -80px;
   font-size: 15px;
   text-transform: uppercase;
   font-family: var(--font-family-stylized);
-  width: 84px;
+  width: 200px;
   height: 120px;
   padding: 70px 0 10px 0;
 }
