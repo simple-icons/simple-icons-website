@@ -1047,6 +1047,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   top: 15px;
   left: 20px;
   margin-bottom: 20px;
+  cursor: default;
 }
 
 .detail_modal #icon-title {
@@ -1066,6 +1067,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   font-weight: 600;
   padding: 0px 4px;
   margin-bottom: 15px;
+  cursor: default;
 }
 
 .detail_modal #icon-guidelines,
@@ -1075,8 +1077,8 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   padding: 6px 0;
 }
 
-.detail_modal #icon-guidelines.italic-text:hover,
-.detail_modal #icon-license.italic-text:hover {
+.detail_modal #icon-guidelines.italic-text,
+.detail_modal #icon-license.italic-text {
   cursor: default;
 }
 

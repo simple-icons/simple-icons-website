@@ -1,12 +1,11 @@
 import getRelativeLuminance from 'get-relative-luminance';
 
+let DETAILS_MODAL_OPENED = false;
+
 export default (document, domUtils, iconsData) => {
   const $popupModalTrigger = document.querySelector('.popup-trigger');
   const $popupModal = document.querySelector('.popup_modal');
   const $popupBody = document.querySelector('.popup-body');
-  $popupModalTrigger.addEventListener('click', () => {
-    domUtils.toggleVisibleElement($popupModal);
-  });
 
   // Detail view
   const $detailButtons = document.querySelectorAll('.view-button');
@@ -14,14 +13,23 @@ export default (document, domUtils, iconsData) => {
   const $detailBody = document.querySelector('.detail-body');
   const $detailFooter = document.querySelector('.detail-footer');
 
+  $popupModalTrigger.addEventListener('click', (e) => {
+    domUtils.toggleVisibleElement($popupModal);
+    e.stopPropagation();
+    domUtils.hideElement($detailModal);
+    DETAILS_MODAL_OPENED = false;
+  });
+
   const onClickDetailButton = (e) => {
+    domUtils.hideElement($popupModal);
+
     const $iconGridItem = e.target.closest('.grid-item');
     const $iconImage = $iconGridItem.children[0].children[0].children[0];
     const filename = $iconImage.getAttribute('src').split('/').pop();
     const slug = filename.substring(0, filename.length - 4);
     const icon = iconsData.getIconData(slug);
 
-    if ($detailModal.classList.contains('hidden')) {
+    if (!DETAILS_MODAL_OPENED) {
       domUtils.toggleVisibleElement($detailModal);
     }
 
@@ -77,6 +85,9 @@ export default (document, domUtils, iconsData) => {
         'href',
         `https://github.com/simple-icons/simple-icons/issues/new?labels=icon+outdated&template=icon_update.md&title=Update%20${icon.title}%20icon`,
       );
+
+    DETAILS_MODAL_OPENED = true;
+    e.stopPropagation();
   };
 
   for (const $detailButton of $detailButtons) {
@@ -97,6 +108,7 @@ export default (document, domUtils, iconsData) => {
     }
     if (!composedPath.includes($detailModal)) {
       domUtils.hideElement($detailModal);
+      DETAILS_MODAL_OPENED = false;
     }
   });
 };
