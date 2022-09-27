@@ -896,17 +896,38 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 
 /* Deprecated notice */
 .deprecated {
-  font-size: 10px;
   font-family: var(--font-family-stylized);
-  text-align: center;
-  opacity: 0.95;
-  text-overflow: ellipsis;
 }
 
-.deprecated a {
-  color: 1px solid rgba(255, 255, 255, 0.7);
+.deprecated__text {
+  position: relative;
+  float: right;
+  top: -18px;
+  right: 13px;
+  text-transform: uppercase;
+  font-size: 11px;
 }
-.deprecated a:hover {
+
+.deprecated__text::before {
+  content: '';
+  background-image: url('./assets/warning.svg');
+  background-repeat: no-repeat;
+  height: 100%;
+  left: -8px;
+  position: absolute;
+  top: 3px;
+  width: 100%;
+  transform: scale(1.25, 1.25);
+}
+
+.deprecated__message {
+  position: absolute;
+  right: 12px;
+  margin-top: -2px;
+  font-size: 12px;
+  transform: scale(0.98);
+}
+.deprecated__message:hover {
   color: var(--color-text-light);
 }
 

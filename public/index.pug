@@ -361,7 +361,12 @@ html(lang=lang)
                   alt=`${ t_('$iconTitle icon').replace('$iconTitle', icon.localizedTitle || icon.title) }`
                 )
             if icon.deprecatedAt
-              span.deprecated !{ '&#10060; ' + t_('DEPRECATED (removal at $version)').replace('$version', `<a href="https://github.com/simple-icons/simple-icons/milestone/${icon.deprecatedAt.milestoneNumber}">v${icon.deprecatedAt.version}</a>`) }
+              span.deprecated
+                span.deprecated__text #[i.warning] #{ t_('Deprecated') }
+                a.deprecated__message(
+                  target='_blank',
+                  href=`https://github.com/simple-icons/simple-icons/milestone/${icon.deprecatedAt.milestoneNumber}`
+                ) #{ t_('Removal at $version').replace('$version', `v${icon.deprecatedAt.version}`) }
             .grid-item__row
               if icon.guidelines
                 a.grid-item__link.link-button(
