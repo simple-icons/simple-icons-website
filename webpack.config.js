@@ -15,6 +15,7 @@ import { githubAPI } from './scripts/https.js';
 import {
   DEFAULT_LANGUAGE,
   getLanguages,
+  getLanguagesFile,
   loadTranslations,
   updateTranslations,
 } from './scripts/i18n.js';
@@ -274,8 +275,9 @@ export default async (env, argv) => {
 
   const deprecatedIcons = await getDeprecatedIcons();
 
-  const languageNames = await getLanguages();
-  const languages = Object.keys(languageNames);
+  const languageNamesObject = await getLanguagesFile();
+  const languageNamesArray = await getLanguages();
+  const languages = languageNamesArray.map((lang) => lang[0]);
   const nonDefaultLanguages = languages.filter(
     (language) => language !== DEFAULT_LANGUAGE,
   );
@@ -419,7 +421,7 @@ export default async (env, argv) => {
             t_: i18n(lang),
             languageOfTheBuild: lang,
             languages,
-            languageNames,
+            languageNames: languageNamesObject,
           },
           minify:
             argv.mode === 'development'
