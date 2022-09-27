@@ -34,9 +34,16 @@ const detachedInitDownloadType = async () => {
   initDownloadType(document, storage);
 };
 
-const detachedInitModal = async () => {
+const detachedInitData = async () => {
+  const iconsData = await import('./data.js');
+  const { default: initData } = iconsData;
+  initData();
+  return iconsData;
+};
+
+const detachedInitModal = async (iconsData) => {
   const { default: initModal } = await import('./modal.js');
-  initModal(document, domUtils);
+  initModal(document, domUtils, iconsData);
 };
 
 const detachedInitLayout = async () => {
@@ -44,9 +51,12 @@ const detachedInitLayout = async () => {
   initLayout(document, storage);
 };
 
-detachedInitColorScheme();
-detachedInitCopyButtons();
-detachedInitSearch();
-detachedInitDownloadType();
-detachedInitModal();
-detachedInitLayout();
+(async () => {
+  detachedInitColorScheme();
+  detachedInitCopyButtons();
+  detachedInitSearch();
+  detachedInitDownloadType();
+  const iconsData = await detachedInitData();
+  detachedInitModal(iconsData);
+  detachedInitLayout();
+})();

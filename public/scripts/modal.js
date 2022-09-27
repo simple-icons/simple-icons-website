@@ -1,11 +1,6 @@
-import * as simpleIcons from 'simple-icons/icons';
 import getRelativeLuminance from 'get-relative-luminance';
 
-const icons = Object.values(simpleIcons).sort((icon1, icon2) =>
-  icon1.title.localeCompare(icon2.title),
-);
-
-export default (document, domUtils) => {
+export default (document, domUtils, iconsData) => {
   const $modalTrigger = document.querySelector('.popup-trigger');
   const $popupModal = document.querySelector('.popup_modal');
   const $popupBody = document.querySelector('.popup-body');
@@ -19,99 +14,75 @@ export default (document, domUtils) => {
   const $detailModal = document.querySelector('.detail_modal');
   const $detailBody = document.querySelector('.detail-body');
   const $detailFooter = document.querySelector('.detail-footer');
-  $detailButtons.forEach((button) =>
-    button.addEventListener('click', (e) => {
-      domUtils.toggleVisibleElement($detailModal);
-      const index = e.target.getAttribute('index');
-      const icon = icons[index];
-      const luminance = getRelativeLuminance(`#${icon.hex}`);
 
-      const $iconHex = $detailBody.querySelector('#icon-hex');
-      domUtils.removeClasses(
-        $iconHex,
-        'contrast-light',
-        'contrast-dark',
-        'border-light',
-        'border-dark',
+  const onClickDetailButton = (e) => {
+    const $iconGridItem = e.target.closest('.grid-item');
+    const $iconImage = $iconGridItem.children[0].children[0].children[0];
+    const filename = $iconImage.getAttribute('src').split('/').pop();
+    const slug = filename.substring(0, filename.length - 4);
+    const icon = iconsData.getIconData(slug);
+
+    domUtils.toggleVisibleElement($detailModal);
+
+    const luminance = getRelativeLuminance.default(`#${icon.hex}`);
+    const $hexContainer = $detailBody.querySelector('#icon-color');
+
+    $hexContainer.setAttribute(
+      'style',
+      `background-color: #${icon.hex}; color: #${
+        luminance < 0.4 ? 'eee' : '222'
+      }`,
+    );
+    $hexContainer.innerText = `#${icon.hex}`;
+    $detailBody.querySelector('img#icon-preview').src = $iconImage.src;
+    $detailBody.querySelector('#icon-title').innerText = icon.title;
+    $detailBody.querySelector('#icon-source').setAttribute('href', icon.source);
+
+    const $iconGuidelines = $detailBody.querySelector('#icon-guidelines');
+    if (icon.guidelines) {
+      $iconGuidelines.innerHTML = 'Guidelines';
+      domUtils.removeClass($iconGuidelines, 'italic-text');
+      $iconGuidelines.setAttribute('href', icon.guidelines);
+    } else {
+      domUtils.addClass($iconGuidelines, 'italic-text');
+      $iconGuidelines.innerHTML = 'no guidelines';
+    }
+
+    const $iconLicense = $detailBody.querySelector('#icon-license');
+    if (icon.license) {
+      $iconLicense.setAttribute('href', icon.license.url);
+      domUtils.removeClass($iconLicense, 'italic-text');
+      $iconLicense.innerHTML = icon.license.type;
+    } else {
+      domUtils.addClass($iconLicense, 'italic-text');
+      $iconLicense.innerHTML = 'no license';
+    }
+
+    const iconSVG = icon.svg.replace('svg', `svg fill="%23${icon.hex}"`);
+    const colorSVG = `data:image/svg+xml,${iconSVG}`;
+
+    $detailFooter
+      .querySelector('#icon-download-svg')
+      .setAttribute('href', `./icons/${icon.slug}.svg`);
+    $detailFooter
+      .querySelector('#icon-download-color-svg')
+      .setAttribute('href', colorSVG);
+    $detailFooter
+      .querySelector('#icon-download-pdf')
+      .setAttribute('href', `./icons/${icon.slug}.pdf`);
+    $detailFooter
+      .querySelector('#icon-report')
+      .setAttribute(
+        'href',
+        `https://github.com/simple-icons/simple-icons/issues/new?labels=icon+outdated&template=icon_update.md&title=Update%20${icon.title}%20icon`,
       );
-      domUtils.addClass(
-        $iconHex,
-        luminance < 0.4 ? 'contrast-light' : 'contrast-dark',
-      );
-      if (luminance > 0.95) domUtils.addClass($iconHex, 'border-light');
-      if (luminance < 0.02) domUtils.addClass($iconHex, 'border-dark');
-      $detailBody
-        .querySelector('#icon-hex')
-        .setAttribute('style', `background-color: #${icon.hex}`);
-      $iconHex.innerHTML = icon.hex;
-      $detailBody.querySelector('#icon_container').innerHTML = icon.svg;
-      $detailBody.querySelector('#icon-title').innerHTML = icon.title;
 
-      $detailBody
-        .querySelector('#icon-source')
-        .setAttribute('href', icon.source);
-      $detailBody.querySelector('#icon-source').innerHTML = icon.source.slice(
-        0,
-        25,
-      );
+    e.stopPropagation();
+  };
 
-      if (icon.guidelines) {
-        $detailBody.querySelector('#icon-guidelines').innerHTML = 'Guidelines';
-        domUtils.removeClass(
-          $detailBody.querySelector('#icon-guidelines'),
-          'italic-text',
-        );
-        $detailBody
-          .querySelector('#icon-guidelines')
-          .setAttribute('href', icon.guidelines);
-      } else {
-        domUtils.addClass(
-          $detailBody.querySelector('#icon-guidelines'),
-          'italic-text',
-        );
-        $detailBody.querySelector('#icon-guidelines').innerHTML =
-          'no guidelines';
-      }
-
-      if (icon.license) {
-        $detailBody
-          .querySelector('#icon-license')
-          .setAttribute('href', icon.license.url);
-        domUtils.removeClass(
-          $detailBody.querySelector('#icon-license'),
-          'italic-text',
-        );
-        $detailBody.querySelector('#icon-license').innerHTML =
-          icon.license.type;
-      } else {
-        domUtils.addClass(
-          $detailBody.querySelector('#icon-license'),
-          'italic-text',
-        );
-        $detailBody.querySelector('#icon-license').innerHTML = 'no license';
-      }
-
-      const iconSVG = icon.svg.replace('svg', `svg fill="%23${icon.hex}"`);
-      const colorSVG = `data:image/svg+xml,${iconSVG}`;
-
-      $detailFooter
-        .querySelector('#icon-download-svg')
-        .setAttribute('href', `./icons/${icon.slug}.svg`);
-      $detailFooter
-        .querySelector('#icon-download-color-svg')
-        .setAttribute('href', colorSVG);
-      $detailFooter
-        .querySelector('#icon-download-pdf')
-        .setAttribute('href', `./icons/${icon.slug}.pdf`);
-      $detailFooter
-        .querySelector('#icon-report')
-        .setAttribute(
-          'href',
-          `https://github.com/simple-icons/simple-icons/issues/new?labels=icon+outdated&template=icon_update.md&title=Update%20${icon.title}%20icon`,
-        );
-      e.stopPropagation();
-    }),
-  );
+  for (const $detailButton of $detailButtons) {
+    $detailButton.addEventListener('click', onClickDetailButton);
+  }
 
   document.addEventListener('keyup', (e) => {
     if (e.key === 'Escape') {

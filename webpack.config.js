@@ -217,7 +217,6 @@ const generateStructuredData = async () => {
       siMembersFileContent = await fs.readFile(siMembersCachePath, 'utf8');
     } catch (error) {
       const siOrgMembers = await githubAPI.GET('/orgs/simple-icons/members');
-
       const users = await Promise.all(
         siOrgMembers.map(async (member) =>
           Object.assign(member, await githubAPI.GET(`/users/${member.login}`)),
@@ -352,6 +351,13 @@ export default async (env, argv) => {
     plugins: [
       new CopyPlugin({
         patterns: [
+          {
+            from: path.resolve(
+              NODE_MODULES,
+              'simple-icons/_data/simple-icons.json',
+            ),
+            to: path.resolve(OUT_DIR, 'simple-icons.json'),
+          },
           {
             from: path.resolve(NODE_MODULES, 'simple-icons/icons'),
             to: path.resolve(OUT_DIR, 'icons'),

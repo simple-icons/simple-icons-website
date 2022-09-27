@@ -5,18 +5,16 @@
 
 import https from 'node:https';
 
-export const GET = (hostname, path) => {
+export const GET = (hostname, path, options) => {
   return new Promise((resolve, reject) => {
-    const options = {
+    const requestOptions = {
       hostname,
       path,
       method: 'GET',
-      headers: {
-        'user-agent': 'simple-icons-website',
-      },
     };
 
-    const req = https.request(options, (res) => {
+    const opts = Object.assign(requestOptions, options);
+    const req = https.request(opts, (res) => {
       let result = '';
 
       res.on('data', (chunk) => {
@@ -36,18 +34,15 @@ export const GET = (hostname, path) => {
   });
 };
 
-export const POST = (hostname, path, data) => {
+export const POST = (hostname, path, data, options) => {
   return new Promise((resolve, reject) => {
-    const options = {
+    const requestOptions = {
       hostname,
       path,
       method: 'POST',
-      headers: {
-        'user-agent': 'simple-icons-website',
-      },
     };
-
-    const req = https.request(options, (res) => {
+    const opts = Object.assign(requestOptions, options);
+    const req = https.request(opts, (res) => {
       let result = '';
 
       res.on('data', (chunk) => {
@@ -68,13 +63,28 @@ export const POST = (hostname, path, data) => {
   });
 };
 
+const fillGithubOptions = (options) => {
+  const ghToken = process.env.GITHUB_TOKEN;
+
+  if (!options.headers) {
+    options.headers = {};
+  }
+  options.headers['User-Agent'] = 'simple-icons-website';
+
+  if (ghToken) {
+    options.headers.Authorization = `token ${ghToken}`;
+  }
+};
+
 /* eslint-disable require-await */
 export const githubAPI = {
-  GET: async (path) => {
-    return GET('api.github.com', path);
+  GET: async (path, options = {}) => {
+    fillGithubOptions(options);
+    return GET('api.github.com', path, options);
   },
-  POST: async (path, data) => {
-    return POST('api.github.com', path, data);
+  POST: async (path, data, options = {}) => {
+    fillGithubOptions(options);
+    return POST('api.github.com', path, data, options);
   },
 };
 /* eslint-enable require-await */

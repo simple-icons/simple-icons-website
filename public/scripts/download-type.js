@@ -15,9 +15,7 @@ export default (document, storage) => {
   const $body = document.querySelector('body');
   const $downloadPdf = document.getElementById('download-pdf');
   const $downloadSvg = document.getElementById('download-svg');
-  const $downloadFiles = document.getElementsByClassName(
-    'grid-item__button[data-icon]',
-  );
+  const $downloadFiles = document.getElementsByClassName('a.grid-item__button');
 
   $downloadPdf.disabled = false;
   $downloadSvg.disabled = false;
@@ -55,7 +53,8 @@ export default (document, storage) => {
 
   for (let i = 0; i < $downloadFiles.length; i++) {
     $downloadFiles[i].addEventListener('click', (event) => {
-      const slug = iconHrefToSlug(event.target.getAttribute('href'));
+      const href = event.target.getAttribute('href');
+      const slug = iconHrefToSlug(href);
       const type = storage.getItem(STORAGE_KEY_DOWNLOAD_TYPE);
       event.target.setAttribute('href', `./icons/${slug}.${type}`);
     });
