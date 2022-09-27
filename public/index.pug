@@ -76,6 +76,9 @@ html(lang=lang)
           a#icon-source
           a#icon-guidelines
           a#icon-license
+          #icon-deprecated(style='display: none')
+            span.deprecated__text #{ t_('Deprecated') }
+            a.deprecated__message(target='_blank')
       .detail-footer
         a#icon-download-svg.detail-button(role='button', download) #{ t_('Download SVG') }
         a#icon-download-color-svg.detail-button(role='button', download) #{ t_('Download colored SVG') }
@@ -396,7 +399,8 @@ html(lang=lang)
           li.grid-item(
             order-color=icon.indexByColor,
             order-alpha=icon.indexByAlpha,
-            aliases=icon.plainAliases
+            aliases=icon.plainAliases,
+            deprecated=icon.deprecatedAt === false ? false : JSON.stringify(icon.deprecatedAt)
           )
             .grid-item__row.mv-2.fg-2
               button.grid-item__preview.copy-button.copy-svg(

@@ -128,3 +128,30 @@ msgstr "项目地址"
 
 msgid "Made with ❤️ on GitHub"
 msgstr "Made with ❤️ on GitHub"
+
+msgid "Download SVG"
+msgstr ""
+
+msgid "Download colored SVG"
+msgstr ""
+
+msgid "Download PDF"
+msgstr ""
+
+msgid "Report icon as outdated"
+msgstr ""
+
+msgid "Layout"
+msgstr ""
+
+msgid "Comfortable"
+msgstr ""
+
+msgid "Compact"
+msgstr ""
+
+msgid "view $iconTitle"
+msgstr ""
+
+msgid "Report $iconTitle as outdated"
+msgstr ""

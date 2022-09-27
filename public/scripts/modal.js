@@ -67,6 +67,23 @@ export default (document, domUtils, iconsData) => {
       $iconLicense.innerHTML = 'no license';
     }
 
+    const $iconDeprecated = $detailBody.querySelector('#icon-deprecated');
+    const $iconDeprecatedMessage = $iconDeprecated.children[1];
+
+    if ($iconGridItem.hasAttribute('deprecated')) {
+      const deprecatedAt = JSON.parse($iconGridItem.getAttribute('deprecated'));
+      $iconDeprecated.style.display = '';
+      $iconDeprecatedMessage.setAttribute(
+        'href',
+        `https://github.com/simple-icons/simple-icons/milestone/${deprecatedAt.milestoneNumber}`,
+      );
+      $iconDeprecatedMessage.innerText = `It will be removed at version ${deprecatedAt.version}`;
+    } else {
+      $iconDeprecated.style.display = 'none';
+      $iconDeprecatedMessage.removeAttribute('href');
+      $iconDeprecatedMessage.innerText = '';
+    }
+
     const iconSVG = icon.svg.replace('svg', `svg fill="%23${icon.hex}"`);
     const colorSVG = `data:image/svg+xml,${iconSVG}`;
 
