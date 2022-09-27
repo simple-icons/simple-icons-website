@@ -329,6 +329,7 @@ a {
   background-color: var(--color-background);
   flex-grow: 2;
   padding: 0 var(--side-offset) 2rem;
+  z-index: 9;
 }
 
 /* Control */

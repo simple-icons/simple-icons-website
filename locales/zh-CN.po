@@ -1,0 +1,130 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language-Team: zh-CN <https://github.com/simple-icons>\n"
+"Last-Translator: @LitoMore <https://github.com/LitoMore>\n"
+"Report-Msgid-Bugs-To: https://github.com/simple-icons/simple-icons-website/issues\n"
+"Language: zh-CN\n"
+"POT-Creation-Date: 2022-09-27T13:42:46.869Z\n"
+"MIME-Version: 1.0\n"
+"Project-Id-Version: simple-icons-website\n"
+"PO-Revision-Date: 2022-09-27T13:42:46.869Z\n"
+
+msgid "$nIcons Free SVG icons for popular brands"
+msgstr "囊括 $nIcons 种流行品牌的免费 SVG 图标"
+
+msgid "Extension"
+msgstr "扩展及插件"
+
+msgid "Author"
+msgstr "作者"
+
+msgid "Main Repository"
+msgstr "主项目"
+
+msgid "Legal Disclaimer"
+msgstr "免责声明"
+
+msgid "Third-Party Extensions"
+msgstr "第三方扩展及插件"
+
+msgid "Language"
+msgstr "语言"
+
+msgid "$nIcons Free <abbr title=\"Scalable Vector Graphic\">SVG</abbr> icons for popular brands"
+msgstr "囊括 $nIcons 种流行品牌的免费 <abbr title=\"矢量图\">SVG</abbr> 图标"
+
+msgid "Controls are only available when JavaScript is enabled."
+msgstr "要查看网站上的内容，请在浏览器中启用 JavaScript。"
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "Search by brand..."
+msgstr "按品牌名称搜索…"
+
+msgid "Order"
+msgstr "排序方式"
+
+msgid "Sort alphabetically"
+msgstr "按字母排序"
+
+msgid "Sort by color"
+msgstr "按颜色排序"
+
+msgid "Sort by relevance"
+msgstr "按相关度排序"
+
+msgid "Mode"
+msgstr "颜色模式"
+
+msgid "Light color scheme"
+msgstr "浅色模式"
+
+msgid "Dark color scheme"
+msgstr "深色模式"
+
+msgid "System color scheme"
+msgstr "自动模式"
+
+msgid "Download"
+msgstr "下载格式"
+
+msgid "download SVG"
+msgstr "下载 SVG"
+
+msgid "download PDF"
+msgstr "下载 PDF"
+
+msgid "Icon missing?"
+msgstr "缺少图标？"
+
+msgid "Submit a request"
+msgstr "提交请求"
+
+msgid "$iconTitle SVG"
+msgstr "$iconTitle SVG"
+
+msgid "$iconTitle icon"
+msgstr "$iconTitle 图标"
+
+msgid "Deprecated"
+msgstr "已废弃"
+
+msgid "Removal at $version"
+msgstr "在 $version 中删除"
+
+msgid "$iconTitle guidelines"
+msgstr "$iconTitle 指南"
+
+msgid "Brand Guidelines"
+msgstr "品牌指南"
+
+msgid "$iconTitle icon license"
+msgstr "$iconTitle 图标许可证"
+
+msgid "$iconTitle color"
+msgstr "$iconTitle 颜色"
+
+msgid "A <a href=\"https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md\">CCO</a> project maintained by the <a href=\"https://github.com/simple-icons/simple-icons/graphs/contributors\">Simple Icons contributors</a>."
+msgstr "此项基于 <a href=\"https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md\">CCO</a> 许可证，并由 <a href=\"https://github.com/simple-icons/simple-icons/graphs/contributors\">Simple Icons 贡献者们</a> 维护。"
+
+msgid "Use $repoLink for requests, corrections and contributions."
+msgstr "请通过 $repoLink 来提交图标相关请求、更正及其它贡献。"
+
+msgid "Kindly supported by your donations at <a href=\"https://opencollective.com/simple-icons\">Open Collective</a>."
+msgstr "您可以通过 <a href=\"https://opencollective.com/simple-icons\">Open Collective</a> 来赞助支持我们。"
+
+msgid "Twitter logo"
+msgstr "Twitter"
+
+msgid "Share this on Twitter!"
+msgstr "分享到 Twitter"
+
+msgid "website repository"
+msgstr "项目地址"
+
+msgid "Made with ❤️ on GitHub"
+msgstr "Made with ❤️ on GitHub"
