@@ -922,10 +922,10 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 
 .deprecated__message {
   position: absolute;
-  right: 12px;
-  margin-top: -2px;
+  right: 9px;
+  margin-top: -3px;
   font-size: 12px;
-  transform: scale(0.98);
+  transform: scale(0.95);
 }
 .deprecated__message:hover {
   color: var(--color-text-light);
