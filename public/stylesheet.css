@@ -897,6 +897,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 
 /* Deprecated notice */
 .deprecated {
+  position: relative;
   font-family: var(--font-family-stylized);
 }
 
