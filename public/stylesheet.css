@@ -1011,7 +1011,8 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 
 .detail_modal {
   width: 610px;
-  height: 320px;
+  min-height: 320px;
+  max-height: 360px;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -1034,7 +1035,6 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   height: auto;
   float: left;
   padding: 5px;
-  display: block;
 }
 
 .detail-body__right > * {
@@ -1087,7 +1087,6 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   margin: 0 auto;
   display: flex;
   justify-content: space-around;
-  height: 30px;
 }
 
 .detail-footer a {

@@ -130,31 +130,28 @@ msgid "Removal at $version"
 msgstr "Se elimina en $version"
 
 msgid "Layout"
-msgstr ""
+msgstr "Diseño"
 
 msgid "Comfortable"
-msgstr ""
+msgstr "Confortable"
 
 msgid "Compact"
-msgstr ""
+msgstr "Compacto"
 
 msgid "view $iconTitle"
-msgstr ""
+msgstr "ver $iconTitle"
 
 msgid "Download SVG"
-msgstr ""
+msgstr "Descargar SVG"
 
 msgid "Download colored SVG"
-msgstr ""
+msgstr "Descargar SVG coloreado"
 
 msgid "Download PDF"
-msgstr ""
+msgstr "Descargar PDF"
 
 msgid "Report $iconTitle as outdated"
-msgstr ""
+msgstr "Reportar $iconTitle como desactualizado"
 
 msgid "Report icon as outdated"
-msgstr ""
-
-#~ msgid "Report outdated"
-#~ msgstr ""
+msgstr "Reportar icono desactualizado"
