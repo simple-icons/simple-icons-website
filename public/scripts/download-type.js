@@ -15,7 +15,9 @@ export default (document, storage) => {
   const $body = document.querySelector('body');
   const $downloadPdf = document.getElementById('download-pdf');
   const $downloadSvg = document.getElementById('download-svg');
-  const $downloadFiles = document.getElementsByClassName('grid-item__button');
+  const $downloadFiles = document.getElementsByClassName(
+    'grid-item__button[data-icon]',
+  );
 
   $downloadPdf.disabled = false;
   $downloadSvg.disabled = false;

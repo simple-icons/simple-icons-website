@@ -50,6 +50,8 @@ export const removeClass = ($el, clazz) => {
   }
 };
 
+export const removeClasses = removeClass;
+
 export const toggleClass = ($el, clazz) => {
   if ($el) {
     $el.classList.toggle(clazz);

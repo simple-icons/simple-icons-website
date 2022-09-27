@@ -39,8 +39,14 @@ const detachedInitModal = async () => {
   initModal(document, domUtils);
 };
 
+const detachedInitLayout = async () => {
+  const { default: initLayout } = await import('./layout.js');
+  initLayout(document, storage);
+};
+
 detachedInitColorScheme();
 detachedInitCopyButtons();
 detachedInitSearch();
 detachedInitDownloadType();
 detachedInitModal();
+detachedInitLayout();
