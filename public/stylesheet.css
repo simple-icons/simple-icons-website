@@ -1036,6 +1036,14 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   padding: 5px;
 }
 
+@media (max-width: 560px) {
+  .detail_modal {
+    width: 440px;
+    min-height: 370px;
+    max-height: 410px;
+  }
+}
+
 .detail-body {
   padding: 10px;
   display: flex;
@@ -1069,7 +1077,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  top: 20px;
+  top: 15px;
   padding: 6px 0px;
 }
 
@@ -1101,6 +1109,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 
 .detail_modal #icon-deprecated span {
   font-size: 14px;
+  white-space: nowrap;
 }
 
 .detail_modal #icon-deprecated span::before {
@@ -1112,6 +1121,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 .detail_modal #icon-deprecated a {
   font-size: 16px;
   top: 3px;
+  white-space: nowrap;
 }
 
 .detail-footer {
@@ -1119,6 +1129,9 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   margin: 0 auto;
   display: flex;
   justify-content: space-around;
+  position: absolute;
+  bottom: 13px;
+  left: 18px;
 }
 
 .detail-footer a {
