@@ -1,12 +1,11 @@
 import getRelativeLuminance from 'get-relative-luminance';
 
 export default (document, domUtils, iconsData) => {
-  const $modalTrigger = document.querySelector('.popup-trigger');
+  const $popupModalTrigger = document.querySelector('.popup-trigger');
   const $popupModal = document.querySelector('.popup_modal');
   const $popupBody = document.querySelector('.popup-body');
-  $modalTrigger.addEventListener('click', (e) => {
+  $popupModalTrigger.addEventListener('click', () => {
     domUtils.toggleVisibleElement($popupModal);
-    e.stopPropagation();
   });
 
   // Detail view
@@ -22,7 +21,9 @@ export default (document, domUtils, iconsData) => {
     const slug = filename.substring(0, filename.length - 4);
     const icon = iconsData.getIconData(slug);
 
-    domUtils.toggleVisibleElement($detailModal);
+    if ($detailModal.classList.contains('hidden')) {
+      domUtils.toggleVisibleElement($detailModal);
+    }
 
     const luminance = getRelativeLuminance.default(`#${icon.hex}`);
     const $hexContainer = $detailBody.querySelector('#icon-color');
@@ -76,8 +77,6 @@ export default (document, domUtils, iconsData) => {
         'href',
         `https://github.com/simple-icons/simple-icons/issues/new?labels=icon+outdated&template=icon_update.md&title=Update%20${icon.title}%20icon`,
       );
-
-    e.stopPropagation();
   };
 
   for (const $detailButton of $detailButtons) {
@@ -92,10 +91,11 @@ export default (document, domUtils, iconsData) => {
   });
 
   document.addEventListener('click', (e) => {
-    if (!e.composedPath().includes($popupBody)) {
+    const composedPath = e.composedPath();
+    if (!composedPath.includes($popupBody)) {
       domUtils.hideElement($popupModal);
     }
-    if (!e.composedPath().includes($detailModal)) {
+    if (!composedPath.includes($detailModal)) {
       domUtils.hideElement($detailModal);
     }
   });

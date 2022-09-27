@@ -1010,7 +1010,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 }
 
 .detail_modal {
-  width: 600px;
+  width: 610px;
   height: 320px;
   position: fixed;
   top: 50%;
@@ -1045,7 +1045,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   width: 80%;
   position: relative;
   top: 15px;
-  left: 25px;
+  left: 20px;
   margin-bottom: 20px;
 }
 
