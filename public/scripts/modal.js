@@ -47,24 +47,32 @@ export default (document, domUtils, iconsData) => {
     $detailBody.querySelector('#icon-title').innerText = icon.title;
     $detailBody.querySelector('#icon-source').setAttribute('href', icon.source);
 
-    const $iconGuidelines = $detailBody.querySelector('#icon-guidelines');
+    const $iconGuidelines = $detailBody.querySelector(
+      '.icon-guidelines#guidelines',
+    );
+    const $iconGuidelinesNoGuidelines = $detailBody.querySelector(
+      '.icon-guidelines#no-guidelines',
+    );
     if (icon.guidelines) {
-      $iconGuidelines.innerHTML = 'Guidelines';
-      domUtils.removeClass($iconGuidelines, 'italic-text');
+      $iconGuidelines.style.display = '';
+      $iconGuidelinesNoGuidelines.style.display = 'none';
       $iconGuidelines.setAttribute('href', icon.guidelines);
     } else {
-      domUtils.addClass($iconGuidelines, 'italic-text');
-      $iconGuidelines.innerHTML = 'no guidelines';
+      $iconGuidelines.style.display = 'none';
+      $iconGuidelinesNoGuidelines.style.display = '';
     }
 
-    const $iconLicense = $detailBody.querySelector('#icon-license');
+    const $iconLicense = $detailBody.querySelector('.icon-license#license');
+    const $iconLicenseNoLicense = $detailBody.querySelector(
+      '.icon-license#no-license',
+    );
     if (icon.license) {
+      $iconLicense.style.display = '';
+      $iconLicenseNoLicense.style.display = 'none';
       $iconLicense.setAttribute('href', icon.license.url);
-      domUtils.removeClass($iconLicense, 'italic-text');
-      $iconLicense.innerHTML = icon.license.type;
     } else {
-      domUtils.addClass($iconLicense, 'italic-text');
-      $iconLicense.innerHTML = 'no license';
+      $iconLicense.style.display = 'none';
+      $iconLicenseNoLicense.style.display = '';
     }
 
     const $iconDeprecated = $detailBody.querySelector('#icon-deprecated');
@@ -77,7 +85,9 @@ export default (document, domUtils, iconsData) => {
         'href',
         `https://github.com/simple-icons/simple-icons/milestone/${deprecatedAt.milestoneNumber}`,
       );
-      $iconDeprecatedMessage.innerText = `It will be removed at version ${deprecatedAt.version}`;
+      $iconDeprecatedMessage.innerText = $iconDeprecatedMessage
+        .getAttribute('removal-msg-schema')
+        .replace('$version', deprecatedAt.version);
     } else {
       $iconDeprecated.style.display = 'none';
       $iconDeprecatedMessage.removeAttribute('href');

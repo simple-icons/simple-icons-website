@@ -74,11 +74,16 @@ html(lang=lang)
           h2#icon-title
           button#icon-color
           a#icon-source
-          a#icon-guidelines
-          a#icon-license
+          a#guidelines.icon-guidelines(style='display: none') #{ t_('Guidelines') }
+          a#no-guidelines.icon-guidelines.italic-text(style='display: none') #{ t_('no guidelines') }
+          a#license.icon-license(style='display: none')
+          a#no-license.icon-license.italic-text(style='display: none') #{ t_('no license') }
           #icon-deprecated(style='display: none')
             span.deprecated__text #{ t_('Deprecated') }
-            a.deprecated__message(target='_blank')
+            a.deprecated__message(
+              target='_blank',
+              removal-msg-schema=`${ t_('It will be removed at version $version') }`
+            )
       .detail-footer
         a#icon-download-svg.detail-button(role='button', download) #{ t_('Download SVG') }
         a#icon-download-color-svg.detail-button(role='button', download) #{ t_('Download colored SVG') }
@@ -461,7 +466,7 @@ html(lang=lang)
               )
                 svg(role='img', viewBox='0 0 24 24')
                   use(href='#cp')
-              button.report__icon.grid-item__button(
+              a.report__icon.grid-item__button(
                 href=`https://github.com/simple-icons/simple-icons/issues/new?labels=icon+outdated&template=icon_update.md&title=Update%20${icon.title}%20icon`,
                 role='button',
                 title=`${ t_('Report $iconTitle as outdated').replace('$iconTitle', icon.localizedTitle || icon.title) }`

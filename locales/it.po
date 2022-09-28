@@ -10,7 +10,7 @@ msgstr ""
 "POT-Creation-Date: 2022-09-26T15:39:06.158Z\n"
 "MIME-Version: 1.0\n"
 "Project-Id-Version: simple-icons-website\n"
-"PO-Revision-Date: 2022-09-27T13:59:24.324Z\n"
+"PO-Revision-Date: 2022-09-28T13:46:47.310Z\n"
 
 msgid "$nIcons Free SVG icons for popular brands"
 msgstr "$nIcons icone SVG gratuite per marchi famosi"
@@ -154,6 +154,18 @@ msgid "Report $iconTitle as outdated"
 msgstr ""
 
 msgid "Report icon as outdated"
+msgstr ""
+
+msgid "Guidelines"
+msgstr ""
+
+msgid "no guidelines"
+msgstr ""
+
+msgid "no license"
+msgstr ""
+
+msgid "It will be removed at version $version"
 msgstr ""
 
 #~ msgid "Report outdated"

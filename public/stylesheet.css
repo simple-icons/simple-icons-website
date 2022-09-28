@@ -686,6 +686,11 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   opacity: 1;
   text-decoration: underline;
 }
+
+.layout-compact .grid-item__link {
+  font-size: 0.63rem;
+}
+
 @media (hover: hover) {
   .grid-item__link:hover {
     opacity: 1;
@@ -940,7 +945,6 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 /* Deprecated notice */
 .deprecated {
   position: relative;
-  font-family: var(--font-family-stylized);
 }
 
 .deprecated .deprecated__text {
@@ -950,9 +954,10 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 .deprecated__text {
   position: relative;
   float: right;
-  top: -18px;
+  top: -17px;
   right: 13px;
   text-transform: uppercase;
+  font-family: var(--font-family-stylized);
 }
 
 .deprecated__text::before {
@@ -962,7 +967,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   height: 100%;
   left: -8px;
   position: absolute;
-  top: 3px;
+  top: 4px;
   width: 100%;
   transform: scale(1.25, 1.25);
 }
@@ -982,7 +987,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   color: var(--color-text-light);
 }
 
-.layout-compact .deprecated__message {
+.layout-compact .deprecated .deprecated__message {
   display: none;
 }
 
@@ -1069,8 +1074,11 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   padding: 5px;
 }
 
-.detail-body__right > * {
-  display: block;
+.detail-body__right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 161px;
 }
 
 .detail_modal #icon-preview {
@@ -1098,22 +1106,24 @@ body:not(.dark):not(.light) .detail_modal #icon-preview {
 }
 
 .detail_modal #icon-color {
-  font-family: var(--font-family-text);
+  font-family: var(--font-family-stylized);
   font-size: 15px;
   font-weight: 600;
-  padding: 0px 4px;
   margin-bottom: 15px;
   cursor: default;
+  width: 75px;
+  height: 25px;
+  border-radius: 2px;
 }
 
-.detail_modal #icon-guidelines,
-.detail_modal #icon-license {
+.detail_modal .icon-guidelines,
+.detail_modal .icon-license {
   font-size: 16px;
   padding: 6px 0;
 }
 
-.detail_modal #icon-guidelines.italic-text,
-.detail_modal #icon-license.italic-text {
+.detail_modal .icon-guidelines.italic-text,
+.detail_modal .icon-license.italic-text {
   cursor: default;
   opacity: 0.75;
 }
@@ -1121,13 +1131,13 @@ body:not(.dark):not(.light) .detail_modal #icon-preview {
 .detail_modal #icon-deprecated {
   position: relative;
   top: 40px;
+  height: 0px;
 }
 
 .detail_modal #icon-deprecated span {
   font-size: 14px;
   white-space: nowrap;
   font-weight: 600;
-  font-style: var(--font-family-text);
 }
 
 .detail_modal #icon-deprecated span::before {
@@ -1138,8 +1148,9 @@ body:not(.dark):not(.light) .detail_modal #icon-preview {
 
 .detail_modal #icon-deprecated a {
   font-size: 16px;
-  top: 3px;
+  top: 5px;
   white-space: nowrap;
+  font-style: var(--font-family-text);
 }
 
 .detail-footer {

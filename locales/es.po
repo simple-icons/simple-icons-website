@@ -155,3 +155,15 @@ msgstr "Reportar $iconTitle como desactualizado"
 
 msgid "Report icon as outdated"
 msgstr "Reportar icono desactualizado"
+
+msgid "Guidelines"
+msgstr ""
+
+msgid "no guidelines"
+msgstr ""
+
+msgid "no license"
+msgstr ""
+
+msgid "It will be removed at version $version"
+msgstr ""

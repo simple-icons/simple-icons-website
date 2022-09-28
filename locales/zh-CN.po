@@ -155,3 +155,15 @@ msgstr ""
 
 msgid "Report $iconTitle as outdated"
 msgstr ""
+
+msgid "Guidelines"
+msgstr ""
+
+msgid "no guidelines"
+msgstr ""
+
+msgid "no license"
+msgstr ""
+
+msgid "It will be removed at version $version"
+msgstr ""
