@@ -1039,9 +1039,9 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 }
 
 .detail_modal {
-  width: 610px;
-  min-height: 320px;
-  max-height: 360px;
+  width: 620px;
+  min-height: 330px;
+  max-height: 370px;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -1084,7 +1084,6 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 .detail_modal #icon-preview {
   width: 80%;
   position: relative;
-  top: 15px;
   left: 20px;
   margin-bottom: 20px;
   cursor: default;
@@ -1095,14 +1094,14 @@ body:not(.light) .detail_modal #icon-preview {
 }
 
 .detail_modal #icon-title {
-  font-size: 26px;
+  font-size: 27px;
   font-family: var(--font-family-text);
   font-weight: bold;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   top: 15px;
-  padding: 6px 0px;
+  padding: 2px 0px 7px;
 }
 
 .detail_modal #icon-color {
@@ -1154,7 +1153,7 @@ body:not(.light) .detail_modal #icon-preview {
 }
 
 .detail-footer {
-  width: 90%;
+  width: 95%;
   display: flex;
   justify-content: space-around;
   position: absolute;
@@ -1163,10 +1162,11 @@ body:not(.light) .detail_modal #icon-preview {
 }
 
 .detail-footer a {
-  font-size: 16px;
+  font-size: 15px;
   color: var(--color-button-text);
   padding: 3px 7px;
   border-radius: 3px;
+  text-align: center;
 }
 
 .detail-footer a:hover {
