@@ -44,9 +44,11 @@ export const addClass = ($el, clazz) => {
   }
 };
 
-export const removeClass = ($el, clazz) => {
+export const removeClass = ($el, ...clazz) => {
   if ($el) {
-    $el.classList.remove(clazz);
+    for (const c of clazz) {
+      $el.classList.remove(c);
+    }
   }
 };
 

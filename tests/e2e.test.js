@@ -11,6 +11,7 @@ import * as simpleIcons from 'simple-icons/icons';
 
 import {
   getClipboardValue,
+  getAttribute,
   getValue,
   hasClass,
   isDisabled,
@@ -127,6 +128,16 @@ describe('External links', () => {
     const extensionPopupLinks = await page.$$('.extensions__table a');
     extensionPopupLinks.forEach((link) =>
       expect(page).toClick(link.getProperty('innerText')),
+    );
+  });
+
+  it('is possible to click outdated icon link', async () => {
+    const reportIcons = await page.$$('a.report__icon');
+    expect(page).toClick(
+      await getAttribute(
+        reportIcons[Math.floor(Math.random() * reportIcons.length)],
+        'href',
+      ),
     );
   });
 });
@@ -327,26 +338,27 @@ describe('Ordering', () => {
   it('orders grid items alphabetically', async () => {
     await expect(page).toClick('#order-alpha');
 
-    const $gridItems = await page.$$('.grid-item');
+    const $gridItemTitles = await page.$$('.grid-item .grid-item__title');
+
     for (let i = 0; i < nIcons; i++) {
-      const $gridItem = $gridItems[i];
+      const $gridItemTitle = $gridItemTitles[i];
       const expectedTitle = titles[i];
-      const title = await (
-        await $gridItem.getProperty('textContent')
-      ).jsonValue();
+      const title = await getTextContent($gridItemTitle);
       await expect(title).toMatch(expectedTitle);
     }
   });
 
   it('orders grid items by color', async () => {
     await expect(page).toClick('#order-color');
-    const $gridItems = await page.$$('button.grid-item__color');
+    const $gridItems = await page.$$(
+      '.grid-item__footer button.grid-item__color',
+    );
 
     const hexes = [];
     for (let i = 0; i < nIcons; i++) {
       const $gridItem = $gridItems[i];
       const color = await getTextContent($gridItem);
-      const hex = color.slice(1);
+      const hex = color;
       hexes.push(hex);
     }
     await expect(sortByColors(hexes)).toEqual(hexes);
@@ -451,7 +463,9 @@ describe('Grid item', () => {
   });
 
   it('copies the hex value when it is clicked', async () => {
-    await expect(page).toClick('button.copy-color');
+    await expect(page).toClick(
+      '.grid-item__footer button.grid-item__color.copy-color',
+    );
     const clipboardValue = await getClipboardValue(page);
     expect(clipboardValue).toMatch(COLOR_REGEX);
   });
@@ -472,6 +486,13 @@ describe('Grid item', () => {
     async (fileType) => {
       await expect(page).toClick(`button#${fileType}`);
       await expect(page).toClick('a[download].grid-item__button');
+    },
+  );
+
+  it.each(['layout-comfortable', 'layout-compact'])(
+    'is possible to click on the "%s" button',
+    async (layoutType) => {
+      await expect(page).toClick(`button#${layoutType}`);
     },
   );
 });
@@ -510,7 +531,9 @@ describe('JavaScript disabled', () => {
   });
 
   it('has the color value button disabled', async () => {
-    const $colorButton = await page.$('button.copy-color');
+    const $colorButton = await page.$(
+      '.grid-item__footer button.grid-item__color.copy-color',
+    );
     expect(await isDisabled($colorButton)).toBeTruthy();
   });
 

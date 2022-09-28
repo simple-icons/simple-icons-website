@@ -41,6 +41,6 @@ describe('Extensions modal', () => {
     initModal(document, domUtils);
 
     eventListeners.get(event)(newEventMock(eventParam));
-    expect(domUtils.hideElement).toHaveBeenCalledTimes(1);
+    expect(domUtils.hideElement).toHaveBeenCalledTimes(2);
   });
 });

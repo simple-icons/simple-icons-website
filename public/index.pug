@@ -42,8 +42,10 @@ html(lang=lang)
           path(
             d='M11.2 0a.8.8 0 0 0-.8.8v11.4L7.26 9.44a.803.803 0 0 0-1.13.074l-1.05 1.2a.8.8 0 0 0 .073 1.13l6.33 5.54a.795.795 0 0 0 1.05 0l6.32-5.54a.8.8 0 0 0 .074-1.13l-1.05-1.2a.804.804 0 0 0-1.13-.074l-3.14 2.76V.8a.8.8 0 0 0-.8-.8zm-8 20.8a.8.8 0 0 0-.8.8v1.6a.8.8 0 0 0 .8.8h17.6a.8.8 0 0 0 .8-.8v-1.6a.8.8 0 0 0-.8-.8z'
           )
+        symbol#fg
+          path(d='M7 2h2v20H7V2m12 7-8 5.6V3.4L19 9Z') 
 
-  body.no-js.order-alpha.download-svg(tabindex='-1')
+  body.no-js.order-alpha.layout-comfortable.download-svg(tabindex='-1')
     .popup_modal.popup__top.hidden
       .popup-body 
         table.extensions__table
@@ -64,6 +66,30 @@ html(lang=lang)
                   rel='noopener',
                   target='_blank'
                 ) #{ ext.author.name }
+    .detail_modal.detail__top.hidden
+      .detail-body 
+        .detail-body__left
+          img#icon-preview
+        .detail-body__right
+          h2#icon-title
+          button#icon-color
+          a#icon-source
+          a#guidelines.icon-guidelines(style='display: none') #{ t_('Brand Guidelines') }
+          a#no-guidelines.icon-guidelines.italic-text(style='display: none') #{ t_('no brand guidelines') }
+          a#license.icon-license(style='display: none')
+          a#no-license.icon-license.italic-text(style='display: none') #{ t_('no icon license') }
+          #icon-deprecated(style='display: none')
+            span.deprecated__text #{ t_('Deprecated') }
+            a.deprecated__message(
+              target='_blank',
+              removal-msg-schema=`${ t_('It will be removed at version $version') }`
+            )
+      .detail-footer
+        a#icon-download-svg.detail-button(role='button', download) #{ t_('Download SVG') }
+        a#icon-download-color-svg.detail-button(role='button', download) #{ t_('Download colored SVG') }
+        a#icon-download-pdf.detail-button(role='button', download) #{ t_('Download PDF') }
+        a#icon-report.report__icon.detail-button(role='button') #{ t_('Report icon as outdated') }
+
     header.header
       ul.header__list
         li.header__list-item
@@ -331,6 +357,35 @@ html(lang=lang)
                 path(
                   d='M17.612 7.239H24l-.006.882-.01.885-2.006.012h-2.01v2.151h3.753v1.751h-3.752v3.841h-2.357V12Zm-7.653.02c.56-.024 1.078-.02 1.545.013.92.062 1.597.221 2.217.522.843.406 1.473 1.03 1.845 1.825.614 1.315.567 3.328-.109 4.661-.793 1.567-2.167 2.308-4.564 2.458-.713.046-2.226-.015-2.79-.11L8 16.61V7.435l.164-.022a22.974 22.974 0 0 1 1.795-.151zm-7.917 0c.687-.019 1.344 0 1.71.053.623.1 1.063.255 1.47.523.834.55 1.271 1.57 1.166 2.703-.078.802-.33 1.392-.8 1.872-.462.47-1.042.759-1.842.918-.301.059-.45.071-1.04.071h-.69l-.007 1.675L2 16.748l-1.002.013H0l.006-4.66.01-4.662.14-.024c.483-.084 1.2-.137 1.886-.157Zm.78 1.62c-.283 0-.57 0-.645.019a.968.968 0 0 0-.162.045c-.018.013-.03.526-.03 1.398v1.38l.117.025c.214.043.937.024 1.148-.03.778-.206 1.19-.774 1.144-1.573-.034-.6-.32-.987-.875-1.186-.158-.059-.263-.071-.697-.078Zm8.244 0a5.62 5.62 0 0 0-.725.015 1.973 1.973 0 0 0-.254.043c-.031.013-.04.651-.04 3.057 0 2.87.002 3.045.055 3.066.096.041 1.188.026 1.417-.021 1.24-.243 2-1.036 2.233-2.329a5.674 5.674 0 0 0 .05-1.389c-.056-.46-.137-.743-.317-1.11-.142-.279-.198-.359-.443-.598-.372-.366-.72-.55-1.29-.68a4.624 4.624 0 0 0-.686-.055z'
                 )
+        .control-field
+          label.control-field__title #{ t_('Layout') }
+          .control-field__row
+            button#layout-comfortable.control__button.first__button(
+              title=`${ t_('Comfortable') }`,
+              disabled
+            )
+              svg(
+                role='img',
+                viewBox='0 0 24 24',
+                xmlns='http://www.w3.org/2000/svg',
+                aria-labelledby='layout-comfortable'
+              )
+                path(
+                  d='M19 2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h14zm0 4V4H5v2h14zm0 10a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h14zm0 4v-2H5v2h14zm0-11a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h14zm0 4v-2H5v2h14z'
+                )
+            button#layout-compact.control__button(
+              title=`${ t_('Compact') }`,
+              disabled
+            )
+              svg(
+                role='img',
+                viewBox='0 0 24 24',
+                xmlns='http://www.w3.org/2000/svg',
+                aria-labelledby='layout-compact'
+              )
+                path(
+                  d='M2 5.5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-13zm9 0H4v3h7v-3zm2 0v3h7v-3h-7zm7 5h-7v3h7v-3zm0 5h-7v3h7v-3zm-9 3v-3H4v3h7zm-7-5h7v-3H4v3z'
+                )
       ul.grid
         li.grid-item--if-empty.hidden(
           aria-hidden='true',
@@ -349,7 +404,8 @@ html(lang=lang)
           li.grid-item(
             order-color=icon.indexByColor,
             order-alpha=icon.indexByAlpha,
-            aliases=icon.plainAliases
+            aliases=icon.plainAliases,
+            deprecated=icon.deprecatedAt === false ? false : JSON.stringify(icon.deprecatedAt)
           )
             .grid-item__row.mv-2.fg-2
               button.grid-item__preview.copy-button.copy-svg(
@@ -386,11 +442,23 @@ html(lang=lang)
               h2.grid-item__title #{ icon.localizedTitle || icon.title }
             .grid-item__footer
               button(
-                class=`grid-item__color copy-button copy-color ${icon.light ? "contrast-light" : "contrast-dark"} ${icon.superLight ? "border-light" : ""}  ${icon.superDark ? "border-dark" : ""}`,
+                class=`grid-item__color copy-button copy-color ${icon.light ? "contrast-light" : "contrast-dark"}`,
                 style=`background-color: #${icon.shortHex}`,
                 title=`${ t_('$iconTitle color').replace('$iconTitle', icon.localizedTitle || icon.title) }`,
                 disabled
               ) ##{ icon.hex }
+              button.grid-item__button.view-button(
+                title=`${ t_('view $iconTitle').replace('$iconTitle', icon.title) }`,
+                index=`${icon.indexByAlpha}`
+              )
+                svg(
+                  role='img',
+                  xmlns='http://www.w3.org/2000/svg',
+                  viewBox='0 0 24 24'
+                )
+                  path(
+                    d='m23.136 20.694-4.41-4.413a1.93 1.93 0 0 0-1.186-.551 9.632 9.632 0 0 0 2.13-6.044C19.67 4.344 15.325 0 9.983 0 4.642 0 .297 4.344.297 9.686c0 5.34 4.344 9.685 9.685 9.685 2.016 0 3.89-.62 5.44-1.677.01.48.195.957.563 1.325l4.413 4.413c.377.38.874.568 1.369.568s.992-.189 1.369-.568a1.935 1.935 0 0 0 0-2.738zm-13.154-4.55a6.465 6.465 0 0 1-6.458-6.458 6.465 6.465 0 0 1 6.458-6.458 6.465 6.465 0 0 1 6.458 6.458 6.465 6.465 0 0 1-6.458 6.458z'
+                  )
               a.grid-item__button(
                 href=`/icons/${icon.slug}.svg`,
                 role='button',
@@ -398,6 +466,13 @@ html(lang=lang)
               )
                 svg(role='img', viewBox='0 0 24 24')
                   use(href='#cp')
+              a.report__icon.grid-item__button(
+                href=`https://github.com/simple-icons/simple-icons/issues/new?labels=icon+outdated&template=icon_update.md&title=Update%20${icon.title}%20icon`,
+                role='button',
+                title=`${ t_('Report $iconTitle as outdated').replace('$iconTitle', icon.localizedTitle || icon.title) }`
+              )
+                svg(role='img', viewBox='0 0 24 24')
+                  use(href='#fg')
     footer.footer
       .footer-description
         //- prettier-ignore
