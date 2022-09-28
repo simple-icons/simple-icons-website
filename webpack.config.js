@@ -276,7 +276,14 @@ export default async (env, argv) => {
 
   const languageNamesObject = await getLanguagesFile();
   const languageNamesArray = await getLanguages();
-  const languages = languageNamesArray.map((lang) => lang[0]);
+
+  // in test environment only build for a subset of languages
+  let languages = languageNamesArray.map((lang) => lang[0]);
+  const languagesFilter = process.env.TEST_ENV
+    ? (lang) => languages.slice(0, 3).includes(lang)
+    : () => true;
+  languages = languages.filter(languagesFilter);
+
   const nonDefaultLanguages = languages.filter(
     (language) => language !== DEFAULT_LANGUAGE,
   );
