@@ -1017,7 +1017,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   width: 20rem;
   height: 10.5rem;
   color: var(--color-text-default);
-  left: -17rem;
+  left: -16.8rem;
   top: 0.55rem;
 }
 
