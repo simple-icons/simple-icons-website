@@ -10,7 +10,7 @@ msgstr ""
 "POT-Creation-Date: 2022-09-27T13:42:46.869Z\n"
 "MIME-Version: 1.0\n"
 "Project-Id-Version: simple-icons-website\n"
-"PO-Revision-Date: 2022-09-27T13:42:46.869Z\n"
+"PO-Revision-Date: 2022-09-28T14:06:03.221Z\n"
 
 msgid "$nIcons Free SVG icons for popular brands"
 msgstr "囊括 $nIcons 种流行品牌的免费 SVG 图标"
@@ -130,40 +130,37 @@ msgid "Made with ❤️ on GitHub"
 msgstr "Made with ❤️ on GitHub"
 
 msgid "Download SVG"
-msgstr ""
+msgstr "下载 SVG"
 
 msgid "Download colored SVG"
-msgstr ""
+msgstr "下载彩色 SVG"
 
 msgid "Download PDF"
-msgstr ""
+msgstr "下载 PDF"
 
 msgid "Report icon as outdated"
-msgstr ""
+msgstr "报告图标过时"
 
 msgid "Layout"
-msgstr ""
+msgstr "布局"
 
 msgid "Comfortable"
-msgstr ""
+msgstr "舒适"
 
 msgid "Compact"
-msgstr ""
+msgstr "紧凑"
 
 msgid "view $iconTitle"
-msgstr ""
+msgstr "查看 $iconTitle"
 
 msgid "Report $iconTitle as outdated"
-msgstr ""
-
-msgid "Guidelines"
-msgstr ""
-
-msgid "no guidelines"
-msgstr ""
-
-msgid "no license"
-msgstr ""
+msgstr "报告 $iconTitle 过时"
 
 msgid "It will be removed at version $version"
-msgstr ""
+msgstr "将在 $version 中删除"
+
+msgid "no brand guidelines"
+msgstr "无品牌指南"
+
+msgid "no icon license"
+msgstr "无图标许可证"

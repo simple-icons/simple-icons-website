@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://github.com/simple-icons/simple-icons-website/issues\n"
 "Language: fr\n"
 "POT-Creation-Date: 2022-09-25T01:25:24.834Z\n"
-"PO-Revision-Date: 2022-09-28T13:46:47.310Z\n"
+"PO-Revision-Date: 2022-09-28T14:06:03.221Z\n"
 "MIME-Version: 1.0\n"
 
 msgid "Extension"
@@ -130,43 +130,37 @@ msgid "Removal at $version"
 msgstr "Suppression à $version"
 
 msgid "Layout"
-msgstr ""
+msgstr "Disposition"
 
 msgid "Comfortable"
-msgstr ""
+msgstr "Confortable"
 
 msgid "Compact"
-msgstr ""
+msgstr "Compact"
 
 msgid "view $iconTitle"
-msgstr ""
+msgstr "voir $iconTitle"
 
 msgid "Download SVG"
-msgstr ""
+msgstr "Télécharger SVG"
 
 msgid "Download colored SVG"
-msgstr ""
+msgstr "Télécharger SVG coloré"
 
 msgid "Download PDF"
-msgstr ""
+msgstr "Télécharger PDF"
 
 msgid "Report $iconTitle as outdated"
-msgstr ""
+msgstr "Signaler $iconTitle comme obsolète"
 
 msgid "Report icon as outdated"
-msgstr ""
-
-msgid "Guidelines"
-msgstr ""
-
-msgid "no guidelines"
-msgstr ""
-
-msgid "no license"
-msgstr ""
+msgstr "Signaler l'icône comme obsolète"
 
 msgid "It will be removed at version $version"
-msgstr ""
+msgstr "Il sera supprimé à la version $version"
 
-#~ msgid "Report outdated"
-#~ msgstr ""
+msgid "no brand guidelines"
+msgstr "aucune directive de marque"
+
+msgid "no icon license"
+msgstr "aucune licence d'icône"

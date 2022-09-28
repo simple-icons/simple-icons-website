@@ -10,7 +10,7 @@ msgstr ""
 "POT-Creation-Date: 2022-09-26T15:39:06.158Z\n"
 "MIME-Version: 1.0\n"
 "Project-Id-Version: simple-icons-website\n"
-"PO-Revision-Date: 2022-09-28T13:46:47.310Z\n"
+"PO-Revision-Date: 2022-09-28T14:06:03.221Z\n"
 
 msgid "$nIcons Free SVG icons for popular brands"
 msgstr "$nIcons icone SVG gratuite per marchi famosi"
@@ -130,43 +130,37 @@ msgid "Removal at $version"
 msgstr "Rimozione in $version"
 
 msgid "Layout"
-msgstr ""
+msgstr "Layout"
 
 msgid "Comfortable"
-msgstr ""
+msgstr "Comodo"
 
 msgid "Compact"
-msgstr ""
+msgstr "Compatto"
 
 msgid "view $iconTitle"
-msgstr ""
+msgstr "visualizza $iconTitle"
 
 msgid "Download SVG"
-msgstr ""
+msgstr "Scarica SVG"
 
 msgid "Download colored SVG"
-msgstr ""
+msgstr "Scarica SVG colorato"
 
 msgid "Download PDF"
-msgstr ""
+msgstr "Scarica PDF"
 
 msgid "Report $iconTitle as outdated"
-msgstr ""
+msgstr "Segnala $iconTitle come obsoleto"
 
 msgid "Report icon as outdated"
-msgstr ""
-
-msgid "Guidelines"
-msgstr ""
-
-msgid "no guidelines"
-msgstr ""
-
-msgid "no license"
-msgstr ""
+msgstr "Segnala icona come obsoleta"
 
 msgid "It will be removed at version $version"
-msgstr ""
+msgstr "Sarà rimosso nella versione $version"
 
-#~ msgid "Report outdated"
-#~ msgstr ""
+msgid "no brand guidelines"
+msgstr "nessuna guida del marchio"
+
+msgid "no icon license"
+msgstr "nessuna licenza dell'icona"

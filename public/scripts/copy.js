@@ -22,7 +22,7 @@ export default (document, navigator, fetch) => {
 
   const onClickColorButton = (event) => {
     event.preventDefault();
-    copyValue(event.target.innerText);
+    copyValue(event.target.innerHTML);
     setCopied(event.target);
   };
 

@@ -1090,7 +1090,7 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   cursor: default;
 }
 
-body:not(.dark):not(.light) .detail_modal #icon-preview {
+body:not(.light) .detail_modal #icon-preview {
   filter: invert(1);
 }
 
@@ -1154,7 +1154,7 @@ body:not(.dark):not(.light) .detail_modal #icon-preview {
 }
 
 .detail-footer {
-  width: auto;
+  width: 90%;
   display: flex;
   justify-content: space-around;
   position: absolute;
