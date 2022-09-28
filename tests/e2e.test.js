@@ -24,7 +24,7 @@ import {
 jest.retryTimes(3);
 jest.setTimeout(3000);
 
-const COLOR_REGEX = /^[A-F0-9]{6}$/;
+const COLOR_REGEX = /^#[A-F0-9]{6}$/;
 const SVG_REGEX = /^<svg.*>.*<\/svg>$/;
 
 const DEFAULT_DEVICE = {
@@ -338,14 +338,12 @@ describe('Ordering', () => {
   it('orders grid items alphabetically', async () => {
     await expect(page).toClick('#order-alpha');
 
-    const $gridItems = await page.$$('button.grid-item__button.view-button');
+    const $gridItemTitles = await page.$$('.grid-item .grid-item__title');
 
     for (let i = 0; i < nIcons; i++) {
-      const $gridItem = $gridItems[i];
+      const $gridItemTitle = $gridItemTitles[i];
       const expectedTitle = titles[i];
-      const title = await (
-        await $gridItem.getProperty('textContent')
-      ).jsonValue();
+      const title = await getTextContent($gridItemTitle);
       await expect(title).toMatch(expectedTitle);
     }
   });

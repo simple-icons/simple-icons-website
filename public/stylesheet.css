@@ -373,12 +373,23 @@ a {
 .control-field {
   display: flex;
   flex-direction: column;
-  margin-right: 1rem;
 }
 .control-field:first-of-type {
   flex-basis: 25%;
   min-width: 260px;
 }
+.control-field:not(:last-of-type) {
+  margin-right: 1rem;
+}
+@media (max-width: 735px) {
+  .control-field:first-of-type {
+    min-width: 190px;
+  }
+  .control-field:not(:last-of-type) {
+    margin-right: 0.6rem;
+  }
+}
+
 @media (max-width: 640px) {
   .control-field {
     margin: 0.5rem 0 0.5rem 1rem;
