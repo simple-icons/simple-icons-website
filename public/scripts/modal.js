@@ -70,6 +70,7 @@ export default (document, domUtils, iconsData) => {
       $iconLicense.style.display = '';
       $iconLicenseNoLicense.style.display = 'none';
       $iconLicense.setAttribute('href', icon.license.url);
+      $iconLicense.innerText = icon.license.type;
     } else {
       $iconLicense.style.display = 'none';
       $iconLicenseNoLicense.style.display = '';
