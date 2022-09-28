@@ -102,8 +102,8 @@ msgstr "Directrices de marca"
 msgid "$iconTitle color"
 msgstr "Color de $iconTitle"
 
-msgid "website repository"
-msgstr "repositorio del sitio web"
+msgid "Website repository"
+msgstr "Repositorio del sitio web"
 
 msgid "$nIcons Free <abbr title=\"Scalable Vector Graphic\">SVG</abbr> icons for popular brands"
 msgstr "$nIcons iconos <abbr title=\"Scalable Vector Graphic\">SVG</abbr> gratis de marcas populares"
