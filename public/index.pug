@@ -498,3 +498,5 @@ html(lang=lang)
         p.
           #[a(title=`${ t_('Website repository') }`, href='https://github.com/simple-icons/simple-icons-website') #{ t_('Made with ❤️ on GitHub') }]
     input#copy-input.hidden(aria-hidden='true', tabindex='-1')
+  if mode != 'development'
+    style .layout-compact .grid { top: -5rem; position: relative; }
