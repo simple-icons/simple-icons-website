@@ -435,6 +435,7 @@ export default async (env, argv) => {
             languageOfTheBuild: lang,
             languages,
             languageNames: languageNamesObject,
+            mode: argv.mode,
           },
           minify:
             argv.mode === 'development'
