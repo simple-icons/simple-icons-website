@@ -1021,10 +1021,10 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  width: 20rem;
+  width: 18rem;
   height: 10.5rem;
   color: var(--color-text-default);
-  left: -16.8rem;
+  left: -14.8rem;
   top: 0.55rem;
 }
 
@@ -1036,6 +1036,25 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 }
 #language-selector ul li:hover {
   color: var(--color-text-light);
+}
+
+@media (max-width: 900px) {
+  #language-selector ul {
+    height: 5rem;
+    width: 15rem;
+    left: -12rem;
+  }
+
+  #language-selector ul li {
+    padding: 1px 5px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 680px) {
+  #language-selector {
+    display: none;
+  }
 }
 
 .detail_modal {
