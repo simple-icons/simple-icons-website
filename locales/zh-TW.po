@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: simple-icons-website\n"
 "Report-Msgid-Bugs-To: https://github.com/simple-icons/simple-icons-website/issues\n"
 "POT-Creation-Date: 2022-09-28T14:14:50.054Z\n"
-"PO-Revision-Date: 2022-09-29 23:06+0800\n"
+"PO-Revision-Date: 2022-09-29T15:48:33.956Z\n"
 "Last-Translator: @LitoMore <https://github.com/LitoMore>\n"
 "Language-Team: zh-TW <https://github.com/simple-icons>\n"
 "Language: zh-TW\n"
@@ -124,9 +124,6 @@ msgstr "Twitter logo"
 msgid "Share this on Twitter!"
 msgstr "分享至 Twitter"
 
-msgid "website repository"
-msgstr "網站項目"
-
 msgid "Made with ❤️ on GitHub"
 msgstr "Made with ❤️ on GitHub"
 
@@ -165,3 +162,6 @@ msgstr "查看 $iconTitle"
 
 msgid "Report $iconTitle as outdated"
 msgstr "報告 $iconTitle 已過時"
+
+msgid "Website repository"
+msgstr "網站項目"
