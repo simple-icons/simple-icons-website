@@ -112,7 +112,7 @@ msgid "A <a href=\"https://github.com/simple-icons/simple-icons/blob/develop/LIC
 msgstr "Un proyecto <a href=\"https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md\">CCO</a> mantenido por los <a href=\"https://github.com/simple-icons/simple-icons/graphs/contributors\">contribuidores de Simple Icons</a>."
 
 msgid "Kindly supported by your donations at <a href=\"https://opencollective.com/simple-icons\">Open Collective</a>."
-msgstr "Amablemente apoyada por sus donaciones en <a href=\"https://opencollective.com/simple-icons\">Open Collective</a>."
+msgstr "Amablemente soportado por sus donaciones en <a href=\"https://opencollective.com/simple-icons\">Open Collective</a>."
 
 msgid "$nIcons Free SVG icons for popular brands"
 msgstr "$nIcons iconos SVG gratis de marcas populares"
