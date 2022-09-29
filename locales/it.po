@@ -115,7 +115,7 @@ msgid "Share this on Twitter!"
 msgstr "Condividi questo su Twitter!"
 
 msgid "Website repository"
-msgstr "deposito del sito web"
+msgstr "Deposito del sito web"
 
 msgid "Made with ❤️ on GitHub"
 msgstr "Fatto con ❤️ su GitHub"
