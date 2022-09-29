@@ -123,7 +123,7 @@ msgstr "Twitter"
 msgid "Share this on Twitter!"
 msgstr "分享到 Twitter"
 
-msgid "website repository"
+msgid "Website repository"
 msgstr "项目地址"
 
 msgid "Made with ❤️ on GitHub"

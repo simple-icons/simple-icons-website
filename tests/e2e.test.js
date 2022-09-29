@@ -109,6 +109,7 @@ describe('External links', () => {
     'UNPKG (Content Delivery Network)',
     'Open Collective',
     'Legal Disclaimer',
+    'Website repository',
   ])(`is possible to click menu links`, (title) => {
     it(`is possible to click the link for ${title}`, async () => {
       await expect(page).toClick(`a[title="${title}"]`);
@@ -117,11 +118,6 @@ describe('External links', () => {
 
   it(`is possible to click the button for Third-Party Extensions`, async () => {
     await expect(page).toClick('button[title="Third-Party Extensions"]');
-  });
-
-  it('is possible to click the link for Github repository', async () => {
-    const footerRepositoryTitle = 'website repository';
-    await expect(page).toClick(`a[title="${footerRepositoryTitle}"]`);
   });
 
   it('is possible to click extensions link', async () => {
@@ -139,6 +135,10 @@ describe('External links', () => {
         'href',
       ),
     );
+  });
+
+  it('is possible to click language selector', async () => {
+    await expect(page).toClick('#language-selector');
   });
 });
 

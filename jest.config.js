@@ -1,5 +1,5 @@
 import { execSync } from 'node:child_process';
-import fs from 'node:fs';
+import { mkdirSync } from 'node:fs';
 import { ARTIFACTS_DIR } from './tests/constants.js';
 
 const TEST_ENV_OPTIONS = ['all', 'e2e', 'unit'];
@@ -17,9 +17,9 @@ if (env !== TEST_ENV_UNIT) {
   console.info('Building website for end-to-end tests...');
   execSync('run-s clean build');
 
-  if (!fs.existsSync(ARTIFACTS_DIR)) {
-    fs.mkdirSync(ARTIFACTS_DIR);
-  }
+  try {
+    mkdirSync(ARTIFACTS_DIR);
+  } catch (e) {} // eslint-disable-line no-empty
 }
 
 export default {
