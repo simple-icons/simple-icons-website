@@ -791,7 +791,10 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   text-align: center;
 }
 @media (max-width: 1280px) {
-  #carbonads {
+  .layout-compact #carbonads {
+    grid-column: -3 / -1;
+  }
+  .layout-comfortable #carbonads {
     grid-column: -2 / -1;
   }
 }
