@@ -498,5 +498,10 @@ html(lang=lang)
         p.
           #[a(title=`${ t_('Website repository') }`, href='https://github.com/simple-icons/simple-icons-website') #{ t_('Made with ❤️ on GitHub') }]
     input#copy-input.hidden(aria-hidden='true', tabindex='-1')
+
+  // In production builds we have the carbonads ad and we don't
+  // want to make it smaller in compact mode. So we move the grid
+  // (including the ad) to the top 5rem, putting the grid just belo
+  // the controls:
   if mode != 'development'
     style .layout-compact .grid { top: -5rem; position: relative; }
