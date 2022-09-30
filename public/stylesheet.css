@@ -196,6 +196,7 @@ body.dark .icon-preview {
 
 body {
   background-color: var(--color-background);
+  font-family: var(--font-family-text);
   color: var(--color-text-default);
   display: flex;
   flex-direction: column;
@@ -1180,7 +1181,7 @@ body:not(.light) .detail_modal #icon-preview {
 }
 
 .detail-footer a {
-  font-size: 15px;
+  font-size: 14px;
   color: var(--color-button-text);
   padding: 3px 7px;
   border-radius: 3px;
