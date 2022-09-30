@@ -43,7 +43,8 @@ export default (document, domUtils, iconsData) => {
       }`,
     );
     $hexContainer.innerText = `#${icon.hex}`;
-    $detailBody.querySelector('img#icon-preview').src = $iconImage.src;
+    $detailBody.querySelector('.detail_modal img.icon-preview').src =
+      $iconImage.src;
     $detailBody.querySelector('#icon-title').innerText = icon.title;
     $detailBody.querySelector('#icon-source').setAttribute('href', icon.source);
 
