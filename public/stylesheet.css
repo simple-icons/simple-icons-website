@@ -1099,16 +1099,12 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
   height: 161px;
 }
 
-.detail_modal #icon-preview {
+.detail_modal .icon-preview {
   width: 80%;
   position: relative;
   left: 20px;
   margin-bottom: 20px;
   cursor: default;
-}
-
-body:not(.light) .detail_modal #icon-preview {
-  filter: invert(1);
 }
 
 .detail_modal #icon-title {
