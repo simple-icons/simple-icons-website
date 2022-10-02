@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: simple-icons-website\n"
 "Report-Msgid-Bugs-To: https://github.com/simple-icons/simple-icons-website/issues\n"
 "POT-Creation-Date: 2022-09-27T13:42:46.869Z\n"
-"PO-Revision-Date: 2022-09-29 23:12+0800\n"
+"PO-Revision-Date: 2022-10-02 16:42+0800\n"
 "Last-Translator: @LitoMore <https://github.com/LitoMore>\n"
 "Language-Team: zh-CN <https://github.com/simple-icons>\n"
 "Language: zh-CN\n"
@@ -139,9 +139,6 @@ msgstr "下载彩色 SVG"
 msgid "Download PDF"
 msgstr "下载 PDF"
 
-msgid "Report icon as outdated"
-msgstr "报告图标过时"
-
 msgid "Layout"
 msgstr "布局"
 
@@ -154,9 +151,6 @@ msgstr "紧凑"
 msgid "view $iconTitle"
 msgstr "查看 $iconTitle"
 
-msgid "Report $iconTitle as outdated"
-msgstr "报告 $iconTitle 过时"
-
 msgid "It will be removed at version $version"
 msgstr "将在 $version 中删除"
 
@@ -165,3 +159,9 @@ msgstr "缺少品牌指南"
 
 msgid "no icon license"
 msgstr "缺少图标许可证"
+
+msgid "Icon outdated?"
+msgstr "有图标过时了吗？"
+
+msgid "Report outdated icon"
+msgstr "报告图标过时"

@@ -108,12 +108,6 @@ export default (document, domUtils, iconsData) => {
     $detailFooter
       .querySelector('#icon-download-pdf')
       .setAttribute('href', `./icons/${icon.slug}.pdf`);
-    $detailFooter
-      .querySelector('#icon-report')
-      .setAttribute(
-        'href',
-        `https://github.com/simple-icons/simple-icons/issues/new?labels=icon+outdated&template=icon_update.md&title=Update%20${icon.title}%20icon`,
-      );
 
     DETAILS_MODAL_OPENED = true;
     e.stopPropagation();

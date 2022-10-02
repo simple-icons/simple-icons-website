@@ -1,16 +1,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: simple-icons-website\n"
+"Report-Msgid-Bugs-To: https://github.com/simple-icons/simple-icons-website/issues\n"
+"POT-Creation-Date: 2022-09-25T01:25:24.834Z\n"
+"PO-Revision-Date: 2022-10-02 16:42+0800\n"
+"Last-Translator: @mondeja <https://github.com/mondeja>\n"
+"Language-Team: fr <https://github.com/simple-icons>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language-Team: fr <https://github.com/simple-icons>\n"
-"Last-Translator: @mondeja <https://github.com/mondeja>\n"
-"Report-Msgid-Bugs-To: https://github.com/simple-icons/simple-icons-website/issues\n"
-"Language: fr\n"
-"POT-Creation-Date: 2022-09-25T01:25:24.834Z\n"
-"PO-Revision-Date: 2022-09-28T14:06:03.221Z\n"
-"MIME-Version: 1.0\n"
+"X-Generator: Poedit 3.1.1\n"
 
 msgid "Extension"
 msgstr "Extension"
@@ -150,12 +151,6 @@ msgstr "Télécharger SVG coloré"
 msgid "Download PDF"
 msgstr "Télécharger PDF"
 
-msgid "Report $iconTitle as outdated"
-msgstr "Signaler $iconTitle comme obsolète"
-
-msgid "Report icon as outdated"
-msgstr "Signaler l'icône comme obsolète"
-
 msgid "It will be removed at version $version"
 msgstr "Il sera supprimé à la version $version"
 
@@ -164,3 +159,9 @@ msgstr "aucune directive de marque"
 
 msgid "no icon license"
 msgstr "aucune licence d'icône"
+
+msgid "Icon outdated?"
+msgstr "Icône périmée ?"
+
+msgid "Report outdated icon"
+msgstr "Signaler une icône périmée"

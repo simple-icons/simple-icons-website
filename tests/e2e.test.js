@@ -11,7 +11,6 @@ import * as simpleIcons from 'simple-icons/icons';
 
 import {
   getClipboardValue,
-  getAttribute,
   getValue,
   hasClass,
   isDisabled,
@@ -127,16 +126,6 @@ describe('External links', () => {
     );
   });
 
-  it('is possible to click outdated icon link', async () => {
-    const reportIcons = await page.$$('a.report__icon');
-    expect(page).toClick(
-      await getAttribute(
-        reportIcons[Math.floor(Math.random() * reportIcons.length)],
-        'href',
-      ),
-    );
-  });
-
   it('is possible to click language selector', async () => {
     await expect(page).toClick('#language-selector');
   });
@@ -180,11 +169,6 @@ describe('Search', () => {
     expect(await isHidden($searchClear)).toBeTruthy();
   });
 
-  it('does not show the "no results" message on load', async () => {
-    const $gridItemIfEmpty = await page.$('.grid-item--if-empty');
-    expect(await isHidden($gridItemIfEmpty)).toBeTruthy();
-  });
-
   it('shows the "order by relevance" button on search', async () => {
     const $searchInput = await page.$('#search-input');
     await $searchInput.type('adobe');
@@ -207,11 +191,6 @@ describe('Search', () => {
 
     const $body = await page.$('body');
     expect(await hasClass($body, 'order-relevance')).toBeTruthy();
-  });
-
-  it('does not show the "no results" message on search', async () => {
-    const $gridItemIfEmpty = await page.$('.grid-item--if-empty');
-    expect(await isHidden($gridItemIfEmpty)).toBeTruthy();
   });
 
   it('resets the search when clicking the "clear search" button', async () => {
@@ -281,27 +260,6 @@ describe('Search', () => {
 
     const $orderRelevance = await page.$('#order-relevance');
     expect(await isVisible($orderRelevance)).toBeTruthy();
-  });
-
-  it('shows the "no results" message if no brand was found', async () => {
-    await page.type('#search-input', 'this is definitely not going to match');
-    await page.screenshot({
-      path: path.resolve(ARTIFACTS_DIR, 'desktop_no-search-results.png'),
-    });
-
-    const $gridItemIfEmpty = await page.$('.grid-item--if-empty');
-    expect(await isVisible($gridItemIfEmpty)).toBeTruthy();
-  });
-
-  it('hides the "no results" message when the search is removed', async () => {
-    const $searchInput = await page.$('#search-input');
-    await $searchInput.type('this is definitely not going to match');
-
-    await $searchInput.click({ clickCount: 3 });
-    await $searchInput.press('Backspace');
-
-    const $gridItemIfEmpty = await page.$('.grid-item--if-empty');
-    expect(await isHidden($gridItemIfEmpty)).toBeTruthy();
   });
 });
 
