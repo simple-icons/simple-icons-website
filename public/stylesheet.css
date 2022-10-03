@@ -574,24 +574,19 @@ body:not(.dark):not(.light) #color-scheme-system:not(:disabled) {
 .grid-top-padding {
   margin-top: 0.1rem;
 }
-.grid-item--if-empty {
-  display: flex;
-  grid-column: 1 / span 2;
-  margin: 0 0.4rem;
-}
-.grid-item--if-empty p {
+p.report-link {
   font-family: var(--font-family-stylized);
   font-size: 0.9rem;
 }
-.grid-item--if-empty a {
+p.report-link a {
   color: var(--color-link);
 }
-.grid-item--if-empty a:focus,
-.grid-item--if-empty a:hover {
+p.report-link a:focus,
+p.report-link a:hover {
   color: var(--color-link-hover);
   text-decoration: underline;
 }
-.grid-item--if-empty a:visited {
+p.report-link a:visited {
   color: var(--color-link-visited);
 }
 

@@ -51,8 +51,6 @@ export default (history, document, ordering, domUtils) => {
   const $orderColor = document.getElementById('order-color');
   const $orderRelevance = document.getElementById('order-relevance');
 
-  const $gridItemIfEmpty = document.querySelector('.grid-item--if-empty');
-
   // when loaded for first time, all icon nodes exist in the DOM
   const $icons = document.querySelectorAll('.grid-item');
 
@@ -65,7 +63,7 @@ export default (history, document, ordering, domUtils) => {
   function getNonIcons() {
     const nonIcons = [];
     for (const node of document.querySelector('ul.grid').children) {
-      // grid-item-if-empty and other like carbon ads
+      // carbon ads
       if (!node.classList.contains('grid-item')) {
         nonIcons.push(node);
       } else {
@@ -83,7 +81,6 @@ export default (history, document, ordering, domUtils) => {
       domUtils.hideElement($orderRelevance);
       domUtils.removeClass($orderRelevance, 'last__button');
       domUtils.addClass($orderColor, 'last__button');
-      domUtils.hideElement($gridItemIfEmpty);
 
       // add all icons to the grid again
       const $gridChildren = document.querySelector('ul.grid').children;
@@ -109,11 +106,6 @@ export default (history, document, ordering, domUtils) => {
     result = nonIcons.concat(result);
 
     ordering.selectOrdering(ORDER_RELEVANCE, result);
-    if (result.length !== nonIcons.length) {
-      domUtils.hideElement($gridItemIfEmpty);
-    } else {
-      domUtils.showElement($gridItemIfEmpty);
-    }
   };
 
   $searchInput.disabled = false;

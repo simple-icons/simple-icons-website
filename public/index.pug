@@ -88,7 +88,6 @@ html(lang=lang)
         a#icon-download-svg.detail-button(role='button', download) #{ t_('Download SVG') }
         a#icon-download-color-svg.detail-button(role='button', download) #{ t_('Download colored SVG') }
         a#icon-download-pdf.detail-button(role='button', download) #{ t_('Download PDF') }
-        a#icon-report.report__icon.detail-button(role='button') #{ t_('Report icon as outdated') }
 
     header.header
       ul.header__list
@@ -383,13 +382,6 @@ html(lang=lang)
                   d='M2 5.5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-13zm9 0H4v3h7v-3zm2 0v3h7v-3h-7zm7 5h-7v3h7v-3zm0 5h-7v3h7v-3zm-9 3v-3H4v3h7zm-7-5h7v-3H4v3z'
                 )
       ul.grid
-        li.grid-item--if-empty.hidden(
-          aria-hidden='true',
-          order-color=-1,
-          order-alpha=-1
-        )
-          p #{ t_('Icon missing?') } #[a(href='https://github.com/simple-icons/simple-icons/issues/new?labels=new+icon&template=icon_request.yml&title=Request%3A+') #{ t_('Submit a request') }]
-
         //- This script adds an extra element after itself.
         script#_carbonads_js(
           async,
@@ -462,13 +454,8 @@ html(lang=lang)
               )
                 svg(role='img', viewBox='0 0 24 24')
                   use(href='#cp')
-              a.report__icon.grid-item__button(
-                href=`https://github.com/simple-icons/simple-icons/issues/new?labels=icon+outdated&template=icon_update.md&title=Update%20${icon.title}%20icon`,
-                role='button',
-                title=`${ t_('Report $iconTitle as outdated').replace('$iconTitle', icon.localizedTitle || icon.title) }`
-              )
-                svg(role='img', viewBox='0 0 24 24')
-                  use(href='#fg')
+      p#icon-missing.report-link #{ t_('Icon missing?') } #[a(href='https://github.com/simple-icons/simple-icons/issues/new?assignees=&labels=new+icon&template=icon_request.yml') #{ t_('Submit a request') }]
+      p#icon-outdated.report-link #{ t_('Icon outdated?') } #[a(href='https://github.com/simple-icons/simple-icons/issues/new?assignees=&labels=icon+outdated&template=icon_update.yml') #{ t_('Report outdated icon') }]
     footer.footer
       .footer-description
         //- prettier-ignore
