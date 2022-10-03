@@ -159,19 +159,14 @@ describe('Search', () => {
     },
   );
 
-  it('always show report buttons', async () => {
+  it('show report buttons when icons are missing on search', async () => {
     const $iconMissing = await page.$('#icon-missing');
     const $iconOutdated = await page.$('#icon-outdated');
     expect(await isVisible($iconMissing)).toBeTruthy();
     expect(await isVisible($iconOutdated)).toBeTruthy();
 
     const $searchInput = await page.$('#search-input');
-    await $searchInput.type(' ');
-    expect(await isVisible($iconMissing)).toBeTruthy();
-    expect(await isVisible($iconOutdated)).toBeTruthy();
-
-    await page.$eval('#search-input', (el) => (el.value = ''));
-    await $searchInput.type('litomore');
+    await $searchInput.type('this is definitely not going to match');
     expect(await isVisible($iconMissing)).toBeTruthy();
     expect(await isVisible($iconOutdated)).toBeTruthy();
   });
@@ -277,6 +272,13 @@ describe('Search', () => {
 
     const $orderRelevance = await page.$('#order-relevance');
     expect(await isVisible($orderRelevance)).toBeTruthy();
+  });
+
+  it('shows the "no results" message if no brand was found', async () => {
+    await page.type('#search-input', 'this is definitely not going to match');
+    await page.screenshot({
+      path: path.resolve(ARTIFACTS_DIR, 'desktop_no-search-results.png'),
+    });
   });
 });
 
