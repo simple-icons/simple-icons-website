@@ -159,6 +159,23 @@ describe('Search', () => {
     },
   );
 
+  it('always show report buttons', async () => {
+    const $iconMissing = await page.$('#icon-missing');
+    const $iconOutdated = await page.$('#icon-outdated');
+    expect(await isVisible($iconMissing)).toBeTruthy();
+    expect(await isVisible($iconOutdated)).toBeTruthy();
+
+    const $searchInput = await page.$('#search-input');
+    await $searchInput.type(' ');
+    expect(await isVisible($iconMissing)).toBeTruthy();
+    expect(await isVisible($iconOutdated)).toBeTruthy();
+
+    await page.$eval('#search-input', (el) => (el.value = ''));
+    await $searchInput.type('litomore');
+    expect(await isVisible($iconMissing)).toBeTruthy();
+    expect(await isVisible($iconOutdated)).toBeTruthy();
+  });
+
   it('does not show the "order by relevance" button on load', async () => {
     const $orderRelevance = await page.$('#order-relevance');
     expect(await isHidden($orderRelevance)).toBeTruthy();
