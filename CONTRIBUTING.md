@@ -83,8 +83,8 @@ $ docker rm simple-icons-website-dev
 ### How to add new locales
 
 1. Add the languages to the file *locales/languages.json*.
-2. Run `npm install` in the root directory to install all required dependencies, if you haven't done so already.
-3. Run `npm run locale` in the root directory to generate the new locale files. These will be `.po` extension files located in the *locales/* folder.
+2. Run `npm install` to install all required dependencies, if you haven't done so already.
+3. Run `npm run locale` to generate the new locale files. These will be `.po` extension files located in the *locales/* folder.
 4. Translate the strings in the new locale files using [POEdit] and it will be automatically included in the next bundle.
 
 [github flow]: https://guides.github.com/introduction/flow/
