@@ -85,7 +85,7 @@ $ docker rm simple-icons-website-dev
 1. Add the languages to the file *locales/languages.json*.
 2. Run `npm install` to install all required dependencies, if you haven't done so already.
 3. Run `npm run locale` to generate the new locale files. These will be `.po` extension files located in the *locales/* folder.
-4. Translate the strings in the new locale files using [POEdit] and it will be automatically included in the next bundle.
+4. Translate the strings in the new locale files using an editor like [POEdit] and it will be automatically included in the next bundle.
 
 [github flow]: https://guides.github.com/introduction/flow/
 [new icon request]: https://github.com/simple-icons/simple-icons/issues/new?labels=new+icon&template=icon_request.yml&title=Request%3A+
