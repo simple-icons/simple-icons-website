@@ -1017,7 +1017,7 @@ p.report-link a:visited {
   flex-direction: column;
   flex-wrap: wrap;
   width: 18rem;
-  height: 10.5rem;
+  height: 12rem;
   color: var(--color-text-default);
   left: -14.8rem;
   top: 0.55rem;
@@ -1036,8 +1036,8 @@ p.report-link a:visited {
 @media (max-width: 900px) {
   #language-selector ul {
     height: 5rem;
-    width: 15rem;
-    left: -12rem;
+    width: 20rem;
+    left: -17rem;
   }
 
   #language-selector ul li {
