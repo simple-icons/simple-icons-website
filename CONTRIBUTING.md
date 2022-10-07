@@ -3,7 +3,7 @@
 Simple Icons welcomes contributions and corrections. Before contributing, please make sure you have read the guidelines below. If you decide to contribute anything, please do the following:
 
 1. Fork this repository
-1. Create [a new branch][github flow] from the latest `develop`
+1. Create [a new branch][github flow] from the latest `master`
 1. Start hacking on the new branch
 1. Commit and push to the new branch
 1. Make a pull request
@@ -83,9 +83,11 @@ $ docker rm simple-icons-website-dev
 ### How to add new locales
 
 1. Add the languages to the file *locales/languages.json*.
-2. Run `npm run locale` to generate the new locale files. These will be `.po` extension files located in the *locales/* folder.
-3. Translate the strings in the new locale files and will be automatically included in the next bundle.
+2. Run `npm install` to install all required dependencies, if you haven't done so already.
+3. Run `npm run locale` to generate the new locale files. These will be `.po` extension files located in the *locales/* folder.
+4. Translate the strings in the new locale files using an editor like [POEdit] and it will be automatically included in the next bundle.
 
 [github flow]: https://guides.github.com/introduction/flow/
 [new icon request]: https://github.com/simple-icons/simple-icons/issues/new?labels=new+icon&template=icon_request.yml&title=Request%3A+
 [NodeJS]: https://nodejs.org/en/download/
+[POEdit]: https://poedit.net/download/
