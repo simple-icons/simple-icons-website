@@ -1,0 +1,167 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: simple-icons-website\n"
+"Report-Msgid-Bugs-To: https://github.com/simple-icons/simple-icons-website/issues\n"
+"POT-Creation-Date: 2022-10-07T19:52:50.250Z\n"
+"PO-Revision-Date: 2022-10-07 22:18+0200\n"
+"Last-Translator: @mondeja <https://github.com/mondeja>\n"
+"Language-Team: pt <https://github.com/simple-icons>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.1.1\n"
+
+msgid "$nIcons Free SVG icons for popular brands"
+msgstr "$nIcons ícones SVG gratuitos para marcas populares"
+
+msgid "Extension"
+msgstr "Extensão"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Brand Guidelines"
+msgstr "Diretrizes da marca"
+
+msgid "no brand guidelines"
+msgstr "sem diretrizes de marca"
+
+msgid "no icon license"
+msgstr "sem licença de ícone"
+
+msgid "Deprecated"
+msgstr "Ddescontinuado"
+
+msgid "It will be removed at version $version"
+msgstr "Será removido na versão $version"
+
+msgid "Download SVG"
+msgstr "Baixar SVG"
+
+msgid "Download colored SVG"
+msgstr "Baixar SVG colorido"
+
+msgid "Download PDF"
+msgstr "Baixar PDF"
+
+msgid "Main Repository"
+msgstr "Repositório principal"
+
+msgid "Legal Disclaimer"
+msgstr "Contrato"
+
+msgid "Third-Party Extensions"
+msgstr "Extensões de terceiros"
+
+msgid "Language"
+msgstr "Linguagem"
+
+msgid "$nIcons Free <abbr title=\"Scalable Vector Graphic\">SVG</abbr> icons for popular brands"
+msgstr "$nIcons ícones <abbr title=\"Scalable Vector Graphic\">SVG</abbr> gratuitos para marcas populares"
+
+msgid "Controls are only available when JavaScript is enabled."
+msgstr "Os controles só estão disponíveis quando o JavaScript está ativado."
+
+msgid "Search"
+msgstr "Pesquisar"
+
+msgid "Search by brand..."
+msgstr "Pesquisar por marca..."
+
+msgid "Order"
+msgstr "Ordem"
+
+msgid "Sort alphabetically"
+msgstr "Ordem alfabética"
+
+msgid "Sort by color"
+msgstr "Ordenar por cor"
+
+msgid "Sort by relevance"
+msgstr "Ordenar por relevância"
+
+msgid "Mode"
+msgstr "Modo"
+
+msgid "Light color scheme"
+msgstr "Esquema de cores claras"
+
+msgid "Dark color scheme"
+msgstr "Esquema de cores escuras"
+
+msgid "System color scheme"
+msgstr "Esquema de cores do sistema"
+
+msgid "Download"
+msgstr "Baixar"
+
+msgid "download SVG"
+msgstr "baixar SVG"
+
+msgid "download PDF"
+msgstr "baixar PDF"
+
+msgid "Layout"
+msgstr "Disposição"
+
+msgid "Comfortable"
+msgstr "Confortável"
+
+msgid "Compact"
+msgstr "Compactar"
+
+msgid "$iconTitle SVG"
+msgstr "$iconTitle SVG"
+
+msgid "$iconTitle icon"
+msgstr "ícone $iconTitle"
+
+msgid "Removal at $version"
+msgstr "Remoção na $version"
+
+msgid "$iconTitle guidelines"
+msgstr "Diretrizes de $iconTitle"
+
+msgid "$iconTitle icon license"
+msgstr "Licença do ícone $iconTitle"
+
+msgid "$iconTitle color"
+msgstr "$iconTitle color"
+
+msgid "view $iconTitle"
+msgstr "ver $iconTitle"
+
+msgid "Icon missing?"
+msgstr "Ícone ausente?"
+
+msgid "Submit a request"
+msgstr "Envie uma petição"
+
+msgid "Icon outdated?"
+msgstr "Ícone desatualizado?"
+
+msgid "Report outdated icon"
+msgstr "Informar que um ícone está desatualizado"
+
+msgid "A <a href=\"https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md\">CCO</a> project maintained by the <a href=\"https://github.com/simple-icons/simple-icons/graphs/contributors\">Simple Icons contributors</a>."
+msgstr "Um projeto <a href=\"https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md\">CCO</a> mantido pelos <a href=\"https://github.com/simple-icons/simple-icons/graphs/contributors\">contribuidores do Simple Icons</a>."
+
+msgid "Use $repoLink for requests, corrections and contributions."
+msgstr "Use $repoLink para solicitações, correções e contribuições."
+
+msgid "Kindly supported by your donations at <a href=\"https://opencollective.com/simple-icons\">Open Collective</a>."
+msgstr "Gentilmente apoiado por suas doações no <a href=\"https://opencollective.com/simple-icons\">Open Collective</a>."
+
+msgid "Twitter logo"
+msgstr "Logotipo do Twitter"
+
+msgid "Share this on Twitter!"
+msgstr "Compartilhe isso no Twitter!"
+
+msgid "Website repository"
+msgstr "Repositório do site"
+
+msgid "Made with ❤️ on GitHub"
+msgstr "Feito com ❤️ no GitHub"

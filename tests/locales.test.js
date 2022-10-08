@@ -45,7 +45,7 @@ describe('Translations must be updated', () => {
       expect(po.headers['Project-Id-Version']).toBe('simple-icons-website');
       expect(po.headers['Last-Translator']).toMatch(
         new RegExp(
-          '^(([^ ]+ <https://[^ >]+>)|(@simple-icons/maintainers <https://github\\.com/simple-icons>))$',
+          '^(([^ ]+ <https://[^ >]+>)|(@simple-icons/maintainers <https://github\\.com/simple-icons>)|())$',
         ),
       );
       expect(po.headers['Project-Id-Version']).toBe('simple-icons-website');

@@ -119,17 +119,18 @@ export const updateTranslations = async () => {
       }
 
       po.headers = {
+        'Project-Id-Version': 'simple-icons-website',
+        'Report-Msgid-Bugs-To':
+          'https://github.com/simple-icons/simple-icons-website/issues',
+        'POT-Creation-Date': currentIso,
+        'PO-Revision-Date': currentIso,
+        'Last-Translator': '',
+        'Language-Team': `${lang} <EMAIL@ADDRESS>`,
+        Language: lang,
+        'MIME-Version': '1.0',
         'Content-Type': 'text/plain; charset=UTF-8',
         'Content-Transfer-Encoding': '8bit',
         'Plural-Forms': 'nplurals=2; plural=(n != 1);',
-        'Language-Team': `${lang} <EMAIL@ADDRESS>`,
-        'Last-Translator': 'FULL NAME <EMAIL@ADDRESS>',
-        'Report-Msgid-Bugs-To':
-          'https://github.com/simple-icons/simple-icons-website/issues',
-        Language: lang,
-        'POT-Creation-Date': currentIso,
-        'MIME-Version': '1.0',
-        'Project-Id-Version': 'simple-icons-website',
       };
       _contentChanged = true;
     } else {
