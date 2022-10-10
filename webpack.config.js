@@ -400,6 +400,11 @@ export default async (env, argv) => {
               );
             },
           },
+          {
+            // Add opensearch.xml
+            from: path.resolve(ROOT_DIR, 'opensearch.xml'),
+            to: path.resolve(OUT_DIR, 'opensearch.xml'),
+          },
         ],
       }),
       ...languages.map((lang) => {
