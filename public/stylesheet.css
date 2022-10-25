@@ -1179,7 +1179,8 @@ p.report-link a:visited {
   text-align: center;
 }
 
-.detail-footer a:hover {
+.detail-footer a:hover,
+.detail-footer a:focus {
   color: var(--color-button-text-hover);
   background: var(--color-button-hover);
 }
