@@ -53,14 +53,14 @@ html(lang=lang)
 
   body.no-js.order-alpha.layout-comfortable.download-svg(tabindex='-1')
     .popup_modal.popup__top.hidden
-      .popup-body 
+      .popup-body
         table.extensions__table
           tr
             td #{ t_('Extension') }
             td #{ t_('Author') }
           each ext in extensions
             tr
-              td 
+              td
                 a.link-button(
                   href=ext.module.url,
                   rel='noopener',
@@ -73,7 +73,7 @@ html(lang=lang)
                   target='_blank'
                 ) #{ ext.author.name }
     .detail_modal.detail__top.hidden
-      .detail-body 
+      .detail-body
         .detail-body__left
           img.icon-preview
         .detail-body__right
