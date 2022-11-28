@@ -6,7 +6,7 @@ import { ARTIFACTS_DIR } from './constants.js';
 import fs from 'node:fs';
 import path from 'node:path';
 import { URL } from 'node:url';
-import { KnownDevices } from 'puppeteer';
+import puppeteer from 'puppeteer';
 import * as simpleIcons from 'simple-icons/icons';
 
 import {
@@ -50,7 +50,7 @@ beforeAll(() => {
 
 describe.each([
   ['desktop', DEFAULT_DEVICE],
-  ['mobile', KnownDevices['Nexus 7']],
+  ['mobile', puppeteer.devices['Nexus 7']],
 ])('General (%s)', (name, device) => {
   beforeEach(async () => {
     await page.emulate(device);
