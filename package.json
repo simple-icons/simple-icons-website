@@ -42,6 +42,7 @@
     "simple-icons": "7.21.0"
   },
   "devDependencies": {
+    "@babel/generator": "7.19.0",
     "@prettier/plugin-pug": "2.3.0",
     "@prettier/plugin-xml": "2.2.0",
     "anywhere": "1.6.0",
