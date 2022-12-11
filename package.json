@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "fast-fuzzy": "1.12.0",
-    "simple-icons": "8.0.0"
+    "simple-icons": "8.1.0"
   },
   "devDependencies": {
     "@babel/generator": "7.19.0",
