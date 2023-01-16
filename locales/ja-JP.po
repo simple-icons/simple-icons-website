@@ -1,0 +1,167 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: simple-icons-website\n"
+"Report-Msgid-Bugs-To: https://github.com/simple-icons/simple-icons-website/issues\n"
+"POT-Creation-Date: 2022-09-26T15:39:06.158Z\n"
+"PO-Revision-Date: 2023-01-16 14:15+0000\n"
+"Last-Translator: @adamrusted <https://github.com/adamrusted>\n"
+"Language-Team: ja-JP <https://github.com/simple-icons>\n"
+"Language: ja-JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.2.2\n"
+
+msgid "$nIcons Free SVG icons for popular brands"
+msgstr "$nIcons 人気ブランドの無料 SVG アイコン"
+
+msgid "Extension"
+msgstr "拡張"
+
+msgid "Author"
+msgstr "投稿者"
+
+msgid "Main Repository"
+msgstr "メインリポジトリ"
+
+msgid "Legal Disclaimer"
+msgstr "法的放棄声明"
+
+msgid "Third-Party Extensions"
+msgstr "サードパーティの拡張機能"
+
+msgid "Language"
+msgstr "言語"
+
+msgid "$nIcons Free <abbr title=\"Scalable Vector Graphic\">SVG</abbr> icons for popular brands"
+msgstr "$nIcons 人気ブランドの無料 <abbr title=\"スケーラブルなベクター グラフィック\">SVG</abbr> アイコン"
+
+msgid "Controls are only available when JavaScript is enabled."
+msgstr "コントロールは、JavaScript が有効な場合にのみ使用できます。"
+
+msgid "Search"
+msgstr "検索"
+
+msgid "Search by brand..."
+msgstr "銘柄から探す。。。"
+
+msgid "Order"
+msgstr "注文"
+
+msgid "Sort alphabetically"
+msgstr "アルファベット順に並べ替え"
+
+msgid "Sort by relevance"
+msgstr "関連性で並べ替え"
+
+msgid "Mode"
+msgstr "モード"
+
+msgid "Light color scheme"
+msgstr "淡い配色"
+
+msgid "Dark color scheme"
+msgstr "暗い配色"
+
+msgid "System color scheme"
+msgstr "システム配色"
+
+msgid "Download"
+msgstr "ダウンロード"
+
+msgid "download SVG"
+msgstr "ダウンロード SVG"
+
+msgid "download PDF"
+msgstr "ダウンロード PDF"
+
+msgid "Icon missing?"
+msgstr "アイコンがない？"
+
+msgid "Submit a request"
+msgstr "リクエストを提出する"
+
+msgid "$iconTitle SVG"
+msgstr "$iconTitle SVG"
+
+msgid "$iconTitle icon"
+msgstr "$iconTitle アイコン"
+
+msgid "$iconTitle guidelines"
+msgstr "$iconTitle 鑑札"
+
+msgid "Brand Guidelines"
+msgstr "銘柄 指針"
+
+msgid "$iconTitle icon license"
+msgstr "$iconTitle アイコンの許可"
+
+msgid "$iconTitle color"
+msgstr "$iconTitle の色"
+
+msgid "A <a href=\"https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md\">CCO</a> project maintained by the <a href=\"https://github.com/simple-icons/simple-icons/graphs/contributors\">Simple Icons contributors</a>."
+msgstr "が維持する<a href=\"https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md\">CCO</a>プロジェクト<a href=\"https://github.com/simple-icons/simple-icons/graphs/contributors\">Simple Icons の貢献者</a>."
+
+msgid "Use $repoLink for requests, corrections and contributions."
+msgstr "リクエスト、修正、投稿には $repoLink を使用してください。"
+
+msgid "Kindly supported by your donations at <a href=\"https://opencollective.com/simple-icons\">Open Collective</a>."
+msgstr "<a href=\"https://opencollective.com/simple-icons\">Open Collective</a> での寄付により、親切にサポートされています。"
+
+msgid "Twitter logo"
+msgstr "Twitter のロゴ"
+
+msgid "Share this on Twitter!"
+msgstr "ツイッターでシェア!"
+
+msgid "Website repository"
+msgstr "ウェブサイトのリポジトリ"
+
+msgid "Made with ❤️ on GitHub"
+msgstr "GitHub で❤️ で作成"
+
+msgid "Sort by color"
+msgstr "色で並べる"
+
+msgid "Deprecated"
+msgstr "非推奨"
+
+msgid "Removal at $version"
+msgstr "$version で削除"
+
+msgid "Layout"
+msgstr "設計"
+
+msgid "Comfortable"
+msgstr "快適"
+
+msgid "Compact"
+msgstr "コンパクト"
+
+msgid "view $iconTitle"
+msgstr "$iconTitle を見る"
+
+msgid "Download SVG"
+msgstr "ダウンロード SVG"
+
+msgid "Download colored SVG"
+msgstr "色SVG をダウンロード"
+
+msgid "Download PDF"
+msgstr "ダウンロード PDF"
+
+msgid "It will be removed at version $version"
+msgstr "バージョン $version で削除されます"
+
+msgid "no brand guidelines"
+msgstr "ブランドガイドラインなし"
+
+msgid "no icon license"
+msgstr "アイコンのガイドラインなし"
+
+msgid "Icon outdated?"
+msgstr "時代遅れのアイコン？"
+
+msgid "Report outdated icon"
+msgstr "古いアイコンを報告する"
