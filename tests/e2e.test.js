@@ -458,6 +458,12 @@ describe('Grid item', () => {
     expect(clipboardValue).toMatch(SVG_REGEX);
   });
 
+  it('copies the slug value when the title is clicked', async () => {
+    await expect(page).toClick('h2.copy-slug');
+    const clipboardValue = await getClipboardValue(page);
+    expect(clipboardValue).toBeTruthy();
+  });
+
   it.each(['download-svg', 'download-pdf'])(
     'is possible to download an icon "%s"',
     async (fileType) => {

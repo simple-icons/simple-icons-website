@@ -9,6 +9,7 @@ export default (document, navigator, fetch) => {
   const $copyInput = document.getElementById('copy-input');
   const $colorButtons = document.querySelectorAll('.copy-color');
   const $svgButtons = document.querySelectorAll('.copy-svg');
+  const $slugButtons = document.querySelectorAll('.copy-slug');
 
   const copyValue = (value) => {
     if (navigator.clipboard) {
@@ -42,6 +43,13 @@ export default (document, navigator, fetch) => {
     }
   };
 
+  const onClickSlugButton = (event) => {
+    event.preventDefault();
+    const iconSlug = event.target.dataset.slug;
+    copyValue(iconSlug);
+    setCopied(event.target);
+  };
+
   $colorButtons.forEach(($colorButton) => {
     $colorButton.removeAttribute('disabled');
     $colorButton.addEventListener('click', onClickColorButton);
@@ -50,5 +58,10 @@ export default (document, navigator, fetch) => {
   $svgButtons.forEach(($svgButton) => {
     $svgButton.removeAttribute('disabled');
     $svgButton.addEventListener('click', onClickSvgButton);
+  });
+
+  $slugButtons.forEach(($slugButton) => {
+    $slugButton.removeAttribute('disabled');
+    $slugButton.addEventListener('click', onClickSlugButton);
   });
 };

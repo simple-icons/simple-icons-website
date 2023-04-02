@@ -433,7 +433,9 @@ html(lang=lang)
                   rel='noopener',
                   target='_blank'
                 ) #{ icon.license.type }
-              h2.grid-item__title #{ icon.localizedTitle || icon.title }
+              h2.grid-item__title.copy-button.copy-slug(
+                data-slug=`${ icon.slug }`
+              ) #{ icon.localizedTitle || icon.title }
             .grid-item__footer
               button(
                 class=`grid-item__color copy-button copy-color ${icon.light ? "contrast-light" : "contrast-dark"}`,
