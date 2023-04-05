@@ -37,7 +37,7 @@ const titlesFromIconCard = (iconCard) => {
   ];
 
   // add aliases
-  const aliases = iconCard.getAttribute('aliases');
+  const aliases = iconCard.getAttribute('a');
   if (aliases !== null) {
     Array.prototype.push.apply(variants, JSON.parse(aliases));
   }

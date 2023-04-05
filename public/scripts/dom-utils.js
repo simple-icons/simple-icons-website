@@ -1,22 +1,16 @@
 export const hideElement = ($el) => {
-  if ($el) {
-    $el.classList.add('hidden');
-    $el.setAttribute('aria-hidden', 'true');
-  }
+  $el.classList.add('hidden');
+  $el.setAttribute('aria-hidden', 'true');
 };
 
 export const showElement = ($el) => {
-  if ($el) {
-    $el.classList.remove('hidden');
-    $el.removeAttribute('aria-hidden');
-  }
+  $el.classList.remove('hidden');
+  $el.removeAttribute('aria-hidden');
 };
 
 export const toggleVisibleElement = ($el) => {
-  if ($el) {
-    $el.classList.toggle('hidden');
-    $el.toggleAttribute('aria-hidden');
-  }
+  $el.classList.toggle('hidden');
+  $el.toggleAttribute('aria-hidden');
 };
 
 export const replaceChildren = ($el, newChildren, nFirstChildren) => {

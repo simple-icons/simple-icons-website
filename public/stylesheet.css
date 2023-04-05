@@ -1089,15 +1089,14 @@ p.report-link a:visited {
   display: flex;
 }
 
-.detail-body__left,
-.detail-body__right {
+.detail-body > div {
   width: 50%;
   height: auto;
   float: left;
   padding: 5px;
 }
 
-.detail-body__right {
+.detail-body > div:last-child {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -1112,7 +1111,7 @@ p.report-link a:visited {
   cursor: default;
 }
 
-.detail_modal #icon-title {
+.detail_modal h2 {
   font-size: 27px;
   font-family: var(--font-family-text);
   font-weight: bold;

@@ -56,6 +56,7 @@ html(lang=lang)
           )
 
   body.no-js.order-alpha.layout-comfortable.download-svg(tabindex='-1')
+    //- Third party extensions popup, hidden by default
     .popup_modal.popup__top.hidden
       .popup-body
         table.extensions__table
@@ -76,19 +77,21 @@ html(lang=lang)
                   rel='noopener',
                   target='_blank'
                 ) #{ ext.author.name }
+
+    //- Details modal of each icon, hidden by default
     .detail_modal.detail__top.hidden
       .detail-body
-        .detail-body__left
+        div
           img.icon-preview
-        .detail-body__right
-          h2#icon-title
+        div
+          h2
           button#icon-color
           a#icon-source
-          a#guidelines.icon-guidelines(style='display: none') #{ t_('Brand Guidelines') }
-          a#no-guidelines.icon-guidelines.italic-text(style='display: none') #{ t_('no brand guidelines') }
-          a#license.icon-license(style='display: none')
-          a#no-license.icon-license.italic-text(style='display: none') #{ t_('no icon license') }
-          #icon-deprecated(style='display: none')
+          a#guidelines.icon-guidelines.hidden #{ t_('Brand Guidelines') }
+          a#no-guidelines.icon-guidelines.italic-text.hidden #{ t_('no brand guidelines') }
+          a#license.icon-license.hidden
+          a#no-license.icon-license.italic-text.hidden #{ t_('no icon license') }
+          #icon-deprecated.hidden
             span.deprecated__text #{ t_('Deprecated') }
             a.deprecated__message(
               target='_blank',
@@ -354,11 +357,21 @@ html(lang=lang)
         )
         each icon in icons
           //- Using `o="{order-alpha}-{order-color}"` attribute to store ordering data
-          //- for sorting in order to reduce the size of the DOM. 
+          //- for sorting in order to reduce the size of the DOM.
+          //- Using `a="{aliases}"` attribute to store aliases data for searching
+          //- Using `d="{deprecated}"` attribute to store deprecated data
+          //- Using `s="{source}"` attribute to store source from which the icon was taken
+          //- Using `lt="{license-type}"` attribute to store license type
+          //- Using `lu="{license-url}"` attribute to store license url
+          //- Using `g="{guidelines}"` attribute to store icon guidelines url
           li.grid-item(
             o=`${icon.indexByAlpha}-${icon.indexByColor}`,
-            aliases=icon.plainAliases,
-            deprecated=icon.deprecatedAt === false ? false : JSON.stringify(icon.deprecatedAt)
+            a=icon.plainAliases,
+            d=icon.deprecatedAt === false ? false : JSON.stringify(icon.deprecatedAt),
+            s=icon.source,
+            lt=icon.license ? icon.license.type : false,
+            lu=icon.license ? icon.license.url : false,
+            g=icon.guidelines || false
           )
             .grid-item__row.mv-2.fg-2
               button.grid-item__preview.copy-button.copy-svg(
@@ -406,7 +419,7 @@ html(lang=lang)
               )
                 svg(role='img', viewBox='0 0 24 24')
                   use(href='#vw')
-              button.grid-item__button(hello)
+              button.grid-item__button
                 svg(role='img', viewBox='0 0 24 24')
                   use(href='#cp')
       p#icon-missing.report-link #{ t_('Icon missing?') } #[a(href='https://github.com/simple-icons/simple-icons/issues/new?assignees=&labels=new+icon&template=icon_request.yml') #{ t_('Submit a request') }]
