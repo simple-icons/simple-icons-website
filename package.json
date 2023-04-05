@@ -32,8 +32,8 @@
     "setup:si-utils": "sdown https://raw.githubusercontent.com/simple-icons/simple-icons/develop/scripts/utils.js si-utils.js",
     "setup:si-readme": "sdown https://raw.githubusercontent.com/simple-icons/simple-icons/develop/README.md node_modules/simple-icons/README.md",
     "test": "npm run test:unit",
-    "test:all": "cross-env NODE_OPTIONS=--experimental-vm-modules JEST_PUPPETEER_CONFIG=jest-puppeteer.config.cjs TEST_ENV=all jest --detectOpenHandles",
-    "test:e2e": "cross-env NODE_OPTIONS=--experimental-vm-modules JEST_PUPPETEER_CONFIG=jest-puppeteer.config.cjs TEST_ENV=e2e jest --detectOpenHandles",
+    "test:all": "cross-env NODE_OPTIONS=--experimental-vm-modules TEST_ENV=all jest --detectOpenHandles",
+    "test:e2e": "cross-env NODE_OPTIONS=--experimental-vm-modules TEST_ENV=e2e jest --detectOpenHandles",
     "test:unit": "cross-env NODE_OPTIONS=--experimental-vm-modules TEST_ENV=unit jest",
     "locale": "node scripts/i18n.js"
   },
