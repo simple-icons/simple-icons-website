@@ -31,7 +31,7 @@ export default (document) => {
     images.forEach(lazyLoad);
   } else {
     // Browser does not support IntersectionObserver,
-    // so we load using lazy=loading attribute
+    // so we load using the loading=lazy attribute
     for (const img of images) {
       const src = img.getAttribute('d-src');
       img.removeAttribute('d-src');
