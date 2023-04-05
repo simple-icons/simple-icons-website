@@ -378,11 +378,9 @@ html(lang=lang)
                 title=`${ t_('$iconTitle SVG').replace('$iconTitle', icon.localizedTitle || icon.title) }`,
                 disabled
               )
-                img.icon-preview(
-                  src=`/icons/${icon.slug}.svg`,
-                  loading='lazy',
-                  alt=`${ t_('$iconTitle icon').replace('$iconTitle', icon.localizedTitle || icon.title) }`
-                )
+                //- The images are lazy loaded via Javascript with an IntersectionObserver
+                //- using loading=lazy as fallback for browsers that don't support it.
+                img.icon-preview(d-src=`/icons/${icon.slug}.svg`)
             if icon.deprecatedAt
               span.deprecated
                 span.deprecated__text #{ t_('Deprecated') }
