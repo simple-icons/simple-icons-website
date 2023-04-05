@@ -1,5 +1,4 @@
 import { STORAGE_KEY_DOWNLOAD_TYPE } from './storage.js';
-import { iconHrefToSlug } from './utils.js';
 
 const PDF_DOWNLOAD_TYPE = 'pdf';
 const SVG_DOWNLOAD_TYPE = 'svg';
@@ -15,8 +14,8 @@ export default (document, storage) => {
   const $body = document.querySelector('body');
   const $downloadPdf = document.getElementById('download-pdf');
   const $downloadSvg = document.getElementById('download-svg');
-  const $downloadFiles = document.getElementsByClassName(
-    'a[download].grid-item__button',
+  const $downloadFileLinks = document.querySelectorAll(
+    '.grid-item__footer button:nth-child(3)',
   );
 
   $downloadPdf.disabled = false;
@@ -28,11 +27,9 @@ export default (document, storage) => {
     }
 
     if (selected === SVG_DOWNLOAD_TYPE) {
-      $body.classList.add(CLASS_DOWNLOAD_TYPE_SVG);
-      $body.classList.remove(CLASS_DOWNLOAD_TYPE_PDF);
+      $body.classList.replace(CLASS_DOWNLOAD_TYPE_PDF, CLASS_DOWNLOAD_TYPE_SVG);
     } else if (selected === PDF_DOWNLOAD_TYPE) {
-      $body.classList.add(CLASS_DOWNLOAD_TYPE_PDF);
-      $body.classList.remove(CLASS_DOWNLOAD_TYPE_SVG);
+      $body.classList.replace(CLASS_DOWNLOAD_TYPE_SVG, CLASS_DOWNLOAD_TYPE_PDF);
     }
 
     storage.setItem(STORAGE_KEY_DOWNLOAD_TYPE, selected);
@@ -53,12 +50,28 @@ export default (document, storage) => {
     selectDownloadType(SVG_DOWNLOAD_TYPE);
   });
 
-  for (let i = 0; i < $downloadFiles.length; i++) {
-    $downloadFiles[i].addEventListener('click', (event) => {
-      const href = event.target.getAttribute('href');
-      const slug = iconHrefToSlug(href);
-      const type = storage.getItem(STORAGE_KEY_DOWNLOAD_TYPE);
-      event.target.setAttribute('href', `./icons/${slug}.${type}`);
-    });
+  const downloadFile = (event) => {
+    const $preview =
+      event.target.parentNode.parentNode.querySelector('.icon-preview');
+    event.preventDefault();
+    const downloadType = storage.getItem(STORAGE_KEY_DOWNLOAD_TYPE);
+
+    let href = $preview.getAttribute('src');
+    if (downloadType === 'pdf') {
+      href = href.replace('.svg', '.pdf');
+    }
+
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.setAttribute('href', href);
+    a.setAttribute('download', '');
+
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
+  for (let i = 0; i < $downloadFileLinks.length; i++) {
+    $downloadFileLinks[i].addEventListener('click', downloadFile);
   }
 };

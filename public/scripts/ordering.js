@@ -22,24 +22,25 @@ export default (window, document, storage, domUtils) => {
   };
 
   const selectOrdering = (selected, newItems) => {
-    if (newItems === undefined && selected === activeOrdering) {
-      // only skip ordering when is the same if not an ordering
-      // with defined children set
+    if (selected !== ORDER_RELEVANCE && selected === activeOrdering) {
+      // only skip ordering when is the same if not searching
       return;
     }
 
-    $body.classList.remove(ORDER_ALPHA, ORDER_COLOR, ORDER_RELEVANCE);
-    $body.classList.add(selected);
+    $body.classList.replace(activeOrdering, selected);
 
     const $grid = document.querySelector('ul.grid');
-    if (newItems) {
+    if (selected === ORDER_RELEVANCE) {
       domUtils.replaceChildren($grid, newItems, 30);
     } else {
       window.scrollTo(0, 0);
-      domUtils.sortChildren($grid, selected, 30);
-    }
-
-    if (selected !== ORDER_RELEVANCE) {
+      // color and alpha orderings are stored in a `o` attribute
+      // and we must extract the number from it
+      const sortAttributeGetter =
+        selected === ORDER_ALPHA
+          ? (a) => parseInt(a.split('-')[0])
+          : (a) => parseInt(a.split('-')[1]);
+      domUtils.sortChildren($grid, 'o', sortAttributeGetter, 30);
       preferredOrdering = selected;
       storage.setItem(STORAGE_KEY_ORDERING, selected);
     }

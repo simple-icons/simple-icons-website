@@ -79,8 +79,8 @@ export default (history, document, ordering, domUtils) => {
     if (!query) {
       domUtils.hideElement($searchClear);
       domUtils.hideElement($orderRelevance);
-      domUtils.removeClass($orderRelevance, 'last__button');
-      domUtils.addClass($orderColor, 'last__button');
+      $orderRelevance.classList.remove('last__button');
+      $orderColor.classList.add('last__button');
 
       // add all icons to the grid again
       const $gridChildren = document.querySelector('ul.grid').children;
@@ -96,8 +96,8 @@ export default (history, document, ordering, domUtils) => {
 
     domUtils.showElement($searchClear);
     domUtils.showElement($orderRelevance);
-    domUtils.addClass($orderRelevance, 'last__button');
-    domUtils.removeClass($orderColor, 'last__button');
+    $orderRelevance.classList.add('last__button');
+    $orderColor.classList.remove('last__button');
 
     // fuzzy search
     let result = searcher.search(query);

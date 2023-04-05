@@ -117,14 +117,6 @@ describe('Search', () => {
 
       expect(domUtils.showElement).toHaveBeenCalledWith($searchClear);
       expect(domUtils.showElement).toHaveBeenCalledWith($orderRelevance);
-      expect(domUtils.addClass).toHaveBeenCalledWith(
-        $orderRelevance,
-        'last__button',
-      );
-      expect(domUtils.removeClass).toHaveBeenCalledWith(
-        $orderByColor,
-        'last__button',
-      );
 
       done();
     });
@@ -153,14 +145,6 @@ describe('Search', () => {
 
       expect(domUtils.hideElement).toHaveBeenCalledWith($searchClear);
       expect(domUtils.hideElement).toHaveBeenCalledWith($orderRelevance);
-      expect(domUtils.removeClass).toHaveBeenCalledWith(
-        $orderRelevance,
-        'last__button',
-      );
-      expect(domUtils.addClass).toHaveBeenCalledWith(
-        $orderByColor,
-        'last__button',
-      );
       done();
     });
 
@@ -188,14 +172,6 @@ describe('Search', () => {
 
       expect(domUtils.hideElement).toHaveBeenCalledWith($searchClear);
       expect(domUtils.hideElement).toHaveBeenCalledWith($orderRelevance);
-      expect(domUtils.removeClass).toHaveBeenCalledWith(
-        $orderRelevance,
-        'last__button',
-      );
-      expect(domUtils.addClass).toHaveBeenCalledWith(
-        $orderByColor,
-        'last__button',
-      );
       done();
     });
   });
@@ -225,8 +201,6 @@ describe('Search', () => {
 
       expect($searchInput.value).toEqual(expected);
       expect(domUtils.showElement).toHaveBeenCalled();
-      expect(domUtils.addClass).toHaveBeenCalled();
-      expect(domUtils.removeClass).toHaveBeenCalled();
       expect(history.replaceState).toHaveBeenCalled();
       expect(ordering.selectOrdering).toHaveBeenCalled();
     });

@@ -30,26 +30,22 @@ export const replaceChildren = ($el, newChildren, nFirstChildren) => {
   }, 0);
 };
 
-export const sortChildren = ($el, attribute, nFirstChildren) => {
-  const sorted = [...$el.children].sort(
-    (a, b) =>
-      parseInt(a.getAttribute(attribute)) - parseInt(b.getAttribute(attribute)),
-  );
-  replaceChildren($el, sorted, nFirstChildren);
-};
-
-export const addClass = ($el, clazz) => {
-  if ($el) {
-    $el.classList.add(clazz);
-  }
-};
-
-export const removeClass = ($el, ...clazz) => {
-  if ($el) {
-    for (const c of clazz) {
-      $el.classList.remove(c);
+export const sortChildren = (
+  $el,
+  attribute,
+  attributeGetter,
+  nFirstChildren,
+) => {
+  const sorted = [...$el.children].sort((a, b) => {
+    const aAttr = a.getAttribute(attribute);
+    const bAttr = b.getAttribute(attribute);
+    // If either element doesn't have the attribute, we don't want to sort it.
+    if (aAttr !== null && bAttr !== null) {
+      return attributeGetter(aAttr) - attributeGetter(bAttr);
     }
-  }
+    return 0;
+  });
+  replaceChildren($el, sorted, nFirstChildren);
 };
 
 export const toggleClass = ($el, clazz) => {

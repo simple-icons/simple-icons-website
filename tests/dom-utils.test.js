@@ -92,18 +92,18 @@ describe('::toggleVisibleElement', () => {
 describe('::sortChildren', () => {
   it('sorts children elements', () => {
     $el.children = [
-      { 'order-alpha': 2, getAttribute: () => 2 },
-      { 'order-alpha': 3, getAttribute: () => 3 },
-      { 'order-alpha': 1, getAttribute: () => 1 },
+      { 'order-alpha': '2', getAttribute: () => 2 },
+      { 'order-alpha': '3', getAttribute: () => 3 },
+      { 'order-alpha': '1', getAttribute: () => 1 },
     ];
 
     const expectedOrder = [
-      { 'order-alpha': 1, getAttribute: () => 1 },
-      { 'order-alpha': 2, getAttribute: () => 2 },
-      { 'order-alpha': 3, getAttribute: () => 3 },
+      { 'order-alpha': '1', getAttribute: () => 1 },
+      { 'order-alpha': '2', getAttribute: () => 2 },
+      { 'order-alpha': '3', getAttribute: () => 3 },
     ];
 
-    sortChildren($el, 'order-alpha');
+    sortChildren($el, 'order-alpha', parseInt);
     expect(JSON.stringify($el.children)).toEqual(JSON.stringify(expectedOrder));
   });
 });

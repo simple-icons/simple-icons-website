@@ -464,15 +464,14 @@ describe('Grid item', () => {
   });
 
   it.each(['download-svg', 'download-pdf'])(
-    'is possible to download an icon "%s"',
+    'is possible to click on the "%s" control button',
     async (fileType) => {
       await expect(page).toClick(`button#${fileType}`);
-      await expect(page).toClick('a[download].grid-item__button');
     },
   );
 
   it.each(['layout-comfortable', 'layout-compact'])(
-    'is possible to click on the "%s" button',
+    'is possible to click on the "%s" control button',
     async (layoutType) => {
       await expect(page).toClick(`button#${layoutType}`);
     },
