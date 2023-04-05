@@ -10,10 +10,10 @@ const CLASS_DOWNLOAD_TYPE_SVG = 'download-svg';
 const CLASS_DOWNLOAD_TYPE_PDF = 'download-pdf';
 
 export const downloadSVG = (slug) => {
-  const icon_svg_url = `/icons/${slug}.svg`;
+  const iconSvgUrl = `/icons/${slug}.svg`;
   const a = document.createElement('a');
   a.classList.add('hidden');
-  a.setAttribute('href', icon_svg_url);
+  a.setAttribute('href', iconSvgUrl);
   a.setAttribute('download', '');
 
   document.body.appendChild(a);
@@ -32,8 +32,8 @@ export const downloadPDF = async (slug) => {
 
   const [PDFDocument, blobStream] = await loadPdfKitAndBlobStream();
 
-  const icon_svg_url = `/icons/${slug}.svg`;
-  const res = await fetch(icon_svg_url);
+  const iconSvgUrl = `/icons/${slug}.svg`;
+  const res = await fetch(iconSvgUrl);
   const svg = await res.text();
   const svg_path = svg.split('"')[7];
 
