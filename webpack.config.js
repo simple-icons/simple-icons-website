@@ -302,6 +302,7 @@ export default async (env, argv) => {
       indexByAlpha: iconIndex,
       indexByColor: sortedHexes.indexOf(icon.hex),
       license: icon.license,
+      source: icon.source,
       light: luminance < 0.4,
       superLight: luminance > 0.95,
       superDark: luminance < 0.02,
