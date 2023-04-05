@@ -774,9 +774,7 @@ p.report-link a:visited {
 }
 
 .grid-item__button:focus,
-.grid-item__button:hover,
-.detail-button:focus,
-.detail-button:hover {
+.grid-item__button:hover {
   fill: var(--color-button-text-hover);
   background: var(--color-button-hover);
 }
@@ -1179,7 +1177,7 @@ p.report-link a:visited {
   left: 18px;
 }
 
-.detail-footer a {
+.detail-footer .detail-button {
   font-size: 14px;
   color: var(--color-button-text);
   padding: 3px 7px;
@@ -1187,8 +1185,8 @@ p.report-link a:visited {
   text-align: center;
 }
 
-.detail-footer a:hover,
-.detail-footer a:focus {
+.detail-footer .detail-button:hover,
+.detail-footer .detail-button:focus {
   color: var(--color-button-text-hover);
   background: var(--color-button-hover);
 }
@@ -1199,7 +1197,7 @@ p.report-link a:visited {
     left: 5px;
   }
 
-  .detail-footer a {
+  .detail-footer .detail-button {
     font-size: 15px;
   }
 }

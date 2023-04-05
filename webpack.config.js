@@ -374,11 +374,6 @@ export default async (env, argv) => {
             filter: (filepath) => filepath.endsWith('.svg'),
           },
           {
-            from: path.resolve(NODE_MODULES, 'simple-icons-pdf/icons'),
-            to: path.resolve(OUT_DIR, 'icons'),
-            filter: (filepath) => filepath.endsWith('.pdf'),
-          },
-          {
             from: path.resolve(ROOT_DIR, 'images'),
             to: path.resolve(OUT_DIR, 'images'),
           },
