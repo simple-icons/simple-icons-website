@@ -8,7 +8,7 @@ const setCopied = ($el) => {
 };
 
 export default (document, navigator, fetch) => {
-  const $copyInput = document.querySelector('#copy-input');
+  const $copyInput = document.getElementById('copy-input');
   const $colorButtons = document.querySelectorAll('.copy-color');
   const $svgButtons = document.querySelectorAll('.copy-svg');
   const $slugButtons = document.querySelectorAll('.copy-slug');
