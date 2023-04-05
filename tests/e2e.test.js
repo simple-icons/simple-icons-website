@@ -64,7 +64,8 @@ describe.each([
   });
 
   it('displays the text "Simple Icons"', async () => {
-    await expect(page).toMatch('Simple Icons');
+    const title = await page.$('h1');
+    await expect(title).toMatchTextContent('Simple Icons');
   });
 
   it('has the search input in view on load', async () => {
@@ -320,8 +321,7 @@ describe('Ordering', () => {
     for (let i = 0; i < nIcons; i++) {
       const $gridItemTitle = $gridItemTitles[i];
       const expectedTitle = titles[i];
-      const title = await getTextContent($gridItemTitle);
-      await expect(title).toMatch(expectedTitle);
+      await expect($gridItemTitle).toMatchTextContent(expectedTitle);
     }
   });
 
@@ -334,8 +334,7 @@ describe('Ordering', () => {
     const hexes = [];
     for (let i = 0; i < nIcons; i++) {
       const $gridItem = $gridItems[i];
-      const color = await getTextContent($gridItem);
-      const hex = color;
+      const hex = await getTextContent($gridItem);
       hexes.push(hex);
     }
     await expect(sortByColors(hexes)).toEqual(hexes);
@@ -532,5 +531,5 @@ describe('JavaScript disabled', () => {
 
 it('has a license file available', async () => {
   await page.goto(`${url.href}/license.txt`);
-  await expect(page).toMatch('CC0 1.0 Universal');
+  await expect(page).toMatchTextContent('CC0 1.0 Universal');
 });
