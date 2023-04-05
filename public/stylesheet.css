@@ -604,7 +604,6 @@ p.report-link a:visited {
   background-color: var(--color-background-card);
   border-radius: var(--border-radius-large);
   box-shadow: 0px 0px 3px 0px var(--color-shadows);
-  contain-intrinsic-size: 0 11.25rem;
   content-visibility: auto;
   display: flex;
   flex-direction: column;
@@ -614,11 +613,13 @@ p.report-link a:visited {
 .layout-comfortable .grid-item__row {
   padding: 0 1rem;
   width: 100%;
+  contain-intrinsic-size: 0 13.31rem;
 }
 
 .layout-compact .grid-item__row {
   padding: 0 0.5rem;
   width: 100%;
+  contain-intrinsic-size: 0 11.19rem;
 }
 
 .layout-comfortable .grid-item__preview {
