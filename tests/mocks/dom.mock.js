@@ -10,6 +10,7 @@ export const newElementMock = (elName, opts) => {
     classList: {
       add: jest.fn().mockName(`${elName}.classList.add`),
       remove: jest.fn().mockName(`${elName}.classList.remove`),
+      replace: jest.fn().mockName(`${elName}.classList.replace`),
     },
     focus: jest.fn().mockName(`${elName}.focus`),
     getAttribute: jest.fn().mockName(`${elName}.getAttribute`),

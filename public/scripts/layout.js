@@ -18,11 +18,9 @@ const initLayout = (document, storage) => {
     }
 
     if (selected === LAYOUT_COMFORTABLE) {
-      $body.classList.add(LAYOUT_COMFORTABLE);
-      $body.classList.remove(LAYOUT_COMPACT);
+      $body.classList.replace(LAYOUT_COMPACT, LAYOUT_COMFORTABLE);
     } else if (selected === LAYOUT_COMPACT) {
-      $body.classList.add(LAYOUT_COMPACT);
-      $body.classList.remove(LAYOUT_COMFORTABLE);
+      $body.classList.replace(LAYOUT_COMFORTABLE, LAYOUT_COMPACT);
     } else {
       selected = DEFAULT_LAYOUT;
       $body.classList.remove(LAYOUT_COMFORTABLE, LAYOUT_COMPACT);

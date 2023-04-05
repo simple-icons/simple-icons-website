@@ -48,8 +48,8 @@ export default (document, navigator, fetch) => {
   const onClickSlugButton = (event) => {
     event.preventDefault();
     const href = event.target.parentNode.parentNode
-      .querySelector('a[role="button"][download]')
-      .getAttribute('href');
+      .querySelector('.icon-preview')
+      .getAttribute('src');
     const slug = iconHrefToSlug(href);
     copyValue(slug);
     setCopied(event.target);
