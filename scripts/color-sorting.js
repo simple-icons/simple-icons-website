@@ -4,7 +4,7 @@
  */
 
 const isGray = (rgb, range) => {
-  const { r, g, b } = { ...rgb };
+  const { r, g, b } = rgb;
   return (
     r >= g - range &&
     r <= g + range &&
@@ -16,7 +16,7 @@ const isGray = (rgb, range) => {
 };
 
 const rgbToHsl = (rgb) => {
-  let { r, g, b } = { ...rgb };
+  let { r, g, b } = rgb;
   // Normalize r, g, and b
   r /= 255;
   g /= 255;

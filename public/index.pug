@@ -98,9 +98,9 @@ html(lang=lang)
               removal-msg-schema=`${ t_('It will be removed at version $version') }`
             )
       .detail-footer
-        a#icon-download-svg.detail-button(role='button', download) #{ t_('Download SVG') }
+        button#icon-download-svg.detail-button(role='button') #{ t_('Download SVG') }
         a#icon-download-color-svg.detail-button(role='button', download) #{ t_('Download colored SVG') }
-        a#icon-download-pdf.detail-button(role='button', download) #{ t_('Download PDF') }
+        button#icon-download-pdf.detail-button(role='button') #{ t_('Download PDF') }
 
     header.header
       ul.header__list

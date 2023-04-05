@@ -1,5 +1,6 @@
 import getRelativeLuminance from 'get-relative-luminance';
 import { iconHrefToSlug } from './utils.js';
+import { downloadPDF, downloadSVG } from './download-type.js';
 
 let DETAILS_MODAL_OPENED = false;
 
@@ -106,10 +107,12 @@ export default (document, domUtils) => {
     }
 
     // Set download links
-    $detailFooter.querySelector('#icon-download-svg').setAttribute('href', src);
+    $detailFooter
+      .querySelector('#icon-download-svg')
+      .addEventListener('click', () => downloadSVG(iconSlug));
     $detailFooter
       .querySelector('#icon-download-pdf')
-      .setAttribute('href', `./icons/${iconSlug}.pdf`);
+      .addEventListener('click', () => downloadPDF(iconSlug));
 
     // Get icon content to generate the colored SVG
     fetch(src)
