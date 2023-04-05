@@ -10,6 +10,11 @@ document.body.classList.remove('no-js');
 const storage = newStorage(localStorage);
 const orderingControls = initOrdering(window, document, storage, domUtils);
 
+const detachedInitIntersectionObserver = async () => {
+  const { default: initIntersectionObserver } = await import('./iobserver.js');
+  initIntersectionObserver(document);
+};
+
 const detachedInitColorScheme = async () => {
   const { default: initColorScheme } = await import('./color-scheme.js');
   initColorScheme(document, storage);
@@ -52,6 +57,7 @@ const detachedInitLanguageSelector = async () => {
 };
 
 (() => {
+  detachedInitIntersectionObserver();
   detachedInitColorScheme();
   detachedInitCopyButtons();
   detachedInitSearch();

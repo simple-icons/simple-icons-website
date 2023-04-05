@@ -192,6 +192,15 @@ body.dark .icon-preview {
   filter: invert(1);
 }
 
+.icon-preview {
+  opacity: 0;
+}
+/* Transition when image loaded */
+.icon-preview.ld {
+  opacity: 1;
+  transition: opacity 260ms;
+}
+
 /* General */
 
 body {

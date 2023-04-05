@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: simple-icons-website\n"
 "Report-Msgid-Bugs-To: https://github.com/simple-icons/simple-icons-website/issues\n"
 "POT-Creation-Date: 2022-09-25T01:25:24.834Z\n"
-"PO-Revision-Date: 2022-10-02 16:42+0800\n"
+"PO-Revision-Date: 2023-04-05T20:12:22.666Z\n"
 "Last-Translator: @mondeja <https://github.com/mondeja>\n"
 "Language-Team: es <https://github.com/simple-icons>\n"
 "Language: es\n"
@@ -66,9 +66,6 @@ msgstr "Envía una petición"
 
 msgid "$iconTitle SVG"
 msgstr "SVG de $iconTitle"
-
-msgid "$iconTitle icon"
-msgstr "Icono de $iconTitle"
 
 msgid "$iconTitle guidelines"
 msgstr "Directrices de $iconTitle"
