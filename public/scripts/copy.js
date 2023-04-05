@@ -1,3 +1,5 @@
+import { iconHrefToSlug } from './utils.js';
+
 const COPIED_TIMEOUT = 1000;
 
 const setCopied = ($el) => {
@@ -45,8 +47,11 @@ export default (document, navigator, fetch) => {
 
   const onClickSlugButton = (event) => {
     event.preventDefault();
-    const iconSlug = event.target.dataset.slug;
-    copyValue(iconSlug);
+    const href = event.target.parentNode.parentNode
+      .querySelector('a[role="button"][download]')
+      .getAttribute('href');
+    const slug = iconHrefToSlug(href);
+    copyValue(slug);
     setCopied(event.target);
   };
 
