@@ -639,6 +639,7 @@ p.report-link a:visited {
   line-height: 1.5rem;
   margin: 0.4rem 0;
   padding-right: 1rem;
+  position: relative;
 }
 
 .layout-compact .grid-item__title {
@@ -648,6 +649,7 @@ p.report-link a:visited {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  position: relative;
 }
 
 .copy-svg::before {
@@ -656,6 +658,13 @@ p.report-link a:visited {
 
   /* Make this element behave as text when JS is disabled */
   cursor: default;
+}
+.copy-slug::before {
+  background-color: var(--color-background-transparent);
+  background-size: 1.2rem 1.2rem;
+}
+.copy-slug.copy-button::before {
+  background-position: right;
 }
 .copy-color::before {
   background-size: 1.2rem 1.2rem;
