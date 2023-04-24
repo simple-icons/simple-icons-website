@@ -2,7 +2,7 @@ import { jest } from '@jest/globals';
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { getDirnameFromImportMeta } from '../si-utils.js';
+import { getDirnameFromImportMeta } from 'simple-icons/sdk';
 
 import { document, newElementMock, newEventMock } from './mocks/dom.mock.js';
 import navigator from './mocks/navigator.mock.js';

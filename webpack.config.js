@@ -24,7 +24,7 @@ import {
   getThirdPartyExtensions,
   getIconsData,
   getIconSlug,
-} from './si-utils.js';
+} from 'simple-icons/sdk';
 
 const __dirname = getDirnameFromImportMeta(import.meta.url);
 

@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { getDirnameFromImportMeta } from '../si-utils.js';
+import { getDirnameFromImportMeta } from 'simple-icons/sdk';
 
 const __dirname = getDirnameFromImportMeta(import.meta.url);
 

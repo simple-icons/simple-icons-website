@@ -10,6 +10,3 @@ node_modules/
 _site/
 tests/_artifacts/
 .DS_Store
-
-# Downloaded files
-si-utils.js
