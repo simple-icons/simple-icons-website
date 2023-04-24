@@ -28,9 +28,6 @@ import {
 
 const __dirname = getDirnameFromImportMeta(import.meta.url);
 
-const siRootDir = path.resolve(__dirname, 'node_modules', 'simple-icons');
-const siReadmePath = path.join(siRootDir, 'README.md');
-
 const allIcons = alphaSort(simpleIcons);
 const sortedHexes = colorSort(allIcons.map((icon) => icon.hex));
 
@@ -43,7 +40,7 @@ const currentIsoDateString = new Date().toISOString();
 
 const getIconsDataBySlugs = async () => {
   const dataBySlugs = {};
-  (await getIconsData(siRootDir)).forEach((iconData) => {
+  (await getIconsData()).forEach((iconData) => {
     dataBySlugs[getIconSlug(iconData)] = iconData;
   });
   return dataBySlugs;
@@ -288,7 +285,7 @@ export default async (env, argv) => {
     (language) => language !== DEFAULT_LANGUAGE,
   );
 
-  const extensions = await getThirdPartyExtensions(siReadmePath);
+  const extensions = await getThirdPartyExtensions();
   const structuredData = await generateStructuredData();
 
   const iconsDataBySlugs = await getIconsDataBySlugs();
