@@ -21,13 +21,13 @@ const getManifest = async () => {
 const main = async () => {
   try {
     const manifestBefore = await getManifest();
-    const versionBefore = manifestBefore.dependencies['simple-icons'];
+    const versionBefore = manifestBefore.devDependencies['simple-icons'];
 
     execSync('npm uninstall simple-icons', { stdio: 'ignore' });
-    execSync('npm install --save-exact simple-icons', { stdio: 'ignore' });
+    execSync('npm install -DE simple-icons', { stdio: 'ignore' });
 
     const manifestAfter = await getManifest();
-    const versionAfter = manifestAfter.dependencies['simple-icons'];
+    const versionAfter = manifestAfter.devDependencies['simple-icons'];
 
     if (versionBefore === versionAfter) {
       throw new Error('Simple icons does not need to be updated');
