@@ -35,8 +35,6 @@ jobs:
             ${{ runner.os }}-build-
       - name: Install dependencies
         run: npm ci
-      - name: Show si README content
-        run: cat node_modules/simple-icons/README.md
       - name: Build website
         run: npm run build
   lint:
