@@ -162,6 +162,3 @@ msgstr "Repositório do site"
 
 msgid "Made with ❤️ on GitHub"
 msgstr "Feito com ❤️ no GitHub"
-
-msgid "Discord"
-msgstr ""

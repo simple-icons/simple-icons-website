@@ -162,6 +162,3 @@ msgstr "有圖標過時了？"
 
 msgid "Report outdated icon"
 msgstr "報告過時的圖標"
-
-msgid "Discord"
-msgstr ""
