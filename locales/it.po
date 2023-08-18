@@ -162,3 +162,6 @@ msgstr "Icona obsoleta?"
 
 msgid "Report outdated icon"
 msgstr "Segnala un'icona obsoleta"
+
+msgid "Discord"
+msgstr ""

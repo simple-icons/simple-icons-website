@@ -162,3 +162,6 @@ msgstr "時代遅れのアイコン？"
 
 msgid "Report outdated icon"
 msgstr "古いアイコンを報告する"
+
+msgid "Discord"
+msgstr ""
