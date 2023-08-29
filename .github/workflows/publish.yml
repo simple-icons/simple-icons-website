@@ -37,6 +37,8 @@ jobs:
         run: npm ci
       - name: Build Website
         run: npm run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:

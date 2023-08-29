@@ -97,6 +97,8 @@ jobs:
         run: npm run test:unit
       - name: Run end-to-end tests
         run: npm run test:e2e -- --runInBand
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload test screenshots
         uses: actions/upload-artifact@v3
         with:
