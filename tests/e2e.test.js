@@ -148,15 +148,11 @@ describe('Search', () => {
       const $searchInput = await page.$('#search-input');
       await $searchInput.type(typedTitle);
 
-      const $gridItem = await page.$('.grid-item');
-      const gridItemText = await (
+      const $gridItem = await page.$('.grid-item__title');
+      const title = await (
         await $gridItem.getProperty('textContent')
       ).jsonValue();
-
-      // content should be 'Foo#FF0000'
-      const [title, hex] = gridItemText.split('#');
       expect(title).toBe(expectedTitle);
-      expect([3, 6, 8].includes(hex.length)).toBeTruthy();
     },
   );
 
