@@ -1,0 +1,169 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: simple-icons-website\n"
+"Report-Msgid-Bugs-To: https://github.com/simple-icons/simple-icons-website/issues\n"
+"POT-Creation-Date: 2023-09-03T07:32:16.054Z\n"
+"PO-Revision-Date: 2023-09-03T07:32:16.054Z\n"
+"Last-Translator: \n"
+"Language-Team: ko-KR <EMAIL@ADDRESS>\n"
+"Language: ko-KR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "$nIcons Free SVG icons for popular brands"
+msgstr ""
+
+msgid "Extension"
+msgstr ""
+
+msgid "Author"
+msgstr ""
+
+msgid "Brand Guidelines"
+msgstr ""
+
+msgid "no brand guidelines"
+msgstr ""
+
+msgid "no icon license"
+msgstr ""
+
+msgid "Deprecated"
+msgstr ""
+
+msgid "It will be removed at version $version"
+msgstr ""
+
+msgid "Download SVG"
+msgstr ""
+
+msgid "Download colored SVG"
+msgstr ""
+
+msgid "Download PDF"
+msgstr ""
+
+msgid "Main Repository"
+msgstr ""
+
+msgid "Legal Disclaimer"
+msgstr ""
+
+msgid "Third-Party Extensions"
+msgstr ""
+
+msgid "Language"
+msgstr ""
+
+msgid "$nIcons Free <abbr title=\"Scalable Vector Graphic\">SVG</abbr> icons for popular brands"
+msgstr ""
+
+msgid "Controls are only available when JavaScript is enabled."
+msgstr ""
+
+msgid "Search"
+msgstr ""
+
+msgid "Search by brand..."
+msgstr ""
+
+msgid "Order"
+msgstr ""
+
+msgid "Sort alphabetically"
+msgstr ""
+
+msgid "Sort by color"
+msgstr ""
+
+msgid "Sort by relevance"
+msgstr ""
+
+msgid "Mode"
+msgstr ""
+
+msgid "Light color scheme"
+msgstr ""
+
+msgid "Dark color scheme"
+msgstr ""
+
+msgid "System color scheme"
+msgstr ""
+
+msgid "Download"
+msgstr ""
+
+msgid "download SVG"
+msgstr ""
+
+msgid "download PDF"
+msgstr ""
+
+msgid "Layout"
+msgstr ""
+
+msgid "Comfortable"
+msgstr ""
+
+msgid "Compact"
+msgstr ""
+
+msgid "$iconTitle SVG"
+msgstr ""
+
+msgid "Deprecated"
+msgstr ""
+
+msgid "Removal at $version"
+msgstr ""
+
+msgid "$iconTitle guidelines"
+msgstr ""
+
+msgid "Brand Guidelines"
+msgstr ""
+
+msgid "$iconTitle icon license"
+msgstr ""
+
+msgid "$iconTitle color"
+msgstr ""
+
+msgid "view $iconTitle"
+msgstr ""
+
+msgid "Icon missing?"
+msgstr ""
+
+msgid "Submit a request"
+msgstr ""
+
+msgid "Icon outdated?"
+msgstr ""
+
+msgid "Report outdated icon"
+msgstr ""
+
+msgid "A <a href=\"https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md\">CCO</a> project maintained by the <a href=\"https://github.com/simple-icons/simple-icons/graphs/contributors\">Simple Icons contributors</a>."
+msgstr ""
+
+msgid "Use $repoLink for requests, corrections and contributions."
+msgstr ""
+
+msgid "Kindly supported by your donations at <a href=\"https://opencollective.com/simple-icons\">Open Collective</a>."
+msgstr ""
+
+msgid "Twitter logo"
+msgstr ""
+
+msgid "Share this on Twitter!"
+msgstr ""
+
+msgid "Website repository"
+msgstr ""
+
+msgid "Made with ❤️ on GitHub"
+msgstr ""
