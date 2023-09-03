@@ -1,0 +1,164 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: simple-icons-website\n"
+"Report-Msgid-Bugs-To: https://github.com/simple-icons/simple-icons-website/issues\n"
+"POT-Creation-Date: 2023-09-03T07:32:16.054Z\n"
+"PO-Revision-Date: 2023-09-03 17:16+0900\n"
+"Last-Translator: @sh-cho <https://github.com/sh-cho>\n"
+"Language-Team: ko-KR <https://github.com/simple-icons>\n"
+"Language: ko-KR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.3.2\n"
+
+msgid "$nIcons Free SVG icons for popular brands"
+msgstr "$nIcons개의 유명 브랜드를 위한 무료 SVG 아이콘"
+
+msgid "Extension"
+msgstr "확장 프로그램"
+
+msgid "Author"
+msgstr "작성자"
+
+msgid "Brand Guidelines"
+msgstr "브랜드 가이드라인"
+
+msgid "no brand guidelines"
+msgstr "브랜드 가이드라인 없음"
+
+msgid "no icon license"
+msgstr "아이콘 라이센스 없음"
+
+msgid "Deprecated"
+msgstr "사용 중단됨"
+
+msgid "It will be removed at version $version"
+msgstr "버전 $version에서 제거 예정"
+
+msgid "Download SVG"
+msgstr "SVG 다운로드"
+
+msgid "Download colored SVG"
+msgstr "컬러 SVG 다운로드"
+
+msgid "Download PDF"
+msgstr "PDF 다운로드"
+
+msgid "Main Repository"
+msgstr "메인 저장소"
+
+msgid "Legal Disclaimer"
+msgstr "법적 고지 사항"
+
+msgid "Third-Party Extensions"
+msgstr "서드파티 확장 프로그램"
+
+msgid "Language"
+msgstr "언어"
+
+msgid "$nIcons Free <abbr title=\"Scalable Vector Graphic\">SVG</abbr> icons for popular brands"
+msgstr "$nIcons개의 유명 브랜드를 위한 무료 <abbr title=\"Scalable Vector Graphic\">SVG</abbr> 아이콘"
+
+msgid "Controls are only available when JavaScript is enabled."
+msgstr "컨트롤은 JavaScript가 활성화된 상태에서만 사용할 수 있습니다."
+
+msgid "Search"
+msgstr "검색"
+
+msgid "Search by brand..."
+msgstr "브랜드로 검색..."
+
+msgid "Order"
+msgstr "정렬"
+
+msgid "Sort alphabetically"
+msgstr "알파벳순으로 정렬"
+
+msgid "Sort by color"
+msgstr "색상순으로 정렬"
+
+msgid "Sort by relevance"
+msgstr "연관성순으로 정렬"
+
+msgid "Mode"
+msgstr "모드"
+
+msgid "Light color scheme"
+msgstr "밝은 색 구성"
+
+msgid "Dark color scheme"
+msgstr "어두운 색 구성"
+
+msgid "System color scheme"
+msgstr "시스템 색 구성"
+
+msgid "Download"
+msgstr "다운로드"
+
+msgid "download SVG"
+msgstr "SVG 다운로드"
+
+msgid "download PDF"
+msgstr "PDF 다운로드"
+
+msgid "Layout"
+msgstr "레이아웃"
+
+msgid "Comfortable"
+msgstr "쾌적하게 보기"
+
+msgid "Compact"
+msgstr "간결하게 보기"
+
+msgid "$iconTitle SVG"
+msgstr "$iconTitle SVG"
+
+msgid "Removal at $version"
+msgstr "$version에서 제거"
+
+msgid "$iconTitle guidelines"
+msgstr "$iconTitle 가이드라인"
+
+msgid "$iconTitle icon license"
+msgstr "$iconTitle 아이콘 라이센스"
+
+msgid "$iconTitle color"
+msgstr "$iconTitle 색상"
+
+msgid "view $iconTitle"
+msgstr "$iconTitle 보기"
+
+msgid "Icon missing?"
+msgstr "아이콘이 없나요?"
+
+msgid "Submit a request"
+msgstr "요청하기"
+
+msgid "Icon outdated?"
+msgstr "아이콘이 최신이 아닌가요?"
+
+msgid "Report outdated icon"
+msgstr "구버전 아이콘 제보하기"
+
+msgid "A <a href=\"https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md\">CCO</a> project maintained by the <a href=\"https://github.com/simple-icons/simple-icons/graphs/contributors\">Simple Icons contributors</a>."
+msgstr "<a href=\"https://github.com/simple-icons/simple-icons/graphs/contributors\">Simple Icons 컨트리뷰터</a>가 관리하는 <a href=\"https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md\">CCO</a> 프로젝트입니다."
+
+msgid "Use $repoLink for requests, corrections and contributions."
+msgstr "$repoLink를 통해 요청, 수정, 또는 기여할 수 있습니다."
+
+msgid "Kindly supported by your donations at <a href=\"https://opencollective.com/simple-icons\">Open Collective</a>."
+msgstr "<a href=\"https://opencollective.com/simple-icons\">Open Collective</a>를 통한 여러분의 기부로 운영됩니다."
+
+msgid "Twitter logo"
+msgstr "트위터 로고"
+
+msgid "Share this on Twitter!"
+msgstr "트위터에서 공유하세요!"
+
+msgid "Website repository"
+msgstr "웹사이트 리파지토리"
+
+msgid "Made with ❤️ on GitHub"
+msgstr "GitHub에서 ❤️으로 제작"
