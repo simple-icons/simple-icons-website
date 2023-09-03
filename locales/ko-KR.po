@@ -3,167 +3,162 @@ msgstr ""
 "Project-Id-Version: simple-icons-website\n"
 "Report-Msgid-Bugs-To: https://github.com/simple-icons/simple-icons-website/issues\n"
 "POT-Creation-Date: 2023-09-03T07:32:16.054Z\n"
-"PO-Revision-Date: 2023-09-03T07:32:16.054Z\n"
-"Last-Translator: \n"
-"Language-Team: ko-KR <EMAIL@ADDRESS>\n"
-"Language: ko-KR\n"
+"PO-Revision-Date: 2023-09-03 17:16+0900\n"
+"Last-Translator: @sh-cho <https://github.com/sh-cho>\n"
+"Language-Team: ko-KR <https://github.com/simple-icons>\n"
+"Language: ko_KR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.3.2\n"
 
 msgid "$nIcons Free SVG icons for popular brands"
-msgstr ""
+msgstr "$nIcons개의 유명 브랜드를 위한 무료 SVG 아이콘"
 
 msgid "Extension"
-msgstr ""
+msgstr "확장 프로그램"
 
 msgid "Author"
-msgstr ""
+msgstr "작성자"
 
 msgid "Brand Guidelines"
-msgstr ""
+msgstr "브랜드 가이드라인"
 
 msgid "no brand guidelines"
-msgstr ""
+msgstr "브랜드 가이드라인 없음"
 
 msgid "no icon license"
-msgstr ""
+msgstr "아이콘 라이센스 없음"
 
 msgid "Deprecated"
-msgstr ""
+msgstr "사용 중단됨"
 
 msgid "It will be removed at version $version"
-msgstr ""
+msgstr "버전 $version에서 제거 예정"
 
 msgid "Download SVG"
-msgstr ""
+msgstr "SVG 다운로드"
 
 msgid "Download colored SVG"
-msgstr ""
+msgstr "컬러 SVG 다운로드"
 
 msgid "Download PDF"
-msgstr ""
+msgstr "PDF 다운로드"
 
 msgid "Main Repository"
-msgstr ""
+msgstr "메인 저장소"
 
 msgid "Legal Disclaimer"
-msgstr ""
+msgstr "법적 고지 사항"
 
 msgid "Third-Party Extensions"
-msgstr ""
+msgstr "서드파티 확장 프로그램"
 
 msgid "Language"
-msgstr ""
+msgstr "언어"
 
 msgid "$nIcons Free <abbr title=\"Scalable Vector Graphic\">SVG</abbr> icons for popular brands"
-msgstr ""
+msgstr "$nIcons개의 유명 브랜드를 위한 무료 <abbr title=\"Scalable Vector Graphic\">SVG</abbr> 아이콘"
 
 msgid "Controls are only available when JavaScript is enabled."
-msgstr ""
+msgstr "컨트롤은 JavaScript가 활성화된 상태에서만 사용할 수 있습니다."
 
 msgid "Search"
-msgstr ""
+msgstr "검색"
 
 msgid "Search by brand..."
-msgstr ""
+msgstr "브랜드로 검색..."
 
 msgid "Order"
-msgstr ""
+msgstr "정렬"
 
 msgid "Sort alphabetically"
-msgstr ""
+msgstr "알파벳순으로 정렬"
 
 msgid "Sort by color"
-msgstr ""
+msgstr "색상순으로 정렬"
 
 msgid "Sort by relevance"
-msgstr ""
+msgstr "연관성순으로 정렬"
 
 msgid "Mode"
-msgstr ""
+msgstr "모드"
 
 msgid "Light color scheme"
-msgstr ""
+msgstr "밝은 색 구성"
 
 msgid "Dark color scheme"
-msgstr ""
+msgstr "어두운 색 구성"
 
 msgid "System color scheme"
-msgstr ""
+msgstr "시스템 색 구성"
 
 msgid "Download"
-msgstr ""
+msgstr "다운로드"
 
 msgid "download SVG"
-msgstr ""
+msgstr "SVG 다운로드"
 
 msgid "download PDF"
-msgstr ""
+msgstr "PDF 다운로드"
 
 msgid "Layout"
-msgstr ""
+msgstr "레이아웃"
 
 msgid "Comfortable"
-msgstr ""
+msgstr "쾌적하게 보기"
 
 msgid "Compact"
-msgstr ""
+msgstr "간결하게 보기"
 
 msgid "$iconTitle SVG"
-msgstr ""
-
-msgid "Deprecated"
-msgstr ""
+msgstr "$iconTitle SVG"
 
 msgid "Removal at $version"
-msgstr ""
+msgstr "$version에서 제거"
 
 msgid "$iconTitle guidelines"
-msgstr ""
-
-msgid "Brand Guidelines"
-msgstr ""
+msgstr "$iconTitle 가이드라인"
 
 msgid "$iconTitle icon license"
-msgstr ""
+msgstr "$iconTitle 아이콘 라이센스"
 
 msgid "$iconTitle color"
-msgstr ""
+msgstr "$iconTitle 색상"
 
 msgid "view $iconTitle"
-msgstr ""
+msgstr "$iconTitle 보기"
 
 msgid "Icon missing?"
-msgstr ""
+msgstr "아이콘이 없나요?"
 
 msgid "Submit a request"
-msgstr ""
+msgstr "요청하기"
 
 msgid "Icon outdated?"
-msgstr ""
+msgstr "아이콘이 최신이 아닌가요?"
 
 msgid "Report outdated icon"
-msgstr ""
+msgstr "구버전 아이콘 제보하기"
 
 msgid "A <a href=\"https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md\">CCO</a> project maintained by the <a href=\"https://github.com/simple-icons/simple-icons/graphs/contributors\">Simple Icons contributors</a>."
-msgstr ""
+msgstr "<a href=\"https://github.com/simple-icons/simple-icons/graphs/contributors\">Simple Icons 컨트리뷰터</a>가 관리하는 <a href=\"https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md\">CCO</a> 프로젝트입니다."
 
 msgid "Use $repoLink for requests, corrections and contributions."
-msgstr ""
+msgstr "$repoLink를 통해 요청, 수정, 또는 기여할 수 있습니다."
 
 msgid "Kindly supported by your donations at <a href=\"https://opencollective.com/simple-icons\">Open Collective</a>."
-msgstr ""
+msgstr "<a href=\"https://opencollective.com/simple-icons\">Open Collective</a>를 통한 여러분의 기부로 운영됩니다."
 
 msgid "Twitter logo"
-msgstr ""
+msgstr "트위터 로고"
 
 msgid "Share this on Twitter!"
-msgstr ""
+msgstr "트위터에서 공유하세요!"
 
 msgid "Website repository"
-msgstr ""
+msgstr "웹사이트 리파지토리"
 
 msgid "Made with ❤️ on GitHub"
-msgstr ""
+msgstr "GitHub에서 ❤️으로 제작"
