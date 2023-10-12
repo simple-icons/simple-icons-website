@@ -5,21 +5,18 @@ import { Searcher } from 'fast-fuzzy';
 const QUERY_PARAMETER = 'q';
 
 const getQueryFromParameter = (location, parameter) => {
-  const expr = new RegExp(`[\\?&]${parameter}=([^&#]*)`);
-  const results = expr.exec(location.search);
-  if (results !== null) {
-    return decodeURIComponent(results[1].replace(/\+/g, ' '));
-  }
-
-  return '';
+  const query = new URLSearchParams(location.search).get(parameter);
+  return query ? query : '';
 };
 
 const setSearchQueryInURL = (history, path, query) => {
-  if (query !== '') {
+  if (query) {
     history.replaceState(
       null,
       '',
-      `${path}?${QUERY_PARAMETER}=${encodeURIComponent(query)}`,
+      `${path}?${new URLSearchParams({
+        ...(query ? { [QUERY_PARAMETER]: query } : {}),
+      }).toString()}`,
     );
   } else {
     history.replaceState(null, '', path);
