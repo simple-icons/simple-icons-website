@@ -8,7 +8,7 @@ import fs from 'node:fs/promises';
 import os from 'node:os';
 import util from 'node:util';
 import * as simpleIcons from 'simple-icons/icons';
-import { siTwitter as twitterIcon } from 'simple-icons/icons';
+import { siX as xIcon } from 'simple-icons/icons';
 import alphaSort from './scripts/alpha-sorting.js';
 import colorSort from './scripts/color-sorting.js';
 import { githubAPI } from './scripts/https.js';
@@ -424,7 +424,6 @@ export default async (env, argv) => {
             extensions,
             icons: currentLangIcons,
             iconCount: currentLangIcons.length,
-            twitterIcon,
             pageTitle,
             pageUrl,
             structuredData,
@@ -434,6 +433,7 @@ export default async (env, argv) => {
             languages,
             languageNames: languageNamesObject,
             mode: argv.mode,
+            xIcon,
           },
           minify:
             argv.mode === 'development'
