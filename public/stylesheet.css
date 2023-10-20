@@ -19,7 +19,7 @@
     monospace;
 
   --color-x: rgb(0, 0, 0);
-  --color-x-hover: rgb(0, 0, 0, 0.8);
+  --color-x-hover: rgba(0, 0, 0, 0.8);
   --side-offset: 6rem;
   --header-top-offset: 5rem;
   --border-radius-small: 3px;
