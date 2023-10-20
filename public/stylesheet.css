@@ -18,8 +18,8 @@
   --font-family-stylized: 'Roboto Mono', 'DejaVu Sans Mono', 'Consolas',
     monospace;
 
-  --color-twitter: rgb(29, 161, 242);
-  --color-twitter-hover: rgba(29, 161, 242, 0.8);
+  --color-x: rgb(0, 0, ]);
+  --color-x-hover: rgb(0, 0, 0, 0.8);
   --side-offset: 6rem;
   --header-top-offset: 5rem;
   --border-radius-small: 3px;
@@ -876,7 +876,7 @@ p.report-link a:visited {
 
 .footer .footer-share {
   align-items: center;
-  background-color: var(--color-twitter);
+  background-color: var(--color-x);
   border-radius: 4px;
   color: #fff;
   display: flex;
@@ -892,7 +892,7 @@ p.report-link a:visited {
 }
 .footer .footer-share:focus,
 .footer .footer-share:hover {
-  background-color: var(--color-twitter-hover);
+  background-color: var(--color-x-hover);
 }
 
 .footer-share--icon {
