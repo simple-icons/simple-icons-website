@@ -115,11 +115,11 @@ msgstr "使用 $repoLink 提交請求、更正和貢獻。"
 msgid "Kindly supported by your donations at <a href=\"https://opencollective.com/simple-icons\">Open Collective</a>."
 msgstr "歡迎您通過 <a href=\"https://opencollective.com/simple-icons\">Open Collective</a> 捐款支持。"
 
-msgid "Twitter logo"
-msgstr "Twitter logo"
+msgid "X logo"
+msgstr "X logo"
 
-msgid "Share this on Twitter!"
-msgstr "分享至 Twitter"
+msgid "Share this on X!"
+msgstr "分享至 X"
 
 msgid "Made with ❤️ on GitHub"
 msgstr "Made with ❤️ on GitHub"

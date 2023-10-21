@@ -73,14 +73,14 @@ msgstr "Directrices de $iconTitle"
 msgid "$iconTitle icon license"
 msgstr "Licencia del icono de $iconTitle"
 
-msgid "Twitter logo"
-msgstr "Logo de Twitter"
+msgid "X logo"
+msgstr "Logo de X"
 
 msgid "Made with ❤️ on GitHub"
 msgstr "Hecho con ❤️ en GitHub"
 
-msgid "Share this on Twitter!"
-msgstr "¡Comparte esto en Twitter!"
+msgid "Share this on X!"
+msgstr "¡Comparte esto en X!"
 
 msgid "Use $repoLink for requests, corrections and contributions."
 msgstr "Usa $repoLink para solicitudes, correcciones y contribuciones."
