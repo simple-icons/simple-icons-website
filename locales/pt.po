@@ -151,11 +151,11 @@ msgstr "Use $repoLink para solicitações, correções e contribuições."
 msgid "Kindly supported by your donations at <a href=\"https://opencollective.com/simple-icons\">Open Collective</a>."
 msgstr "Gentilmente apoiado por suas doações no <a href=\"https://opencollective.com/simple-icons\">Open Collective</a>."
 
-msgid "Twitter logo"
-msgstr "Logotipo do Twitter"
+msgid "X logo"
+msgstr "Logotipo do X"
 
-msgid "Share this on Twitter!"
-msgstr "Compartilhe isso no Twitter!"
+msgid "Share this on X!"
+msgstr "Compartilhe isso no X!"
 
 msgid "Website repository"
 msgstr "Repositório do site"

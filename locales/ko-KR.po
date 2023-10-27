@@ -151,11 +151,11 @@ msgstr "$repoLink를 통해 요청, 수정, 또는 기여할 수 있습니다."
 msgid "Kindly supported by your donations at <a href=\"https://opencollective.com/simple-icons\">Open Collective</a>."
 msgstr "<a href=\"https://opencollective.com/simple-icons\">Open Collective</a>를 통한 여러분의 기부로 운영됩니다."
 
-msgid "Twitter logo"
-msgstr "트위터 로고"
+msgid "X logo"
+msgstr "X 로고"
 
-msgid "Share this on Twitter!"
-msgstr "트위터에서 공유하세요!"
+msgid "Share this on X!"
+msgstr "X에서 공유하세요!"
 
 msgid "Website repository"
 msgstr "웹사이트 리파지토리"
