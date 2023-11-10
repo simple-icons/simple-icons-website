@@ -360,11 +360,12 @@ html(lang=lang)
                 )
       ul.grid
         //- This script adds an extra element before itself:
-        script#_carbonads_js(
-          async,
-          src='//cdn.carbonads.com/carbon.js?serve=CKYIPK7M&placement=simpleiconsorg',
-          type='text/javascript'
-        )
+        if !testing
+          script#_carbonads_js(
+            async,
+            src='//cdn.carbonads.com/carbon.js?serve=CKYIPK7M&placement=simpleiconsorg',
+            type='text/javascript'
+          )
         each icon in icons
           //- Using `o="{order-alpha}-{order-color}"` attribute to store ordering data
           //- for sorting in order to reduce the size of the DOM.
