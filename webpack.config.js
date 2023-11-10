@@ -434,6 +434,7 @@ export default async (env, argv) => {
             languageNames: languageNamesObject,
             mode: argv.mode,
             xIcon,
+            testing: process.env.TEST_ENV !== undefined,
           },
           minify:
             argv.mode === 'development'
