@@ -44,10 +44,10 @@ msgid "Search"
 msgstr "検索"
 
 msgid "Search by brand..."
-msgstr "銘柄から探す。。。"
+msgstr "ブランドから探す..."
 
 msgid "Order"
-msgstr "注文"
+msgstr "並べ替え"
 
 msgid "Sort alphabetically"
 msgstr "アルファベット順に並べ替え"
@@ -59,22 +59,22 @@ msgid "Mode"
 msgstr "モード"
 
 msgid "Light color scheme"
-msgstr "淡い配色"
+msgstr "ライトモード"
 
 msgid "Dark color scheme"
-msgstr "暗い配色"
+msgstr "ダークモード"
 
 msgid "System color scheme"
-msgstr "システム配色"
+msgstr "システムと同期"
 
 msgid "Download"
 msgstr "ダウンロード"
 
 msgid "download SVG"
-msgstr "ダウンロード SVG"
+msgstr "SVGをダウンロード"
 
 msgid "download PDF"
-msgstr "ダウンロード PDF"
+msgstr "PDFをダウンロード"
 
 msgid "Icon missing?"
 msgstr "アイコンがない？"
@@ -86,13 +86,13 @@ msgid "$iconTitle SVG"
 msgstr "$iconTitle SVG"
 
 msgid "$iconTitle guidelines"
-msgstr "$iconTitle 鑑札"
+msgstr "$iconTitle ガイドライン"
 
 msgid "Brand Guidelines"
-msgstr "銘柄 指針"
+msgstr "ブランドガイドライン"
 
 msgid "$iconTitle icon license"
-msgstr "$iconTitle アイコンの許可"
+msgstr "$iconTitle アイコンのライセンス"
 
 msgid "$iconTitle color"
 msgstr "$iconTitle の色"
@@ -119,7 +119,7 @@ msgid "Made with ❤️ on GitHub"
 msgstr "GitHub で❤️ で作成"
 
 msgid "Sort by color"
-msgstr "色で並べる"
+msgstr "色で並べ替え"
 
 msgid "Deprecated"
 msgstr "非推奨"
@@ -128,7 +128,7 @@ msgid "Removal at $version"
 msgstr "$version で削除"
 
 msgid "Layout"
-msgstr "設計"
+msgstr "レイアウト"
 
 msgid "Comfortable"
 msgstr "快適"
@@ -140,13 +140,13 @@ msgid "view $iconTitle"
 msgstr "$iconTitle を見る"
 
 msgid "Download SVG"
-msgstr "ダウンロード SVG"
+msgstr "SVGをダウンロード"
 
 msgid "Download colored SVG"
-msgstr "色SVG をダウンロード"
+msgstr "色付きSVGをダウンロード"
 
 msgid "Download PDF"
-msgstr "ダウンロード PDF"
+msgstr "PDFをダウンロード"
 
 msgid "It will be removed at version $version"
 msgstr "バージョン $version で削除されます"
@@ -155,7 +155,7 @@ msgid "no brand guidelines"
 msgstr "ブランドガイドラインなし"
 
 msgid "no icon license"
-msgstr "アイコンのガイドラインなし"
+msgstr "アイコンのライセンスなし"
 
 msgid "Icon outdated?"
 msgstr "時代遅れのアイコン？"
