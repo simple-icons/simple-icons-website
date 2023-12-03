@@ -67,7 +67,7 @@
     "pug-lexer": "5.0.1",
     "pug-loader": "2.4.0",
     "puppeteer": "21.1.1",
-    "simple-icons": "10.0.0",
+    "simple-icons": "10.1.0",
     "svgo": "3.0.2",
     "webpack": "5.88.2",
     "webpack-cli": "5.1.4"
