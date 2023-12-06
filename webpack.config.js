@@ -294,7 +294,10 @@ export default async (env, argv) => {
     const plainAliases = getIconPlainAliases(iconsDataBySlugs[icon.slug]);
 
     return {
-      guidelines: icon.guidelines,
+      guidelines:
+        typeof icon.guidelines === 'object'
+          ? icon.guidelines.branding
+          : icon.guidelines,
       hex: icon.hex,
       indexByAlpha: iconIndex,
       indexByColor: sortedHexes.indexOf(icon.hex),
