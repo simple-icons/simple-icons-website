@@ -1,0 +1,169 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: simple-icons-website\n"
+"Report-Msgid-Bugs-To: https://github.com/simple-icons/simple-icons-website/issues\n"
+"POT-Creation-Date: 2023-11-09T09:32:16.854Z\n"
+"PO-Revision-Date: 2023-11-09T09:32:16.854Z\n"
+"Last-Translator: @Andygol <https://github.com/Andygol>\n"
+"Language-Team: uk <https://github.com/simple-icons>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "$nIcons Free SVG icons for popular brands"
+msgstr "$nIcons Безкоштовні іконки SVG для популярних брендів"
+
+msgid "Extension"
+msgstr "Розширення"
+
+msgid "Author"
+msgstr "Автор"
+
+msgid "Brand Guidelines"
+msgstr "Настанови бренду"
+
+msgid "no brand guidelines"
+msgstr "настанови бренду відсутні"
+
+msgid "no icon license"
+msgstr "ліцензія відсутня"
+
+msgid "Deprecated"
+msgstr "Застаріле"
+
+msgid "It will be removed at version $version"
+msgstr "Буде вилучено у версії $version"
+
+msgid "Download SVG"
+msgstr "Завантажити SVG"
+
+msgid "Download colored SVG"
+msgstr "Завантажити кольоровий SVG"
+
+msgid "Download PDF"
+msgstr "Завантажити PDF"
+
+msgid "Main Repository"
+msgstr "Основний репозиторій"
+
+msgid "Legal Disclaimer"
+msgstr "Юридичні застереження"
+
+msgid "Third-Party Extensions"
+msgstr "Сторонні розширення"
+
+msgid "Language"
+msgstr "Мова"
+
+msgid "$nIcons Free <abbr title=\"Scalable Vector Graphic\">SVG</abbr> icons for popular brands"
+msgstr "$nIcons Безкоштовні <abbr title=\"Scalable Vector Graphic\">SVG</abbr> значки популярних брендів"
+
+msgid "Controls are only available when JavaScript is enabled."
+msgstr "Елементи керування доступні за умови увімкнення JavaScript."
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Search by brand..."
+msgstr "Шукати бренд…"
+
+msgid "Order"
+msgstr "Впорядковувати"
+
+msgid "Sort alphabetically"
+msgstr "За алфавітом"
+
+msgid "Sort by color"
+msgstr "За кольором"
+
+msgid "Sort by relevance"
+msgstr "За відповідністю"
+
+msgid "Mode"
+msgstr "Режим"
+
+msgid "Light color scheme"
+msgstr "Світла тема"
+
+msgid "Dark color scheme"
+msgstr "Темна тема"
+
+msgid "System color scheme"
+msgstr "Системна"
+
+msgid "Download"
+msgstr "Завантажити"
+
+msgid "download SVG"
+msgstr "завантажити SVG"
+
+msgid "download PDF"
+msgstr "завантажити PDF"
+
+msgid "Layout"
+msgstr "Розкладка"
+
+msgid "Comfortable"
+msgstr "Зручна"
+
+msgid "Compact"
+msgstr "Компактна"
+
+msgid "$iconTitle SVG"
+msgstr "$iconTitle SVG"
+
+msgid "Deprecated"
+msgstr "Застаріле"
+
+msgid "Removal at $version"
+msgstr "Вилучено у $version"
+
+msgid "$iconTitle guidelines"
+msgstr "$iconTitle настанови"
+
+msgid "Brand Guidelines"
+msgstr "Настанови бренду"
+
+msgid "$iconTitle icon license"
+msgstr "ліцензія на значок $iconTitle"
+
+msgid "$iconTitle color"
+msgstr "$iconTitle колір"
+
+msgid "view $iconTitle"
+msgstr "переглянути $iconTitle"
+
+msgid "Icon missing?"
+msgstr "Немає значка?"
+
+msgid "Submit a request"
+msgstr "Зробіть запит"
+
+msgid "Icon outdated?"
+msgstr "Значок застарів?"
+
+msgid "Report outdated icon"
+msgstr "Повідомте про застарілий значок"
+
+msgid "A <a href=\"https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md\">CCO</a> project maintained by the <a href=\"https://github.com/simple-icons/simple-icons/graphs/contributors\">Simple Icons contributors</a>."
+msgstr "Проєкт є суспільним надбанням (<a href=\"https://github.com/simple-icons/s imple-icons/blob/develop/LICENSE.md\">CCO</a>) та підтримується <a href=\"https://github.com/simple-icons/simple-icons/graphs/contributors\">учасниками Simple Icons</a>."
+
+msgid "Use $repoLink for requests, corrections and contributions."
+msgstr "Використовуйте $repoLink для надсилання запитів на покращення та участі."
+
+msgid "Kindly supported by your donations at <a href=\"https://opencollective.com/simple-icons\">Open Collective</a>."
+msgstr "Підтримується за рахунок ваших донатів через <a href=\"https://opencollective.com/simple-icons\">Open Collective</a>."
+
+msgid "X logo"
+msgstr "X logo"
+
+msgid "Share this on X!"
+msgstr "Поділитись в Х!"
+
+msgid "Website repository"
+msgstr "Репозиторій вебсайту"
+
+msgid "Made with ❤️ on GitHub"
+msgstr "Зроблено з ❤️ на GitHub"
