@@ -141,7 +141,7 @@ describe('Search', () => {
     ['by title', 'adobe', 'Adobe'],
     ['aka alias', 'All Elite Wrestling', 'AEW'],
     ['dup alias', 'GoToWebinar', 'GoToMeeting'],
-    ['loc alias', 'КиноПоиск', 'KinoPoisk'],
+    ['loc alias', 'КиноПоиск', 'Kinopoisk'],
   ])(
     'full match searching %s displays matching icon first',
     async (aliasesProp, typedTitle, expectedTitle) => {
