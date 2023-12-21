@@ -295,9 +295,9 @@ export default async (env, argv) => {
 
     return {
       guidelines:
-        typeof icon.guidelines != 'object'
+        typeof icon.guidelines !== 'object'
           ? icon.guidelines
-          : icon.guidelines?.trademark ? icon.guidelines.trademark : icon.guidelines.branding,
+          : icon.guidelines.trademark ? icon.guidelines.trademark : icon.guidelines.branding,
       hex: icon.hex,
       indexByAlpha: iconIndex,
       indexByColor: sortedHexes.indexOf(icon.hex),
