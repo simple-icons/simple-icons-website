@@ -14,8 +14,8 @@
   "license": "CC0-1.0",
   "type": "module",
   "engines": {
-    "node": ">=16.0.0",
-    "npm": "<7.0.0 || >=8.1.2"
+    "node": ">=20",
+    "npm": ">=10"
   },
   "scripts": {
     "build": "webpack --mode production",
