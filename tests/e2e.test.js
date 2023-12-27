@@ -1,14 +1,11 @@
 import { jest } from '@jest/globals';
-
 import sortByColors from '../scripts/color-sorting.js';
 import { ARTIFACTS_DIR } from './constants.js';
-
 import fs from 'node:fs';
 import path from 'node:path';
 import { URL } from 'node:url';
 import { KnownDevices } from 'puppeteer';
 import * as simpleIcons from 'simple-icons/icons';
-
 import {
   getClipboardValue,
   getValue,
@@ -423,7 +420,7 @@ describe('Grid item', () => {
 
   beforeEach(async () => {
     await page.goto(url.href);
-    await page.emitter.emit('Page.setDownloadBehavior', {
+    await page._client().send('Page.setDownloadBehavior', {
       behavior: 'allow',
       downloadPath: ARTIFACTS_DIR,
     });

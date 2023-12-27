@@ -3,7 +3,7 @@ module.exports = {
     headless: process.env.TEST_HEADLESS === 'false' ? false : true,
   },
   server: {
-    command: 'npm run serve -- -s',
+    command: 'npm run serve',
     port: 8080,
   },
 };
