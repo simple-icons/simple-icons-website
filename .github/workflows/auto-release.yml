@@ -1,9 +1,6 @@
 name: Automated Releases
 on: workflow_dispatch
 
-permissions:
-  contents: write
-
 # This Workflow is triggered through the GitHub API:
 #   curl -X Post \
 #        -H "Authorization: Bearer <token>" \
@@ -16,6 +13,11 @@ jobs:
     name: Automated release
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ vars.BOT_APP_ID }}
+          private-key: ${{ secrets.BOT_PRIVATE_KEY }}
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -35,8 +37,8 @@ jobs:
       - name: Commit updates
         run: |
           # Set up git credential
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
+          git config --global user.email "simple-icons[bot]@users.noreply.github.com"
+          git config --global user.name "simple-icons[bot]"
 
           # Create a commit for the simple-icons dependency update
           git add .
@@ -45,7 +47,7 @@ jobs:
         run: |
           # Set up remote using a Personal Access Token
           git remote remove origin
-          git remote add origin https://${{secrets.RELEASE_TOKEN}}@github.com/simple-icons/simple-icons-website.git
+          git remote add origin https://${{ steps.app-token.outputs.token }}@github.com/simple-icons/simple-icons-website.git
 
           # Push updates to origin
           git push origin master
