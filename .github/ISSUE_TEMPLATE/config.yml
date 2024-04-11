@@ -4,7 +4,7 @@ contact_links:
     url: https://github.com/simple-icons/simple-icons/issues/new?labels=new+icon&template=icon_request.yml&title=Request%3A+
   - name: Icon update
     about: Help us improve by reporting outdated icons
-    url: https://github.com/simple-icons/simple-icons/issues/new?labels=icon+outdated&template=icon_update.yml&title=Update%3A+
+    url: https://github.com/simple-icons/simple-icons/issues/new?labels=update+icon%2Fdata&template=icon_update.yml&title=Update%3A+
   - name: Packages
     about: Issues and improvements for the packages
     url: https://github.com/simple-icons/simple-icons/issues/new?labels=package&template=package.yml
