@@ -3,14 +3,16 @@ on:
   push:
     branches: [master]
 
-permissions:
-  contents: write
-
 jobs:
   publish-website:
     runs-on: ubuntu-latest
     name: Publish Website
     steps:
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ vars.BOT_APP_ID }}
+          private-key: ${{ secrets.BOT_PRIVATE_KEY }}
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -20,14 +22,14 @@ jobs:
         with:
           node-version: 20.x
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
       - name: Cache build
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: .cache/webpack
           key: ${{ runner.os }}-build-${{ hashFiles('**/package-lock.json') }}
@@ -36,14 +38,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build Website
-        run: npm run build
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: npm run build
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
+          token: ${{ steps.app-token.outputs.token }}
           branch: gh-pages
           folder: _site
           single-commit: true
-          git-config-name: github-actions[bot]
-          git-config-email: github-actions[bot]@users.noreply.github.com
+          git-config-name: simple-icons[bot]
+          git-config-email: simple-icons[bot]@users.noreply.github.com
