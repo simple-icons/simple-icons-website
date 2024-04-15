@@ -6,7 +6,7 @@ const QUERY_PARAMETER = 'q';
 
 const getQueryFromParameter = (location, parameter) => {
   const query = new URLSearchParams(location.search).get(parameter);
-  return query ?? '';
+  return query || '';
 };
 
 const setSearchQueryInURL = (history, path, query) => {
@@ -82,10 +82,11 @@ export default function search(history, document, ordering, domUtils) {
 
       // Add all icons to the grid again
       const $gridChildren = document.querySelector('ul.grid').children;
-      domUtils.replaceChildren(document.querySelector('ul.grid'), [
-        ...getNonIcons($gridChildren),
-        ...$allIcons,
-      ]);
+      domUtils.replaceChildren(
+        document.querySelector('ul.grid'),
+        // eslint-disable-next-line unicorn/prefer-spread
+        getNonIcons($gridChildren).concat($allIcons),
+      );
       // And reset to the preferred ordering
       ordering.resetOrdering();
 
@@ -101,7 +102,8 @@ export default function search(history, document, ordering, domUtils) {
     let result = searcher.search(query);
     const $gridChildren = document.querySelector('ul.grid').children;
     const nonIcons = getNonIcons($gridChildren);
-    result = [...nonIcons, ...result];
+    // eslint-disable-next-line unicorn/prefer-spread
+    result = nonIcons.concat(result);
 
     ordering.selectOrdering(ORDER_RELEVANCE, result);
   };

@@ -3,7 +3,7 @@
  * Lazy loading of images using an intersection observer.
  */
 
-export default function iObserver(document) {
+export default function intersectionObserver(document) {
   const images = document.querySelectorAll('img[d-src]');
 
   if ('IntersectionObserver' in window) {
