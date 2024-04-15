@@ -1,0 +1,43 @@
+{
+  "prettier": true,
+  "webpack": false,
+  "space": 2,
+  "plugins": ["import"],
+  "envs": ["browser", "node"],
+  "rules": {
+    "n/no-unsupported-features": "off",
+    "n/no-unsupported-features/node-builtins": "off",
+    "n/file-extension-in-import": "off",
+    "sort-imports": [
+      "error",
+      {
+        "ignoreCase": false,
+        "ignoreDeclarationSort": true,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
+        "allowSeparatedGroups": false
+      }
+    ],
+    "import/no-named-as-default": "off",
+    "import/extensions": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "parent", "sibling", "index"],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "warnOnUnassignedImports": true,
+        "newlines-between": "never"
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["tests/**/*"],
+      "envs": ["jest"],
+      "globals": ["page"]
+    }
+  ]
+}

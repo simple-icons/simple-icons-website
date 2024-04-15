@@ -5,10 +5,11 @@
  * new simple-icons dependency version is outputted.
  */
 
-import { execSync } from 'node:child_process';
+import {execSync} from 'node:child_process';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import process from 'node:process';
+import {fileURLToPath} from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -23,8 +24,8 @@ const main = async () => {
     const manifestBefore = await getManifest();
     const versionBefore = manifestBefore.devDependencies['simple-icons'];
 
-    execSync('npm uninstall simple-icons', { stdio: 'ignore' });
-    execSync('npm install -DE simple-icons', { stdio: 'ignore' });
+    execSync('npm uninstall simple-icons', {stdio: 'ignore'});
+    execSync('npm install -DE simple-icons', {stdio: 'ignore'});
 
     const manifestAfter = await getManifest();
     const versionAfter = manifestAfter.devDependencies['simple-icons'];
@@ -40,4 +41,4 @@ const main = async () => {
   }
 };
 
-main();
+await main();

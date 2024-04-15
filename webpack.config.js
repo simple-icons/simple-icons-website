@@ -1,17 +1,24 @@
+import fs from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
+import process from 'node:process';
+import util from 'node:util';
 import CopyPlugin from 'copy-webpack-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import getRelativeLuminance from 'get-relative-luminance';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import path from 'node:path';
-import fs from 'node:fs/promises';
-import os from 'node:os';
-import util from 'node:util';
 import * as simpleIcons from 'simple-icons/icons';
-import { siX as xIcon } from 'simple-icons/icons';
+import {siX as xIcon} from 'simple-icons/icons';
+import {
+  getDirnameFromImportMeta,
+  getIconSlug,
+  getIconsData,
+  getThirdPartyExtensions,
+} from 'simple-icons/sdk';
 import alphaSort from './scripts/alpha-sorting.js';
 import colorSort from './scripts/color-sorting.js';
-import { githubAPI } from './scripts/https.js';
+import {githubApi} from './scripts/https.js';
 import {
   DEFAULT_LANGUAGE,
   getLanguages,
@@ -19,12 +26,6 @@ import {
   loadTranslations,
   updateTranslations,
 } from './scripts/i18n.js';
-import {
-  getDirnameFromImportMeta,
-  getThirdPartyExtensions,
-  getIconsData,
-  getIconSlug,
-} from 'simple-icons/sdk';
 
 const __dirname = getDirnameFromImportMeta(import.meta.url);
 
@@ -40,9 +41,10 @@ const currentIsoDateString = new Date().toISOString();
 
 const getIconsDataBySlugs = async () => {
   const dataBySlugs = {};
-  (await getIconsData()).forEach((iconData) => {
+  for (const iconData of await getIconsData()) {
     dataBySlugs[getIconSlug(iconData)] = iconData;
-  });
+  }
+
   return dataBySlugs;
 };
 
@@ -52,16 +54,19 @@ const getIconPlainAliases = (iconData) => {
     if (iconData.aliases.aka) {
       Array.prototype.push.apply(aliases, iconData.aliases.aka);
     }
+
     if (iconData.aliases.dup) {
       Array.prototype.push.apply(
         aliases,
-        iconData.aliases.dup.map((dup) => dup.title),
+        iconData.aliases.dup.map((duplicate) => duplicate.title),
       );
     }
+
     if (iconData.aliases.loc) {
       Array.prototype.push.apply(aliases, Object.values(iconData.aliases.loc));
     }
   }
+
   return aliases;
 };
 
@@ -72,7 +77,11 @@ const getIconLocalizedTitles = (iconData, languages) => {
       if (languages.includes(locale)) {
         localizedTitles[locale] = iconData.aliases.loc;
       }
-      const universalLocale = locale.substring(0, DEFAULT_LANGUAGE.length);
+
+      const universalLocale = locale.slice(
+        0,
+        Math.max(0, DEFAULT_LANGUAGE.length),
+      );
       if (
         languages.includes(universalLocale) &&
         !localizedTitles[universalLocale]
@@ -81,6 +90,7 @@ const getIconLocalizedTitles = (iconData, languages) => {
       }
     }
   }
+
   return localizedTitles;
 };
 
@@ -115,12 +125,13 @@ const getDeprecatedIcons = async () => {
   let siMilestones;
   try {
     siMilestones = JSON.parse(await fs.readFile(siMilestonesCachePath, 'utf8'));
-  } catch (error) {
-    siMilestones = await githubAPI.GET(
+  } catch {
+    siMilestones = await githubApi.get(
       '/repos/simple-icons/simple-icons/milestones',
     );
     await fs.writeFile(siMilestonesCachePath, JSON.stringify(siMilestones));
   }
+
   for (const milestone of siMilestones) {
     const version = milestone.title.replace(/[a-zA-Z]/, '');
 
@@ -129,15 +140,18 @@ const getDeprecatedIcons = async () => {
       issues = JSON.parse(
         path.join(os.tmpdir(), `simple-icons-milestone-issues-${version}.json`),
       );
-    } catch (error) {
-      issues = await githubAPI.GET(
+    } catch {
+      // eslint-disable-next-line no-await-in-loop
+      issues = await githubApi.get(
         `/repos/simple-icons/simple-icons/issues?milestone=${milestone.number}`,
       );
+      // eslint-disable-next-line no-await-in-loop
       await fs.writeFile(
         path.join(os.tmpdir(), `simple-icons-milestone-issues-${version}.json`),
         JSON.stringify(issues),
       );
     }
+
     for (const issue of issues) {
       if (issue.pull_request) {
         let changedFiles;
@@ -148,8 +162,10 @@ const getDeprecatedIcons = async () => {
               `simple-icons-pr-changed-files-${issue.number}.json`,
             ),
           );
-        } catch (error) {
-          changedFiles = await githubAPI.GET(`${issue.pull_request.url}/files`);
+        } catch {
+          // eslint-disable-next-line no-await-in-loop
+          changedFiles = await githubApi.get(`${issue.pull_request.url}/files`);
+          // eslint-disable-next-line no-await-in-loop
           await fs.writeFile(
             path.join(
               os.tmpdir(),
@@ -158,9 +174,11 @@ const getDeprecatedIcons = async () => {
             JSON.stringify(changedFiles),
           );
         }
+
         for (const file of changedFiles) {
+          // eslint-disable-next-line max-depth
           if (file.status === 'removed' && file.filename.startsWith('icons/')) {
-            const slug = file.filename.substring(6, file.filename.length - 4);
+            const slug = file.filename.slice(6, -4);
             deprecatedIcons[slug] = {
               version,
               milestoneNumber: milestone.number,
@@ -170,6 +188,7 @@ const getDeprecatedIcons = async () => {
       }
     }
   }
+
   return deprecatedIcons;
 };
 
@@ -188,15 +207,16 @@ if (process.env.TEST_ENV) {
       const iconToDisplay = allIcons.find((icon) => icon.slug === iconSlug);
       if (!iconToDisplay) {
         console.error(`Slug "${iconSlug}" not found in icons`);
+        // eslint-disable-next-line unicorn/no-process-exit
         process.exit(1);
       }
+
       displayIcons.push(iconToDisplay);
     }
   };
 
-  ['adobe', 'aew', 'gotomeeting', 'kinopoisk'].forEach((slug) =>
-    ensureIconDisplayed(slug),
-  );
+  for (const slug of ['adobe', 'aew', 'gotomeeting', 'kinopoisk'])
+    ensureIconDisplayed(slug);
 }
 
 const pageDescription = `${allIcons.length} Free SVG icons for popular brands`;
@@ -213,11 +233,11 @@ const generateStructuredData = async () => {
     let siMembersFileContent;
     try {
       siMembersFileContent = await fs.readFile(siMembersCachePath, 'utf8');
-    } catch (error) {
-      const siOrgMembers = await githubAPI.GET('/orgs/simple-icons/members');
+    } catch {
+      const siOrgMembers = await githubApi.get('/orgs/simple-icons/members');
       const users = await Promise.all(
         siOrgMembers.map(async (member) =>
-          Object.assign(member, await githubAPI.GET(`/users/${member.login}`)),
+          Object.assign(member, await githubApi.get(`/users/${member.login}`)),
         ),
       );
 
@@ -262,7 +282,7 @@ const generateStructuredData = async () => {
 let _translationsUpdated = false;
 let i18n;
 
-export default async (env, argv) => {
+export default async function webpackConfig(env, argv) {
   if (!_translationsUpdated) {
     await updateTranslations();
     i18n = await loadTranslations();
@@ -274,11 +294,12 @@ export default async (env, argv) => {
   const languageNamesObject = await getLanguagesFile();
   const languageNamesArray = await getLanguages();
 
-  // in test environment only build for a subset of languages
+  // In test environment only build for a subset of languages
   let languages = languageNamesArray.map((lang) => lang[0]);
   const languagesFilter = process.env.TEST_ENV
     ? (lang) => languages.slice(0, 3).includes(lang)
     : () => true;
+  // eslint-disable-next-line unicorn/no-array-callback-reference
   languages = languages.filter(languagesFilter);
 
   const nonDefaultLanguages = languages.filter(
@@ -295,11 +316,9 @@ export default async (env, argv) => {
 
     return {
       guidelines:
-        typeof icon.guidelines !== 'object'
-          ? icon.guidelines
-          : icon.guidelines.trademark
-            ? icon.guidelines.trademark
-            : icon.guidelines.branding,
+        typeof icon.guidelines === 'object'
+          ? icon.guidelines.trademark ?? icon.guidelines.branding
+          : icon.guidelines,
       hex: icon.hex,
       indexByAlpha: iconIndex,
       indexByColor: sortedHexes.indexOf(icon.hex),
@@ -312,7 +331,7 @@ export default async (env, argv) => {
       shortHex: simplifyHexIfPossible(icon.hex),
       slug: icon.slug,
       title: icon.title,
-      plainAliases: plainAliases.length ? plainAliases : false,
+      plainAliases: plainAliases.length > 0 ? plainAliases : false,
       localizedTitles: getIconLocalizedTitles(
         iconsDataBySlugs[icon.slug],
         languages,
@@ -387,8 +406,8 @@ export default async (env, argv) => {
             // Add sitemap.xml
             from: path.resolve(ROOT_DIR, 'sitemap.template.xml'),
             to: path.resolve(OUT_DIR, 'sitemap.xml'),
-            transform: (content) => {
-              // inject last modification date in W3C datetime format
+            transform(content) {
+              // Inject last modification date in W3C datetime format
               return util.format(
                 content.toString('ascii'),
                 currentIsoDateString,
@@ -411,10 +430,11 @@ export default async (env, argv) => {
           lang === DEFAULT_LANGUAGE
             ? [...icons]
             : [...icons].map((icon_) => {
-                const icon = { ...icon_ };
+                const icon = {...icon_};
                 if (icon.localizedTitles[lang]) {
                   icon.localizedTitle = icon.localizedTitles[lang];
                 }
+
                 return icon;
               });
 
@@ -468,7 +488,7 @@ export default async (env, argv) => {
             ],
     },
     cache: process.argv.includes('--watch')
-      ? { type: 'memory' }
+      ? {type: 'memory'}
       : {
           cacheLocation: path.resolve(
             __dirname,
@@ -479,4 +499,4 @@ export default async (env, argv) => {
           version: '1',
         },
   };
-};
+}

@@ -2,10 +2,10 @@
  * @fileoverview
  * Simple HTTPs GET request.
  */
-
 import https from 'node:https';
+import process from 'node:process';
 
-export const GET = (hostname, path, options) => {
+export const get = (hostname, path, options) => {
   return new Promise((resolve, reject) => {
     const requestOptions = {
       hostname,
@@ -13,62 +13,61 @@ export const GET = (hostname, path, options) => {
       method: 'GET',
     };
 
-    const opts = Object.assign(requestOptions, options);
-    const req = https.request(opts, (res) => {
+    const options_ = Object.assign(requestOptions, options);
+    const request = https.request(options_, (response) => {
       let result = '';
 
-      res.on('data', (chunk) => {
+      response.on('data', (chunk) => {
         result += chunk;
       });
 
-      res.on('end', () => {
+      response.on('end', () => {
         resolve(JSON.parse(result));
       });
     });
 
-    req.on('error', (error) => {
+    request.on('error', (error) => {
       reject(error);
     });
 
-    req.end();
+    request.end();
   });
 };
 
-export const POST = (hostname, path, data, options) => {
+export const post = (hostname, path, data, options) => {
   return new Promise((resolve, reject) => {
     const requestOptions = {
       hostname,
       path,
       method: 'POST',
     };
-    const opts = Object.assign(requestOptions, options);
-    const req = https.request(opts, (res) => {
+    const options_ = Object.assign(requestOptions, options);
+    const request = https.request(options_, (response) => {
       let result = '';
 
-      res.on('data', (chunk) => {
+      response.on('data', (chunk) => {
         result += chunk;
       });
 
-      res.on('end', () => {
+      response.on('end', () => {
         resolve(JSON.parse(result));
       });
     });
 
-    req.on('error', (error) => {
+    request.on('error', (error) => {
       reject(error);
     });
 
-    req.write(JSON.stringify(data));
-    req.end();
+    request.write(JSON.stringify(data));
+    request.end();
   });
 };
 
 const fillGithubOptions = (options) => {
   const ghToken = process.env.GITHUB_TOKEN;
 
-  if (!options.headers) {
-    options.headers = {};
-  }
+  options.headers ||= {};
+
   options.headers['User-Agent'] = 'simple-icons-website';
 
   if (ghToken) {
@@ -76,15 +75,13 @@ const fillGithubOptions = (options) => {
   }
 };
 
-/* eslint-disable require-await */
-export const githubAPI = {
-  GET: async (path, options = {}) => {
+export const githubApi = {
+  async get(path, options = {}) {
     fillGithubOptions(options);
-    return GET('api.github.com', path, options);
+    return get('api.github.com', path, options);
   },
-  POST: async (path, data, options = {}) => {
+  async post(path, data, options = {}) {
     fillGithubOptions(options);
-    return POST('api.github.com', path, data, options);
+    return get('api.github.com', path, data, options);
   },
 };
-/* eslint-enable require-await */

@@ -1,7 +1,7 @@
 import fs from 'node:fs';
-import path from 'path';
+import path from 'node:path';
 import pugLex from 'pug-lexer';
-import { optimize } from 'svgo';
+import {optimize} from 'svgo';
 
 const extractContextsSvgPaths = (tokens) => {
   return tokens
@@ -13,19 +13,21 @@ const extractContextsSvgPaths = (tokens) => {
       );
     })
     .map((token, i, tokens_) => {
-      const prevToken = i === 0 ? { type: null, name: null } : tokens_[i - 1];
+      const previousToken = i === 0 ? {type: null, name: null} : tokens_[i - 1];
       if (
         token.type === 'attribute' &&
         token.name === 'd' &&
-        prevToken.type === 'attribute' &&
-        prevToken.name === 'title'
+        previousToken.type === 'attribute' &&
+        previousToken.name === 'title'
       ) {
         return [
-          // title, path
-          prevToken.val.substring(1, prevToken.val.length - 1),
-          token.val.substring(1, token.val.length - 1),
+          // Title, path
+          previousToken.val.slice(1, -1),
+          token.val.slice(1, -1),
         ];
       }
+
+      return undefined;
     })
     .filter(Boolean);
 };

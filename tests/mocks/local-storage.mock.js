@@ -1,4 +1,4 @@
-import { jest } from '@jest/globals';
+import {jest} from '@jest/globals';
 
 const STORAGE = new Map();
 
@@ -15,13 +15,13 @@ const getItemImplementation = (key) => {
   return STORAGE.get(key);
 };
 
-export default {
+const mock = {
   hasItem: jest.fn().mockName('localStorage.hasItem'),
   getItem: jest.fn().mockName('localStorage.getItem'),
   setItem: jest.fn().mockName('localStorage.setItem'),
 
   // Utility to quickly clear the entire localStorage mock.
-  __resetAllMocks: function () {
+  __resetAllMocks() {
     STORAGE.clear();
     this.hasItem.mockReset();
     this.hasItem.mockImplementation(hasItemImplementation);
@@ -31,7 +31,9 @@ export default {
   },
 
   // Utility to mock a stored value for a key
-  __setStoredValueFor: (key, value) => {
+  __setStoredValueFor(key, value) {
     STORAGE.set(key, value);
   },
 };
+
+export default mock;

@@ -1,129 +1,131 @@
-import { jest } from '@jest/globals';
-
+/* eslint accessor-pairs: ["error", {"setWithoutGet": false}] */
+import {jest} from '@jest/globals';
 import {
   hideElement,
-  showElement,
-  toggleVisibleElement,
-  sortChildren,
   replaceChildren,
+  showElement,
+  sortChildren,
+  toggleVisibleElement,
 } from '../public/scripts/dom-utils.js';
 
-const $el = {
+const $element = {
   classList: {
     add: jest.fn().mockName('$el.classList.add'),
     remove: jest.fn().mockName('$el.classList.remove'),
     toggle: jest.fn().mockName('$el.classList.toggle'),
   },
   children: [],
-  appendChild: (obj) => {
-    $el.children.push(obj);
+  append(object) {
+    $element.children.push(object);
   },
   removeAttribute: jest.fn().mockName('$el.removeAttribute'),
   setAttribute: jest.fn().mockName('$el.setAttribute'),
   toggleAttribute: jest.fn().mockName('$el.toggleAttribute'),
 };
 
-Object.defineProperty($el, 'innerHTML', {
+Object.defineProperty($element, 'innerHTML', {
   set: jest.fn(() => {
-    $el.children = [];
+    $element.children = [];
   }),
 });
 
 describe('::hideElement', () => {
   beforeEach(() => {
-    $el.classList.add.mockReset();
-    $el.setAttribute.mockReset();
+    $element.classList.add.mockReset();
+    $element.setAttribute.mockReset();
   });
 
   it('adds the .hidden class and the aria-hidden attribute', () => {
-    hideElement($el);
-    expect($el.classList.add).toHaveBeenCalledWith('hidden');
-    expect($el.setAttribute).toHaveBeenCalledWith('aria-hidden', 'true');
+    hideElement($element);
+    expect($element.classList.add).toHaveBeenCalledWith('hidden');
+    expect($element.setAttribute).toHaveBeenCalledWith('aria-hidden', 'true');
   });
 });
 
 describe('::showElement', () => {
   beforeEach(() => {
-    $el.classList.remove.mockReset();
-    $el.removeAttribute.mockReset();
+    $element.classList.remove.mockReset();
+    $element.removeAttribute.mockReset();
   });
 
   it('removes the .hidden class and the aria-hidden attribute', () => {
-    showElement($el);
-    expect($el.classList.remove).toHaveBeenCalledWith('hidden');
-    expect($el.removeAttribute).toHaveBeenCalledWith('aria-hidden');
+    showElement($element);
+    expect($element.classList.remove).toHaveBeenCalledWith('hidden');
+    expect($element.removeAttribute).toHaveBeenCalledWith('aria-hidden');
   });
 });
 
 describe('::toggleVisibleElement', () => {
   beforeEach(() => {
-    $el.classList.toggle.mockReset();
-    $el.toggleAttribute.mockReset();
+    $element.classList.toggle.mockReset();
+    $element.toggleAttribute.mockReset();
   });
 
   it('toggles the .hidden class', () => {
-    toggleVisibleElement($el);
-    expect($el.classList.toggle).toHaveBeenCalledWith('hidden');
+    toggleVisibleElement($element);
+    expect($element.classList.toggle).toHaveBeenCalledWith('hidden');
   });
 
   it('toggles the aria-hidden attribute', () => {
-    toggleVisibleElement($el);
-    expect($el.toggleAttribute).toHaveBeenCalledWith('aria-hidden');
+    toggleVisibleElement($element);
+    expect($element.toggleAttribute).toHaveBeenCalledWith('aria-hidden');
   });
 });
 
 describe('::toggleVisibleElement', () => {
   beforeEach(() => {
-    $el.classList.toggle.mockReset();
-    $el.toggleAttribute.mockReset();
+    $element.classList.toggle.mockReset();
+    $element.toggleAttribute.mockReset();
   });
 
   it('toggles the .hidden class', () => {
-    toggleVisibleElement($el);
-    expect($el.classList.toggle).toHaveBeenCalledWith('hidden');
+    toggleVisibleElement($element);
+    expect($element.classList.toggle).toHaveBeenCalledWith('hidden');
   });
 
   it('toggles the aria-hidden attribute', () => {
-    toggleVisibleElement($el);
-    expect($el.toggleAttribute).toHaveBeenCalledWith('aria-hidden');
+    toggleVisibleElement($element);
+    expect($element.toggleAttribute).toHaveBeenCalledWith('aria-hidden');
   });
 });
 
 describe('::sortChildren', () => {
   it('sorts children elements', () => {
-    $el.children = [
-      { 'order-alpha': '2', getAttribute: () => 2 },
-      { 'order-alpha': '3', getAttribute: () => 3 },
-      { 'order-alpha': '1', getAttribute: () => 1 },
+    $element.children = [
+      {'order-alpha': '2', getAttribute: () => 2},
+      {'order-alpha': '3', getAttribute: () => 3},
+      {'order-alpha': '1', getAttribute: () => 1},
     ];
 
     const expectedOrder = [
-      { 'order-alpha': '1', getAttribute: () => 1 },
-      { 'order-alpha': '2', getAttribute: () => 2 },
-      { 'order-alpha': '3', getAttribute: () => 3 },
+      {'order-alpha': '1', getAttribute: () => 1},
+      {'order-alpha': '2', getAttribute: () => 2},
+      {'order-alpha': '3', getAttribute: () => 3},
     ];
 
-    sortChildren($el, 'order-alpha', parseInt);
-    expect(JSON.stringify($el.children)).toEqual(JSON.stringify(expectedOrder));
+    sortChildren($element, 'order-alpha', Number.parseInt);
+    expect(JSON.stringify($element.children)).toEqual(
+      JSON.stringify(expectedOrder),
+    );
   });
 });
 
 describe('::replaceChildren', () => {
   it('replace children elements', () => {
-    $el.children = [
-      { 'order-alpha': 2, getAttribute: () => 2 },
-      { 'order-alpha': 3, getAttribute: () => 3 },
-      { 'order-alpha': 1, getAttribute: () => 1 },
+    $element.children = [
+      {'order-alpha': 2, getAttribute: () => 2},
+      {'order-alpha': 3, getAttribute: () => 3},
+      {'order-alpha': 1, getAttribute: () => 1},
     ];
 
     const expectedNewChildren = [
-      { 'order-alpha': 3, getAttribute: () => 3 },
-      { 'order-alpha': 1, getAttribute: () => 1 },
-      { 'order-alpha': 2, getAttribute: () => 2 },
+      {'order-alpha': 3, getAttribute: () => 3},
+      {'order-alpha': 1, getAttribute: () => 1},
+      {'order-alpha': 2, getAttribute: () => 2},
     ];
 
-    replaceChildren($el, expectedNewChildren);
-    expect(JSON.stringify($el.children)).toEqual(
+    replaceChildren($element, expectedNewChildren);
+    expect(JSON.stringify($element.children)).toEqual(
       JSON.stringify(expectedNewChildren),
     );
   });

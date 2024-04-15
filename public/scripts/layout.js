@@ -1,4 +1,4 @@
-import { STORAGE_KEY_LAYOUT } from './storage.js';
+import {STORAGE_KEY_LAYOUT} from './storage.js';
 
 const LAYOUT_COMPACT = 'layout-compact';
 const LAYOUT_COMFORTABLE = 'layout-comfortable';
@@ -9,8 +9,8 @@ const initLayout = (document, storage) => {
   let activelayout = DEFAULT_LAYOUT;
 
   const $body = document.querySelector('body');
-  const $layoutComfortable = document.getElementById('layout-comfortable');
-  const $layoutCompact = document.getElementById('layout-compact');
+  const $layoutComfortable = document.querySelector('#layout-comfortable');
+  const $layoutCompact = document.querySelector('#layout-compact');
 
   function selectlayout(selected) {
     if (selected === activelayout) {

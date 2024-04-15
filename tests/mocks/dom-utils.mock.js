@@ -1,6 +1,6 @@
-import { jest } from '@jest/globals';
+import {jest} from '@jest/globals';
 
-export default {
+const mock = {
   hideElement: jest.fn().mockName('domUtils.hideElement'),
   showElement: jest.fn().mockName('domUtils.showElement'),
   toggleClass: jest.fn().mockName('domUtils.toggleClass'),
@@ -8,7 +8,7 @@ export default {
   sortChildren: jest.fn().mockName('domUtils.sortChildren'),
   replaceChildren: jest.fn().mockName('domUtils.replaceChildren'),
   // Utility to quickly clear the entire dom-utils mock.
-  __resetAllMocks: function () {
+  __resetAllMocks() {
     this.hideElement.mockReset();
     this.showElement.mockReset();
     this.toggleClass.mockReset();
@@ -17,3 +17,5 @@ export default {
     this.replaceChildren.mockReset();
   },
 };
+
+export default mock;

@@ -1,14 +1,11 @@
-import { jest } from '@jest/globals';
-
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { getDirnameFromImportMeta } from 'simple-icons/sdk';
-
-import { document, newElementMock, newEventMock } from './mocks/dom.mock.js';
-import navigator from './mocks/navigator.mock.js';
-import { fetch, newFetchTextMock } from './mocks/fetch.mock.js';
-
+import {jest} from '@jest/globals';
+import {getDirnameFromImportMeta} from 'simple-icons/sdk';
 import initCopyButtons from '../public/scripts/copy.js';
+import {document, newElementMock, newEventMock} from './mocks/dom.mock.js';
+import {fetch, newFetchTextMock} from './mocks/fetch.mock.js';
+import navigator from './mocks/navigator.mock.js';
 
 const __dirname = getDirnameFromImportMeta(import.meta.url);
 
@@ -24,21 +21,21 @@ describe('Copy', () => {
 
   it('gets the #copy-input button', () => {
     initCopyButtons(document, navigator, fetch);
-    expect(document.getElementById).toHaveBeenCalledWith('copy-input');
+    expect(document.querySelector).toHaveBeenCalledWith('#copy-input');
   });
 
   it('gets grid item color buttons', () => {
     const eventListeners = new Map();
     const $colorButtons = [
-      newElementMock('color button 1', { innerHTML: '#000FFF' }),
-      newElementMock('color button 2', { innerHTML: '#FFF000' }),
+      newElementMock('color button 1', {innerHTML: '#000FFF'}),
+      newElementMock('color button 2', {innerHTML: '#FFF000'}),
     ];
 
     for (const $colorButton of $colorButtons) {
       const buttonEventListeners = new Map();
       eventListeners.set($colorButton, buttonEventListeners);
-      $colorButton.addEventListener.mockImplementation((name, fn) => {
-        buttonEventListeners.set(name, fn);
+      $colorButton.addEventListener.mockImplementation((name, function_) => {
+        buttonEventListeners.set(name, function_);
       });
     }
 
@@ -63,7 +60,7 @@ describe('Copy', () => {
       );
 
       const clickListener = buttonEventListeners.get('click');
-      const event = newEventMock({ target: $colorButton });
+      const event = newEventMock({target: $colorButton});
       clickListener(event);
       expect(event.preventDefault).toHaveBeenCalledTimes(1);
       expect($colorButton.classList.add).toHaveBeenCalledWith('copied');
@@ -87,15 +84,15 @@ describe('Copy', () => {
 
     const eventListeners = new Map();
     const $svgButtons = [
-      newElementMock('preview button 1', { parentNode: true }),
-      newElementMock('preview button 2', { parentNode: true }),
+      newElementMock('preview button 1', {parentNode: true}),
+      newElementMock('preview button 2', {parentNode: true}),
     ];
 
     for (const $svgButton of $svgButtons) {
       const buttonEventListeners = new Map();
       eventListeners.set($svgButton, buttonEventListeners);
-      $svgButton.addEventListener.mockImplementation((name, fn) => {
-        buttonEventListeners.set(name, fn);
+      $svgButton.addEventListener.mockImplementation((name, function_) => {
+        buttonEventListeners.set(name, function_);
       });
     }
 
@@ -125,7 +122,8 @@ describe('Copy', () => {
       );
 
       const clickListener = buttonEventListeners.get('click');
-      const event = newEventMock({ target: $svgButton });
+      const event = newEventMock({target: $svgButton});
+      // eslint-disable-next-line no-await-in-loop
       await clickListener(event);
 
       expect(event.preventDefault).toHaveBeenCalledTimes(1);

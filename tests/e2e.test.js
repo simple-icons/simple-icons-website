@@ -1,26 +1,25 @@
-import { jest } from '@jest/globals';
-import sortByColors from '../scripts/color-sorting.js';
-import { ARTIFACTS_DIR } from './constants.js';
 import fs from 'node:fs';
 import path from 'node:path';
-import { URL } from 'node:url';
-import { KnownDevices } from 'puppeteer';
+import {jest} from '@jest/globals';
+import {KnownDevices} from 'puppeteer';
 import * as simpleIcons from 'simple-icons/icons';
+import sortByColors from '../scripts/color-sorting.js';
+import {ARTIFACTS_DIR} from './constants.js';
 import {
   getClipboardValue,
+  getTextContent,
   getValue,
   hasClass,
   isDisabled,
   isHidden,
   isInViewport,
   isVisible,
-  getTextContent,
 } from './helpers.js';
 
 jest.retryTimes(3);
 jest.setTimeout(3000);
 
-const COLOR_REGEX = /^#[A-F0-9]{6}$/;
+const COLOR_REGEX = /^#[A-F\d]{6}$/;
 const SVG_REGEX = /^<svg.*>.*<\/svg>$/;
 
 const DEFAULT_DEVICE = {
@@ -119,9 +118,8 @@ describe('External links', () => {
 
   it('is possible to click extensions link', async () => {
     const extensionPopupLinks = await page.$$('.extensions__table a');
-    extensionPopupLinks.forEach((link) =>
-      expect(page).toClick(link.getProperty('innerText')),
-    );
+    for (const link of extensionPopupLinks)
+      expect(page).toClick(link.getProperty('innerText'));
   });
 
   it('is possible to click language selector', async () => {
@@ -141,14 +139,13 @@ describe('Search', () => {
     ['loc alias', 'КиноПоиск', 'Kinopoisk'],
   ])(
     'full match searching %s displays matching icon first',
-    async (aliasesProp, typedTitle, expectedTitle) => {
+    async (aliasesProperty, typedTitle, expectedTitle) => {
       const $searchInput = await page.$('#search-input');
       await $searchInput.type(typedTitle);
 
       const $gridItem = await page.$('.grid-item__title');
-      const title = await (
-        await $gridItem.getProperty('textContent')
-      ).jsonValue();
+      const text = await $gridItem.getProperty('textContent');
+      const title = await text.jsonValue();
       expect(title).toBe(expectedTitle);
     },
   );
@@ -219,7 +216,7 @@ describe('Search', () => {
     const $searchInput = await page.$('#search-input');
     await $searchInput.type('adobe');
 
-    await $searchInput.click({ clickCount: 3 });
+    await $searchInput.click({clickCount: 3});
     await $searchInput.press('Backspace');
 
     const $body = await page.$('body');
@@ -248,7 +245,7 @@ describe('Search', () => {
     const query = 'amd';
 
     const $searchInput = await page.$('#search-input');
-    await $searchInput.type(query, { delay: 100 });
+    await $searchInput.type(query, {delay: 100});
 
     expect(page.url()).toMatch(`?q=${query}`);
   });
@@ -277,7 +274,7 @@ describe('Search', () => {
 });
 
 describe('Ordering', () => {
-  // only first 30 icons, it's enough to test ordering
+  // Only first 30 icons, it's enough to test ordering
   const nIcons = 30;
   const titles = Object.values(simpleIcons)
     .map((icon) => icon.title)
@@ -314,6 +311,7 @@ describe('Ordering', () => {
     for (let i = 0; i < nIcons; i++) {
       const $gridItemTitle = $gridItemTitles[i];
       const expectedTitle = titles[i];
+      // eslint-disable-next-line no-await-in-loop
       await expect($gridItemTitle).toMatchTextContent(expectedTitle);
     }
   });
@@ -327,9 +325,11 @@ describe('Ordering', () => {
     const hexes = [];
     for (let i = 0; i < nIcons; i++) {
       const $gridItem = $gridItems[i];
+      // eslint-disable-next-line no-await-in-loop
       const hex = await getTextContent($gridItem);
       hexes.push(hex);
     }
+
     await expect(sortByColors(hexes)).toEqual(hexes);
   });
 });
@@ -344,7 +344,7 @@ describe('Preferred color scheme', () => {
     ['light', 'rgb(252, 252, 252)'],
   ])("has color scheme '%s'", async (scheme, expected) => {
     await page.emulateMediaFeatures([
-      { name: 'prefers-color-scheme', value: scheme },
+      {name: 'prefers-color-scheme', value: scheme},
     ]);
 
     await page.screenshot({
@@ -365,7 +365,7 @@ describe('Preferred color scheme', () => {
     ['dark', '#color-scheme-light', 'rgb(252, 252, 252)'],
   ])('is "%s" but "%s" is selected', async (scheme, id, expected) => {
     await page.emulateMediaFeatures([
-      { name: 'prefers-color-scheme', value: scheme },
+      {name: 'prefers-color-scheme', value: scheme},
     ]);
 
     await expect(page).toClick(id);
