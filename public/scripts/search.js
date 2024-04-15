@@ -1,12 +1,12 @@
-import { ORDER_RELEVANCE } from './ordering.js';
-import { debounce } from './utils.js';
-import { Searcher } from 'fast-fuzzy';
+import {Searcher} from 'fast-fuzzy';
+import {ORDER_RELEVANCE} from './ordering.js';
+import {debounce} from './utils.js';
 
 const QUERY_PARAMETER = 'q';
 
 const getQueryFromParameter = (location, parameter) => {
   const query = new URLSearchParams(location.search).get(parameter);
-  return query ? query : '';
+  return query ?? '';
 };
 
 const setSearchQueryInURL = (history, path, query) => {
@@ -15,7 +15,7 @@ const setSearchQueryInURL = (history, path, query) => {
       null,
       '',
       `${path}?${new URLSearchParams({
-        ...(query ? { [QUERY_PARAMETER]: query } : {}),
+        ...(query ? {[QUERY_PARAMETER]: query} : {}),
       }).toString()}`,
     );
   } else {
@@ -24,16 +24,16 @@ const setSearchQueryInURL = (history, path, query) => {
 };
 
 const titlesFromIconCard = (iconCard) => {
-  // extract title from icon card
+  // Extract title from icon card
   const previewButtonTitle =
     iconCard.children[0].children[0].getAttribute('title');
 
   const variants = [
-    // title
-    previewButtonTitle.slice(0, previewButtonTitle.length - 4),
+    // Title
+    previewButtonTitle.slice(0, -4),
   ];
 
-  // add aliases
+  // Add aliases
   const aliases = iconCard.getAttribute('a');
   if (aliases !== null) {
     Array.prototype.push.apply(variants, JSON.parse(aliases));
@@ -42,32 +42,33 @@ const titlesFromIconCard = (iconCard) => {
   return variants;
 };
 
-export default (history, document, ordering, domUtils) => {
-  const $searchInput = document.getElementById('search-input');
-  const $searchClear = document.getElementById('search-clear');
-  const $orderColor = document.getElementById('order-color');
-  const $orderRelevance = document.getElementById('order-relevance');
+export default function search(history, document, ordering, domUtils) {
+  const $searchInput = document.querySelector('#search-input');
+  const $searchClear = document.querySelector('#search-clear');
+  const $orderColor = document.querySelector('#order-color');
+  const $orderRelevance = document.querySelector('#order-relevance');
 
-  // when loaded for first time, all icon nodes exist in the DOM
+  // When loaded for first time, all icon nodes exist in the DOM
   const $icons = document.querySelectorAll('.grid-item');
 
-  // mantain a copy in memory to be able to rebuild the whole grid later
+  // Mantain a copy in memory to be able to rebuild the whole grid later
   const $allIcons = [...$icons];
 
-  // the searcher is initialized for all icons
-  const searcher = new Searcher($icons, { keySelector: titlesFromIconCard });
+  // The searcher is initialized for all icons
+  const searcher = new Searcher($icons, {keySelector: titlesFromIconCard});
 
   function getNonIcons() {
     const nonIcons = [];
     for (const node of document.querySelector('ul.grid').children) {
-      // carbon ads
-      if (!node.classList.contains('grid-item')) {
-        nonIcons.push(node);
-      } else {
-        // these non-icon nodes are placed first in the grid
+      // Carbon ads
+      if (node.classList.contains('grid-item')) {
+        // These non-icon nodes are placed first in the grid
         break;
+      } else {
+        nonIcons.push(node);
       }
     }
+
     return nonIcons;
   }
 
@@ -79,13 +80,13 @@ export default (history, document, ordering, domUtils) => {
       $orderRelevance.classList.remove('last__button');
       $orderColor.classList.add('last__button');
 
-      // add all icons to the grid again
+      // Add all icons to the grid again
       const $gridChildren = document.querySelector('ul.grid').children;
-      domUtils.replaceChildren(
-        document.querySelector('ul.grid'),
-        getNonIcons($gridChildren).concat($allIcons),
-      );
-      // and reset to the preferred ordering
+      domUtils.replaceChildren(document.querySelector('ul.grid'), [
+        ...getNonIcons($gridChildren),
+        ...$allIcons,
+      ]);
+      // And reset to the preferred ordering
       ordering.resetOrdering();
 
       return;
@@ -96,11 +97,11 @@ export default (history, document, ordering, domUtils) => {
     $orderRelevance.classList.add('last__button');
     $orderColor.classList.remove('last__button');
 
-    // fuzzy search
+    // Fuzzy search
     let result = searcher.search(query);
     const $gridChildren = document.querySelector('ul.grid').children;
     const nonIcons = getNonIcons($gridChildren);
-    result = nonIcons.concat(result);
+    result = [...nonIcons, ...result];
 
     ordering.selectOrdering(ORDER_RELEVANCE, result);
   };
@@ -131,4 +132,4 @@ export default (history, document, ordering, domUtils) => {
     $searchInput.value = query;
     search(query);
   }
-};
+}

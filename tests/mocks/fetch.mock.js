@@ -1,6 +1,4 @@
-/* eslint-disable no-inline-comments */
-
-import { jest } from '@jest/globals';
+import {jest} from '@jest/globals';
 
 export const newFetchTextMock = (value) => {
   return jest
@@ -9,7 +7,7 @@ export const newFetchTextMock = (value) => {
     .mockImplementation((/* url */) => {
       return new Promise((resolve) => {
         resolve({
-          text: () => {
+          text() {
             return new Promise((resolve_) => {
               resolve_(value);
             });

@@ -1,4 +1,4 @@
-import { STORAGE_KEY_ORDERING } from './storage.js';
+import {STORAGE_KEY_ORDERING} from './storage.js';
 
 export const ORDER_ALPHA = 'order-alpha';
 export const ORDER_COLOR = 'order-color';
@@ -6,13 +6,13 @@ export const ORDER_RELEVANCE = 'order-relevance';
 
 const DEFAULT_ORDERING = ORDER_ALPHA;
 
-export default (window, document, storage, domUtils) => {
+export default function ordering(window, document, storage, domUtils) {
   let activeOrdering = DEFAULT_ORDERING;
   let preferredOrdering = DEFAULT_ORDERING;
 
   const $body = document.querySelector('body');
-  const $orderAlpha = document.getElementById('order-alpha');
-  const $orderColor = document.getElementById('order-color');
+  const $orderAlpha = document.querySelector('#order-alpha');
+  const $orderColor = document.querySelector('#order-color');
 
   $orderAlpha.disabled = false;
   $orderColor.disabled = false;
@@ -23,7 +23,7 @@ export default (window, document, storage, domUtils) => {
 
   const selectOrdering = (selected, newItems) => {
     if (selected !== ORDER_RELEVANCE && selected === activeOrdering) {
-      // only skip ordering when is the same if not searching
+      // Only skip ordering when is the same if not searching
       return;
     }
 
@@ -34,12 +34,12 @@ export default (window, document, storage, domUtils) => {
       domUtils.replaceChildren($grid, newItems, 30);
     } else {
       window.scrollTo(0, 0);
-      // color and alpha orderings are stored in a `o` attribute
+      // Color and alpha orderings are stored in a `o` attribute
       // and we must extract the number from it
       const sortAttributeGetter =
         selected === ORDER_ALPHA
-          ? (a) => parseInt(a.split('-')[0])
-          : (a) => parseInt(a.split('-')[1]);
+          ? (a) => Number.parseInt(a.split('-')[0], 10)
+          : (a) => Number.parseInt(a.split('-')[1], 10);
       domUtils.sortChildren($grid, 'o', sortAttributeGetter, 30);
       preferredOrdering = selected;
       storage.setItem(STORAGE_KEY_ORDERING, selected);
@@ -69,4 +69,4 @@ export default (window, document, storage, domUtils) => {
     selectOrdering,
     resetOrdering,
   };
-};
+}

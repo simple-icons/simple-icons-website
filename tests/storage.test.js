@@ -1,5 +1,5 @@
-import localStorage from './mocks/local-storage.mock.js';
 import newStorage from '../public/scripts/storage.js';
+import localStorage from './mocks/local-storage.mock.js';
 
 describe('Storage', () => {
   beforeEach(() => localStorage.__resetAllMocks());

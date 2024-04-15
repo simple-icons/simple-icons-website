@@ -1,5 +1,5 @@
-import { jest } from '@jest/globals';
-import { debounce, iconHrefToSlug } from '../public/scripts/utils.js';
+import {jest} from '@jest/globals';
+import {debounce, iconHrefToSlug} from '../public/scripts/utils.js';
 
 describe('::debounce', () => {
   beforeAll(() => {

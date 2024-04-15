@@ -1,13 +1,11 @@
-import { jest } from '@jest/globals';
-
-import domUtils from './mocks/dom-utils.mock.js';
-import { document, newElementMock, newEventMock } from './mocks/dom.mock.js';
-import history from './mocks/history.mock.js';
-import ordering from './mocks/ordering.mock.js';
-import localStorage from './mocks/local-storage.mock.js';
-
-import { ORDER_RELEVANCE } from '../public/scripts/ordering.js';
+import {jest} from '@jest/globals';
+import {ORDER_RELEVANCE} from '../public/scripts/ordering.js';
 import initSearch from '../public/scripts/search.js';
+import domUtils from './mocks/dom-utils.mock.js';
+import {document, newElementMock, newEventMock} from './mocks/dom.mock.js';
+import history from './mocks/history.mock.js';
+import localStorage from './mocks/local-storage.mock.js';
+import ordering from './mocks/ordering.mock.js';
 
 describe('Search', () => {
   const inputEventListeners = new Map();
@@ -32,30 +30,39 @@ describe('Search', () => {
   beforeEach(() => {
     $searchInput = newElementMock('#search-input');
     $searchInput.value = '';
-    $searchInput.addEventListener.mockImplementation((name, fn) => {
-      inputEventListeners.set(name, fn);
+    $searchInput.addEventListener.mockImplementation((name, function_) => {
+      inputEventListeners.set(name, function_);
     });
 
     $searchClear = newElementMock('#search-clear');
-    $searchClear.addEventListener.mockImplementation((name, fn) => {
-      clearEventListeners.set(name, fn);
+    $searchClear.addEventListener.mockImplementation((name, function_) => {
+      clearEventListeners.set(name, function_);
     });
 
     $orderRelevance = newElementMock('#order-relevance');
     $orderByColor = newElementMock('#order-color');
 
-    document.getElementById.mockImplementation((query) => {
+    document.querySelector.mockImplementation((query) => {
       switch (query) {
-        case 'search-input':
+        case '#search-input': {
           return $searchInput;
-        case 'search-clear':
+        }
+
+        case '#search-clear': {
           return $searchClear;
-        case 'order-relevance':
+        }
+
+        case '#order-relevance': {
           return $orderRelevance;
-        case 'order-color':
+        }
+
+        case '#order-color': {
           return $orderByColor;
-        default:
+        }
+
+        default: {
           return newElementMock(query);
+        }
       }
     });
 
@@ -63,9 +70,9 @@ describe('Search', () => {
   });
 
   it('gets all elements of interest', () => {
-    expect(document.getElementById).toHaveBeenCalledWith('search-input');
-    expect(document.getElementById).toHaveBeenCalledWith('search-clear');
-    expect(document.getElementById).toHaveBeenCalledWith('order-relevance');
+    expect(document.querySelector).toHaveBeenCalledWith('#search-input');
+    expect(document.querySelector).toHaveBeenCalledWith('#search-clear');
+    expect(document.querySelector).toHaveBeenCalledWith('#order-relevance');
     expect($searchInput.disabled).toBe(false);
     expect($searchInput.focus).toHaveBeenCalledTimes(1);
   });
@@ -73,12 +80,12 @@ describe('Search', () => {
   it('gets the #order-relevance button', () => {
     const eventListeners = new Map();
 
-    $orderRelevance.addEventListener.mockImplementation((name, fn) => {
-      eventListeners.set(name, fn);
+    $orderRelevance.addEventListener.mockImplementation((name, function_) => {
+      eventListeners.set(name, function_);
     });
 
     initSearch(history, document, ordering, domUtils);
-    expect(document.getElementById).toHaveBeenCalledWith('order-relevance');
+    expect(document.querySelector).toHaveBeenCalledWith('#order-relevance');
     expect($orderRelevance.disabled).toBe(false);
     expect($orderRelevance.addEventListener).toHaveBeenCalledWith(
       'click',

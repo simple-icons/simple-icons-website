@@ -1,7 +1,6 @@
-import { document, newElementMock, newEventMock } from './mocks/dom.mock.js';
-import domUtils from './mocks/dom-utils.mock.js';
-
 import initLanguageSelector from '../public/scripts/language-selector';
+import domUtils from './mocks/dom-utils.mock.js';
+import {document, newElementMock, newEventMock} from './mocks/dom.mock.js';
 
 describe('Language selector', () => {
   let eventListeners = new Map();
@@ -14,9 +13,11 @@ describe('Language selector', () => {
 
   it('clicks the menu button for language selector', () => {
     const $languageSelectorButton = newElementMock('#language-selector');
-    $languageSelectorButton.addEventListener.mockImplementation((name, fn) => {
-      eventListeners.set(name, fn);
-    });
+    $languageSelectorButton.addEventListener.mockImplementation(
+      (name, function_) => {
+        eventListeners.set(name, function_);
+      },
+    );
 
     document.querySelector.mockImplementation((query) =>
       query === '#language-selector'
@@ -32,16 +33,16 @@ describe('Language selector', () => {
     expect(domUtils.toggleVisibleElement).toHaveBeenCalledTimes(1);
   });
 
-  it.each([['clicking outside', 'click', { composedPath: () => [] }]])(
+  it.each([['clicking outside', 'click', {composedPath: () => []}]])(
     'closes the language selector by %s',
-    (msg, event, eventParam) => {
-      document.addEventListener.mockImplementation((name, fn) => {
-        eventListeners.set(name, fn);
+    (message, event, eventParameter) => {
+      document.addEventListener.mockImplementation((name, function_) => {
+        eventListeners.set(name, function_);
       });
 
       initLanguageSelector(document, domUtils);
 
-      eventListeners.get(event)(newEventMock(eventParam));
+      eventListeners.get(event)(newEventMock(eventParameter));
       expect(domUtils.hideElement).toHaveBeenCalledTimes(1);
     },
   );

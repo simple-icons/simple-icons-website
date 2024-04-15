@@ -1,8 +1,8 @@
+import {readFileSync} from 'node:fs';
 import fs from 'node:fs/promises';
-import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import PO from 'pofile';
-import { DEFAULT_LANGUAGE } from '../scripts/i18n.js';
+import {DEFAULT_LANGUAGE} from '../scripts/i18n.js';
 
 const ISO369_1_OR_IETF = '[a-z]{2}(-[A-Z]{2})?';
 const ISO369_1_OR_IETF_REGEX = new RegExp(`^${ISO369_1_OR_IETF}$`);
@@ -44,9 +44,7 @@ describe('Translations must be updated', () => {
       const po = PO.parse(poFileContent);
       expect(po.headers['Project-Id-Version']).toBe('simple-icons-website');
       expect(po.headers['Last-Translator']).toMatch(
-        new RegExp(
-          '^(([^ ]+ <https://[^ >]+>)|(@simple-icons/maintainers <https://github\\.com/simple-icons>)|())$',
-        ),
+        /^(([^ ]+ <https:\/\/[^ >]+>)|(@simple-icons\/maintainers <https:\/\/github\.com\/simple-icons>)|())$/,
       );
       expect(po.headers['Project-Id-Version']).toBe('simple-icons-website');
       expect(po.headers['Language-Team']).toMatch(

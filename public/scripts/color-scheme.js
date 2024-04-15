@@ -1,4 +1,4 @@
-import { STORAGE_KEY_COLOR_SCHEME } from './storage.js';
+import {STORAGE_KEY_COLOR_SCHEME} from './storage.js';
 
 const COLOR_SCHEME_DARK = 'dark';
 const COLOR_SCHEME_LIGHT = 'light';
@@ -9,13 +9,13 @@ const DEFAULT_COLOR_SCHEME = COLOR_SCHEME_SYSTEM;
 const CLASS_DARK_MODE = 'dark';
 const CLASS_LIGHT_MODE = 'light';
 
-export default (document, storage) => {
+export default function colorScheme(document, storage) {
   let activeColorScheme = DEFAULT_COLOR_SCHEME;
 
   const $body = document.querySelector('body');
-  const $colorSchemeDark = document.getElementById('color-scheme-dark');
-  const $colorSchemeLight = document.getElementById('color-scheme-light');
-  const $colorSchemeSystem = document.getElementById('color-scheme-system');
+  const $colorSchemeDark = document.querySelector('#color-scheme-dark');
+  const $colorSchemeLight = document.querySelector('#color-scheme-light');
+  const $colorSchemeSystem = document.querySelector('#color-scheme-system');
 
   $colorSchemeDark.disabled = false;
   $colorSchemeLight.disabled = false;
@@ -54,4 +54,4 @@ export default (document, storage) => {
   $colorSchemeSystem.addEventListener('click', () => {
     selectColorScheme(COLOR_SCHEME_SYSTEM);
   });
-};
+}

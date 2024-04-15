@@ -1,45 +1,45 @@
-export const getAttribute = async ($el, attributeName) => {
-  const result = await $el.evaluateHandle((el, attribute) => {
-    return el.getAttribute(attribute);
+export const getAttribute = async ($element, attributeName) => {
+  const result = await $element.evaluateHandle((element, attribute) => {
+    return element.getAttribute(attribute);
   }, attributeName);
 
   return result.remoteObject().value;
 };
 
-export const getTextContent = async ($el) => {
-  const result = await $el.evaluateHandle((el) => {
-    return el.textContent;
+export const getTextContent = async ($element) => {
+  const result = await $element.evaluateHandle((element) => {
+    return element.textContent;
   });
 
   return result.remoteObject().value;
 };
 
 export const getClipboardValue = async (page) => {
-  const result = await page.evaluate(
-    async () => await navigator.clipboard.readText(),
+  const result = await page.evaluate(async () =>
+    navigator.clipboard.readText(),
   );
   return result;
 };
 
-export const getValue = async ($el) => {
-  return await $el.evaluate((el) => el.value);
+export const getValue = async ($element) => {
+  return $element.evaluate((element) => element.value);
 };
 
-export const hasClass = async ($el, className) => {
-  const result = await $el.evaluateHandle((el, value) => {
-    return el.classList.contains(value);
+export const hasClass = async ($element, className) => {
+  const result = await $element.evaluateHandle((element, value) => {
+    return element.classList.contains(value);
   }, className);
 
   return result.remoteObject().value;
 };
 
-export const isDisabled = async ($el) => {
-  const disabledAttribute = await getAttribute($el, 'disabled');
+export const isDisabled = async ($element) => {
+  const disabledAttribute = await getAttribute($element, 'disabled');
   return disabledAttribute !== null;
 };
 
-const isVisibleOnPage = async ($el) => {
-  const boundingBox = await $el.boundingBox();
+const isVisibleOnPage = async ($element) => {
+  const boundingBox = await $element.boundingBox();
   if (boundingBox === null) {
     return false;
   }
@@ -51,13 +51,13 @@ const isVisibleOnPage = async ($el) => {
   return true;
 };
 
-export const isVisible = async ($el) => {
-  const visibleOnPage = await isVisibleOnPage($el);
+export const isVisible = async ($element) => {
+  const visibleOnPage = await isVisibleOnPage($element);
   if (!visibleOnPage) {
     return false;
   }
 
-  const ariaHidden = await getAttribute($el, 'aria-hidden');
+  const ariaHidden = await getAttribute($element, 'aria-hidden');
   if (ariaHidden !== null) {
     return false;
   }
@@ -65,13 +65,13 @@ export const isVisible = async ($el) => {
   return true;
 };
 
-export const isHidden = async ($el) => {
-  const visibleOnPage = await isVisibleOnPage($el);
+export const isHidden = async ($element) => {
+  const visibleOnPage = await isVisibleOnPage($element);
   if (visibleOnPage) {
     return false;
   }
 
-  const ariaHidden = await getAttribute($el, 'aria-hidden');
+  const ariaHidden = await getAttribute($element, 'aria-hidden');
   if (ariaHidden === null) {
     return false;
   }
@@ -79,7 +79,7 @@ export const isHidden = async ($el) => {
   return true;
 };
 
-export const isInViewport = async ($el) => {
-  const result = await $el.isIntersectingViewport();
+export const isInViewport = async ($element) => {
+  const result = await $element.isIntersectingViewport();
   return result;
 };

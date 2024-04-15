@@ -2,13 +2,13 @@ const initLanguageSelector = (document, domUtils) => {
   const $languageSelector = document.querySelector('#language-selector');
   const $languageSelectorList = $languageSelector.querySelector('ul');
 
-  $languageSelector.addEventListener('click', (e) => {
+  $languageSelector.addEventListener('click', (event) => {
     domUtils.toggleVisibleElement($languageSelectorList);
-    e.stopPropagation();
+    event.stopPropagation();
   });
 
-  document.addEventListener('click', (e) => {
-    const composedPath = e.composedPath();
+  document.addEventListener('click', (event) => {
+    const composedPath = event.composedPath();
     if (!composedPath.includes($languageSelector)) {
       domUtils.hideElement($languageSelectorList);
     }

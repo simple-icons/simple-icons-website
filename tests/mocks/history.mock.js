@@ -1,10 +1,12 @@
-import { jest } from '@jest/globals';
+import {jest} from '@jest/globals';
 
-export default {
+const mock = {
   replaceState: jest.fn().mockName('history.replaceState'),
 
   // Utility to quickly clear the entire history mock.
-  __resetAllMocks: function () {
+  __resetAllMocks() {
     this.replaceState.mockReset();
   },
 };
+
+export default mock;

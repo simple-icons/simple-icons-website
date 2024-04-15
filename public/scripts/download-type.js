@@ -1,5 +1,5 @@
-import { STORAGE_KEY_DOWNLOAD_TYPE } from './storage.js';
-import { iconHrefToSlug } from './utils.js';
+import {STORAGE_KEY_DOWNLOAD_TYPE} from './storage.js';
+import {iconHrefToSlug} from './utils.js';
 
 const PDF_DOWNLOAD_TYPE = 'pdf';
 const SVG_DOWNLOAD_TYPE = 'svg';
@@ -16,9 +16,9 @@ export const downloadSVG = (slug) => {
   a.setAttribute('href', iconSvgUrl);
   a.setAttribute('download', '');
 
-  document.body.appendChild(a);
+  document.body.append(a);
   a.click();
-  document.body.removeChild(a);
+  a.remove();
 };
 
 export const downloadPDF = async (slug) => {
@@ -33,47 +33,52 @@ export const downloadPDF = async (slug) => {
   const [PDFDocument, blobStream] = await loadPdfKitAndBlobStream();
 
   const iconSvgUrl = `/icons/${slug}.svg`;
-  const res = await fetch(iconSvgUrl);
-  const svg = await res.text();
-  const svg_path = svg.split('"')[7];
+  const response = await fetch(iconSvgUrl);
+  const svg = await response.text();
+  const svgPath = svg.split('"')[7];
 
-  let doc;
+  let document_;
   let stream;
   try {
-    doc = new PDFDocument({ size: [24, 24] });
-    stream = doc.pipe(blobStream());
-    doc.path(svg_path).fill();
-  } catch (e) {
+    document_ = new PDFDocument({size: [24, 24]});
+    stream = document_.pipe(blobStream());
+    document_.path(svgPath).fill();
+  } catch (error) {
     // Some icon paths are not parsed correctly by PDFKit ('/e/' for example)
     // so we catch the error and generate a PDF with the error message
-    doc = new PDFDocument({ size: 'A8' });
-    stream = doc.pipe(blobStream());
-    console.error(e);
-    doc.fontSize(12);
-    doc.text(`Error generating PDF with PDFKit library: ${e.message}`, 0, 0, {
-      align: 'center',
-    });
+    document_ = new PDFDocument({size: 'A8'});
+    stream = document_.pipe(blobStream());
+    console.error(error);
+    document_.fontSize(12);
+    document_.text(
+      `Error generating PDF with PDFKit library: ${error.message}`,
+      0,
+      0,
+      {
+        align: 'center',
+      },
+    );
   }
 
-  doc.end();
+  document_.end();
   stream.on('finish', () => {
     const url = stream.toBlobURL('application/pdf');
     const a = document.createElement('a');
     a.classList.add('hidden');
     a.setAttribute('href', url);
     a.setAttribute('download', `${slug}.pdf`);
-    document.body.appendChild(a);
+    document.body.append(a);
     a.click();
-    document.body.removeChild(a);
+    a.remove();
   });
 };
 
-export default (document, storage) => {
+export default function downloadType(document, storage) {
   let activeDownloadType = DEFAULT_DOWNLOAD_TYPE;
 
   const $body = document.querySelector('body');
-  const $downloadPdf = document.getElementById('download-pdf');
-  const $downloadSvg = document.getElementById('download-svg');
+  const $downloadPdf = document.querySelector('#download-pdf');
+  const $downloadSvg = document.querySelector('#download-svg');
   const $downloadFileLinks = document.querySelectorAll(
     '.grid-item__footer button:nth-child(3)',
   );
@@ -125,7 +130,7 @@ export default (document, storage) => {
     }
   };
 
-  for (let i = 0; i < $downloadFileLinks.length; i++) {
-    $downloadFileLinks[i].addEventListener('click', onClickDownloadFileLink);
+  for (const $downloadFileLink of $downloadFileLinks) {
+    $downloadFileLink.addEventListener('click', onClickDownloadFileLink);
   }
-};
+}
