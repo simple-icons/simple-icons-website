@@ -42,7 +42,6 @@ export const newEventMock = (options) => {
 };
 
 export const document = {
-  getElementById: jest.fn().mockName('document.getElementById'),
   addEventListener: jest.fn().mockName('document.addEventListener'),
   location: {
     pathname: PATHNAME,
@@ -56,8 +55,8 @@ export const document = {
 
   // Utility to quickly clear the entire document mock.
   __resetAllMocks() {
-    this.getElementById.mockReset();
-    this.getElementById.mockImplementation(newElementMock);
+    this.querySelector.mockReset();
+    this.querySelector.mockImplementation(newElementMock);
     this.location.pathname = PATHNAME;
     this.location.search = '';
     this.querySelector.mockReset();

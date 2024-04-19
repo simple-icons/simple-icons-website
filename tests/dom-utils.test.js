@@ -1,4 +1,3 @@
-/* eslint accessor-pairs: ["error", {"setWithoutGet": false}] */
 import {jest} from '@jest/globals';
 import {
   hideElement,
@@ -27,6 +26,7 @@ Object.defineProperty($element, 'innerHTML', {
   set: jest.fn(() => {
     $element.children = [];
   }),
+  get: jest.fn(() => $element.children),
 });
 
 describe('::hideElement', () => {

@@ -51,8 +51,8 @@ const rgbToHsl = (rgb) => {
   s = delta === 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
 
   // Multiply l and s by 100 to get the value in percent, rather than [0,1]
-  s = Number(s * 100);
-  l = Number(l * 100);
+  s *= 100;
+  l *= 100;
   return {h, s, l};
 };
 

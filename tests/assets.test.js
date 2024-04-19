@@ -27,7 +27,7 @@ const extractContextsSvgPaths = (tokens) => {
         ];
       }
 
-      return undefined;
+      return null;
     })
     .filter(Boolean);
 };
