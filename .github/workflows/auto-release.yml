@@ -33,21 +33,11 @@ jobs:
         id: update
         run: |
           newVersion="$(node scripts/bump-simpleicons.js)"
-          echo ::set-output name=NEW_VERSION::$newVersion
+          echo "NEW_VERSION=$newVersion" >> $GITHUB_OUTPUT
       - name: Commit updates
-        run: |
-          # Set up git credential
-          git config --global user.email "simple-icons[bot]@users.noreply.github.com"
-          git config --global user.name "simple-icons[bot]"
-
-          # Create a commit for the simple-icons dependency update
-          git add .
-          git commit -m "Update simple-icons to ${{ steps.update.outputs.NEW_VERSION }}"
-      - name: Push updates
-        run: |
-          # Set up remote using a Personal Access Token
-          git remote remove origin
-          git remote add origin https://${{ steps.app-token.outputs.token }}@github.com/simple-icons/simple-icons-website.git
-
-          # Push updates to origin
-          git push origin master
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Update simple-icons to ${{ steps.update.outputs.NEW_VERSION }}
+          commit_user_name: 'simple-icons[bot]'
+          commit_user_email: 'simple-icons[bot]@users.noreply.github.com'
+          commit_author: 'simple-icons[bot] <simple-icons[bot]@users.noreply.github.com>'
