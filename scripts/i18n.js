@@ -63,13 +63,7 @@ export const loadTranslations = async () => {
     locales[locale] = translations;
   }
 
-  const defaultTranslations = Object.keys(Object.values(locales).at(0)).map(
-    (msgid) => ({
-      [msgid]: msgid,
-    }),
-  );
-
-  locales.en = defaultTranslations;
+  locales.en = {};
 
   const i18n = (locale) => {
     const translations = locales[locale];
