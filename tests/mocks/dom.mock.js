@@ -1,48 +1,47 @@
-import { jest } from '@jest/globals';
+import {jest} from '@jest/globals';
 
 const PATHNAME = 'https://www.simpleicons.org';
 
-export const newElementMock = (elName, opts) => {
-  opts = opts || {};
+export const newElementMock = (elementName, options) => {
+  options ||= {};
   return {
-    addEventListener: jest.fn().mockName(`${elName}.addEventListener`),
-    blur: jest.fn().mockName(`${elName}.blur`),
+    addEventListener: jest.fn().mockName(`${elementName}.addEventListener`),
+    blur: jest.fn().mockName(`${elementName}.blur`),
     classList: {
-      add: jest.fn().mockName(`${elName}.classList.add`),
-      remove: jest.fn().mockName(`${elName}.classList.remove`),
-      replace: jest.fn().mockName(`${elName}.classList.replace`),
+      add: jest.fn().mockName(`${elementName}.classList.add`),
+      remove: jest.fn().mockName(`${elementName}.classList.remove`),
+      replace: jest.fn().mockName(`${elementName}.classList.replace`),
     },
-    focus: jest.fn().mockName(`${elName}.focus`),
-    getAttribute: jest.fn().mockName(`${elName}.getAttribute`),
-    querySelector: jest.fn().mockName(`${elName}.querySelector`),
-    removeAttribute: jest.fn().mockName(`${elName}.removeAttribute`),
-    setAttribute: jest.fn().mockName(`${elName}.setAttribute`),
+    focus: jest.fn().mockName(`${elementName}.focus`),
+    getAttribute: jest.fn().mockName(`${elementName}.getAttribute`),
+    querySelector: jest.fn().mockName(`${elementName}.querySelector`),
+    removeAttribute: jest.fn().mockName(`${elementName}.removeAttribute`),
+    setAttribute: jest.fn().mockName(`${elementName}.setAttribute`),
     children: [],
 
     // Values
-    innerHTML: opts.innerHTML || '',
-    parentNode: opts.parentNode
-      ? newElementMock(`${elName} parent`, { parentNode: false })
+    innerHTML: options.innerHTML || '',
+    parentNode: options.parentNode
+      ? newElementMock(`${elementName} parent`, {parentNode: false})
       : null,
 
     // Utility
-    __name: elName,
+    __name: elementName,
   };
 };
 
-export const newEventMock = (opts) => {
-  opts = opts || {};
+export const newEventMock = (options) => {
+  options ||= {};
   return {
     preventDefault: jest.fn().mockName('event.preventDefault'),
     stopPropagation: jest.fn().mockName('event.stopPropagation'),
-    key: opts.key || '',
-    composedPath: opts.composedPath ? opts.composedPath : () => '',
-    target: opts.target || newElementMock('event.target'),
+    key: options.key || '',
+    composedPath: options.composedPath ?? (() => ''),
+    target: options.target || newElementMock('event.target'),
   };
 };
 
 export const document = {
-  getElementById: jest.fn().mockName('document.getElementById'),
   addEventListener: jest.fn().mockName('document.addEventListener'),
   location: {
     pathname: PATHNAME,
@@ -55,9 +54,9 @@ export const document = {
   body: newElementMock('body'),
 
   // Utility to quickly clear the entire document mock.
-  __resetAllMocks: function () {
-    this.getElementById.mockReset();
-    this.getElementById.mockImplementation(newElementMock);
+  __resetAllMocks() {
+    this.querySelector.mockReset();
+    this.querySelector.mockImplementation(newElementMock);
     this.location.pathname = PATHNAME;
     this.location.search = '';
     this.querySelector.mockReset();
@@ -76,7 +75,7 @@ export const document = {
 
 export const window = {
   scrollTo: jest.fn().mockName('window.scrollTo'),
-  __resetAllMocks: function () {
+  __resetAllMocks() {
     this.scrollTo.mockReset();
   },
 };

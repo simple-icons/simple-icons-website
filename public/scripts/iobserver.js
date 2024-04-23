@@ -3,43 +3,48 @@
  * Lazy loading of images using an intersection observer.
  */
 
-export default (document) => {
+export default function intersectionObserver(document) {
   const images = document.querySelectorAll('img[d-src]');
 
   if ('IntersectionObserver' in window) {
     const lazyLoad = (target) => {
       const io = new IntersectionObserver(
         (entries, observer) => {
-          entries.forEach((entry) => {
+          for (const entry of entries) {
             if (entry.isIntersecting) {
               const img = entry.target;
-              const src = img.getAttribute('d-src');
-              img.onload = () => {
+              const source = img.getAttribute('d-src');
+              img.addEventListener('load', () => {
                 img.classList.add('ld');
-              };
-              img.setAttribute('src', src);
+              });
+
+              img.setAttribute('src', source);
               img.removeAttribute('d-src');
               observer.disconnect();
             }
-          });
+          }
         },
-        { threshold: [0], rootMargin: '80px' },
+        {threshold: [0], rootMargin: '80px'},
       );
 
       io.observe(target);
     };
-    images.forEach(lazyLoad);
+
+    for (const image of images) {
+      lazyLoad(image);
+    }
   } else {
     // Browser does not support IntersectionObserver,
     // so we load using the loading=lazy attribute
     for (const img of images) {
-      const src = img.getAttribute('d-src');
+      const source = img.getAttribute('d-src');
       img.removeAttribute('d-src');
-      img.onload = () => {
+      img.addEventListener('load', () => {
         img.classList.add('ld');
-      };
+      });
+
       img.setAttribute('loading', 'lazy');
-      img.setAttribute('src', src);
+      img.setAttribute('src', source);
     }
   }
-};
+}

@@ -1,8 +1,7 @@
-import { document, newElementMock, newEventMock } from './mocks/dom.mock.js';
-import localStorage from './mocks/local-storage.mock.js';
-
 import initColorScheme from '../public/scripts/color-scheme.js';
-import { STORAGE_KEY_COLOR_SCHEME } from '../public/scripts/storage.js';
+import {STORAGE_KEY_COLOR_SCHEME} from '../public/scripts/storage.js';
+import {document, newElementMock, newEventMock} from './mocks/dom.mock.js';
+import localStorage from './mocks/local-storage.mock.js';
 
 describe('Color scheme', () => {
   beforeEach(() => {
@@ -16,12 +15,12 @@ describe('Color scheme', () => {
     const eventListeners = new Map();
 
     const $colorSchemeDark = newElementMock('#color-scheme-dark');
-    $colorSchemeDark.addEventListener.mockImplementation((name, fn) => {
-      eventListeners.set(name, fn);
+    $colorSchemeDark.addEventListener.mockImplementation((name, function_) => {
+      eventListeners.set(name, function_);
     });
 
-    document.getElementById.mockImplementation((query) => {
-      if (query === 'color-scheme-dark') {
+    document.querySelector.mockImplementation((query) => {
+      if (query === '#color-scheme-dark') {
         return $colorSchemeDark;
       }
 
@@ -29,7 +28,7 @@ describe('Color scheme', () => {
     });
 
     initColorScheme(document, localStorage);
-    expect(document.getElementById).toHaveBeenCalledWith('color-scheme-dark');
+    expect(document.querySelector).toHaveBeenCalledWith('#color-scheme-dark');
     expect($colorSchemeDark.disabled).toBe(false);
     expect($colorSchemeDark.addEventListener).toHaveBeenCalledWith(
       'click',
@@ -53,12 +52,12 @@ describe('Color scheme', () => {
     const eventListeners = new Map();
 
     const $colorSchemeLight = newElementMock('#color-scheme-light');
-    $colorSchemeLight.addEventListener.mockImplementation((name, fn) => {
-      eventListeners.set(name, fn);
+    $colorSchemeLight.addEventListener.mockImplementation((name, function_) => {
+      eventListeners.set(name, function_);
     });
 
-    document.getElementById.mockImplementation((query) => {
-      if (query === 'color-scheme-light') {
+    document.querySelector.mockImplementation((query) => {
+      if (query === '#color-scheme-light') {
         return $colorSchemeLight;
       }
 
@@ -66,7 +65,7 @@ describe('Color scheme', () => {
     });
 
     initColorScheme(document, localStorage);
-    expect(document.getElementById).toHaveBeenCalledWith('color-scheme-light');
+    expect(document.querySelector).toHaveBeenCalledWith('#color-scheme-light');
     expect($colorSchemeLight.disabled).toBe(false);
     expect($colorSchemeLight.addEventListener).toHaveBeenCalledWith(
       'click',
@@ -90,12 +89,14 @@ describe('Color scheme', () => {
     const eventListeners = new Map();
 
     const $colorSchemeSystem = newElementMock('#color-scheme-system');
-    $colorSchemeSystem.addEventListener.mockImplementation((name, fn) => {
-      eventListeners.set(name, fn);
-    });
+    $colorSchemeSystem.addEventListener.mockImplementation(
+      (name, function_) => {
+        eventListeners.set(name, function_);
+      },
+    );
 
-    document.getElementById.mockImplementation((query) => {
-      if (query === 'color-scheme-system') {
+    document.querySelector.mockImplementation((query) => {
+      if (query === '#color-scheme-system') {
         return $colorSchemeSystem;
       }
 
@@ -103,7 +104,7 @@ describe('Color scheme', () => {
     });
 
     initColorScheme(document, localStorage);
-    expect(document.getElementById).toHaveBeenCalledWith('color-scheme-system');
+    expect(document.querySelector).toHaveBeenCalledWith('#color-scheme-system');
     expect($colorSchemeSystem.disabled).toBe(false);
     expect($colorSchemeSystem.addEventListener).toHaveBeenCalledWith(
       'click',

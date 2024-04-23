@@ -22,8 +22,11 @@
     "build:dev": "webpack --mode development",
     "build:watch": "npm run build:dev -- --watch",
     "clean": "del-cli _site tests/_artifacts",
-    "format": "prettier --write . && eslint . --fix",
-    "lint": "prettier --check . && eslint .",
+    "prettierlint": "prettier --ignore-unknown \"**/*.!(js|jsx|mjs|cjs|ts|tsx|mts|cts)\"",
+    "jslint": "xo",
+    "xo:fix": "xo --fix",
+    "format": "npm run prettierlint -- --write . && npm run xo:fix",
+    "lint": "npm run prettierlint -- --check . && npm run jslint",
     "postinstall": "is-ci || husky install",
     "serve": "serve -p 8080 ./_site",
     "serve:watch": "run-p build:watch serve",
@@ -47,8 +50,7 @@
     "css-loader": "6.8.1",
     "css-minimizer-webpack-plugin": "5.0.1",
     "del-cli": "5.1.0",
-    "eslint": "8.56.0",
-    "eslint-config-simple-icons": "0.1.2",
+    "eslint-plugin-import": "2.29.1",
     "get-relative-luminance": "1.0.0",
     "html-webpack-plugin": "5.6.0",
     "husky": "8.0.3",
@@ -61,7 +63,6 @@
     "postcss": "8.4.28",
     "postcss-flexbugs-fixes": "5.0.2",
     "postcss-loader": "7.3.3",
-    "prettier": "3.1.1",
     "pug": "2.0.4",
     "pug-lexer": "5.0.1",
     "pug-loader": "2.4.0",
@@ -70,6 +71,7 @@
     "simple-icons": "11.13.0",
     "svgo": "3.1.0",
     "webpack": "5.89.0",
-    "webpack-cli": "5.1.4"
+    "webpack-cli": "5.1.4",
+    "xo": "0.58.0"
   }
 }

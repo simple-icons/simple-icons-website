@@ -4,7 +4,7 @@
  */
 
 const isGray = (rgb, range) => {
-  const { r, g, b } = rgb;
+  const {r, g, b} = rgb;
   return (
     r >= g - range &&
     r <= g + range &&
@@ -16,7 +16,7 @@ const isGray = (rgb, range) => {
 };
 
 const rgbToHsl = (rgb) => {
-  let { r, g, b } = rgb;
+  let {r, g, b} = rgb;
   // Normalize r, g, and b
   r /= 255;
   g /= 255;
@@ -51,23 +51,23 @@ const rgbToHsl = (rgb) => {
   s = delta === 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
 
   // Multiply l and s by 100 to get the value in percent, rather than [0,1]
-  s = +(s * 100);
-  l = +(l * 100);
-  return { h, s, l };
+  s *= 100;
+  l *= 100;
+  return {h, s, l};
 };
 
-export default (colors) => {
+export default function colorSorting(colors) {
   const GREY_RANGE = 10;
   const BLACK_CUTOFF = 15;
   const WHITE_CUTOFF = 90;
   const colored = [];
   const bgw = [];
 
-  colors.map((c) => {
+  for (const c of colors) {
     const rgb = {
-      r: parseInt(`0x${c.substring(0, 2)}`),
-      g: parseInt(`0x${c.substring(2, 4)}`),
-      b: parseInt(`0x${c.substring(4, 6)}`),
+      r: Number.parseInt(`0x${c.slice(0, 2)}`, 16),
+      g: Number.parseInt(`0x${c.slice(2, 4)}`, 16),
+      b: Number.parseInt(`0x${c.slice(4, 6)}`, 16),
     };
     const color = rgbToHsl(rgb);
     const mappedColor = {
@@ -81,7 +81,7 @@ export default (colors) => {
 
     if (mappedColor.bgwFlag) bgw.push(mappedColor);
     else colored.push(mappedColor);
-  });
+  }
 
   return [
     ...colored.sort((c1, c2) => {
@@ -91,10 +91,11 @@ export default (colors) => {
         const saturation = c1.color.s - c2.color.s;
 
         // If saturation is the same, sort by lightness
-        return !saturation ? c1.color.s - c2.color.s : saturation;
+        return saturation || c1.color.s - c2.color.s;
       }
+
       return hue;
     }),
     ...bgw.sort((c1, c2) => c2.color.l - c1.color.l),
   ].map((data) => data.hex);
-};
+}

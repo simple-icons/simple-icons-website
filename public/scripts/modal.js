@@ -1,10 +1,10 @@
 import getRelativeLuminance from 'get-relative-luminance';
-import { iconHrefToSlug } from './utils.js';
-import { downloadPDF, downloadSVG } from './download-type.js';
+import {downloadPDF, downloadSVG} from './download-type.js';
+import {iconHrefToSlug} from './utils.js';
 
 let DETAILS_MODAL_OPENED = false;
 
-export default (document, domUtils) => {
+export default function modal(document, domUtils) {
   // Third party extensions popup
   const $popupModalTrigger = document.querySelector('.popup-trigger');
   const $popupModal = document.querySelector('.popup_modal');
@@ -16,28 +16,28 @@ export default (document, domUtils) => {
   const $detailBody = document.querySelector('.detail-body');
   const $detailFooter = document.querySelector('.detail-footer');
 
-  $popupModalTrigger.addEventListener('click', (e) => {
+  $popupModalTrigger.addEventListener('click', (event) => {
     domUtils.toggleVisibleElement($popupModal);
-    e.stopPropagation();
+    event.stopPropagation();
     domUtils.hideElement($detailModal);
     DETAILS_MODAL_OPENED = false;
   });
 
-  const onClickDetailButton = (e) => {
+  const onClickDetailButton = (event) => {
     domUtils.hideElement($popupModal);
 
-    const $iconGridItem = e.target.closest('.grid-item');
+    const $iconGridItem = event.target.closest('.grid-item');
     const $iconImage = $iconGridItem.querySelector('img.icon-preview');
-    const src = $iconImage.getAttribute('src');
-    const iconSlug = iconHrefToSlug(src);
-    const iconTitle = $iconGridItem.querySelector('h2').innerText;
+    const source = $iconImage.getAttribute('src');
+    const iconSlug = iconHrefToSlug(source);
+    const iconTitle = $iconGridItem.querySelector('h2').textContent;
     const iconSource = $iconGridItem.getAttribute('s');
     const iconDeprecatedAt = $iconGridItem.getAttribute('d');
     const iconGuidelines = $iconGridItem.getAttribute('g');
     const iconLicenseType = $iconGridItem.getAttribute('lt');
     const iconLicenseUrl = $iconGridItem.getAttribute('lu');
     const iconCssHex =
-      $iconGridItem.querySelector('.grid-item__color').innerText;
+      $iconGridItem.querySelector('.grid-item__color').textContent;
 
     if (!DETAILS_MODAL_OPENED) {
       domUtils.showElement($detailModal);
@@ -51,11 +51,11 @@ export default (document, domUtils) => {
       `background: ${iconCssHex};` +
         `color: #${luminance < 0.4 ? 'eee' : '222'}`,
     );
-    $hexContainer.innerText = iconCssHex;
+    $hexContainer.textContent = iconCssHex;
     $detailBody
       .querySelector('.detail_modal img.icon-preview')
-      .setAttribute('src', src);
-    $detailBody.querySelector('h2').innerText = iconTitle;
+      .setAttribute('src', source);
+    $detailBody.querySelector('h2').textContent = iconTitle;
     $detailBody.querySelector('#icon-source').setAttribute('href', iconSource);
 
     const $iconGuidelines = $detailBody.querySelector(
@@ -64,46 +64,46 @@ export default (document, domUtils) => {
     const $iconGuidelinesNoGuidelines = $detailBody.querySelector(
       '.icon-guidelines#no-guidelines',
     );
-    if (iconGuidelines !== null) {
+    if (iconGuidelines === null) {
+      domUtils.showElement($iconGuidelinesNoGuidelines);
+      domUtils.hideElement($iconGuidelines);
+    } else {
       domUtils.showElement($iconGuidelines);
       domUtils.hideElement($iconGuidelinesNoGuidelines);
       $iconGuidelines.setAttribute('href', iconGuidelines);
-    } else {
-      domUtils.showElement($iconGuidelinesNoGuidelines);
-      domUtils.hideElement($iconGuidelines);
     }
 
     const $iconLicense = $detailBody.querySelector('.icon-license#license');
     const $iconLicenseNoLicense = $detailBody.querySelector(
       '.icon-license#no-license',
     );
-    if (iconLicenseType !== null) {
+    if (iconLicenseType === null) {
+      domUtils.showElement($iconLicenseNoLicense);
+      domUtils.hideElement($iconLicense);
+    } else {
       domUtils.showElement($iconLicense);
       domUtils.hideElement($iconLicenseNoLicense);
       $iconLicense.setAttribute('href', iconLicenseUrl);
-      $iconLicense.innerText = iconLicenseType;
-    } else {
-      domUtils.showElement($iconLicenseNoLicense);
-      domUtils.hideElement($iconLicense);
+      $iconLicense.textContent = iconLicenseType;
     }
 
     const $iconDeprecated = $detailBody.querySelector('#icon-deprecated');
     const $iconDeprecatedMessage = $iconDeprecated.children[1];
 
-    if (iconDeprecatedAt !== null) {
+    if (iconDeprecatedAt === null) {
+      domUtils.hideElement($iconDeprecated);
+      $iconDeprecatedMessage.removeAttribute('href');
+      $iconDeprecatedMessage.textContent = '';
+    } else {
       const deprecatedAt = JSON.parse(iconDeprecatedAt);
       domUtils.showElement($iconDeprecated);
       $iconDeprecatedMessage.setAttribute(
         'href',
         `https://github.com/simple-icons/simple-icons/milestone/${deprecatedAt.milestoneNumber}`,
       );
-      $iconDeprecatedMessage.innerText = $iconDeprecatedMessage
+      $iconDeprecatedMessage.textContent = $iconDeprecatedMessage
         .getAttribute('removal-msg-schema')
         .replace('$version', deprecatedAt.version);
-    } else {
-      domUtils.hideElement($iconDeprecated);
-      $iconDeprecatedMessage.removeAttribute('href');
-      $iconDeprecatedMessage.innerText = '';
     }
 
     // Set download links
@@ -115,8 +115,8 @@ export default (document, domUtils) => {
       .addEventListener('click', () => downloadPDF(iconSlug));
 
     // Get icon content to generate the colored SVG
-    fetch(src)
-      .then((res) => res.text())
+    fetch(source)
+      .then((response) => response.text())
       .then((iconSVG) => {
         const coloredIconSVG = iconSVG.replace(
           'svg',
@@ -133,28 +133,29 @@ export default (document, domUtils) => {
       });
 
     DETAILS_MODAL_OPENED = true;
-    e.stopPropagation();
+    event.stopPropagation();
   };
 
   for (const $detailButton of $detailButtons) {
     $detailButton.addEventListener('click', onClickDetailButton);
   }
 
-  document.addEventListener('keyup', (e) => {
-    if (e.key === 'Escape') {
+  document.addEventListener('keyup', (event) => {
+    if (event.key === 'Escape') {
       domUtils.hideElement($popupModal);
       domUtils.hideElement($detailModal);
     }
   });
 
-  document.addEventListener('click', (e) => {
-    const composedPath = e.composedPath();
+  document.addEventListener('click', (event) => {
+    const composedPath = event.composedPath();
     if (!composedPath.includes($popupBody)) {
       domUtils.hideElement($popupModal);
     }
+
     if (!composedPath.includes($detailModal)) {
       domUtils.hideElement($detailModal);
       DETAILS_MODAL_OPENED = false;
     }
   });
-};
+}

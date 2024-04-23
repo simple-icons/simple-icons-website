@@ -1,14 +1,16 @@
-import { jest } from '@jest/globals';
+import {jest} from '@jest/globals';
 
-export default {
+const mock = {
   currentOrderingIs: jest.fn().mockName('ordering.currentOrderingIs'),
   selectOrdering: jest.fn().mockName('ordering.selectOrdering'),
   resetOrdering: jest.fn().mockName('ordering.resetOrdering'),
 
   // Utility to quickly clear the entire ordering mock.
-  __resetAllMocks: function () {
+  __resetAllMocks() {
     this.currentOrderingIs.mockReset();
     this.selectOrdering.mockReset();
     this.resetOrdering.mockReset();
   },
 };
+
+export default mock;

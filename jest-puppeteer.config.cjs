@@ -1,6 +1,8 @@
+const process = require('node:process');
+
 module.exports = {
   launch: {
-    headless: process.env.TEST_HEADLESS === 'false' ? false : true,
+    headless: process.env.TEST_HEADLESS !== 'false',
   },
   server: {
     command: 'npm run serve',

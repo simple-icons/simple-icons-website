@@ -1,14 +1,13 @@
+import initOrdering from '../public/scripts/ordering.js';
+import {STORAGE_KEY_ORDERING} from '../public/scripts/storage.js';
+import domUtils from './mocks/dom-utils.mock.js';
 import {
   document,
   newElementMock,
   newEventMock,
   window,
 } from './mocks/dom.mock.js';
-import domUtils from './mocks/dom-utils.mock.js';
 import localStorage from './mocks/local-storage.mock.js';
-
-import initOrdering from '../public/scripts/ordering.js';
-import { STORAGE_KEY_ORDERING } from '../public/scripts/storage.js';
 
 describe('Ordering', () => {
   beforeEach(() => {
@@ -24,12 +23,12 @@ describe('Ordering', () => {
     const eventListeners = new Map();
 
     const $orderAlpha = newElementMock('#order-alpha');
-    $orderAlpha.addEventListener.mockImplementation((name, fn) => {
-      eventListeners.set(name, fn);
+    $orderAlpha.addEventListener.mockImplementation((name, function_) => {
+      eventListeners.set(name, function_);
     });
 
-    document.getElementById.mockImplementation((query) => {
-      if (query === 'order-alpha') {
+    document.querySelector.mockImplementation((query) => {
+      if (query === '#order-alpha') {
         return $orderAlpha;
       }
 
@@ -37,7 +36,7 @@ describe('Ordering', () => {
     });
 
     initOrdering(window, document, localStorage, domUtils);
-    expect(document.getElementById).toHaveBeenCalledWith('order-alpha');
+    expect(document.querySelector).toHaveBeenCalledWith('#order-alpha');
     expect($orderAlpha.disabled).toBe(false);
     expect($orderAlpha.addEventListener).toHaveBeenCalledWith(
       'click',
@@ -64,12 +63,12 @@ describe('Ordering', () => {
     const eventListeners = new Map();
 
     const $orderColor = newElementMock('#order-color');
-    $orderColor.addEventListener.mockImplementation((name, fn) => {
-      eventListeners.set(name, fn);
+    $orderColor.addEventListener.mockImplementation((name, function_) => {
+      eventListeners.set(name, function_);
     });
 
-    document.getElementById.mockImplementation((query) => {
-      if (query === 'order-color') {
+    document.querySelector.mockImplementation((query) => {
+      if (query === '#order-color') {
         return $orderColor;
       }
 
@@ -77,7 +76,7 @@ describe('Ordering', () => {
     });
 
     initOrdering(window, document, localStorage, domUtils);
-    expect(document.getElementById).toHaveBeenCalledWith('order-color');
+    expect(document.querySelector).toHaveBeenCalledWith('#order-color');
     expect($orderColor.disabled).toBe(false);
     expect($orderColor.addEventListener).toHaveBeenCalledWith(
       'click',

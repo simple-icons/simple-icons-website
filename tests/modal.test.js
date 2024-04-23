@@ -1,7 +1,6 @@
-import { document, newElementMock, newEventMock } from './mocks/dom.mock.js';
-import domUtils from './mocks/dom-utils.mock.js';
-
 import initModal from '../public/scripts/modal.js';
+import domUtils from './mocks/dom-utils.mock.js';
+import {document, newElementMock, newEventMock} from './mocks/dom.mock.js';
 
 describe('Extensions modal', () => {
   let eventListeners = new Map();
@@ -14,8 +13,8 @@ describe('Extensions modal', () => {
 
   it('clicks the menu button for 3rd party extensions', () => {
     const $menuButton = newElementMock('.popup-trigger');
-    $menuButton.addEventListener.mockImplementation((name, fn) => {
-      eventListeners.set(name, fn);
+    $menuButton.addEventListener.mockImplementation((name, function_) => {
+      eventListeners.set(name, function_);
     });
 
     document.querySelector.mockImplementation((query) =>
@@ -31,16 +30,16 @@ describe('Extensions modal', () => {
   });
 
   it.each([
-    ["pressing 'Escape'", 'keyup', { key: 'Escape' }],
-    ['clicking outside the modal', 'click', { composedPath: () => [] }],
-  ])('closes the extensions modal by %s', (msg, event, eventParam) => {
-    document.addEventListener.mockImplementation((name, fn) => {
-      eventListeners.set(name, fn);
+    ["pressing 'Escape'", 'keyup', {key: 'Escape'}],
+    ['clicking outside the modal', 'click', {composedPath: () => []}],
+  ])('closes the extensions modal by %s', (message, event, eventParameter) => {
+    document.addEventListener.mockImplementation((name, function_) => {
+      eventListeners.set(name, function_);
     });
 
     initModal(document, domUtils);
 
-    eventListeners.get(event)(newEventMock(eventParam));
+    eventListeners.get(event)(newEventMock(eventParameter));
     expect(domUtils.hideElement).toHaveBeenCalledTimes(2);
   });
 });

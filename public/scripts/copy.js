@@ -1,14 +1,14 @@
-import { iconHrefToSlug } from './utils.js';
+import {iconHrefToSlug} from './utils.js';
 
 const COPIED_TIMEOUT = 1000;
 
-const setCopied = ($el) => {
-  $el.classList.add('copied');
-  setTimeout(() => $el.classList.remove('copied'), COPIED_TIMEOUT);
+const setCopied = ($element) => {
+  $element.classList.add('copied');
+  setTimeout(() => $element.classList.remove('copied'), COPIED_TIMEOUT);
 };
 
-export default (document, navigator, fetch) => {
-  const $copyInput = document.getElementById('copy-input');
+export default function copy(document, navigator, fetch) {
+  const $copyInput = document.querySelector('#copy-input');
   const $colorButtons = document.querySelectorAll('.copy-color');
   const $svgButtons = document.querySelectorAll('.copy-svg');
   const $slugButtons = document.querySelectorAll('.copy-slug');
@@ -40,8 +40,8 @@ export default (document, navigator, fetch) => {
       const svgValue = await data.text();
       copyValue(svgValue);
       setCopied(event.target);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -55,18 +55,18 @@ export default (document, navigator, fetch) => {
     setCopied(event.target);
   };
 
-  $colorButtons.forEach(($colorButton) => {
+  for (const $colorButton of $colorButtons) {
     $colorButton.removeAttribute('disabled');
     $colorButton.addEventListener('click', onClickColorButton);
-  });
+  }
 
-  $svgButtons.forEach(($svgButton) => {
+  for (const $svgButton of $svgButtons) {
     $svgButton.removeAttribute('disabled');
     $svgButton.addEventListener('click', onClickSvgButton);
-  });
+  }
 
-  $slugButtons.forEach(($slugButton) => {
+  for (const $slugButton of $slugButtons) {
     $slugButton.removeAttribute('disabled');
     $slugButton.addEventListener('click', onClickSlugButton);
-  });
-};
+  }
+}
