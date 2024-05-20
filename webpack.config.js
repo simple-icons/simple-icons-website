@@ -75,7 +75,7 @@ const getIconLocalizedTitles = (iconData, languages) => {
   if (iconData.aliases && iconData.aliases.loc) {
     for (const locale of Object.keys(iconData.aliases.loc)) {
       if (languages.includes(locale)) {
-        localizedTitles[locale] = iconData.aliases.loc;
+        localizedTitles[locale] = iconData.aliases.loc[locale];
       }
 
       const universalLocale = locale.slice(
