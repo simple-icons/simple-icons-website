@@ -60,13 +60,6 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/create-github-app-token@v1
-        id: app-token
-        with:
-          app-id: ${{ vars.BOT_APP_ID }}
-          private-key: ${{ secrets.BOT_PRIVATE_KEY }}
-          owner: 'simple-icons'
-          repositories: 'simple-icons,simple-icons-website'
       - name: Checkout
         uses: actions/checkout@v4
       - name: Use Node.js 20.x
@@ -101,7 +94,7 @@ jobs:
         run: npm run test:unit
       - name: Run end-to-end tests
         env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run test:e2e -- --runInBand
       - name: Upload test screenshots
         uses: actions/upload-artifact@v4
