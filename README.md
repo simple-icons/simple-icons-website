@@ -12,6 +12,6 @@ Contributions are what make the open-source community such an amazing place to l
 Information describing how to contribute can be found in the file [CONTRIBUTING.md](https://github.com/simple-icons/simple-icons-website/blob/master/CONTRIBUTING.md)
 
 
-## CONTACT AND SUPPORT
+## Contact and support
 
 For any questions, concerns, or issues, please open an issue on GitHub or contact the maintainers.
