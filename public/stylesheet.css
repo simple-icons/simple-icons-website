@@ -364,7 +364,7 @@ a {
   flex-direction: row;
   flex-wrap: wrap-reverse;
   margin: 0 calc(-1 * var(--side-offset)) 1.2rem;
-  padding: 0.8rem var(--side-offset);
+  padding: 0.8rem var(--side-offset) 0.65rem;
   position: sticky;
   top: -1.95rem;
   z-index: 10;
