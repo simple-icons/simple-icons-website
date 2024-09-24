@@ -120,14 +120,14 @@ export default (document, domUtils) => {
       .then((iconSVG) => {
         const coloredIconSVG = iconSVG.replace(
           'svg',
-          `svg fill="%23${iconCssHex.replace('#', '')}"`,
+          `svg fill="${iconCssHex}"`,
         );
         const $iconDownloadColorSVG = $detailFooter.querySelector(
           '#icon-download-color-svg',
         );
         $iconDownloadColorSVG.setAttribute(
           'href',
-          `data:image/svg+xml,${coloredIconSVG}`,
+          `data:image/svg+xml,${encodeURIComponent(coloredIconSVG)}`,
         );
         $iconDownloadColorSVG.setAttribute('download', `${iconSlug}-color.svg`);
       });
