@@ -1,0 +1,164 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: simple-icons-website\n"
+"Report-Msgid-Bugs-To: https://github.com/simple-icons/simple-icons-website/issues\n"
+"POT-Creation-Date: 2024-10-14 01:13+0300\n"
+"PO-Revision-Date: 2024-10-14 01:13+0300\n"
+"Last-Translator: @DOMININ <https://github.com/DOMININ>\n"
+"Language-Team: ru <https://github.com/simple-icons>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 3.5\n"
+
+msgid "Extension"
+msgstr "Расширение"
+
+msgid "Author"
+msgstr "Автор"
+
+msgid "Main Repository"
+msgstr "Основной репозиторий"
+
+msgid "Legal Disclaimer"
+msgstr "Юридическое предупреждение"
+
+msgid "Third-Party Extensions"
+msgstr "Расширения сторонних производителей"
+
+msgid "Controls are only available when JavaScript is enabled."
+msgstr "Элементы управления доступны только при включенном JavaScript."
+
+msgid "Search by brand..."
+msgstr "Поиск по бренду..."
+
+msgid "Sort alphabetically"
+msgstr "Сортировать по алфавиту"
+
+msgid "Sort by relevance"
+msgstr "Сортировать по релевантности"
+
+msgid "Light color scheme"
+msgstr "Светлая цветовая схема"
+
+msgid "Dark color scheme"
+msgstr "Темная цветовая схема"
+
+msgid "System color scheme"
+msgstr "Системная цветовая схема"
+
+msgid "Download"
+msgstr "Скачать"
+
+msgid "download SVG"
+msgstr "скачать SVG"
+
+msgid "download PDF"
+msgstr "скачать PDF"
+
+msgid "Icon missing?"
+msgstr "Иконка отсутствует?"
+
+msgid "Submit a request"
+msgstr "Отправить запрос"
+
+msgid "$iconTitle SVG"
+msgstr "$iconTitle SVG"
+
+msgid "$iconTitle guidelines"
+msgstr "Рекомендации по $iconTitle"
+
+msgid "$iconTitle icon license"
+msgstr "Лицензия на иконку $iconTitle"
+
+msgid "X logo"
+msgstr "Логотип X"
+
+msgid "Made with ❤️ on GitHub"
+msgstr "Сделано с ❤️ на GitHub"
+
+msgid "Share this on X!"
+msgstr "Поделитесь этим в X!"
+
+msgid "Use $repoLink for requests, corrections and contributions."
+msgstr "Используйте $repoLink для запросов, исправлений и вкладов."
+
+msgid "Search"
+msgstr "Поиск"
+
+msgid "Order"
+msgstr "Сортировка"
+
+msgid "Mode"
+msgstr "Режим"
+
+msgid "Brand Guidelines"
+msgstr "Рекомендации по бренду"
+
+msgid "$iconTitle color"
+msgstr "Цвет $iconTitle"
+
+msgid "Website repository"
+msgstr "Репозиторий сайта"
+
+msgid "$nIcons Free <abbr title=\"Scalable Vector Graphic\">SVG</abbr> icons for popular brands"
+msgstr "$nIcons Бесплатных <abbr title=\"Scalable Vector Graphic\">SVG</abbr> иконок популярных брендов"
+
+msgid "A <a href=\"https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md\">CCO</a> project maintained by the <a href=\"https://github.com/simple-icons/simple-icons/graphs/contributors\">Simple Icons contributors</a>."
+msgstr "Проект <a href=\"https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md\">CCO</a>, поддерживаемый <a href=\"https://github.com/simple-icons/simple-icons/graphs/contributors\">соавторами Simple Icons</a>."
+
+msgid "Kindly supported by your donations at <a href=\"https://opencollective.com/simple-icons\">Open Collective</a>."
+msgstr "При поддержке ваших пожертвований в <a href=\"https://opencollective.com/simple-icons\">Open Collective</a>."
+
+msgid "$nIcons Free SVG icons for popular brands"
+msgstr "$nIcons Бесплатных SVG иконок популярных брендов"
+
+msgid "Language"
+msgstr "Язык"
+
+msgid "Sort by color"
+msgstr "Сортировать по цвету"
+
+msgid "Deprecated"
+msgstr "Устарело"
+
+msgid "Removal at $version"
+msgstr "Удаление в версии $version"
+
+msgid "Layout"
+msgstr "Расположение"
+
+msgid "Comfortable"
+msgstr "Удобный"
+
+msgid "Compact"
+msgstr "Компактный"
+
+msgid "view $iconTitle"
+msgstr "просмотреть $iconTitle"
+
+msgid "Download SVG"
+msgstr "Скачать SVG"
+
+msgid "Download colored SVG"
+msgstr "Скачать цветной SVG"
+
+msgid "Download PDF"
+msgstr "Скачать PDF"
+
+msgid "It will be removed at version $version"
+msgstr "Это будет удалено в версии $version"
+
+msgid "no brand guidelines"
+msgstr "нет рекомендаций по бренду"
+
+msgid "no icon license"
+msgstr "нет лицензии на иконку"
+
+msgid "Icon outdated?"
+msgstr "Иконка устарела?"
+
+msgid "Report outdated icon"
+msgstr "Сообщить об устаревшей иконке"
