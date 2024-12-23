@@ -215,7 +215,7 @@ if (process.env.TEST_ENV) {
     }
   };
 
-  for (const slug of ['adobe', 'aew', 'gotomeeting', 'kinopoisk'])
+  for (const slug of ['dotenv', 'aew', 'gotomeeting', 'kinopoisk'])
     ensureIconDisplayed(slug);
 }
 

@@ -133,7 +133,7 @@ describe('Search', () => {
   });
 
   it.each([
-    ['by title', 'adobe', 'Adobe'],
+    ['by title', 'dotenv ', '.ENV'],
     ['aka alias', 'All Elite Wrestling', 'AEW'],
     ['dup alias', 'GoToWebinar', 'GoToMeeting'],
     ['loc alias', 'КиноПоиск', 'Kinopoisk'],
@@ -174,7 +174,7 @@ describe('Search', () => {
 
   it('shows the "order by relevance" button on search', async () => {
     const $searchInput = await page.$('#search-input');
-    await $searchInput.type('adobe');
+    await $searchInput.type('dotenv');
 
     const $orderRelevance = await page.$('#order-relevance');
     expect(await isVisible($orderRelevance)).toBeTruthy();
@@ -182,7 +182,7 @@ describe('Search', () => {
 
   it('shows the "clear search" button on search', async () => {
     const $searchInput = await page.$('#search-input');
-    await $searchInput.type('adobe');
+    await $searchInput.type('env');
 
     const $searchClear = await page.$('#search-clear');
     expect(await isVisible($searchClear)).toBeTruthy();
@@ -190,7 +190,7 @@ describe('Search', () => {
 
   it('enables ordering by relevance on search', async () => {
     const $searchInput = await page.$('#search-input');
-    await $searchInput.type('adobe');
+    await $searchInput.type('env');
 
     const $body = await page.$('body');
     expect(await hasClass($body, 'order-relevance')).toBeTruthy();
@@ -198,7 +198,7 @@ describe('Search', () => {
 
   it('resets the search when clicking the "clear search" button', async () => {
     const $searchInput = await page.$('#search-input');
-    await $searchInput.type('adobe');
+    await $searchInput.type('env');
 
     const $searchClear = await page.$('#search-clear');
     await $searchClear.click();
@@ -214,7 +214,7 @@ describe('Search', () => {
     await page.click(`#${id}`);
 
     const $searchInput = await page.$('#search-input');
-    await $searchInput.type('adobe');
+    await $searchInput.type('env');
 
     await $searchInput.click({clickCount: 3});
     await $searchInput.press('Backspace');
@@ -231,7 +231,7 @@ describe('Search', () => {
     await page.click(`#${id}`);
 
     const $searchInput = await page.$('#search-input');
-    await $searchInput.type('adobe');
+    await $searchInput.type('env');
 
     const $searchClear = await page.$('#search-clear');
     await $searchClear.click();
