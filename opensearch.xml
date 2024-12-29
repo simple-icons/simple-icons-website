@@ -1,0 +1,18 @@
+<OpenSearchDescription
+  xmlns="http://a9.com/-/spec/opensearch/1.1/"
+  xmlns:moz="http://www.mozilla.org/2006/browser/search/"
+>
+	<ShortName>Simple Icons</ShortName>
+	<Description>Search SVG icons for popular brands</Description>
+	<InputEncoding>UTF-8</InputEncoding>
+	<Image
+    width="16"
+    height="16"
+    type="image/x-icon"
+  >https://simpleicons.org/images/favicon.ico</Image>
+	<Url
+    type="text/html"
+    method="get"
+    template="https://simpleicons.org/?q={searchTerms}"
+  />
+</OpenSearchDescription>
