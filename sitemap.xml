@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+>
+  <url>
+    <loc>https://simpleicons.org/</loc>
+    <lastmod>2025-01-26T05:13:09.764Z</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://simpleicons.org/es/</loc>
+    <lastmod>2025-01-26T05:13:09.764Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link rel="alternate" hreflang="es" href="https://simpleicons.org/es/"/>
+  </url>
+  <url>
+    <loc>https://simpleicons.org/fr/</loc>
+    <lastmod>2025-01-26T05:13:09.764Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://simpleicons.org/fr/"/>
+  </url>
+  <url>
+    <loc>https://simpleicons.org/it/</loc>
+    <lastmod>2025-01-26T05:13:09.764Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link rel="alternate" hreflang="it" href="https://simpleicons.org/it/"/>
+  </url>
+  <url>
+    <loc>https://simpleicons.org/pt/</loc>
+    <lastmod>2025-01-26T05:13:09.764Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://simpleicons.org/pt/"/>
+  </url>
+  <url>
+    <loc>https://simpleicons.org/ru/</loc>
+    <lastmod>2025-01-26T05:13:09.764Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://simpleicons.org/ru/"/>
+  </url>
+  <url>
+    <loc>https://simpleicons.org/uk/</loc>
+    <lastmod>2025-01-26T05:13:09.764Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://simpleicons.org/uk/"/>
+  </url>
+  <url>
+    <loc>https://simpleicons.org/ko-KR/</loc>
+    <lastmod>2025-01-26T05:13:09.764Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://simpleicons.org/ko-KR/"/>
+  </url>
+  <url>
+    <loc>https://simpleicons.org/zh-CN/</loc>
+    <lastmod>2025-01-26T05:13:09.764Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://simpleicons.org/zh-CN/"/>
+  </url>
+  <url>
+    <loc>https://simpleicons.org/zh-TW/</loc>
+    <lastmod>2025-01-26T05:13:09.764Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://simpleicons.org/zh-TW/"/>
+  </url>
+  <url>
+    <loc>https://simpleicons.org/zh-HK/</loc>
+    <lastmod>2025-01-26T05:13:09.764Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link rel="alternate" hreflang="zh-HK" href="https://simpleicons.org/zh-HK/"/>
+  </url>
+  <url>
+    <loc>https://simpleicons.org/ja-JP/</loc>
+    <lastmod>2025-01-26T05:13:09.764Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://simpleicons.org/ja-JP/"/>
+  </url>
+</urlset>
