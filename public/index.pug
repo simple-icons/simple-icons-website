@@ -42,6 +42,10 @@ html(lang=lang)
     link(rel='canonical', href=pageUrl)
     script(type='application/ld+json')
       | !{ JSON.stringify(structuredData) }
+    script.
+      window.__SIMPLE_ICONS_CATEGORIES__ = !{ JSON.stringify(categories) };
+    script.
+      window.__SIMPLE_ICONS_CATEGORIES_MAP__ = !{ JSON.stringify(categoriesMap) };
     svg(style='display: none')
       defs
         symbol#cp
@@ -375,6 +379,7 @@ html(lang=lang)
           //- Using `lt="{license-type}"` attribute to store license type
           //- Using `lu="{license-url}"` attribute to store license url
           //- Using `g="{guidelines}"` attribute to store icon guidelines url
+          //- Using `categories` attribute to store icon categories for filtering
           li.grid-item(
             o=`${icon.indexByAlpha}-${icon.indexByColor}`,
             a=icon.plainAliases,
@@ -382,7 +387,8 @@ html(lang=lang)
             s=icon.source,
             lt=icon.license ? icon.license.type : false,
             lu=icon.license ? icon.license.url : false,
-            g=icon.guidelines || false
+            g=icon.guidelines || false,
+            categories=icon.categories ? JSON.stringify(icon.categories) : '[]'
           )
             .grid-item__row.mv-2.fg-2
               button.grid-item__preview.copy-button.copy-svg(

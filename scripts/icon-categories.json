@@ -1,0 +1,190 @@
+{
+  "categories": {
+    "social": {
+      "label": "Social Media",
+      "description": "Social networking and messaging platforms",
+      "color": "#1F77B4",
+      "icons": [
+        "twitter",
+        "facebook",
+        "instagram",
+        "linkedin",
+        "youtube",
+        "tiktok",
+        "reddit",
+        "discord",
+        "telegram",
+        "whatsapp",
+        "slack",
+        "twitch",
+        "snapchat",
+        "pinterest",
+        "bluesky",
+        "mastodon",
+        "threads"
+      ]
+    },
+    "tech-startup": {
+      "label": "Tech Startup",
+      "description": "Technology and startup companies",
+      "color": "#FF7F0E",
+      "icons": [
+        "airbnb",
+        "uber",
+        "stripe",
+        "figma",
+        "notion",
+        "webflow",
+        "intercom",
+        "framer",
+        "vercel",
+        "netlify",
+        "github",
+        "gitlab"
+      ]
+    },
+    "developer-tools": {
+      "label": "Developer Tools",
+      "description": "Development frameworks and tools",
+      "color": "#2CA02C",
+      "icons": [
+        "react",
+        "vue",
+        "angular",
+        "nodejs",
+        "python",
+        "typescript",
+        "javascript",
+        "webpack",
+        "docker",
+        "kubernetes",
+        "git",
+        "npm",
+        "gradle",
+        "maven",
+        "rust",
+        "go",
+        "c",
+        "java",
+        "php"
+      ]
+    },
+    "payment": {
+      "label": "Payment",
+      "description": "Payment gateways and financial services",
+      "color": "#D62728",
+      "icons": [
+        "stripe",
+        "paypal",
+        "square",
+        "skrill",
+        "wise",
+        "revolut",
+        "cryptocurrency",
+        "bitcoin",
+        "ethereum",
+        "visa",
+        "mastercard",
+        "americanexpress",
+        "discover"
+      ]
+    },
+    "cloud": {
+      "label": "Cloud & Hosting",
+      "description": "Cloud platforms and hosting services",
+      "color": "#9467BD",
+      "icons": [
+        "amazonwebservices",
+        "azure",
+        "googlecloud",
+        "heroku",
+        "digitalocean",
+        "linode",
+        "vultr",
+        "rackspace",
+        "ibmcloud"
+      ]
+    },
+    "productivity": {
+      "label": "Productivity",
+      "description": "Productivity and office tools",
+      "color": "#8C564B",
+      "icons": [
+        "microsoftoffice",
+        "googleworkspace",
+        "notion",
+        "asana",
+        "monday",
+        "jira",
+        "confluence",
+        "trello",
+        "clickup",
+        "todoist",
+        "gmail"
+      ]
+    },
+    "design": {
+      "label": "Design Tools",
+      "description": "Design and creative software",
+      "color": "#E377C2",
+      "icons": [
+        "figma",
+        "adobe",
+        "photoshop",
+        "illustrator",
+        "sketch",
+        "blender",
+        "canva",
+        "affinity",
+        "coreldraw"
+      ]
+    },
+    "video": {
+      "label": "Video & Streaming",
+      "description": "Video hosting and streaming platforms",
+      "color": "#7F7F7F",
+      "icons": [
+        "youtube",
+        "vimeo",
+        "twitch",
+        "netflix",
+        "disneyplus",
+        "hulu",
+        "hbomax",
+        "peacock",
+        "primevideo"
+      ]
+    },
+    "music": {
+      "label": "Music & Audio",
+      "description": "Music and audio streaming services",
+      "color": "#BCBD22",
+      "icons": [
+        "spotify",
+        "applepodcasts",
+        "soundcloud",
+        "bandcamp",
+        "lastfm",
+        "tunein",
+        "deezer",
+        "tidal",
+        "amazon"
+      ]
+    },
+    "ecommerce": {
+      "label": "E-commerce",
+      "description": "E-commerce platforms and services",
+      "color": "#17BECF",
+      "icons": [
+        "shopify",
+        "woocommerce",
+        "magento",
+        "bigcommerce",
+        "etsy",
+        "amazon",
+        "ebay",
+        "aliexpress"
+      ]
+    }
+  }
+}

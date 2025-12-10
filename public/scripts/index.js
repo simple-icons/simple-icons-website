@@ -32,6 +32,58 @@ const detachedInitSearch = async () => {
   }, 0);
 };
 
+const detachedInitFilters = async () => {
+  const {createCategoryFilterUI, applyCategoryFilters} = await import(
+    './filters.js'
+  );
+
+  const controlElement = document.querySelector('.control');
+  // Get categories from window (injected by webpack)
+  const categories = window.__SIMPLE_ICONS_CATEGORIES__ || [];
+
+  if (categories.length > 0 && controlElement) {
+    const $icons = document.querySelectorAll('.grid-item');
+    const $allIcons = [...$icons];
+    const $gridElement = document.querySelector('ul.grid');
+
+    const getNonIcons = () => {
+      const nonIcons = [];
+      for (const node of $gridElement.children) {
+        if (node.classList.contains('grid-item')) {
+          break;
+        } else {
+          nonIcons.push(node);
+        }
+      }
+
+      return nonIcons;
+    };
+
+    // Const filterUI = createCategoryFilterUI(controlElement, categories, {
+    //   onCategoryChange(selectedCategories) {
+    //     applyCategoryFilters({
+    //       selectedCategories,
+    //       allIcons: $allIcons,
+    //       gridElement: $gridElement,
+    //       nonIcons: getNonIcons(),
+    //       domUtils,
+    //     });
+    //   },
+    // });
+    createCategoryFilterUI(controlElement, categories, {
+      onCategoryChange(selectedCategories) {
+        applyCategoryFilters({
+          selectedCategories,
+          allIcons: $allIcons,
+          gridElement: $gridElement,
+          nonIcons: getNonIcons(),
+          domUtils,
+        });
+      },
+    });
+  }
+};
+
 const detachedInitDownloadType = async () => {
   const {default: initDownloadType} = await import('./download-type.js');
   initDownloadType(document, storage);
@@ -59,6 +111,7 @@ const detachedInitLanguageSelector = async () => {
   detachedInitColorScheme();
   detachedInitCopyButtons();
   detachedInitSearch();
+  detachedInitFilters();
   detachedInitDownloadType();
   detachedInitModal();
   detachedInitLayout();

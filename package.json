@@ -18,9 +18,9 @@
     "npm": ">=10"
   },
   "scripts": {
-    "build": "webpack --mode production",
-    "build:dev": "webpack --mode development",
-    "build:watch": "npm run build:dev -- --watch",
+    "build": "webpack --mode production --config webpack.config.mjs",
+    "build:dev": "webpack --mode development --config webpack.config.mjs",
+    "build:watch": "webpack --mode development --watch --config webpack.config.mjs",
     "clean": "del-cli _site tests/_artifacts",
     "prettierlint": "prettier --ignore-unknown \"**/*.!(js|jsx|mjs|cjs|ts|tsx|mts|cts)\"",
     "jslint": "xo",

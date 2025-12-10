@@ -15,8 +15,8 @@
   min-width: 280px;
 
   --font-family-text: 'Open Sans', 'Arial', 'Helvetica', sans-serif;
-  --font-family-stylized: 'Roboto Mono', 'DejaVu Sans Mono', 'Consolas',
-    monospace;
+  --font-family-stylized:
+    'Roboto Mono', 'DejaVu Sans Mono', 'Consolas', monospace;
 
   --color-x: rgb(0, 0, 0);
   --color-x-hover: rgba(0, 0, 0, 0.8);
@@ -1272,4 +1272,249 @@ p.report-link a:visited {
 
 .contrast-dark {
   color: #222;
+}
+
+/* Category Filter Styles - Card-Based Layout */
+
+.categories-filter-section {
+  width: 100%;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--color-button-border);
+  margin-bottom: 1.5rem;
+}
+
+.categories-filter-header {
+  margin-bottom: 1.5rem;
+  padding: 0 0.5rem;
+}
+
+.categories-filter-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text-default);
+  margin: 0 0 0.5rem 0;
+  letter-spacing: 0.5px;
+}
+
+.categories-filter-subtitle {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Cards Grid */
+.categories-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Individual Category Card */
+.category-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1rem;
+  border: 2px solid var(--color-button-border);
+  border-radius: var(--border-radius-large);
+  background-color: var(--color-background-card);
+  color: var(--color-text-default);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  min-height: 160px;
+  gap: 0.75rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.category-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0)
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.category-card:hover {
+  border-color: var(--color-button-hover);
+  background-color: var(--color-button-hover);
+  color: var(--color-button-text-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.category-card:hover::before {
+  opacity: 1;
+}
+
+.category-card.active {
+  border-color: var(--color-button-active);
+  background-color: var(--color-button-active);
+  color: var(--color-button-text-hover);
+  box-shadow: 0 4px 16px rgba(51, 51, 51, 0.3);
+  font-weight: 600;
+}
+
+@media (prefers-color-scheme: dark) {
+  .category-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  }
+
+  .category-card.active {
+    box-shadow: 0 4px 16px rgba(212, 212, 212, 0.2);
+  }
+}
+
+.category-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.category-card-emoji {
+  font-size: 2.5rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-card-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.category-card-count {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  font-weight: 500;
+  margin-top: 0.25rem;
+}
+
+.category-card.active .category-card-count {
+  opacity: 0.9;
+}
+
+/* Actions Container */
+.categories-filter-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0 0.5rem;
+}
+
+.categories-clear-btn {
+  padding: 0.6rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1.5px solid var(--color-button-border);
+  border-radius: var(--border-radius-large);
+  cursor: pointer;
+  background-color: transparent;
+  color: var(--color-text-default);
+  transition: all 0.25s ease;
+  letter-spacing: 0.3px;
+}
+
+.categories-clear-btn:hover {
+  background-color: var(--color-button-hover);
+  color: var(--color-button-text-hover);
+  border-color: var(--color-button-hover);
+  transform: scale(1.02);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .categories-cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 0.8rem;
+  }
+
+  .category-card {
+    padding: 1.25rem 0.75rem;
+    min-height: 150px;
+  }
+
+  .category-card-emoji {
+    font-size: 2.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .categories-filter-section {
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+  }
+
+  .categories-cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .category-card {
+    padding: 1rem 0.6rem;
+    min-height: 140px;
+  }
+
+  .category-card-emoji {
+    font-size: 2rem;
+  }
+
+  .category-card-label {
+    font-size: 0.85rem;
+  }
+
+  .category-card-count {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .categories-filter-title {
+    font-size: 1rem;
+  }
+
+  .categories-cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 0.5rem;
+  }
+
+  .category-card {
+    padding: 0.8rem 0.5rem;
+    min-height: 130px;
+  }
+
+  .category-card-emoji {
+    font-size: 1.75rem;
+  }
+
+  .category-card-label {
+    font-size: 0.75rem;
+  }
+
+  .category-card-count {
+    font-size: 0.65rem;
+  }
+
+  .categories-clear-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
 }

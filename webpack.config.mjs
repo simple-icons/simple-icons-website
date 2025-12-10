@@ -17,6 +17,11 @@ import {
   getThirdPartyExtensions,
 } from 'simple-icons/sdk';
 import alphaSort from './scripts/alpha-sorting.js';
+import {
+  // EnrichIconsWithCategories,
+  // _enrichIconsWithCategories,
+  loadCategoryMetadata,
+} from './scripts/build-categories.js';
 import colorSort from './scripts/color-sorting.js';
 import {githubApi} from './scripts/https.js';
 import {
@@ -309,15 +314,19 @@ export default async function webpackConfig(env, argv) {
   const extensions = await getThirdPartyExtensions();
   const structuredData = await generateStructuredData();
 
+  // Load category metadata
+  const {slugToCategoriesMap, categoriesList} = await loadCategoryMetadata();
+
   const iconsDataBySlugs = await getIconsDataBySlugs();
   const icons = displayIcons.map((icon, iconIndex) => {
     const luminance = getRelativeLuminance.default(`#${icon.hex}`);
     const plainAliases = getIconPlainAliases(iconsDataBySlugs[icon.slug]);
+    const categories = slugToCategoriesMap[icon.slug] || [];
 
     return {
       guidelines:
         typeof icon.guidelines === 'object'
-          ? icon.guidelines.trademark ?? icon.guidelines.branding
+          ? (icon.guidelines.trademark ?? icon.guidelines.branding)
           : icon.guidelines,
       hex: icon.hex,
       indexByAlpha: iconIndex,
@@ -340,6 +349,7 @@ export default async function webpackConfig(env, argv) {
         deprecatedIcons[icon.slug] === undefined
           ? false
           : deprecatedIcons[icon.slug],
+      categories,
     };
   });
 
@@ -460,6 +470,8 @@ export default async function webpackConfig(env, argv) {
             mode: argv.mode,
             xIcon,
             testing: process.env.TEST_ENV !== undefined,
+            categories: categoriesList,
+            categoriesMap: slugToCategoriesMap,
           },
           minify:
             argv.mode === 'development'
