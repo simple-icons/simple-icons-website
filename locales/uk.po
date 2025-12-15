@@ -165,5 +165,5 @@ msgstr "Репозиторій вебсайту"
 msgid "Made with ❤️ on GitHub"
 msgstr "Зроблено з ❤️ на GitHub"
 
-#~ msgid "$nIcons Free SVG icons for popular brands"
-#~ msgstr "$nIcons Безкоштовні іконки SVG для популярних брендів"
+msgid "$nIcons Free SVG icons for popular brands"
+msgstr "$nIcons Безкоштовні іконки SVG для популярних брендів"

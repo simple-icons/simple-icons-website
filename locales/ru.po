@@ -160,5 +160,5 @@ msgstr "Иконка устарела?"
 msgid "Report outdated icon"
 msgstr "Сообщить об устаревшей иконке"
 
-#~ msgid "$nIcons Free SVG icons for popular brands"
-#~ msgstr "$nIcons Бесплатных SVG иконок популярных брендов"
+msgid "$nIcons Free SVG icons for popular brands"
+msgstr "$nIcons Бесплатных SVG иконок популярных брендов"

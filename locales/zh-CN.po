@@ -160,5 +160,5 @@ msgstr "有图标过时了吗？"
 msgid "Report outdated icon"
 msgstr "报告图标过时"
 
-#~ msgid "$nIcons Free SVG icons for popular brands"
-#~ msgstr "包含 $nIcons 种流行品牌的免费 SVG 图标库"
+msgid "$nIcons Free SVG icons for popular brands"
+msgstr "包含 $nIcons 种流行品牌的免费 SVG 图标库"

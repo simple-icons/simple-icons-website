@@ -160,5 +160,5 @@ msgstr "웹사이트 리파지토리"
 msgid "Made with ❤️ on GitHub"
 msgstr "GitHub에서 ❤️으로 제작"
 
-#~ msgid "$nIcons Free SVG icons for popular brands"
-#~ msgstr "$nIcons개의 유명 브랜드를 위한 무료 SVG 아이콘"
+msgid "$nIcons Free SVG icons for popular brands"
+msgstr "$nIcons개의 유명 브랜드를 위한 무료 SVG 아이콘"

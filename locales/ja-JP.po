@@ -160,5 +160,5 @@ msgstr "時代遅れのアイコン？"
 msgid "Report outdated icon"
 msgstr "古いアイコンを報告する"
 
-#~ msgid "$nIcons Free SVG icons for popular brands"
-#~ msgstr "$nIcons 人気ブランドの無料 SVG アイコン"
+msgid "$nIcons Free SVG icons for popular brands"
+msgstr "$nIcons 人気ブランドの無料 SVG アイコン"

@@ -160,5 +160,5 @@ msgstr "Icône périmée ?"
 msgid "Report outdated icon"
 msgstr "Signaler une icône périmée"
 
-#~ msgid "$nIcons Free SVG icons for popular brands"
-#~ msgstr "$nIcons SVG gratuits pour les marques populaires"
+msgid "$nIcons Free SVG icons for popular brands"
+msgstr "$nIcons SVG gratuits pour les marques populaires"
