@@ -111,7 +111,11 @@ const detachedInitLanguageSelector = async () => {
   detachedInitColorScheme();
   detachedInitCopyButtons();
   detachedInitSearch();
-  detachedInitFilters();
+
+  if (!window.__TEST_ENV__) {
+    detachedInitFilters();
+  }
+
   detachedInitDownloadType();
   detachedInitModal();
   detachedInitLayout();

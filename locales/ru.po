@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: simple-icons-website\n"
 "Report-Msgid-Bugs-To: https://github.com/simple-icons/simple-icons-website/issues\n"
 "POT-Creation-Date: 2024-10-14 01:13+0300\n"
-"PO-Revision-Date: 2024-10-14 01:13+0300\n"
+"PO-Revision-Date: 2025-12-15T01:23:47.927Z\n"
 "Last-Translator: @DOMININ <https://github.com/DOMININ>\n"
 "Language-Team: ru <https://github.com/simple-icons>\n"
 "Language: ru\n"
@@ -112,9 +112,6 @@ msgstr "Проект <a href=\"https://github.com/simple-icons/simple-icons/blob
 msgid "Kindly supported by your donations at <a href=\"https://opencollective.com/simple-icons\">Open Collective</a>."
 msgstr "При поддержке ваших пожертвований в <a href=\"https://opencollective.com/simple-icons\">Open Collective</a>."
 
-msgid "$nIcons Free SVG icons for popular brands"
-msgstr "$nIcons Бесплатных SVG иконок популярных брендов"
-
 msgid "Language"
 msgstr "Язык"
 
@@ -162,3 +159,6 @@ msgstr "Иконка устарела?"
 
 msgid "Report outdated icon"
 msgstr "Сообщить об устаревшей иконке"
+
+#~ msgid "$nIcons Free SVG icons for popular brands"
+#~ msgstr "$nIcons Бесплатных SVG иконок популярных брендов"
