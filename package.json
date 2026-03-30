@@ -63,7 +63,7 @@
     "postcss": "8.4.28",
     "postcss-flexbugs-fixes": "5.0.2",
     "postcss-loader": "7.3.3",
-    "pug": "2.0.4",
+    "pug": "3.0.3",
     "pug-lexer": "5.0.1",
     "pug-loader": "2.4.0",
     "puppeteer": "21.6.1",
